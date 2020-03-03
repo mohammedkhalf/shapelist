@@ -13,17 +13,19 @@
 
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], function () {
     Route::group(['prefix' => 'auth', 'middleware' => ['guest']], function () {
+
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+        Route::get('find/{token}', 'ForgotPasswordController@find');
+        Route::post('password-reset', 'ForgotPasswordController@resetPassword')->name('password.reset');
     });
 
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('logout', 'AuthController@logout');
-            // Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
-        });
+    });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
         Route::post('users/delete-all', 'UsersController@deleteAll');

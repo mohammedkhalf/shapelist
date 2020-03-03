@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\User\User;
+// use App\Models\User\User;
+use App\Models\Access\PasswordReset\PasswordReset;
+
 use App\Notifications\Frontend\Auth\UserNeedsPasswordReset;
+use App\Notifications\Frontend\Auth\PasswordResetSuccess;
+
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Illuminate\Http\Request;
 use Validator;
+use Carbon\Carbon;
 
 class ForgotPasswordController extends APIController
 {
@@ -20,6 +25,7 @@ class ForgotPasswordController extends APIController
         $this->repository = $repository;
     }
 
+  
     /**
      * Send a reset link to the given user.
      *
@@ -52,4 +58,51 @@ class ForgotPasswordController extends APIController
             'message'   => trans('api.messages.forgot_password.success'),
         ]);
     }
+
+     public function find($token)
+    {
+        $passwordReset = PasswordReset::where('token', $token)
+            ->first();
+        if (!$passwordReset)
+            return response()->json([
+                'message' => 'This password reset token is invalid.'
+            ], 404);
+        if (Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast()) {
+            $passwordReset->delete();
+            return response()->json([
+                'message' => 'This password reset token is invalid.'
+            ], 404);
+        }
+        return response()->json($passwordReset);
+    }
+
+      public function resetPassword(Request $request)
+    {
+
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string|confirmed',
+            'token' => 'required|string'
+        ]);
+
+        $passwordReset = PasswordReset::where('token', $request->get('token'))->first();
+
+        if (!$passwordReset)
+            return response()->json([
+                'message' => 'This password reset token is invalid.'
+            ], 404);
+        $user = $this->repository->findByEmail($request->get('email'));
+        if (!$user)
+            return response()->json([
+                'message' => 'We can not find a user with that e-mail address.'
+            ], 404);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        // $passwordReset->delete();
+        $user->notify(new PasswordResetSuccess($passwordReset));
+        return response()->json($user);
+    }
+   
+
+   
 }

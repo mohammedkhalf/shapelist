@@ -78,14 +78,18 @@ class ForgotPasswordController extends APIController
 
       public function resetPassword(Request $request)
     {
+        // dd($request->all());
+
 
         $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string|confirmed',
+            'password'              => 'required|string|min:8',
+            'password_confirmation' => 'required|same:password',
             'token' => 'required|string'
         ]);
 
         $passwordReset = PasswordReset::where('token', $request->get('token'))->first();
+
 
         if (!$passwordReset)
             return response()->json([

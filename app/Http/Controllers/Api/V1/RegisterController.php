@@ -34,7 +34,7 @@ class RegisterController extends APIController
             'first_name'            => 'required',
             'last_name'             => 'required',
             'email'                 => 'required|email|unique:users',
-            'password'              => 'required|min:4',
+            'password'              => 'required|min:8',
             'password_confirmation' => 'required|same:password',
             'is_term_accept'        => 'required',
         ]);

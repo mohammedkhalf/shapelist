@@ -101,4 +101,12 @@ class User extends Authenticatable
             'updated_at'  => $this->updated_at->toIso8601String(),
         ];
     }
+// one to many relationship between (user & locations )
+    public function locations()
+    {
+        return $this->hasMany('App\Models\Location\Location','user_id','id');
+    }
+
+
+
 }

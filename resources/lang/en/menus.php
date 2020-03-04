@@ -73,6 +73,15 @@ return [
             'main'       => 'Pages',
         ],
 
+        'products' => [
+            'all'        => 'All Products',
+            'create'     => 'Create Product',
+            // 'edit'       => 'Edit Page',
+            // 'management' => 'Page Management',
+            // 'main'       => 'Pages',
+        ],
+
+
         'blogs' => [
             'all'        => 'All Blog',
             'create'     => 'Create Blog',

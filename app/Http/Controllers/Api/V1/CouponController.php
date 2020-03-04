@@ -1,9 +1,8 @@
-<?php
+   <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
-use App\coupons;
+use App\Models\Coupon\Coupon;
 
 class CouponController extends Controller
 {
@@ -11,7 +10,7 @@ class CouponController extends Controller
     //======================== index coupon  ======================
     public function index()
     {
-        $coupon = coupons::all();
+        $coupon = Coupon::all();
         return response()->json($coupon);
     }
 
@@ -20,7 +19,7 @@ class CouponController extends Controller
     {
 
     try{
-        $coupon = new coupons;
+        $coupon = new Coupon;
         $coupon->code= $request->code;
         $coupon->amount= $request->amount;
         $coupon->quantity= $request->quantity;
@@ -41,7 +40,7 @@ class CouponController extends Controller
     
     public function show($id)
     {
-        $coupon = coupons::findOrFail($id);
+        $coupon = Coupon::findOrFail($id);
         return response()->json($coupon);
     }
 
@@ -51,7 +50,7 @@ class CouponController extends Controller
     public function update(Request $request, $id)
     {
        
-                    $coupon = coupons::findOrFail($id);
+                    $coupon = Coupon::findOrFail($id);
                     $coupon->code= $request->code;
                     $coupon->amount= $request->amount;
                     $coupon->quantity= $request->quantity;
@@ -64,7 +63,7 @@ class CouponController extends Controller
 
     public function destroy($id)
     {
-        $coupon = coupons::findOrFail($id);
+        $coupon = Coupon::findOrFail($id);
         $coupon -> delete();  
         return response()->json("deleted successfully");
  

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMusicSamplesTable extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateMusicSamplesTable extends Migration
      */
     public function up()
     {
-        Schema::create('music_samples', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 225)->unique();
-            $table->string('type', 225)->nullable();
-            $table->text('url')->nullable();
+            $table->string('method', 225)->unique();
+            $table->boolean('status')->default(0);	
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateMusicSamplesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('music_samples');
+        Schema::dropIfExists('transactions');
     }
 }

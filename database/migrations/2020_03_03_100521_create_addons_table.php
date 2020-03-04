@@ -14,7 +14,7 @@ class CreateAddonsTable extends Migration
     public function up()
     {
         Schema::create('addons', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 225)->unique();
             $table->string('type', 225);
             $table->decimal('price', 8, 2)->nullable();	

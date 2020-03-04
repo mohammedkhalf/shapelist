@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\products;
+namespace App\Http\Controllers\Api\V1;
+use App\Models\Product\Product;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -10,7 +11,7 @@ class ProductController extends Controller
     //======================== index product  ======================
     public function index()
     {
-        $products = products::all();
+        $products = Product::all();
         return response()->json($products);
     }
 
@@ -35,7 +36,7 @@ class ProductController extends Controller
         }
 
 
-        $product = new products;
+        $product = new Product;
         $product->name= $request->name;
         $product->description= $request->description;
         $product->image= $fileNameToStore;
@@ -55,7 +56,7 @@ class ProductController extends Controller
     
     public function show($id)
     {
-        $product = products::findOrFail($id);
+        $product = Product::findOrFail($id);
         return response()->json($product);
     }
 
@@ -76,11 +77,11 @@ class ProductController extends Controller
             // Upload Image
             $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
         } else {
-            $product = products::findOrFail($id);
+            $product = Product::findOrFail($id);
             $fileNameToStore = $product->image;
         }    
               
-                    $product = products::findOrFail($id);
+                    $product = Product::findOrFail($id);
                     $product->name= $request->name;
                     $product->description= $request->description;
                     $product->image= $fileNameToStore;
@@ -94,9 +95,8 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product = products::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product -> delete();  
         return response()->json("deleted successfully");
- 
      }
 }

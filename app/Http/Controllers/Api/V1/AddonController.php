@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\addons;
+namespace App\Http\Controllers\Api\V1;
+use App\Models\Addon\Addon;
 use Illuminate\Http\Request;
 
 class AddonController extends Controller
@@ -10,7 +10,7 @@ class AddonController extends Controller
     //======================== index addon  ======================
     public function index()
     {
-        $addon = addons::all();
+        $addon = Addon::all();
         return response()->json($addon);
     }
 
@@ -20,7 +20,7 @@ class AddonController extends Controller
 
     try{
 
-        $addon = new addons;
+        $addon = new Addon;
         $addon->name= $request->name;
         $addon->type= $request->type;
         $addon->price= $request->price;
@@ -39,7 +39,7 @@ class AddonController extends Controller
 
     public function show($id)
     {
-        $addon = addons::findOrFail($id);
+        $addon = Addon::findOrFail($id);
         return response()->json($addon);
     }
 
@@ -49,7 +49,7 @@ class AddonController extends Controller
     public function update(Request $request, $id)
     {
 
-                    $addon = addons::findOrFail($id);
+                    $addon = Addon::findOrFail($id);
                     $addon->name= $request->name;
                     $addon->type= $request->type;
                     $addon->price= $request->price;
@@ -62,7 +62,7 @@ class AddonController extends Controller
 
     public function destroy($id)
     {
-        $addon = addons::findOrFail($id);
+        $addon = Addon::findOrFail($id);
         $addon -> delete();
         return response()->json("deleted successfully");
 

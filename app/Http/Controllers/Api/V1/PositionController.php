@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\positions;
+namespace App\Http\Controllers\Api\V1;
+use App\Models\Position\Position;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
 
-    //======================== index positions  ======================
+    //======================== index Position  ======================
     public function index()
     {
-        $position = positions::all();
+        $position = Position::all();
         return response()->json($position);
     }
 
-    //======================== create positions  ======================
+    //======================== create Position  ======================
     public function store(Request $request)
     {
 
     try{
-        $position = new positions;
+        $position = new Position;
         $position->name= $request->name;
         $position->save();
         return response()->json($position);
@@ -32,11 +32,11 @@ class PositionController extends Controller
         }}
     }
 
-    //======================== show positions  ======================
+    //======================== show Position  ======================
     
     public function show($id)
     {
-        $position = positions::findOrFail($id);
+        $position = Position::findOrFail($id);
         return response()->json($position);
     }
 
@@ -46,17 +46,17 @@ class PositionController extends Controller
     public function update(Request $request, $id)
     {
        
-                    $position = positions::findOrFail($id);
+                    $position = Position::findOrFail($id);
                     $position->name= $request->name;
                     $position->save();
                     return response()->json($position);
                  }
 
-    //======================== delete positions  ======================
+    //======================== delete Position  ======================
 
     public function destroy($id)
     {
-        $position = positions::findOrFail($id);
+        $position = Position::findOrFail($id);
         $position -> delete();  
         return response()->json("deleted successfully");
  

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\platforms;
+namespace App\Http\Controllers\Api\V1;
+use App\Models\Platform\Platform;
+
 use Illuminate\Http\Request;
 
 class PlatformController extends Controller
@@ -10,7 +11,7 @@ class PlatformController extends Controller
     //======================== index platform  ======================
     public function index()
     {
-        $platform = platforms::all();
+        $platform = Platform::all();
         return response()->json($platform);
     }
 
@@ -35,7 +36,7 @@ class PlatformController extends Controller
         }
 
 
-        $platform = new platforms;
+        $platform = new Platform;
         $platform->name= $request->name;
         $platform->image= $fileNameToStore;
         $platform->save();
@@ -53,7 +54,7 @@ class PlatformController extends Controller
     
     public function show($id)
     {
-        $platform = platforms::findOrFail($id);
+        $platform = Platform::findOrFail($id);
         return response()->json($platform);
     }
 
@@ -74,11 +75,11 @@ class PlatformController extends Controller
             // Upload Image
             $path = $request->file('image')->storeAs('public/platform_images', $fileNameToStore);
         } else {
-            $platform = platforms::findOrFail($id);
+            $platform = Platform::findOrFail($id);
             $fileNameToStore = $platform->image;
         }    
               
-                    $platform = platforms::findOrFail($id);
+                    $platform = Platform::findOrFail($id);
                     $platform->name= $request->name;
                     $platform->image= $fileNameToStore;
                     $platform->save();
@@ -90,7 +91,7 @@ class PlatformController extends Controller
 
     public function destroy($id)
     {
-        $platform = platforms::findOrFail($id);
+        $platform = Platform::findOrFail($id);
         $platform -> delete();  
         return response()->json("deleted successfully");
  

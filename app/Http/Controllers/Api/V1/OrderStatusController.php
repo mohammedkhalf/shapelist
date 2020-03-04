@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\orders_statuses;
+
+namespace App\Http\Controllers\Api\V1;
+use App\Models\OrderStatus\OrderStatus;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class OrderStatusController extends Controller
     //======================== index orders_status  ======================
     public function index()
     {
-        $orders_status = orders_statuses::all();
+        $orders_status = OrderStatus::all();
         return response()->json($orders_status);
     }
 
@@ -19,7 +20,7 @@ class OrderStatusController extends Controller
     public function store(Request $request)
     {
 try{
-        $orders_status = new orders_statuses;
+        $orders_status = new OrderStatus;
         $orders_status->name= $request->name;
         $orders_status->save();
         return response()->json($orders_status);
@@ -36,7 +37,7 @@ try{
     
     public function show($id)
     {
-        $orders_status = orders_statuses::findOrFail($id);
+        $orders_status = OrderStatus::findOrFail($id);
         return response()->json($orders_status);
     }
 
@@ -47,7 +48,7 @@ try{
     {
        
               
-                    $orders_status = orders_statuses::findOrFail($id);
+                    $orders_status = OrderStatus::findOrFail($id);
                     $orders_status->name= $request->name;
                     $orders_status->save();
 
@@ -58,7 +59,7 @@ try{
 
     public function destroy($id)
     {
-        $orders_status = orders_statuses::findOrFail($id);
+        $orders_status = OrderStatus::findOrFail($id);
         $orders_status -> delete();  
         return response()->json("deleted successfully");
  

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\music_samples;
+namespace App\Http\Controllers\Api\V1;
+use App\Models\MusicSample\MusicSample;
 use Illuminate\Http\Request;
 
 class MusicSamplesController extends Controller
@@ -10,7 +10,7 @@ class MusicSamplesController extends Controller
     //======================== index music_samples  ======================
     public function index()
     {
-        $music_sample = music_samples::all();
+        $music_sample = MusicSample::all();
         return response()->json($music_sample);
     }
 
@@ -35,7 +35,7 @@ class MusicSamplesController extends Controller
         }
 
 
-        $music_sample = new music_samples;
+        $music_sample = new MusicSample;
         $music_sample->name= $request->name;
         $music_sample->type= $request->type;
         $music_sample->url= $fileNameToStore;
@@ -54,7 +54,7 @@ class MusicSamplesController extends Controller
     
     public function show($id)
     {
-        $music_sample = music_samples::findOrFail($id);
+        $music_sample = MusicSample::findOrFail($id);
         return response()->json($music_sample);
     }
 
@@ -75,11 +75,11 @@ class MusicSamplesController extends Controller
             // Upload record
             $path = $request->file('url')->storeAs('public/music_samples', $fileNameToStore);
         } else {
-            $music_sample = music_samples::findOrFail($id);
+            $music_sample = MusicSample::findOrFail($id);
             $fileNameToStore = $music_sample->url;
         }    
               
-                    $music_sample = music_samples::findOrFail($id);
+                    $music_sample = MusicSample::findOrFail($id);
                     $music_sample->name= $request->name;
                     $music_sample->type= $request->type;
                     $music_sample->url= $fileNameToStore;
@@ -92,7 +92,7 @@ class MusicSamplesController extends Controller
 
     public function destroy($id)
     {
-        $music_sample = music_samples::findOrFail($id);
+        $music_sample = MusicSample::findOrFail($id);
         $music_sample -> delete();  
         return response()->json("deleted successfully");
  

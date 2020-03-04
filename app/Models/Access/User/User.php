@@ -104,7 +104,7 @@ class User extends Authenticatable
 // one to many relationship between (user & locations )
     public function locations()
     {
-        return $this->hasMany('App\Models\Location\locations','user_id','id');
+        return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
 
 

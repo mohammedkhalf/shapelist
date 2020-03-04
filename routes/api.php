@@ -56,8 +56,12 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/addons', 'AddonController');
         Route::apiResource('/coupons', 'CouponController');
         Route::apiResource('/orders_status', 'OrderStatusController');
-        Route::apiResource('/music_samples', 'MusicSamplesController');
+        Route::apiResource('/music_samples', 'MusicSamplesController');   
+        Route::apiResource('users/{user_id}/locations', 'LocationController');
 
 
     });
+
+
+
 });

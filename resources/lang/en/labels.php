@@ -131,6 +131,23 @@ return [
             ],
         ],
 
+        'products' => [
+            'create'     => 'Create Page',
+            'edit'       => 'Edit Page',
+            'management' => 'Product Management',
+            'title'      => 'Pages',
+
+            'table' => [
+                'title'     => 'Title',
+                'status'    => 'Status',
+                'createdat' => 'Created At',
+                'updatedat' => 'Updated At',
+                'createdby' => 'Created By',
+                'all'       => 'All',
+            ],
+        ],
+
+
         'blogcategories' => [
             'create'     => 'Create Blog Category',
             'edit'       => 'Edit Blog Category',

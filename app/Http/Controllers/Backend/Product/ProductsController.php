@@ -66,11 +66,7 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //Input received from the request
-        $input = $request->except(['_token']);
-        //Create the model using repository create method
-        $this->repository->create($input);
-        //return with successfull message
+        Product::insertProduct($request);
         return new RedirectResponse(route('admin.products.index'), ['flash_success' => trans('alerts.backend.products.created')]);
     }
     /**

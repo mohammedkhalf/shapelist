@@ -36,10 +36,10 @@
 
                       @foreach($products  as  $product)
                         <tr>
-                            <td> {{$product->id}} </td>
+                            <td > {{$product->id}} </td>
                             <td> {{$product->name}} </td>
                             <td> {{$product->description}} </td>
-                            <td> {{$product->image}} </td>
+                            <td> <img src= "{{ Storage::disk('public')->url('product_images/'.$product->image) }}" width="200" height="100" alt="Card image cap"> </td>
                             <td> {{$product->price}} </td>
                             <td> {{$product->created_at}} </td>
                             <td class="sorting_1">
@@ -52,7 +52,6 @@
                                     </a>
                                 </div>
                             </td>
-
                         </tr>
                       @endforeach
                     </thead>

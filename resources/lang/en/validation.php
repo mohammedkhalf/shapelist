@@ -166,6 +166,13 @@ return [
                 'is_active'       => 'Active',
             ],
 
+            'products' => [
+                'product-name'    => 'PakageName',
+                'description'     => 'Description',
+                'image'           => 'image',
+                'price'           => 'price',
+            ],
+
             'blogcategories' => [
                 'title'     => 'Blog Category',
                 'is_active' => 'Active',

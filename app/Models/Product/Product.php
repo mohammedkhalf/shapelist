@@ -56,7 +56,7 @@ class Product extends Model
      * @var array
      */
     protected $guarded = [
-        // 'id'
+        'id'
     ];
 
     /**
@@ -66,5 +66,27 @@ class Product extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
+    }
+
+    public static function insertProduct($request)
+    {
+        if($request->hasFile('image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $data = $request->only('name','description','price');
+        $productData = array_merge($data , ['image' => $fileNameToStore]);
+        $pakageProduct = Product::create($productData);
+        return $pakageProduct;
     }
 }

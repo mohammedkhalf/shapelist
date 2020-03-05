@@ -49,14 +49,22 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Blogs
         Route::resource('blogs', 'BlogsController', ['except' => ['create', 'edit']]);
 
-        //apiResource
+        //==================================== apiResource ==================================================
+        // Products
         Route::apiResource('/products', 'ProductController');
-      //  Route::apiResource('/positions', 'PositionController');
+        // Positions
+        //Route::apiResource('/positions', 'PositionController');
+        // platforms
         Route::apiResource('/platforms', 'PlatformController');
+        // Addons
         Route::apiResource('/addons', 'AddonController');
+        //Coupons
         Route::apiResource('/coupons', 'CouponController');
+        //Orders Status
         Route::apiResource('/orders_status', 'OrderStatusController');
-        Route::apiResource('/music_samples', 'MusicSamplesController');   
+        //Music Samples
+        Route::apiResource('/music_samples', 'MusicSamplesController'); 
+        //Locations
         Route::apiResource('users/{user_id}/locations', 'LocationController');
 
 

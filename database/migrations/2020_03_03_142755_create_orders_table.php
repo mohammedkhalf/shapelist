@@ -25,9 +25,7 @@ class CreateOrdersTable extends Migration
             $table->integer('coupon_id')->unsigned()->nullable();   
             $table->integer('music_id')->unsigned()->nullable(); 
             $table->integer('payment_id')->unsigned()->nullable();
-
             $table->integer('status_id')->unsigned()->nullable();             
-
             
             $table->decimal('product_price', 8, 2);	 //product only
             $table->decimal('total_price', 8, 2);	//with extra addons

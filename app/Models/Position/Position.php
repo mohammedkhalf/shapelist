@@ -8,4 +8,9 @@ class Position extends Model
 {
     protected $table='positions';
 
+
+    public function order()
+        {
+            return $this->belongsTo('App\Models\Order\Order');   
+        }
 }

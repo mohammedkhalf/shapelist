@@ -53,7 +53,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Products
         Route::apiResource('/products', 'ProductController');
         // Positions
-        //Route::apiResource('/positions', 'PositionController');
+        Route::apiResource('/positions', 'PositionController');
         // platforms
         Route::apiResource('/platforms', 'PlatformController');
         // Addons

@@ -13,8 +13,4 @@ class Position extends Model
         'name' ,'image'
     ];
 
-    public function order()
-        {
-            return $this->belongsTo('App\Models\Order\Order');   
-        }
 }

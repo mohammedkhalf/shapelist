@@ -18,7 +18,6 @@ class PositionController extends Controller
     //======================== create Position  ======================
     public function store(Request $request)
     {
-
     try{
         if($request->hasFile('image')){
             // Get filename with the extension
@@ -35,10 +34,9 @@ class PositionController extends Controller
             $fileNameToStore = 'noimage.jpg';
         }
 
-
         $data = $request->only('name');
         $positionData = array_merge($data , ['image' => $fileNameToStore]);
-        $pakagePosition = Product::create($positionData);
+        $pakagePosition = Position::create($positionData);
         return response()->json($pakagePosition);
 
 

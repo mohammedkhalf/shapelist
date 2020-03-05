@@ -9,6 +9,10 @@ class Position extends Model
     protected $table='positions';
 
 
+    protected $fillable = [
+        'name' ,'image'
+    ];
+
     public function order()
         {
             return $this->belongsTo('App\Models\Order\Order');   

@@ -23,20 +23,35 @@ class OrderController extends Controller
  {
     //find user
     $user = User::findOrFail($user_id);
-    //get product id
-    $myProduct = $request->product_id;
-    $product_id = Product::findOrFail($myProduct);
-    //get platform id if not set null
-    $myPlatform = $request->platform_id;
-    $platform_id = Platform::find($myPlatform);
-    if(!$platform_id){
+    //get product id and price
+    $product_id = $request->product_id;
+    $myProduct = Product::findOrFail($product_id);
+    $product_price = $myProduct->price;
+    //get platform id if empty set null
+    $platform_id = $request->platform_id;
+    $myPlatform = Platform::find($platform_id);
+    if(!$myPlatform){
     $platform_id =Null;
     }
+    //get position id if empty set null
+    $position_id = $request->position_id;
+    $myPosition = Position::find($position_id);
+    if(!$myPosition){
+    $position_id =Null;
+    }
+    //get music id if empty set null
+    $music_id = $request->music_id;
+    $myMusic = MusicSample::find($music_id);
+    if(!$myMusic){
+    $music_id =Null;
+    }
+    // set defult order status 0->(pending)
+    $status_id = 0;
+    
 
 
 
-
-return $platform_id;
+return 123;
 
 
 //     //get addon id

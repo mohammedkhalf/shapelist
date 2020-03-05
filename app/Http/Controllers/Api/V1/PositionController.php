@@ -61,9 +61,24 @@ class PositionController extends Controller
 
     public function update(Request $request, $id)
     {
-       
+        if($request->hasFile('image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('image')->storeAs('public/template_images', $fileNameToStore);
+        } else {
+            $position = Position::findOrFail($id);
+            $fileNameToStore = $position->image;
+        }    
                     $position = Position::findOrFail($id);
                     $position->name= $request->name;
+                    $position->image= $request->image;
                     $position->save();
                     return response()->json($position);
                  }

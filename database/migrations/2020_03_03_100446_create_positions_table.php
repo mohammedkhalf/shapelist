@@ -15,7 +15,7 @@ class CreatePositionsTable extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 225)->unique();//templete name
+            $table->string('name', 225)->unique();//template name
             $table->string('image')->nullable();    //templete image   
             $table->timestamps();
         });

@@ -20,10 +20,27 @@ class PositionController extends Controller
     {
 
     try{
-        $position = new Position;
-        $position->name= $request->name;
-        $position->save();
-        return response()->json($position);
+        if($request->hasFile('image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('image')->storeAs('public/template_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+
+        $data = $request->only('name');
+        $positionData = array_merge($data , ['image' => $fileNameToStore]);
+        $pakagePosition = Product::create($positionData);
+        return response()->json($pakagePosition);
+
 
 
     } catch(\Illuminate\Database\QueryException $e){

@@ -173,6 +173,11 @@ return [
                 'price'           => 'price',
             ],
 
+            'platforms' => [
+                'name'    => 'like:facebook',
+                'image'   => 'logo',
+            ],
+
             'blogcategories' => [
                 'title'     => 'Blog Category',
                 'is_active' => 'Active',

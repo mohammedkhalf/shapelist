@@ -6,7 +6,7 @@ use App\Models\OrderStatus\OrderStatus;
 
 use Illuminate\Http\Request;
 
-class OrderStatusController extends Controller
+class OrderStatusController extends APIController
 {
     
     //======================== index orders_status  ======================

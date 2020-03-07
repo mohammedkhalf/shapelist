@@ -1,10 +1,9 @@
-   <?php
-
+<?php
 namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Models\Coupon\Coupon;
 
-class CouponController extends Controller
+class CouponController extends APIController
 {
 
     //======================== index coupon  ======================

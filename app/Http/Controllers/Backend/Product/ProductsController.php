@@ -66,6 +66,7 @@ class ProductsController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+
         Product::insertProduct($request);
         return new RedirectResponse(route('admin.products.index'), ['flash_success' => trans('alerts.backend.products.created')]);
     }
@@ -78,7 +79,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product, EditProductRequest $request)
     {
-        return new EditResponse($product);
+        return view('backend.products.edit' , compact('product'));
     }
     /**
      * Update the specified resource in storage.
@@ -89,11 +90,7 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //Input received from the request
-        $input = $request->except(['_token']);
-        //Update the model using repository update method
-        $this->repository->update( $product, $input );
-        //return with successfull message
+        Product::updateProduct($request,$product);
         return new RedirectResponse(route('admin.products.index'), ['flash_success' => trans('alerts.backend.products.updated')]);
     }
     /**
@@ -105,9 +102,11 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product, DeleteProductRequest $request)
     {
-        //Calling the delete method on repository
-        $this->repository->delete($product);
-        //returning with successfull message
+        $image_path = public_path() .  '/storage/product_images/' . $product->image;
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
+        $product->delete();
         return new RedirectResponse(route('admin.products.index'), ['flash_success' => trans('alerts.backend.products.deleted')]);
     }
     

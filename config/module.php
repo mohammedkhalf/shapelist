@@ -23,4 +23,7 @@ return [
 	"faqs" => [
 	"table" => "faqs",
 	],
+	"platforms" => [
+	"table" => "platforms",
+	],
 ];

@@ -44,12 +44,14 @@
                             <td> {{$product->created_at}} </td>
                             <td class="sorting_1">
                                 <div class="btn-group action-btn">
-                                    <a href="#" class="btn btn-flat btn-default">
+                                    <a href="{{route('admin.products.edit' , $product)}}" class="btn btn-flat btn-default">
                                       <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-pencil" data-original-title="Edit"></i>
                                     </a>
-                                    <a class="btn btn-flat btn-default" data-method="delete" data-trans-button-cancel="Cancel" data-trans-button-confirm="Delete" data-trans-title="Are you sure you want to do this?" style="cursor:pointer;" onclick="$(this).find(&quot;form&quot;).submit();">
+
+                                    <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
                                       <i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-trash"></i>
                                     </a>
+                                    
                                 </div>
                             </td>
                         </tr>

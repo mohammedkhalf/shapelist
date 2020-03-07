@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
-            //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
+            //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests.
             'name' => ['string' , 'max:50'],
             'description' => ['string' , 'max:255'],
             'image' => ['mimes:jpeg,png,jpg','max:50240'],

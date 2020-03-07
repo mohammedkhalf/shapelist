@@ -59,5 +59,10 @@ return [
 	"deleted" => "The Product was successfully deleted.",
 	"updated" => "The Product was successfully updated.",
 	],
+	"platforms" => [
+	"created" => "The Platform was successfully created.",
+	"deleted" => "The Platform was successfully deleted.",
+	"updated" => "The Platform was successfully updated.",
+	],
 	],
 ];

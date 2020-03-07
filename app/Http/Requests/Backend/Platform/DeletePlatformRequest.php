@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Backend\Product;
+namespace App\Http\Requests\Backend\Platform;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class DeletePlatformRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return access()->allow('update-product');
+        return access()->allow('delete-platform');
     }
 
     /**
@@ -27,10 +27,6 @@ class UpdateProductRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
-            'name' => ['string' , 'max:50'],
-            'description' => ['string' , 'max:255'],
-            'image' => ['mimes:jpeg,png,jpg','max:50240'],
-            'price' => ['numeric','not_in:0'],
         ];
     }
 

@@ -106,22 +106,21 @@ return [
 	"all" => "All",
 	],
 	],
-			"products" => [
-					"create" => "Create Product",
-					"edit" => "Edit Product",
-					"management" => "Product Management",
-					"title" => "Products",
-					
-					"table" => [
-					"id" => "Id",
-					"PakageName" => "PakageName",
-					"Description" => "Description",
-					"Image" => "Image",
-					"Price" => "Price",
-					"createdat" => "Created At",
-					],
-			],
-
+	"products" => [
+	"create" => "Create Product",
+	"edit" => "Edit Product",
+	"management" => "Packages Management",
+	"pakages" => "pakages",
+	"title" => "Packages",
+	"table" => [
+	"id" => "Id",
+	"PakageName" => "PackageName",
+	"Description" => "Description",
+	"Image" => "Image",
+	"Price" => "Price",
+	"createdat" => "Created At",
+	],
+	],
 	"blogcategories" => [
 	"create" => "Create Blog Category",
 	"edit" => "Edit Blog Category",
@@ -252,6 +251,20 @@ return [
 	"event" => "Event Name",
 	],
 	],
+			"platforms" => [
+
+				"create" => "Create Platform",
+				"edit" => "Edit Platform",
+				"management" => "Platform Management",
+				"title" => "Platforms",
+
+				"table" => [
+				"id" => "Id",
+				"name" => "name",
+				"image" => "image",
+				"createdat" => "Created At",
+				],
+			],
 	],
 	"frontend" => [
 	"auth" => [

@@ -85,6 +85,13 @@ return [
 	"not_found" => "That Product does not exist.",
 	"update_error" => "There was a problem updating this Product. Please try again.",
 	],
+	"platforms" => [
+	"already_exists" => "That Platform already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Platform. Please try again.",
+	"delete_error" => "There was a problem deleting this Platform. Please try again.",
+	"not_found" => "That Platform does not exist.",
+	"update_error" => "There was a problem updating this Platform. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

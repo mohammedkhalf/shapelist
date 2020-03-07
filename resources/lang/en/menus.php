@@ -115,6 +115,13 @@ return [
 	"management" => "Module Management",
 	"main" => "Module Pages",
 	],
+	"platforms" => [
+	"all" => "All Platforms",
+	"create" => "Create Platform",
+	"edit" => "Edit Platform",
+	"management" => "Platform Management",
+	"main" => "Platforms",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

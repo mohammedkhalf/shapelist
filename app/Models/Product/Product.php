@@ -31,7 +31,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name' , 'description','image','price'
+
     ];
 
     /**
@@ -88,5 +88,34 @@ class Product extends Model
         $productData = array_merge($data , ['image' => $fileNameToStore]);
         $pakageProduct = Product::create($productData);
         return $pakageProduct;
+    }
+
+    public static function updateProduct($request ,  $product)
+    {
+        if (request()->hasFile('image')){
+            $old_image_path = public_path() .  '/storage/product_images/' . $product->image;  // prev image path
+            if (file_exists($old_image_path)) {
+                @unlink($old_image_path);
+            }
+             // Get filename with the extension
+             $filenameWithExt = $request->file('image')->getClientOriginalName();
+             // Get just filename
+             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+             // Get just ext
+             $extension = $request->file('image')->getClientOriginalExtension();
+             // Filename to store
+             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+             // Upload Image
+            $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
+            $updateData = $request->only('name','description','price');
+            $updateProduct = array_merge($updateData , ['image' => $fileNameToStore]);
+            $product->update($updateProduct);
+        }//if
+        else{
+           $updateData=$request->only('name','description','price');
+           $product->update($updateData);
+        }
+
+    
     }
 }

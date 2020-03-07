@@ -5,7 +5,7 @@ use App\Models\Platform\Platform;
 
 use Illuminate\Http\Request;
 
-class PlatformController extends Controller
+class PlatformController extends APIController
 {
     
     //======================== index platform  ======================

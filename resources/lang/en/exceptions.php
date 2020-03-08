@@ -92,6 +92,13 @@ return [
 	"not_found" => "That Platform does not exist.",
 	"update_error" => "There was a problem updating this Platform. Please try again.",
 	],
+	"statuses" => [
+	"already_exists" => "That Status already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Status. Please try again.",
+	"delete_error" => "There was a problem deleting this Status. Please try again.",
+	"not_found" => "That Status does not exist.",
+	"update_error" => "There was a problem updating this Status. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

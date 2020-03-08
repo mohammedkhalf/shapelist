@@ -19,3 +19,4 @@ require __DIR__.'/LogViewer.php';
 
 require __DIR__.'/Product.php';
 require __DIR__.'/Platform.php';
+require __DIR__.'/Status.php';

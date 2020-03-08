@@ -251,20 +251,33 @@ return [
 	"event" => "Event Name",
 	],
 	],
-			"platforms" => [
+	"platforms" => [
+	"create" => "Create Platform",
+	"edit" => "Edit Platform",
+	"management" => "Platform Management",
+	"title" => "Platforms",
+	"table" => [
+	"id" => "Id",
+	"name" => "name",
+	"image" => "image",
+	"createdat" => "Created At",
+	],
+	],
+			"statuses" => [
+			"create" => "Create Status",
+			"edit" => "Edit Status",
+			"management" => "Status Management",
+			
 
-				"create" => "Create Platform",
-				"edit" => "Edit Platform",
-				"management" => "Platform Management",
-				"title" => "Platforms",
+			   "title" => "Statuses",
 
 				"table" => [
 				"id" => "Id",
-				"name" => "name",
-				"image" => "image",
+				"type" => "type",
 				"createdat" => "Created At",
 				],
 			],
+			
 	],
 	"frontend" => [
 	"auth" => [

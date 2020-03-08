@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product\Product;
+use Carbon\Carbon;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -17,14 +18,18 @@ class ProductsTableSeeder extends Seeder
             'name' => 'vedio',
             'description' => 'wonderfull vedio',
             'image' => 'vedio.png',
-            'price' => '1000'
+            'price' => '1000',
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now()
         ]);
 
         Product::create([
             'name' => 'photograph',
             'description' => 'wonderfull photograph',
             'image' => 'photograph.png',
-            'price' => '500'
+            'price' => '500',
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now()
         ]);
     }
 }

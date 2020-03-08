@@ -122,6 +122,13 @@ return [
 	"management" => "Platform Management",
 	"main" => "Platforms",
 	],
+	"statuses" => [
+	"all" => "All Statuses",
+	"create" => "Create Status",
+	"edit" => "Edit Status",
+	"management" => "Status Management",
+	"main" => "Statuses",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

@@ -64,5 +64,10 @@ return [
 	"deleted" => "The Platform was successfully deleted.",
 	"updated" => "The Platform was successfully updated.",
 	],
+	"statuses" => [
+	"created" => "The Status was successfully created.",
+	"deleted" => "The Status was successfully deleted.",
+	"updated" => "The Status was successfully updated.",
+	],
 	],
 ];

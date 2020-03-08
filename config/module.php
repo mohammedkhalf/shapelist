@@ -26,4 +26,7 @@ return [
 	"platforms" => [
 	"table" => "platforms",
 	],
+	"statuses" => [
+	"table" => "statuses",
+	],
 ];

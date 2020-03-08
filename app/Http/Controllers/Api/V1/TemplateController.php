@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
-use App\Models\Position\Position;
+use App\Models\Template\Template;
 use Illuminate\Http\Request;
 
-class PositionController extends APIController
+class TemplateController extends APIController
 {
 
     //======================== index Position  ======================
     public function index()
     {
-        $position = Position::all();
+        $position = Template::all();
         return response()->json($position);
     }
 
@@ -36,7 +36,7 @@ class PositionController extends APIController
 
         $data = $request->only('name');
         $positionData = array_merge($data , ['image' => $fileNameToStore]);
-        $pakagePosition = Position::create($positionData);
+        $pakagePosition = Template::create($positionData);
         return response()->json($pakagePosition);
 
 
@@ -44,7 +44,7 @@ class PositionController extends APIController
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == '1062'){
-            return response()->json("this position is already registered!" );
+            return response()->json("this Template is already registered!" );
         }}
     }
 
@@ -52,7 +52,7 @@ class PositionController extends APIController
     
     public function show($id)
     {
-        $position = Position::findOrFail($id);
+        $position = Template::findOrFail($id);
         return response()->json($position);
     }
 
@@ -73,10 +73,10 @@ class PositionController extends APIController
             // Upload Image
             $path = $request->file('image')->storeAs('public/template_images', $fileNameToStore);
         } else {
-            $position = Position::findOrFail($id);
+            $position = Template::findOrFail($id);
             $fileNameToStore = $position->image;
         }    
-                    $position = Position::findOrFail($id);
+                    $position = Template::findOrFail($id);
                     $position->name= $request->name;
                     $position->image= $request->image;
                     $position->save();
@@ -87,7 +87,7 @@ class PositionController extends APIController
 
     public function destroy($id)
     {
-        $position = Position::findOrFail($id);
+        $position = Template::findOrFail($id);
         $position -> delete();  
         return response()->json("deleted successfully");
  

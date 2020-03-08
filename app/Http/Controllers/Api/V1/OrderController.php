@@ -133,7 +133,14 @@ class OrderController extends APIController
          return response()->json("invalid!" );
      }}
 
-
-
  }
+ //======================== delete order  ======================
+
+public function destroy($user_id ,$id)
+{
+$order = Order::findOrFail($id);
+$order->delete();  
+return response()->json("deleted successfully");
+
+}
 }

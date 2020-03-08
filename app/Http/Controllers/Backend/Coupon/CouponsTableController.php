@@ -38,6 +38,22 @@ class CouponsTableController extends Controller
     {
         return Datatables::of($this->coupon->getForDataTable())
             ->escapeColumns(['id'])
+            ->addColumn('code', function ($coupon) {
+                return $coupon->code;
+            })
+            ->addColumn('amount', function ($coupon) {
+                return $coupon->amount;
+            })
+            ->addColumn('valid', function ($coupon) {
+                if($coupon->valid == 1)
+                {
+                    return '<button class="btn btn-success">Enable</button>';
+
+                }
+                else{
+                    return '<button class="btn btn-danger">Not Enable</button>';
+                }
+            })
             ->addColumn('created_at', function ($coupon) {
                 return Carbon::parse($coupon->created_at)->toDateString();
             })

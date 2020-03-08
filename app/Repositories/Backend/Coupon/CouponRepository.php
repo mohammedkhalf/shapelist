@@ -30,6 +30,9 @@ class CouponRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.coupons.table').'.id',
+                config('module.coupons.table').'.code',
+                config('module.coupons.table').'.amount',
+                config('module.coupons.table').'.valid',
                 config('module.coupons.table').'.created_at',
                 config('module.coupons.table').'.updated_at',
             ]);

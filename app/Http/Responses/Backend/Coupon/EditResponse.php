@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Coupon\Coupon
      */
-    protected $coupons;
+    protected $coupon;
 
     /**
      * @param App\Models\Coupon\Coupon $coupons
      */
-    public function __construct($coupons)
+    public function __construct($coupon)
     {
-        $this->coupons = $coupons;
+        $this->coupons = $coupon;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.coupons.edit')->with([
-            'coupons' => $this->coupons
+            'coupon' => $this->coupon
         ]);
     }
 }

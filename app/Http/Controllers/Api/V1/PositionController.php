@@ -18,12 +18,27 @@ class PositionController extends APIController
     //======================== create Position  ======================
     public function store(Request $request)
     {
-
     try{
-        $position = new Position;
-        $position->name= $request->name;
-        $position->save();
-        return response()->json($position);
+        if($request->hasFile('image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('image')->storeAs('public/template_images', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        $data = $request->only('name');
+        $positionData = array_merge($data , ['image' => $fileNameToStore]);
+        $pakagePosition = Position::create($positionData);
+        return response()->json($pakagePosition);
+
 
 
     } catch(\Illuminate\Database\QueryException $e){
@@ -46,9 +61,24 @@ class PositionController extends APIController
 
     public function update(Request $request, $id)
     {
-       
+        if($request->hasFile('image')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('image')->storeAs('public/template_images', $fileNameToStore);
+        } else {
+            $position = Position::findOrFail($id);
+            $fileNameToStore = $position->image;
+        }    
                     $position = Position::findOrFail($id);
                     $position->name= $request->name;
+                    $position->image= $request->image;
                     $position->save();
                     return response()->json($position);
                  }

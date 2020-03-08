@@ -106,6 +106,13 @@ return [
 	"not_found" => "That Addon does not exist.",
 	"update_error" => "There was a problem updating this Addon. Please try again.",
 	],
+	"coupons" => [
+	"already_exists" => "That Coupon already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Coupon. Please try again.",
+	"delete_error" => "There was a problem deleting this Coupon. Please try again.",
+	"not_found" => "That Coupon does not exist.",
+	"update_error" => "There was a problem updating this Coupon. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

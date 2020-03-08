@@ -274,22 +274,35 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-			"addons" => [
-				
-				"create" => "Create Addon",
-				"edit" => "Edit Addon",
-				"management" => "Addon Management",
-				"title" => "Addons",
+	"addons" => [
+	"create" => "Create Addon",
+	"edit" => "Edit Addon",
+	"management" => "Addon Management",
+	"title" => "Addons",
+	"table" => [
+	"id" => "Id",
+	"name" => "name",
+	"type" => "type",
+	"price" => "price",
+	"createdat" => "Created At",
+	],
+	],
+				"coupons" => [
+					
+					"create" => "Create Coupon",
+					"edit" => "Edit Coupon",
+					"management" => "Coupon Management",
+					"title" => "Coupons",
 
-				"table" => [
-				"id" => "Id",
-				"name" => "name",
-				"type" => "type",
-				"price" => "price",
-				"createdat" => "Created At",
+					"table" => [
+					"id" => "Id",
+					"code" => "code",
+					"amount" => "amount",
+					"quantity" => "quantity",
+					"valid" => "valid",
+					"createdat" => "Created At",
+					],
 				],
-
-			],
 	],
 	"frontend" => [
 	"auth" => [

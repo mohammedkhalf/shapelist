@@ -1,8 +1,7 @@
 <?php
 
-
 namespace App\Http\Controllers\Api\V1;
- use App\Models\Status\Status;
+use App\Models\Status\Status;
 use Illuminate\Http\Request;
 
 class OrderStatusController extends APIController
@@ -45,12 +44,10 @@ try{
 
     public function update(Request $request, $id)
     {
-       
-              
+    
                     $orders_status = Status::findOrFail($id);
                     $orders_status->name= $request->name;
                     $orders_status->save();
-
                     return response()->json($orders_status);
                  }
 
@@ -61,6 +58,5 @@ try{
         $orders_status = Status::findOrFail($id);
         $orders_status -> delete();  
         return response()->json("deleted successfully");
- 
      }  
 }

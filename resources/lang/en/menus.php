@@ -136,6 +136,13 @@ return [
 	"management" => "Addon Management",
 	"main" => "Addons",
 	],
+	"coupons" => [
+	"all" => "All Coupons",
+	"create" => "Create Coupon",
+	"edit" => "Edit Coupon",
+	"management" => "Coupon Management",
+	"main" => "Coupons",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

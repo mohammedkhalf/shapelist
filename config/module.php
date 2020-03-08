@@ -32,4 +32,7 @@ return [
 	"addons" => [
 	"table" => "addons",
 	],
+	"coupons" => [
+	"table" => "coupons",
+	],
 ];

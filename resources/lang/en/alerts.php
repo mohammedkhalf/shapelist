@@ -74,5 +74,10 @@ return [
 	"deleted" => "The Addon was successfully deleted.",
 	"updated" => "The Addon was successfully updated.",
 	],
+	"coupons" => [
+	"created" => "The Coupon was successfully created.",
+	"deleted" => "The Coupon was successfully deleted.",
+	"updated" => "The Coupon was successfully updated.",
+	],
 	],
 ];

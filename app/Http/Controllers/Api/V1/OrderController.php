@@ -17,6 +17,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends APIController
 {
+ //======================== index orders  ======================
+ public function index($user_id)
+{
+     $orders = Order::where('user_id',$user_id)->get();
+     return response()->json($orders);
+} 
  //======================== create order  ======================
  public function store($user_id,Request $request)
  {
@@ -84,16 +90,12 @@ class OrderController extends APIController
     //get coupon id,price if empty set 0=====================   
     $coupon_code = $request->coupon_code;
     $MyCoupon= Coupon::where('code',$coupon_code)->get();
+    $coupon_id= Coupon::where('code',$coupon_code)->value('id');
     $validity= Coupon::where('code',$coupon_code)->value('valid');
     $discount= Coupon::where('code',$coupon_code)->value('amount');
     $quantity= Coupon::where('code',$coupon_code)->value('quantity');
-    if($validity==0){
-    return "invalid coupon";
-    }
-    if($quantity<1){
-    return "invalid coupon";
-    }
-    if(!$MyCoupon){
+    if(($validity==0)||($quantity<1)||(!$MyCoupon)){
+        $coupon_id =Null;
         $coupon_code =Null;
         $discount= 0;
     }
@@ -105,30 +107,30 @@ class OrderController extends APIController
    if(!$myLocation){
     $location_id =Null;
     }
-
     //calculate total_price ====================================
     $total_price1= (($product_price*$products_quantity)+$addonPrice);
     $discountValue= $discount/100;
     $total_price= $total_price1*(1-$discountValue);
 
-
-
  try{
     
-     $data = $request->only('user_id','product_id','platform_id','addon_id',
-     'location_id','coupon_id','music_id','status_id','products_quantity','video_length'
+    $data = $request->only('product_id','platform_id','addon_id',
+    'location_id','music_id','status_id','products_quantity','video_length'
     ,'notes');
-     $orderData = array_merge($data , ['image' => $fileNameToStore]);
-     $pakageOrder = Order::create($orderData);
-     return $pakageOrder;    
-
-     
-
-
+    $orderData = array_merge($data ,['total_price'=>$total_price],['product_price'=>$product_price],['status_id'=>$status_id],['coupon_id'=>$coupon_id],['user_id'=>$user_id],['image' => $fileNameToStore]);
+    $pakageOrder = Order::create($orderData);
+    //coupon quantity -1==========================================
+    if($discount>0){
+    $newQuantity =$quantity-1;
+    $coupon = Coupon::find($coupon_id);
+    $coupon->quantity= $newQuantity;
+    $coupon->save();
+    }
+    return $pakageOrder;   
  } catch(\Illuminate\Database\QueryException $e){
      $errorCode = $e->errorInfo[1];
      if($errorCode == '1062'){
-         return response()->json("this order is already registered!" );
+         return response()->json("invalid!" );
      }}
 
 

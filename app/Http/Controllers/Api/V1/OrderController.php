@@ -134,6 +134,13 @@ class OrderController extends APIController
      }}
 
  }
+ //======================== show order  ======================
+
+public function show($user_id ,$id)
+{
+    $order = Order::findOrFail($id);
+    return response()->json($order);
+}
  //======================== delete order  ======================
 
 public function destroy($user_id ,$id)

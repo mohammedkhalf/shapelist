@@ -27,8 +27,8 @@ class CreateOrdersTable extends Migration
             $table->integer('payment_id')->unsigned()->nullable();
             $table->integer('status_id')->unsigned()->nullable();             
             
-            $table->decimal('product_price', 8, 2);	 //product only
-            $table->decimal('total_price', 8, 2);	//with extra addons
+            $table->integer('product_price');	 //product only
+            $table->integer('total_price');	//with extra addons
             $table->string('image')->nullable();      
             $table->integer('products_quantity')->default(1);
             $table->integer('video_length')->default(10);

@@ -8,4 +8,9 @@ class Position extends Model
 {
     protected $table='positions';
 
+
+    protected $fillable = [
+        'name' ,'image'
+    ];
+
 }

@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-use App\Http\Controllers\Controller;
 use App\Models\MusicSample\MusicSample;
 use Illuminate\Http\Request;
 
-class MusicSamplesController extends Controller
+class MusicSamplesController extends APIController
 {
  
     //======================== index music_samples  ======================

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Position\Position;
 use Illuminate\Http\Request;
 
-class PositionController extends Controller
+class PositionController extends APIController
 {
 
     //======================== index Position  ======================

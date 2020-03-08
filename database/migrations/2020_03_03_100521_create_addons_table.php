@@ -17,7 +17,7 @@ class CreateAddonsTable extends Migration
             $table->increments('id');
             $table->string('name', 225)->unique();
             $table->string('type', 225);
-            $table->decimal('price', 8, 2)->nullable();	
+            $table->integer('price')->nullable();	
             $table->timestamps();
         });
     }

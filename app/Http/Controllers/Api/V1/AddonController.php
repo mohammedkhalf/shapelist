@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-use App\Http\Controllers\Controller;
 use App\Models\Addon\Addon;
 use Illuminate\Http\Request;
 
-class AddonController extends Controller
+class AddonController extends APIController
 {
 
     //======================== index addon  ======================

@@ -14,39 +14,53 @@
             <div class="box-tools pull-right">
                 @include('backend.products.partials.products-header-buttons')
             </div>
-        </div><!-- /.box-header -->
+        </div><!--box-header with-border-->
 
         <div class="box-body">
             <div class="table-responsive data-table-wrapper">
-                <table id="pages-table" class="table table-condensed table-hover table-bordered">
+                <table id="products-table" class="table table-condensed table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>{{ trans('labels.backend.pages.table.id') }}</th>
-                            <th>{{ trans('labels.backend.pages.table.name') }}</th>
-                            <th>{{ trans('labels.backend.pages.table.createdat') }}</th>
-                            <th>{{ trans('labels.backend.pages.table.createdby') }}</th>
+                            <th>{{ trans('labels.backend.products.table.id') }}</th>
+                            <th>{{ trans('labels.backend.products.table.PakageName') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Description') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Image') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Price') }}</th>
+                            <th>{{ trans('labels.backend.products.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
+
+
                         </tr>
                     </thead>
                     <thead class="transparent-bg">
-                      
+
+                      @foreach($products  as  $product)
+                        <tr>
+                            <td > {{$product->id}} </td>
+                            <td> {{$product->name}} </td>
+                            <td> {{$product->description}} </td>
+                            <td> <img src= "{{ Storage::disk('public')->url('product_images/'.$product->image) }}" width="200" height="100" alt="Card image cap"> </td>
+                            <td> {{$product->price}} </td>
+                            <td> {{$product->created_at}} </td>
+                            <td class="sorting_1">
+                                <div class="btn-group action-btn">
+                                    <a href="{{route('admin.products.edit' , $product)}}" class="btn btn-flat btn-default">
+                                      <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-pencil" data-original-title="Edit"></i>
+                                    </a>
+
+                                    <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
+                                      <i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-trash"></i>
+                                    </a>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                      @endforeach
                     </thead>
                 </table>
             </div><!--table-responsive-->
         </div><!-- /.box-body -->
     </div><!--box-->
-
-    <!--<div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.recent_history') }}</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            </div><!-- /.box tools -->
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            {{-- {!! history()->renderType('CMSpage') !!} --}}
-        </div><!-- /.box-body -->
-    </div><!--box box-info-->
 @endsection
 
 @section('after-scripts')
@@ -54,45 +68,45 @@
     {{ Html::script(mix('js/dataTable.js')) }}
 
     <script>
-        $(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        //Below written line is short form of writing $(document).ready(function() { })
+        // $(function() {
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+            
+        //     var dataTable = $('#products-table').dataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         ajax: {
+        //             url: '{{ route("admin.products.get") }}',
+        //             type: 'post'
+        //         },
+        //         columns: [
+        //             {data: 'id', name: '{{config('module.products.table')}}.id'},
+        //             {data: 'name', name: '{{config('module.products.table')}}.name'},
+        //             {data: 'description', name: '{{config('module.products.table')}}.description'},
+        //             {data: 'image', name: '{{config('module.products.table')}}.image'},
+        //             {data: 'price', name: '{{config('module.products.table')}}.price'},
+        //             {data: 'created_at', name: '{{config('module.products.table')}}.created_at'},
+        //             {data: 'actions', name: 'actions', searchable: false, sortable: false}
+        //         ],
+        //         order: [[0, "asc"]],
+        //         searchDelay: 500,
+        //         dom: 'lBfrtip',
+        //         buttons: {
+        //             buttons: [
+        //                 { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1 ]  }},
+        //                 { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1 ]  }},
+        //                 { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1 ]  }},
+        //                 { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1 ]  }},
+        //                 { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1 ]  }}
+        //             ]
+        //         }
+        //     });
 
-            var dataTable = $('#pages-table').dataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route("admin.pages.get") }}',
-                    type: 'post'
-                },
-                columns: [
-                    {data: 'title', name: '{{config('module.pages.table')}}.title'},
-                    {data: 'status', name: '{{config('module.pages.table')}}.status'},
-                    {data: 'created_at', name: '{{config('module.pages.table')}}.created_at'},
-                    {data: 'created_by', name: '{{config('access.users_table')}}.first_name'},
-                    {data: 'actions', name: 'actions', searchable: false, sortable: false}
-                ],
-                order: [[1, "asc"]],
-                searchDelay: 500,
-                dom: 'lBfrtip',
-                buttons: {
-                    buttons: [
-                        { extend: 'copy', className: 'copyButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
-                        { extend: 'csv', className: 'csvButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
-                        { extend: 'excel', className: 'excelButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
-                        { extend: 'pdf', className: 'pdfButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }},
-                        { extend: 'print', className: 'printButton',  exportOptions: {columns: [ 0, 1, 2, 3 ]  }}
-                    ]
-                },
-                language: {
-                    @lang('datatable.strings')
-                }
-            });
-
-            Backend.DataTableSearch.init(dataTable);
-        });
+        //     Backend.DataTableSearch.init(dataTable);
+        // });
     </script>
 @endsection

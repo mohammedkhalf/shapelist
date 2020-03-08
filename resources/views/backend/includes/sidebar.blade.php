@@ -48,14 +48,18 @@
                 </ul>
             </li>
             @endauth
-            @permission('view-page')
-            <li class="{{ active_class(Active::checkUriPattern('admin/pages*')) }}">
-                <a href="{{ route('admin.pages.index') }}">
-                    <i class="fa fa-file-text"></i>
-                    <span>{{ trans('labels.backend.pages.title') }}</span>
+
+
+            @permission('manage-product')
+                <li class="{{ active_class(Active::checkUriPattern('admin/products*')) }}">
+                <a href="{{ route('admin.products.index')}}">
+                    <i class="fa fa-question-circle"></i>
+                    <span>{{ trans('labels.backend.products.name') }}</span>
                 </a>
-            </li>
+                </li>
             @endauth
+
+
             @permission('edit-settings')
             <li class="{{ active_class(Active::checkUriPattern('admin/settings*')) }}">
                 <a href="{{ route('admin.settings.edit', 1 ) }}">
@@ -113,6 +117,15 @@
                 </li>
             @endauth
 
+            @permission('manage-product')
+                <li class="{{ active_class(Active::checkUriPattern('admin/products*')) }}">
+                <a href="{{ route('admin.products.index')}}">
+                    <i class="fa fa-question-circle"></i>
+                    <span>{{ trans('labels.backend.products.title') }}</span>
+                </a>
+                </li>
+            @endauth
+
             <li class="{{ active_class(Active::checkUriPattern('admin/log-viewer*')) }} treeview">
                 <a href="#">
                     <i class="fa fa-list"></i>
@@ -134,5 +147,8 @@
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->
+
+ 
+
     </section><!-- /.sidebar -->
 </aside>

@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Location\Location;
 use App\Models\Access\User\User;
 
-class LocationController extends Controller
+
+class LocationController extends APIController
 {
 
 //======================== index location  ======================

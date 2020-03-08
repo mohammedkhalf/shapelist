@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 use App\Models\Product\Product;
-use App\Http\Controllers\Controller;
-
 
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends APIController
 {
   
     //======================== index product  ======================

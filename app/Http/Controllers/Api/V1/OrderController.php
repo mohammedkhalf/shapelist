@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Order\Order;
 use App\Models\Product\Product;
-use App\Models\Position\Position;
+use App\Models\Template\Template;
 use App\Models\Platform\Platform;
 use App\Models\Addon\Addon;
 use App\Models\Location\Location;
 use App\Models\Coupon\Coupon;
 use App\Models\MusicSample\MusicSample;
 use App\Models\Status\Status;
-
-
 use App\Models\Access\User\User;
 use Illuminate\Http\Request;
 
@@ -34,25 +32,25 @@ class OrderController extends APIController
     if(!$myPlatform){
     $platform_id =Null;
     }
-    //get position id if empty set null
-    $position_id = $request->position_id;
-    $myPosition = Position::find($position_id);
-    if(!$myPosition){
-    $position_id =Null;
-    }
-    //get music id if empty set null
-    $music_id = $request->music_id;
-    $myMusic = MusicSample::find($music_id);
-    if(!$myMusic){
-    $music_id =Null;
-    }
-    // set defult order status 0->(pending)
-    $status_id = 0;
+    // //get position id if empty set null
+    // $position_id = $request->position_id;
+    // $myPosition = Position::find($position_id);
+    // if(!$myPosition){
+    // $position_id =Null;
+    // }
+    // //get music id if empty set null
+    // $music_id = $request->music_id;
+    // $myMusic = MusicSample::find($music_id);
+    // if(!$myMusic){
+    // $music_id =Null;
+    // }
+    // // set defult order status 0->(pending)
+    // $status_id = 0;
     
 
 
 
-return 123;
+return $product_price;
 
 
 //     //get addon id

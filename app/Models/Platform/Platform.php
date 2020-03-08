@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/master
 namespace App\Models\Platform;
 
 use App\Models\ModelTrait;

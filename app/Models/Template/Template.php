@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Models\Position;
+namespace App\Models\Template;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Position extends Model
+class Template extends Model
 {
-    protected $table='positions';
+
+    protected $table='templates';
 
 
     protected $fillable = [
         'name' ,'image'
-    ];
-
-}
+    ];}

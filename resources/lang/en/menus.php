@@ -129,6 +129,13 @@ return [
 	"management" => "Status Management",
 	"main" => "Statuses",
 	],
+	"addons" => [
+	"all" => "All Addons",
+	"create" => "Create Addon",
+	"edit" => "Edit Addon",
+	"management" => "Addon Management",
+	"main" => "Addons",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

@@ -99,6 +99,13 @@ return [
 	"not_found" => "That Status does not exist.",
 	"update_error" => "There was a problem updating this Status. Please try again.",
 	],
+	"addons" => [
+	"already_exists" => "That Addon already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Addon. Please try again.",
+	"delete_error" => "There was a problem deleting this Addon. Please try again.",
+	"not_found" => "That Addon does not exist.",
+	"update_error" => "There was a problem updating this Addon. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

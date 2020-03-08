@@ -29,4 +29,7 @@ return [
 	"statuses" => [
 	"table" => "statuses",
 	],
+	"addons" => [
+	"table" => "addons",
+	],
 ];

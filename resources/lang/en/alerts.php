@@ -69,5 +69,10 @@ return [
 	"deleted" => "The Status was successfully deleted.",
 	"updated" => "The Status was successfully updated.",
 	],
+	"addons" => [
+	"created" => "The Addon was successfully created.",
+	"deleted" => "The Addon was successfully deleted.",
+	"updated" => "The Addon was successfully updated.",
+	],
 	],
 ];

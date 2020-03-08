@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(StatusTableSeeder::class);
         $this->call(PlatformsTableSeeder::class);
-
+        $this->call(AddonsTableSeeder::class);
         Model::reguard();
     }
 }

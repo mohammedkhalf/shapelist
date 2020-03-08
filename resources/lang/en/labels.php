@@ -263,21 +263,33 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-			"statuses" => [
-			"create" => "Create Status",
-			"edit" => "Edit Status",
-			"management" => "Status Management",
-			
-
-			   "title" => "Statuses",
+	"statuses" => [
+	"create" => "Create Status",
+	"edit" => "Edit Status",
+	"management" => "Status Management",
+	"title" => "Statuses",
+	"table" => [
+	"id" => "Id",
+	"type" => "type",
+	"createdat" => "Created At",
+	],
+	],
+			"addons" => [
+				
+				"create" => "Create Addon",
+				"edit" => "Edit Addon",
+				"management" => "Addon Management",
+				"title" => "Addons",
 
 				"table" => [
 				"id" => "Id",
+				"name" => "name",
 				"type" => "type",
+				"price" => "price",
 				"createdat" => "Created At",
 				],
+
 			],
-			
 	],
 	"frontend" => [
 	"auth" => [

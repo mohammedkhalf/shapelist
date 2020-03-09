@@ -65,7 +65,6 @@ class CouponsController extends Controller
      */
     public function store(StoreCouponRequest $request)
     {
-        dd($request->all());
         //Input received from the request
         $input = $request->except(['_token']);
         //Create the model using repository create method
@@ -82,7 +81,9 @@ class CouponsController extends Controller
      */
     public function edit(Coupon $coupon, EditCouponRequest $request)
     {
-        return new EditResponse($coupon);
+        return view('backend.coupons.edit')->with([
+            'coupon' => $coupon
+        ]);
     }
     /**
      * Update the specified resource in storage.

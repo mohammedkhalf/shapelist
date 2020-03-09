@@ -28,7 +28,7 @@ class StoreCouponRequest extends FormRequest
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
             'code' => ['string','regex:/^[A-Za-z][A-Za-z0-9]*$/','max:50'],
-            'amount' => ['not_in:0'],
+            'amount' => ['numeric','not_in:0'],
             'valid' => ['accepted','in:1']
         ];
     }

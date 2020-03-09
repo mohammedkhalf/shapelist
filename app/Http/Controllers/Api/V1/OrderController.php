@@ -28,6 +28,10 @@ class OrderController extends APIController
  public function store($user_id,Request $request)
  {
     Order::insertOrder($user_id, $request); 
+    
+           
+
+
  }
  //======================== show order  ======================
 

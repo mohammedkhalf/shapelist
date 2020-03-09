@@ -23,7 +23,7 @@ class Order extends Model
     protected $fillable = [
      'product_id','platform_id','addon_id',
         'location_id','music_id','status_id','products_quantity','video_length'
-       ,'notes','product_price'
+       ,'notes','product_price','template_id'
        ,'image','user_id','coupon_id','product_price','total_price'
     ];
  //====================================== Relationships =======================================
@@ -69,120 +69,69 @@ class Order extends Model
 //=============================== Insert Order ================================================
     public static function insertOrder($user_id, $request)
     {
-           //find user=========================================
-            $user = User::findOrFail($user_id);
-            //get product id,price,quantity===================== 
-            $product_id = $request->product_id;
-            $myProduct = Product::findOrFail($product_id);
-            $product_price = $myProduct->price;
-            $products_quantity = $request->products_quantity;
-            //get platform id if empty set null=================
-            $platform_id = $request->platform_id;
-            $myPlatform = Platform::find($platform_id);
-            if(!$myPlatform){
-            $platform_id =Null;
-            }
-            //get template id if empty set null================
-            $template_id = $request->template_id;
-            $myTemplate = Template::find($template_id);
-            if(!$myTemplate){
-            $template_id =Null;
-            }
-            //get music id if empty set null====================
-            $music_id = $request->music_id;
-            $myMusic = MusicSample::find($music_id);
-            if(!$myMusic){
-            $music_id =Null;
-            }
-            //get logo of order if empty set null===============
-            if($request->hasFile('logo')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('logo')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
-            } else {
-            $fileNameToStore = null;
-            }
-            // set defult order status 1->(pending)==============
-            $status_id = 1;
-            // get vedio lenght if  empty set null================
-            $video_length = $request->video_length;
-            if(!$video_length){
-            $video_length =Null;
-                }
-            // get notes if  empty set null========================
-            $notes = $request->notes;
-            if(!$notes){
-            $notes =Null;
-            }
-            //get addon id,price if empty set 0=====================
-            $addon_id = $request->addon_id;
-            $Myaddon= Addon::find($addon_id);
-            if(!$Myaddon){
-                $addon_id =Null;
-                $addonPrice =0;
-                }else{
-                $addonPrice= $Myaddon->price;
-                }
-            //get coupon id,price if empty set 0=====================   
-            $coupon_code = $request->coupon_code;
-            $MyCoupon= Coupon::where('code',$coupon_code)->get();
-            $coupon_id= Coupon::where('code',$coupon_code)->value('id');
-            $validity= Coupon::where('code',$coupon_code)->value('valid');
-            $discount= Coupon::where('code',$coupon_code)->value('amount');
-            $quantity= Coupon::where('code',$coupon_code)->value('quantity');
-            if(($validity==0)||($quantity<1)||(!$MyCoupon)){
-                $coupon_id =Null;
-                $coupon_code =Null;
-                $discount= 0;
-            }
-            //put default value for payment id===========================   
-            $payment_id = 0;
-            //get Location id============================================
-            $location_id = $request->location_id;
-            $myLocation = Location::find($location_id);
-            if(!$myLocation){
-            $location_id =Null;
-            }
-            //calculate total_price ====================================
-            $total_price1= (($product_price*$products_quantity)+$addonPrice);
-            $discountValue= $discount/100;
-            $total_price= $total_price1*(1-$discountValue);
+           $user = User::findOrFail($user_id);
+           $myProduct= Product::findOrFail($request->product_id);
+           $myAddon= Addon::findOrFail($request->addon_id);
+        //    dd($myAddon['price']); die;
+           if($request->hasFile('logo')){
+           $filenameWithExt = $request->file('logo')->getClientOriginalName();
+           $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+           $extension = $request->file('logo')->getClientOriginalExtension();
+           $fileNameToStore= $filename.'_'.time().'.'.$extension;
+           $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
+           } else {
+           $fileNameToStore = null;
+           }
 
-            try{
+            $couponData = Coupon::where('code' , $request->coupon_code)->get();
+            foreach($couponData as $CData){ $coupon_id = $CData->id; }
+            if(($CData->valid==0)||($CData->quantity <1)||(!is_null($CData)))
+            $coupon_id =Null;  $coupon_code =Null; $discount= 0;
+           //get coupon id,price if empty set 0=====================  
+           if($request->coupon_code !== null && $request->addon_id !== null ) 
+           {
+                $total_price= (($myProduct['price']*$request->products_quantity)+$myAddon['price'])*(1-($CData->amount/100));
+                $data = $request->only('product_id','platform_id','addon_id',
+                'location_id','music_id','template_id','video_length','product_quantity'
+                ,'notes');
+     
+                $orderData = array_merge($data ,['product_price'=>$myProduct['price'] ],['total_price'=>$total_price],
+                ['coupon_id'=>$coupon_id ],['user_id'=>$user->id],['image' => $fileNameToStore]);
 
-            $data = $request->only('product_id','platform_id','addon_id',
-            'location_id','music_id','status_id','products_quantity','video_length'
-            ,'notes');
-            $orderData = array_merge($data ,['total_price'=>$total_price],['product_price'=>$product_price],['status_id'=>$status_id],['coupon_id'=>$coupon_id],['user_id'=>$user_id],['image' => $fileNameToStore]);
-            $pakageOrder = Order::create($orderData);
-            //coupon quantity -1==========================================
-            if($discount>0){
-            $newQuantity =$quantity-1;
-            $coupon = Coupon::find($coupon_id);
-            $coupon->quantity= $newQuantity;
-            $coupon->save();
-            }
-            echo $pakageOrder;
+                dd($orderData);
+           }
+        //    elseif($request->coupon_code){
+        //          $total_price= (($myProduct['price']*$request->products_quantity))*(1-($CData->amount/100));
+        //    }
+        //    elseif($request->addon_id){
 
-            return $pakageOrder;   
-            } catch(\Illuminate\Database\QueryException $e){
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == '1062'){
-                return response()->json("invalid!" );
-            }}
+        //       $total_price= (($myProduct['price']*$request->products_quantity)+$myAddon['price']);
+        //    }
+        //    else{
+        //     $total_price= $myProduct['price']*$request->products_quantity;
+        //    }
+      
+
+        try{
+          
 
 
+           $pakageOrder = Order::create($orderData);
+           //coupon quantity -1==========================================
+           if($CData->amount>0){
+             $newQuantity =$quantity-1;
+             $coupon = Coupon::find($coupon_id);
+             $coupon->quantity= $newQuantity;
+             $coupon->save();
+           }
 
-
-
-    }  
+           return $pakageOrder;   
+           } catch(\Illuminate\Database\QueryException $e){
+           $errorCode = $e->errorInfo[1];
+           if($errorCode == '1062'){
+               return response()->json("invalid!" );
+           }}
+    }
 
 
 

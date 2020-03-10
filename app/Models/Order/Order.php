@@ -100,5 +100,8 @@ class Order extends Model
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
         return $OrderInfo;
     }
+//=============================== update Order ================================================
+
+
 
 }

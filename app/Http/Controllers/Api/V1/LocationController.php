@@ -12,7 +12,7 @@ class LocationController extends APIController
 //======================== index location  ======================
 public function index()
 {
-     $user = User::findOrFail($user_id)->locations()->get();
+     $user = Location::where('user_id',auth()->user()->id)->get();
      return response()->json($user);
 }
 //======================== create location  ======================
@@ -21,9 +21,9 @@ public function store(Request $request)
 
 try{
 
-$user = User::findOrFail($user_id);
+$location = new Location();
 
-$user->locations()->create([
+$location->create([
    'country' => $request->country,
    'city' => $request->city,
    'address' => $request->address,
@@ -32,12 +32,9 @@ $user->locations()->create([
    'state' => $request->state,
    'lng' => $request->lng,
    'lat' => $request->lat,
-    ]);  
-
-
-$user->save();
+   'user_id' => (auth()->user()->id),
+   ]);  
 return response()->json("location created susseccfully!");
-
 
 } catch(\Illuminate\Database\QueryException $e){
 $errorCode = $e->errorInfo[1];

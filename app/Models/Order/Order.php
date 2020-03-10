@@ -72,6 +72,7 @@ class Order extends Model
 //=============================== Insert Order ================================================
     public static function insertOrder($request)
     {
+        // echo($request->all);
         global $priceInfo;
         global  $couponAmount;
         $productPrice= Product::findOrFail($request->product_id)->price;
@@ -81,6 +82,11 @@ class Order extends Model
         if($request->addon_id){
             $priceInfo=Addon::findOrFail($request->addon_id)->price;
         }
+        if($request->city || $request->countery || $request->address || $request->lat || $request->long){
+            Location::create(['country'=>$request->countery  ,'city'=>$request->city,'address'=>$request->address,
+            'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]);
+        }
+        
         $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
         $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
         'notes','video_length','product_quantity');

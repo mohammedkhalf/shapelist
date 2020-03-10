@@ -143,6 +143,13 @@ return [
 	"management" => "Coupon Management",
 	"main" => "Coupons",
 	],
+	"templates" => [
+	"all" => "All Templates",
+	"create" => "Create Template",
+	"edit" => "Edit Template",
+	"management" => "Template Management",
+	"main" => "Templates",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

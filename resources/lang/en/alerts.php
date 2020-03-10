@@ -79,5 +79,10 @@ return [
 	"deleted" => "The Coupon was successfully deleted.",
 	"updated" => "The Coupon was successfully updated.",
 	],
+	"templates" => [
+	"created" => "The Template was successfully created.",
+	"deleted" => "The Template was successfully deleted.",
+	"updated" => "The Template was successfully updated.",
+	],
 	],
 ];

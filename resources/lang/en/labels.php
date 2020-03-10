@@ -287,21 +287,32 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-				"coupons" => [
-					
-					"create" => "Create Coupon",
-					"edit" => "Edit Coupon",
-					"management" => "Coupon Management",
-					"title" => "Coupons",
+	"coupons" => [
+	"create" => "Create Coupon",
+	"edit" => "Edit Coupon",
+	"management" => "Coupon Management",
+	"title" => "Coupons",
+	"table" => [
+	"id" => "Id",
+	"code" => "code",
+	"amount" => "amount",
+	"quantity" => "quantity",
+	"valid" => "valid",
+	"createdat" => "Created At",
+	],
+	],
+				"templates" => [
+						"create" => "Create Template",
+						"edit" => "Edit Template",
+						"management" => "Template Management",
+						"title" => "Templates",
 
-					"table" => [
-					"id" => "Id",
-					"code" => "code",
-					"amount" => "amount",
-					"quantity" => "quantity",
-					"valid" => "valid",
-					"createdat" => "Created At",
-					],
+						"table" => [
+							"id" => "Id",
+							"name" => "name",
+							"image" => "image",
+							"createdat" => "Created At",
+						],
 				],
 	],
 	"frontend" => [

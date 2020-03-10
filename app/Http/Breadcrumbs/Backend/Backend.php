@@ -22,3 +22,4 @@ require __DIR__.'/Platform.php';
 require __DIR__.'/Status.php';
 require __DIR__.'/Addon.php';
 require __DIR__.'/Coupon.php';
+require __DIR__.'/Template.php';

@@ -35,4 +35,7 @@ return [
 	"coupons" => [
 	"table" => "coupons",
 	],
+	"templates" => [
+	"table" => "templates",
+	],
 ];

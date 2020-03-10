@@ -108,6 +108,10 @@ class TemplatesController extends Controller
      */
     public function destroy(Template $template, DeleteTemplateRequest $request)
     {
+        $image_path = public_path() .  '/storage/templates/' . $template->image;
+        if (file_exists($image_path)) {
+            @unlink($image_path);
+        }
         //Calling the delete method on repository
         $this->repository->delete($template);
         //returning with successfull message

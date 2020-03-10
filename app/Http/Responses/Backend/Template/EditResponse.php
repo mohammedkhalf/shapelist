@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Template\Template
      */
-    protected $templates;
+    protected $template;
 
     /**
      * @param App\Models\Template\Template $templates
      */
-    public function __construct($templates)
+    public function __construct($template)
     {
-        $this->templates = $templates;
+        $this->template = $template;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.templates.edit')->with([
-            'templates' => $this->templates
+            'template' => $this->template
         ]);
     }
 }

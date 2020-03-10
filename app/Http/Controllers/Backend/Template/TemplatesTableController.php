@@ -43,9 +43,8 @@ class TemplatesTableController extends Controller
                 return $template->name;
             })
              ->addColumn('image', function ($template) {
-                // $url= Storage::disk('public')->url('platform/'.$platform->image);
-                // return '<img src='.$url.' border="0" width="40" class="img-rounded" align="center" />';
-                return  $template->image;
+                $url= Storage::disk('public')->url('templates/'.$template->image);
+                return '<img src='.$url.' border="0" width="40" class="img-rounded" align="center" />';
             })
             ->addColumn('created_at', function ($template) {
                 return Carbon::parse($template->created_at)->toDateString();

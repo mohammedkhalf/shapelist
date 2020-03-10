@@ -27,6 +27,9 @@ class StoreTemplateRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
+            'name' => ['string','regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:50'],
+            'image' => ['image','mimes:jpeg,png,jpg','max:50240'],
+
         ];
     }
 

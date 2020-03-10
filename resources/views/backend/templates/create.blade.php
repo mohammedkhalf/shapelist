@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    {{ Form::open(['route' => 'admin.templates.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'id' => 'create-template']) }}
+    {{ Form::open(['route' => 'admin.templates.store', 'class' => 'form-horizontal', 'files'=>'true' ,  'role' => 'form', 'method' => 'post', 'id' => 'create-template']) }}
 
         <div class="box box-info">
             <div class="box-header with-border">
@@ -22,9 +22,25 @@
             </div><!--box-header with-border-->
 
             <div class="box-body">
+
                 <div class="form-group">
-                    {{-- Including Form blade file --}}
-                    @include("backend.templates.form")
+                    {{ Form::label('name', trans('labels.backend.templates.table.name'), ['class' => 'col-lg-2 control-label required']) }} 
+                    <div class="col-lg-10">
+                    {{ Form::text('name', old('name'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.templates.table.name'), 'required' => 'required']) }}
+                    </div><!--col-lg-10-->
+                </div><!--form-group-->
+
+                <div class="form-group">
+
+                    {{ Form::label('image', trans('labels.backend.templates.table.image'), ['class' => 'col-lg-2 control-label required']) }} 
+                    <div class="col-lg-10">
+                        {!! Form::file('image',array('class'=>'form-control inputfile inputfile-1' , 'required' => 'required')) !!} <br/>
+
+                    </div><!--col-lg-10-->
+                </div><!--form-group-->
+                
+                <div class="form-group">
+                    
                     <div class="edit-form-btn">
                         {{ link_to_route('admin.templates.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                         {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-primary btn-md']) }}

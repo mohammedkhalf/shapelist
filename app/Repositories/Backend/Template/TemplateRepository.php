@@ -46,9 +46,11 @@ class TemplateRepository extends BaseRepository
      */
     public function create(array $input)
     {
-        if (Template::create($input)) {
+        $template = Template::insertTemplate($input);
+        if (!is_null($template)) {
             return true;
         }
+
         throw new GeneralException(trans('exceptions.backend.templates.create_error'));
     }
 
@@ -62,8 +64,11 @@ class TemplateRepository extends BaseRepository
      */
     public function update(Template $template, array $input)
     {
-    	if ($template->update($input))
+        $template = Template::updateTemplate($template,$input);
+
+        if (!is_null($template)) {
             return true;
+        }
 
         throw new GeneralException(trans('exceptions.backend.templates.update_error'));
     }

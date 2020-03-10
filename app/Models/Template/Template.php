@@ -67,4 +67,55 @@ class Template extends Model
     {
         parent::__construct($attributes);
     }
+
+
+    public static function insertTemplate($request)
+    {
+        if(!empty($request['image']))
+        {
+            // Get filename with the extension
+            $filenameWithExt = $request['image']->getClientOriginalName();
+            // dd($filenameWithExt);
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request['image']->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request['image']->storeAs('public/templates', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $template = Template::create(['name'=> $request['name'] , 'image'=>$fileNameToStore]);
+        return  $template;
+
+    }
+
+    public static function updateTemplate($template,$request)
+    {
+        if(!empty($request['image']))
+        {
+            $old_image_path = public_path() .  '/storage/templates/' . $template->image;  // prev image path
+            if (file_exists($old_image_path)) {
+                @unlink($old_image_path);
+            }
+            // Get filename with the extension
+            $filenameWithExt = $request['image']->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request['image']->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request['image']->storeAs('public/templates', $fileNameToStore);
+
+            $template->update(['name'=> $request['name'] , 'image'=>$fileNameToStore]);
+        } 
+
+        $template->update(['name'=> $request['name']]);
+
+        return $template;
+    }
 }

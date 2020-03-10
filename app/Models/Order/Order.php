@@ -101,7 +101,12 @@ class Order extends Model
         return $OrderInfo;
     }
 //=============================== update Order ================================================
+public static function updateOrder($request,$id){
+$order = Order::findOrFail($id);
 
+return $order;
+}
 
+//==============================================================================================
 
 }

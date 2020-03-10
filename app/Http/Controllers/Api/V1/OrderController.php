@@ -45,9 +45,9 @@ class OrderController extends APIController
         }
         //======================== update order  ======================
 
-        public function update($id)
+        public function update(Request $request, $id)
         {
-            $order = Order::findOrFail($id);
+            $order=Order::updateOrder($request,$id); 
             return response()->json($order);
         }
         //======================== delete order  ======================

@@ -22,8 +22,6 @@ class AddonController extends APIController
          $addon = $request->only('name','type','price');
          Addon::create($addon);
         return response()->json($addon);
-
-
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == '1062'){
@@ -39,19 +37,14 @@ class AddonController extends APIController
         return response()->json($addon);
     }
 
-
     //======================== update addon  ======================
 
     public function update(Request $request, $id)
     {
-
-                    $addon = Addon::findOrFail($id);
-                    $addon->name= $request->name;
-                    $addon->type= $request->type;
-                    $addon->price= $request->price;
-                    $addon->save();
-
-                    return response()->json($addon);
+        $addon = Addon::findOrFail($id);
+        $addonData = $request->only('name','type','price');
+        $addon->update($addonData);
+        return response()->json($addon);
                  }
 
     //======================== delete addon  ======================

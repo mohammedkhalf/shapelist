@@ -93,10 +93,8 @@ class Order extends Model
         }
         if($request->city || $request->countery || $request->address || $request->lat || $request->long){
             Location::create(['country'=>$request->countery  ,'city'=>$request->city,'address'=>$request->address,
-            'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]);
-        }
+            'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); }
         $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
-
         $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
         'notes','video_length','product_quantity');
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);

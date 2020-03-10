@@ -47,8 +47,8 @@ class OrderController extends APIController
 
         public function update(Request $request, $id)
         {
-            $order=Order::updateOrder($request,$id); 
-            return response()->json($order);
+            $order=Order::updateOrder($request,$id);
+            return response()->json("updated successfully!");
         }
         //======================== delete order  ======================
 

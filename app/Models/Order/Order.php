@@ -103,9 +103,23 @@ class Order extends Model
 //=============================== update Order ================================================
 public static function updateOrder($request,$id){
 $order = Order::findOrFail($id);
-
-return $order;
-}
+if($request->hasFile('logo')){
+    $filenameWithExt = $request->file('logo')->getClientOriginalName();
+    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    $extension = $request->file('logo')->getClientOriginalExtension();
+    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+    $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
+else {
+    $order = Order::findOrFail($id);
+    $fileNameToStore = $order->logo;}    
+    $updateData = $request->only('platform_id','music_id','template_id',
+    'notes','video_length','product_quantity');
+    $updateOrder = array_merge($updateData , ['logo' => $fileNameToStore]);
+    //Selection::whereId($id)->update($updateOrder);
+    $order->update($updateOrder);
+    //print_r($updateOrder);die;
+   //return $updateOrder;
+ }
 
 //==============================================================================================
 

@@ -72,7 +72,6 @@ class Order extends Model
 //=============================== Insert Order ================================================
     public static function insertOrder($request)
     {
-        // echo($request->all);
         global $priceInfo;
         global  $couponAmount;
         $productPrice= Product::findOrFail($request->product_id)->price;
@@ -93,7 +92,5 @@ class Order extends Model
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'user_id'=>auth()->guard('api')->user()->id]);
         return $OrderInfo;
     }
-
-
 
 }

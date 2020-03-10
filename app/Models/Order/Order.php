@@ -102,7 +102,19 @@ class Order extends Model
     }
 //=============================== update Order ================================================
 public static function updateOrder($request,$id){
+    global $priceInfo;
+    global  $couponAmount;
+
 $order = Order::findOrFail($id);
+$productPrice= Product::findOrFail($order->product_id)->price;
+if($request->coupon_code){
+   $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+    if ($coupon->valid == 1){
+    $couponAmount=$coupon->amount;
+    }else{echo("invaild coupon code!"); die;}}
+if($request->addon_id){
+    $priceInfo=Addon::findOrFail($request->addon_id)->price;
+}
 if($request->hasFile('logo')){
     $filenameWithExt = $request->file('logo')->getClientOriginalName();
     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -111,14 +123,12 @@ if($request->hasFile('logo')){
     $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
 else {
     $order = Order::findOrFail($id);
-    $fileNameToStore = $order->logo;}    
-    $updateData = $request->only('platform_id','music_id','template_id',
+    $fileNameToStore = $order->logo;}  
+    $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );  
+    $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
     'notes','video_length','product_quantity');
-    $updateOrder = array_merge($updateData , ['logo' => $fileNameToStore]);
-    //Selection::whereId($id)->update($updateOrder);
+    $updateOrder = array_merge($updateData ,  ['total_price'=> $total_price ,'logo' => $fileNameToStore]);
     $order->update($updateOrder);
-    //print_r($updateOrder);die;
-   //return $updateOrder;
  }
 
 //==============================================================================================

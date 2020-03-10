@@ -23,7 +23,7 @@ class Order extends Model
      'product_id','platform_id','addon_id',
         'music_id','status_id','products_quantity','video_length'
        ,'notes','product_price','template_id'
-       ,'image','user_id','coupon_code','product_price','total_price'
+       ,'logo','user_id','coupon_code','product_price','total_price'
     ];
  //====================================== Relationships =======================================
  public function users()
@@ -74,6 +74,14 @@ class Order extends Model
     {
         global $priceInfo;
         global  $couponAmount;
+
+        if($request->hasFile('logo')){
+            $filenameWithExt = $request->file('logo')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
+
         $productPrice= Product::findOrFail($request->product_id)->price;
         if($request->coupon_code){
            $couponAmount = Coupon::where('code','=',$request->coupon_code)->first()->amount;
@@ -85,11 +93,10 @@ class Order extends Model
             Location::create(['country'=>$request->countery  ,'city'=>$request->city,'address'=>$request->address,
             'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]);
         }
-        
         $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
         $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
         'notes','video_length','product_quantity');
-        $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'user_id'=>auth()->guard('api')->user()->id]);
+        $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
         return $OrderInfo;
     }
 

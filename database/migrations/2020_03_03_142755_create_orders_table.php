@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('coupon_code');
             $table->integer('product_quantity')->default(1);
             $table->decimal('total_price', 8, 2);	//with extra addons
-            // $table->string('image')->nullable();      
+            $table->string('logo')->nullable();      
             $table->integer('video_length')->default(10);  //hint fro user
             $table->longText('notes')->nullable();
             $table->timestamps();

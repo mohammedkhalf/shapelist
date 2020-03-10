@@ -65,10 +65,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //Music Samples
         Route::apiResource('/music_samples', 'MusicSamplesController'); 
         //Locations
-        Route::apiResource('users/{user_id}/locations', 'LocationController');
+        Route::apiResource('locations', 'LocationController');
         //Orders
-        Route::apiResource('users/{user_id}/orders', 'OrderController');
-
+        Route::apiResource('orders', 'OrderController');
 
     });
 

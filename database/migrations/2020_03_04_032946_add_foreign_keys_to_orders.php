@@ -19,8 +19,6 @@ class AddForeignKeysToOrders extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('CASCADE');
             $table->foreign('addon_id')->references('id')->on('addons')->onDelete('CASCADE');
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('CASCADE');
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('CASCADE');
             $table->foreign('music_id')->references('id')->on('music_samples')->onDelete('CASCADE');           
         });
     }
@@ -38,8 +36,6 @@ class AddForeignKeysToOrders extends Migration
             $table->dropForeign('orders_product_id_foreign');
             $table->dropForeign('orders_platform_id_foreign');
             $table->dropForeign('orders_addon_id_foreign');
-            $table->dropForeign('orders_location_id_foreign');
-            $table->dropForeign('orders_coupon_id_foreign');
             $table->dropForeign('orders_music_id_foreign');
 
         });

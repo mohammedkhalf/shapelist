@@ -18,42 +18,44 @@ use Illuminate\Http\Request;
 class OrderController extends APIController
 {
     
- //======================== index orders  ======================
- public function index($user_id)
-{
-     $orders = Order::where('user_id',$user_id)->get();
-     return response()->json($orders);
-} 
- //======================== create order  ======================
- public function store($user_id,Request $request)
- {
-    Order::insertOrder($user_id, $request); 
-    
-           
+        //======================== index orders  ======================
+        public function index(Request $request)
+        {
+            $orders = Order::where('user_id',auth()->user()->id)->get();
+            return response()->json($orders);
+        } 
+        //======================== create order  ======================
+        public function store(Request $request)
+        {
+            $OrderInfo=Order::insertOrder($request); 
+           if(Order::where(['product_id' => $OrderInfo['product_id'] , 'status_id'=> 1])->first() ) {
+            return response()->json(['message'=>'This Order is Already Exist']); 
+            }
+            else{
+                Order::create($OrderInfo);
+                return response()->json(['message' => 'Order Created Successfully']);
+            }
+        }
+        //======================== show order  ======================
 
+        public function show($id)
+        {
+            $order = Order::findOrFail($id);
+            return response()->json($order);
+        }
+        //======================== update order  ======================
 
- }
- //======================== show order  ======================
+        public function update($id)
+        {
+            $order = Order::findOrFail($id);
+            return response()->json($order);
+        }
+        //======================== delete order  ======================
 
-public function show($user_id ,$id)
-{
-    $order = Order::findOrFail($id);
-    return response()->json($order);
-}
-//======================== update order  ======================
-
-public function update($user_id,Request $request, $id)
-{
-    $order = Order::findOrFail($id);
-     return response()->json($order);
- }
- //======================== delete order  ======================
-
-public function destroy($user_id ,$id)
-{
-$order = Order::findOrFail($id);
-$order->delete();  
-return response()->json("deleted successfully");
-
-}
+        public function destroy($id)
+        {
+            $order = Order::findOrFail($id);
+            $order->delete();  
+            return response()->json("deleted successfully");
+        }
 }

@@ -19,20 +19,15 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned()->nullable();
             $table->integer('platform_id')->unsigned()->nullable();
-            $table->integer('addon_id')->unsigned()->nullable();
-            $table->integer('location_id')->unsigned()->nullable();           
-            $table->integer('coupon_id')->unsigned()->nullable();   
+            $table->integer('addon_id')->unsigned()->nullable();                      
             $table->integer('music_id')->unsigned()->nullable();    
-            $table->integer('status_id')->unsigned()->nullable();             
-            $table->integer('template_id')->unsigned()->nullable();             
-
-
-            $table->decimal('product_price', 8, 2);	 //product only
+            $table->integer('status_id')->unsigned()->default(1);             
+            $table->integer('template_id')->unsigned()->nullable();  
+            $table->string('coupon_code');
+            $table->integer('product_quantity')->default(1);
             $table->decimal('total_price', 8, 2);	//with extra addons
-
-            $table->string('image')->nullable();      
-            $table->integer('products_quantity')->default(1);
-            $table->integer('video_length')->default(10);
+            // $table->string('image')->nullable();      
+            $table->integer('video_length')->default(10);  //hint fro user
             $table->longText('notes')->nullable();
             $table->timestamps();
 

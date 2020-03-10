@@ -84,8 +84,10 @@ class Order extends Model
 
         $productPrice= Product::findOrFail($request->product_id)->price;
         if($request->coupon_code){
-           $couponAmount = Coupon::where('code','=',$request->coupon_code)->first()->amount;
-        }
+           $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+            if ($coupon->valid == 1){
+            $couponAmount=$coupon->amount;
+            }else{echo("invaild coupon code!"); die;}}
         if($request->addon_id){
             $priceInfo=Addon::findOrFail($request->addon_id)->price;
         }
@@ -94,6 +96,7 @@ class Order extends Model
             'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]);
         }
         $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
+
         $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
         'notes','video_length','product_quantity');
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);

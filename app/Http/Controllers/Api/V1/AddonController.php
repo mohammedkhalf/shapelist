@@ -19,12 +19,8 @@ class AddonController extends APIController
     {
 
     try{
-
-        $addon = new Addon;
-        $addon->name= $request->name;
-        $addon->type= $request->type;
-        $addon->price= $request->price;
-        $addon->save();
+         $addon = $request->only('name','type','price');
+         Addon::create($addon);
         return response()->json($addon);
 
 

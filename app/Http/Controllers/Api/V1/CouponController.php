@@ -19,16 +19,9 @@ class CouponController extends APIController
     {
 
     try{
-        $coupon = new Coupon;
-        $coupon->code= $request->code;
-        $coupon->amount= $request->amount;
-        $coupon->quantity= $request->quantity;
-       // $coupon->valid= $request->valid;
-
-        $coupon->save();
+        $coupon = $request->only('code','amount','quantity');
+        Coupon::create($coupon);
         return response()->json($coupon);
-
-
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == '1062'){

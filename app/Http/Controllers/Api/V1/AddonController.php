@@ -44,7 +44,12 @@ class AddonController extends APIController
     //======================== update addon  ======================
 
     public function update(Request $request, $id)
-    {
+    { 
+        $this->validate($request,[
+        'name'=> 'required|unique:addons',
+        'type'=> 'required',
+        'price'=> 'required',
+        ]);
         $addon = Addon::findOrFail($id);
         $addonData = $request->only('name','type','price');
         $addon->update($addonData);

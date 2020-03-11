@@ -20,7 +20,7 @@ class MusicSamplesController extends APIController
         $this->validate($request,[
             'name'=> 'required|unique:music_samples',
             'type'=> 'required',
-            'url'=> ' required',
+            'url'=> 'required|mimes:mpga,ogg',
 
             ]);
     try{

@@ -17,7 +17,11 @@ class AddonController extends APIController
     //======================== create addon  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'name'=> 'required',
+            'type'=> 'required',
+            'price'=> 'required',
+            ]);
     try{
          $addon = $request->only('name','type','price');
          Addon::create($addon);

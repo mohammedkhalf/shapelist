@@ -21,7 +21,7 @@ class ProductController extends APIController
         $this->validate($request,[
             'name'=> 'required|unique:products',
             'price'=> ' required|regex:/^\d+(\.\d{1,2})?$/',
-
+            'image'=> 'required|image|nullable|max:1999'
             ]);
     try{
         if($request->hasFile('image')){

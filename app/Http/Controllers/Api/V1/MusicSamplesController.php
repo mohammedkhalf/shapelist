@@ -21,7 +21,6 @@ class MusicSamplesController extends APIController
             'name'=> 'required|unique:music_samples',
             'type'=> 'required',
             'url'=> 'required|mimes:mpga,ogg',
-
             ]);
     try{
         if($request->hasFile('url')){
@@ -65,7 +64,12 @@ class MusicSamplesController extends APIController
     //======================== update music_sample  ======================
 
     public function update(Request $request, $id)
-    {
+    { 
+        $this->validate($request,[
+        'name'=> 'required|unique:music_samples',
+        'type'=> 'required',
+        'url'=> 'required|mimes:mpga,ogg',
+        ]);
         if($request->hasFile('url')){
             // Get filename with the extension
             $filenameWithExt = $request->file('url')->getClientOriginalName();

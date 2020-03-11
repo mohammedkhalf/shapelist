@@ -18,7 +18,11 @@ class PlatformController extends APIController
     //======================== create platform  ======================
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=> 'required',
+            'image'=> ' required',
 
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension

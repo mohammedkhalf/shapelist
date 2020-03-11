@@ -78,11 +78,9 @@ class ProductController extends APIController
         }    
               
                     $product = Product::findOrFail($id);
-                    $product->name= $request->name;
-                    $product->description= $request->description;
-                    $product->image= $fileNameToStore;
-                    $product->price= $request->price;
-                    $product->save();
+                    $data = $request->only('name','description','price');
+                    $productData = array_merge($data ,  ['image' => $fileNameToStore]);
+                    $product->update($productData);
 
                     return response()->json($product);
                  }

@@ -66,6 +66,11 @@ class TemplateController extends APIController
 
     public function update(Request $request, $id)
     {
+        
+        $this->validate($request,[
+            'name'=> 'required|unique:templates',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
         if($request->hasFile('image')){
             // Get filename with the extension
             $filenameWithExt = $request->file('image')->getClientOriginalName();

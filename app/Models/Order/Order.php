@@ -147,7 +147,10 @@ if($request->hasFile('logo')){
     $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
 else {
     $order = Order::findOrFail($id);
-    $fileNameToStore = $order->logo;}  
+    $fileNameToStore = $order->logo;} 
+    if($request->city || $request->countery || $request->address || $request->lat || $request->long){
+        Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
+        'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); } 
     $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );  
     $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
     'notes','video_length','product_quantity');

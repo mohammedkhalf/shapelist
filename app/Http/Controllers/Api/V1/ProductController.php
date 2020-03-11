@@ -65,6 +65,12 @@ class ProductController extends APIController
 
     public function update(Request $request, $id)
     {
+        
+        $this->validate($request,[
+            'name'=> 'required|unique:products',
+            'price'=> ' required|regex:/^\d+(\.\d{1,2})?$/',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
         if($request->hasFile('image')){
             // Get filename with the extension
             $filenameWithExt = $request->file('image')->getClientOriginalName();

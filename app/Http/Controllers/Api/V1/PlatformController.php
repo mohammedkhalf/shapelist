@@ -79,10 +79,9 @@ class PlatformController extends APIController
         }    
               
                     $platform = Platform::findOrFail($id);
-                    $platform->name= $request->name;
-                    $platform->image= $fileNameToStore;
-                    $platform->save();
-
+                    $data = $request->only('name');
+                    $platformData = array_merge($data ,  ['image' => $fileNameToStore]);
+                    $platform->update($platformData);
                     return response()->json($platform);
                  }
 

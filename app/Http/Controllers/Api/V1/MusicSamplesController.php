@@ -35,11 +35,9 @@ class MusicSamplesController extends APIController
         }
 
 
-        $music_sample = new MusicSample;
-        $music_sample->name= $request->name;
-        $music_sample->type= $request->type;
-        $music_sample->url= $fileNameToStore;
-        $music_sample->save();
+        $data = $request->only('name','type');
+        $musicData = array_merge($data ,  ['url' => $fileNameToStore]);
+        MusicSample::create($musicData);
         return response()->json($music_sample);
 
 

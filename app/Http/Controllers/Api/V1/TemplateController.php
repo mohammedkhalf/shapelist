@@ -18,6 +18,11 @@ class TemplateController extends APIController
     //======================== create Position  ======================
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'name'=> 'required|unique:templates',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension

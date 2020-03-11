@@ -120,6 +120,13 @@ return [
 	"not_found" => "That Template does not exist.",
 	"update_error" => "There was a problem updating this Template. Please try again.",
 	],
+	"musicsamples" => [
+	"already_exists" => "That MusicSample already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this MusicSample. Please try again.",
+	"delete_error" => "There was a problem deleting this MusicSample. Please try again.",
+	"not_found" => "That MusicSample does not exist.",
+	"update_error" => "There was a problem updating this MusicSample. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

@@ -301,18 +301,32 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-				"templates" => [
-						"create" => "Create Template",
-						"edit" => "Edit Template",
-						"management" => "Template Management",
-						"title" => "Templates",
+	"templates" => [
+	"create" => "Create Template",
+	"edit" => "Edit Template",
+	"management" => "Template Management",
+	"title" => "Templates",
+	"table" => [
+	"id" => "Id",
+	"name" => "name",
+	"image" => "image",
+	"createdat" => "Created At",
+	],
+	],
+				"musicsamples" => [
 
-						"table" => [
-							"id" => "Id",
-							"name" => "name",
-							"image" => "image",
-							"createdat" => "Created At",
-						],
+					"create" => "Create MusicSample",
+					"edit" => "Edit MusicSample",
+					"management" => "MusicSample Management",
+					"title" => "MusicSamples",
+
+					"table" => [
+						"id" => "Id",
+						"name"=>"name",
+						"type"=>"type",
+						"url"=>"audioPlayer",   //audio player == url
+						"createdat" => "Created At",
+					],
 				],
 	],
 	"frontend" => [

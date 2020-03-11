@@ -38,4 +38,7 @@ return [
 	"templates" => [
 	"table" => "templates",
 	],
+	"musicsamples" => [
+	"table" => "music_samples",
+	],
 ];

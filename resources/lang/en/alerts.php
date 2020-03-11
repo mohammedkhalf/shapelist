@@ -84,5 +84,10 @@ return [
 	"deleted" => "The Template was successfully deleted.",
 	"updated" => "The Template was successfully updated.",
 	],
+	"musicsamples" => [
+	"created" => "The MusicSample was successfully created.",
+	"deleted" => "The MusicSample was successfully deleted.",
+	"updated" => "The MusicSample was successfully updated.",
+	],
 	],
 ];

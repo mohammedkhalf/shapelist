@@ -150,6 +150,13 @@ return [
 	"management" => "Template Management",
 	"main" => "Templates",
 	],
+	"musicsamples" => [
+	"all" => "All MusicSamples",
+	"create" => "Create MusicSample",
+	"edit" => "Edit MusicSample",
+	"management" => "MusicSample Management",
+	"main" => "MusicSamples",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

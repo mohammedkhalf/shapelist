@@ -76,11 +76,13 @@ class TemplateController extends APIController
             $position = Template::findOrFail($id);
             $fileNameToStore = $position->image;
         }    
-                    $position = Template::findOrFail($id);
-                    $position->name= $request->name;
-                    $position->image= $request->image;
-                    $position->save();
-                    return response()->json($position);
+
+
+        $position = Template::findOrFail($id);
+        $data = $request->only('name');
+        $positionData = array_merge($data ,  ['image' => $fileNameToStore]);
+        $position->update($positionData);
+        return response()->json($position);
                  }
 
     //======================== delete Position  ======================

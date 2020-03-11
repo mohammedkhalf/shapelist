@@ -18,7 +18,10 @@ public function index()
 //======================== create location  ======================
 public function store(Request $request)
 {
-
+   $this->validate($request,[
+      'country'=> 'required',
+      'city'=> 'required',
+      ]);
 try{
 
 $location = new Location();

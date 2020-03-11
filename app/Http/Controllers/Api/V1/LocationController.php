@@ -55,18 +55,9 @@ public function update(Request $request, $id)
 {
 
        $location = Location::findOrFail($id);
-       $location->country= $request->country;
-       $location->city= $request->city;
-       $location->address= $request->address;
-       $location->postal_code= $request->postal_code;
-       $location->unit_no= $request->unit_no;
-       $location->state= $request->state;
-       $location->lng= $request->lng;
-       $location->lat= $request->lat;
-
-             $location->save();
-
-             return response()->json($location);
+       $locationData = $request->only('country','city','address','unit_no','postal_code','state','lng','lat');
+       $location->update($locationData);
+       return response()->json($location);
           }
 
 //======================== delete location  ======================

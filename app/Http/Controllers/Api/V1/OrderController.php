@@ -28,13 +28,8 @@ class OrderController extends APIController
         public function store(Request $request)
         {
             $OrderInfo=Order::insertOrder($request); 
-           if(Order::where(['product_id' => $OrderInfo['product_id'] , 'status_id'=> 1])->first() ) {
-            return response()->json(['message'=>'This Order is Already Exist']); 
-            }
-            else{
-                Order::create($OrderInfo);
-                return response()->json(['message' => 'Order Created Successfully']);
-            }
+             Order::create($OrderInfo);
+             return response()->json(['message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 
@@ -45,10 +40,10 @@ class OrderController extends APIController
         }
         //======================== update order  ======================
 
-        public function update($id)
+        public function update(Request $request, $id)
         {
-            $order = Order::findOrFail($id);
-            return response()->json($order);
+            $order=Order::updateOrder($request,$id);
+            return response()->json("updated successfully!");
         }
         //======================== delete order  ======================
 

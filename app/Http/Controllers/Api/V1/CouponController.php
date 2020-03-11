@@ -19,16 +19,9 @@ class CouponController extends APIController
     {
 
     try{
-        $coupon = new Coupon;
-        $coupon->code= $request->code;
-        $coupon->amount= $request->amount;
-        $coupon->quantity= $request->quantity;
-       // $coupon->valid= $request->valid;
-
-        $coupon->save();
+        $coupon = $request->only('code','amount');
+        Coupon::create($coupon);
         return response()->json($coupon);
-
-
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == '1062'){
@@ -50,14 +43,10 @@ class CouponController extends APIController
     public function update(Request $request, $id)
     {
        
-                    $coupon = Coupon::findOrFail($id);
-                    $coupon->code= $request->code;
-                    $coupon->amount= $request->amount;
-                    $coupon->quantity= $request->quantity;
-                    $coupon->valid= $request->valid;
-                    $coupon->save();
-                    return response()->json($coupon);
-                 }
+        $coupon = Coupon::findOrFail($id);
+        $couponData = $request->only('code','amount','valid');
+        $coupon->update($couponData);
+        return response()->json($coupon); }
 
     //======================== delete coupon  ======================
 

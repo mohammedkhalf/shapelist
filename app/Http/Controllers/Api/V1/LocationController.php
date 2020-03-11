@@ -56,7 +56,10 @@ public function show($id)
 
 public function update(Request $request, $id)
 {
-
+   $this->validate($request,[
+      'country'=> 'required',
+      'city'=> 'required',
+      ]);
        $location = Location::findOrFail($id);
        $locationData = $request->only('country','city','address','unit_no','postal_code','state','lng','lat');
        $location->update($locationData);

@@ -18,7 +18,11 @@ class ProductController extends APIController
     //======================== create product  ======================
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=> 'required|unique:products',
+            'price'=> ' required|regex:/^\d+(\.\d{1,2})?$/',
 
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension

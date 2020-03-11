@@ -83,6 +83,7 @@ class Order extends Model
             'template_id'=> 'exists:templates,id',
             'coupon_code'=> 'exists:coupons,code',
             'product_quantity'=> 'required|integer',
+            'video_length'=> 'integer',
             ]);
         global $priceInfo;
         global  $couponAmount;
@@ -125,6 +126,7 @@ public static function updateOrder($request,$id){
         'template_id'=> 'exists:templates,id',
         'coupon_code'=> 'exists:coupons,code',
         'product_quantity'=> 'required|integer',
+        'video_length'=> 'integer',
         ]);
     global $priceInfo;
     global  $couponAmount;

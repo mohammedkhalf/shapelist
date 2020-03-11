@@ -127,6 +127,13 @@ return [
 	"not_found" => "That MusicSample does not exist.",
 	"update_error" => "There was a problem updating this MusicSample. Please try again.",
 	],
+	"locations" => [
+	"already_exists" => "That Location already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Location. Please try again.",
+	"delete_error" => "There was a problem deleting this Location. Please try again.",
+	"not_found" => "That Location does not exist.",
+	"update_error" => "There was a problem updating this Location. Please try again.",
+	],
 	],
 	"frontend" => [
 	"auth" => [

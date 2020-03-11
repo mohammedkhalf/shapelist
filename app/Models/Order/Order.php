@@ -74,31 +74,38 @@ class Order extends Model
     {
         global $priceInfo;
         global  $couponAmount;
+        global $fileNameToStore;
 
-        if($request->hasFile('logo')){
-            $filenameWithExt = $request->file('logo')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('logo')->getClientOriginalExtension();
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
+            if($request->hasFile('logo'))
+            {
+                $filenameWithExt = $request->file('logo')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('logo')->getClientOriginalExtension();
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
+            }
 
-        $productPrice= Product::findOrFail($request->product_id)->price;
-        if($request->coupon_code){
-           $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-            if ($coupon->valid == 1){
-            $couponAmount=$coupon->amount;
-            }else{echo("invaild coupon code!"); die;}}
-        if($request->addon_id){
-            $priceInfo=Addon::findOrFail($request->addon_id)->price;
-        }
-        if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-            Location::create(['country'=>$request->countery  ,'city'=>$request->city,'address'=>$request->address,
-            'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); }
-        $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
-        $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
-        'notes','video_length','product_quantity');
-        $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
-        return $OrderInfo;
+            $productPrice= Product::findOrFail($request->product_id)->price;
+            if($request->coupon_code){
+            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+                if ($coupon->valid == 1){$couponAmount=$coupon->amount;}
+                else{echo("invaild coupon code!"); die;}
+            }
+            if($request->addon_id){
+                $priceInfo=Addon::findOrFail($request->addon_id)->price;
+            }
+            $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
+            $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
+            'notes','video_length','product_quantity');
+            $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
+            $OrderData = Order::create($OrderInfo);
+            if($request->city || $request->countery || $request->address || $request->lat || $request->long){
+                Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
+                'lat'=>$request->lat,'lng'=>$request->long, 'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]); }
+            return $OrderInfo;
+        
+       
+      
     }
 //=============================== update Order ================================================
 public static function updateOrder($request,$id){

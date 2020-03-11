@@ -89,5 +89,10 @@ return [
 	"deleted" => "The MusicSample was successfully deleted.",
 	"updated" => "The MusicSample was successfully updated.",
 	],
+	"locations" => [
+	"created" => "The Location was successfully created.",
+	"deleted" => "The Location was successfully deleted.",
+	"updated" => "The Location was successfully updated.",
+	],
 	],
 ];

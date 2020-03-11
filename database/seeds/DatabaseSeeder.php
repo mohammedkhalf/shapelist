@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PlatformsTableSeeder::class);
         $this->call(AddonsTableSeeder::class); 
         $this->call(CouponsTableSeeder::class);
-        $this->call(TemplateTableSeeder::class);
+        $this->call(TemplateTableSeeder::class); 
+        $this->call(LocationsTableSeeder::class);  
+        $this->call(MusicSamplesTableSeeder::class);  
         Model::reguard();
     }
 }

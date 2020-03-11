@@ -36,12 +36,11 @@ class PlatformController extends APIController
         }
 
 
-        $platform = new Platform;
-        $platform->name= $request->name;
-        $platform->image= $fileNameToStore;
-        $platform->save();
-        return response()->json($platform);
 
+        $data = $request->only('name');
+        $platformData = array_merge($data ,  ['image' => $fileNameToStore]);
+        Platform::create($platformData);
+        return response()->json($platformData);
 
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];

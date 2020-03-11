@@ -72,6 +72,18 @@ class Order extends Model
 //=============================== Insert Order ================================================
     public static function insertOrder($request)
     {
+        $request->validate([
+            'logo'=> 'image|nullable|max:1999',
+            'city'=> 'required',
+            'country'=> 'required',
+            'product_id'=> 'required|exists:products,id',
+            'platform_id'=> 'exists:platforms,id',
+            'addon_id'=> 'exists:addons,id',
+            'music_id'=> 'exists:music_samples,id',
+            'template_id'=> 'exists:templates,id',
+            'coupon_code'=> 'exists:coupons,code',
+            'product_quantity'=> 'required|integer',
+            ]);
         global $priceInfo;
         global  $couponAmount;
 
@@ -92,7 +104,7 @@ class Order extends Model
             $priceInfo=Addon::findOrFail($request->addon_id)->price;
         }
         if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-            Location::create(['country'=>$request->countery  ,'city'=>$request->city,'address'=>$request->address,
+            Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
             'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); }
         $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
         $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
@@ -102,6 +114,18 @@ class Order extends Model
     }
 //=============================== update Order ================================================
 public static function updateOrder($request,$id){
+    $request->validate([
+        'logo'=> 'image|nullable|max:1999',
+        'city'=> 'required',
+        'country'=> 'required',
+        'product_id'=> 'required|exists:products,id',
+        'platform_id'=> 'exists:platforms,id',
+        'addon_id'=> 'exists:addons,id',
+        'music_id'=> 'exists:music_samples,id',
+        'template_id'=> 'exists:templates,id',
+        'coupon_code'=> 'exists:coupons,code',
+        'product_quantity'=> 'required|integer',
+        ]);
     global $priceInfo;
     global  $couponAmount;
 

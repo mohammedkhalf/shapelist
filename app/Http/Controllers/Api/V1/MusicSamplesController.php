@@ -17,7 +17,12 @@ class MusicSamplesController extends APIController
     //======================== create music_samples  ======================
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=> 'required',
+            'type'=> 'required',
+            'url'=> ' required',
 
+            ]);
     try{
         if($request->hasFile('url')){
             // Get filename with the extension

@@ -22,7 +22,7 @@ class Order extends Model
     protected $fillable = [
      'product_id','platform_id','addon_id',
         'music_id','status_id','products_quantity','video_length'
-       ,'notes','product_price','template_id'
+       ,'notes','product_price','template_id','product_quantity'
        ,'logo','user_id','coupon_code','product_price','total_price'
     ];
  //====================================== Relationships =======================================

@@ -35,13 +35,9 @@ class ProductController extends APIController
             $fileNameToStore = 'noimage.jpg';
         }
 
-
-        $product = new Product;
-        $product->name= $request->name;
-        $product->description= $request->description;
-        $product->image= $fileNameToStore;
-        $product->price= $request->price;
-        $product->save();
+        $data = $request->only('name','description','price');
+        $product = array_merge($data ,  ['image' => $fileNameToStore]);
+        Product::create($product);
         return response()->json($product);
 
 

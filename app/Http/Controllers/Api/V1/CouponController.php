@@ -17,7 +17,10 @@ class CouponController extends APIController
     //======================== create coupon  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'code'=> 'required',
+            'amount'=> 'required',
+            ]);
     try{
         $coupon = $request->only('code','amount');
         Coupon::create($coupon);

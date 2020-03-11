@@ -18,7 +18,7 @@ class CouponController extends APIController
     public function store(Request $request)
     {
         $this->validate($request,[
-            'code'=> 'required',
+            'code'=> 'required|unique:coupons',
             'amount'=> 'required',
             ]);
     try{

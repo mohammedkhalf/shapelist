@@ -19,7 +19,7 @@ class PlatformController extends APIController
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'=> 'required',
+            'name'=> 'required|unique:platforms',
             'image'=> ' required',
 
             ]);

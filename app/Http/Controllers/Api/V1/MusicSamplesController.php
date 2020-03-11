@@ -18,7 +18,7 @@ class MusicSamplesController extends APIController
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'=> 'required',
+            'name'=> 'required|unique:music_samples',
             'type'=> 'required',
             'url'=> ' required',
 

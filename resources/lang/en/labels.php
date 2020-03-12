@@ -348,7 +348,11 @@ return [
 						"title" => "Orders",
 						
 						"table" => [
-						"id" => "Id",
+						"orderId" => "Id",
+						"userName" => "user name",
+						"platform" => 'platform',
+						"product" => "product",
+						"quantity" => "quantity",
 						"createdat" => "Created At",
 						],
 					],

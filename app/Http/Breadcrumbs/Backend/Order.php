@@ -14,3 +14,8 @@ Breadcrumbs::register('admin.orders.edit', function ($breadcrumbs, $id) {
     $breadcrumbs->parent('admin.orders.index');
     $breadcrumbs->push(trans('menus.backend.orders.edit'), route('admin.orders.edit', $id));
 });
+
+Breadcrumbs::register('admin.orders.view', function ($breadcrumbs, $id) {
+    $breadcrumbs->parent('admin.orders.index');
+    $breadcrumbs->push(trans('menus.backend.orders.view'), route('admin.orders.view', $id));
+});

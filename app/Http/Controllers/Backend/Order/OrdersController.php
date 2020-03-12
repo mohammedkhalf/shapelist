@@ -107,6 +107,16 @@ class OrdersController extends Controller
      * @param  App\Models\Order\Order  $order
      * @return \App\Http\Responses\RedirectResponse
      */
+
+    public function show(Order $order)
+    {
+        dd("hello");
+        // //Calling the delete method on repository
+        // $this->repository->delete($order);
+        // //returning with successfull message
+        // return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
+    }
+
     public function destroy(Order $order, DeleteOrderRequest $request)
     {
         //Calling the delete method on repository

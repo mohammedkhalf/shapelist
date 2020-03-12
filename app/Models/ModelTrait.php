@@ -16,6 +16,15 @@ trait ModelTrait
         }
     }
 
+    public function getViewButtonAttribute($permission, $route)
+    {
+        if (access()->allow($permission)) {
+            return '<a href="'.route($route, $this).'" class="btn btn-flat btn-default">
+                    <i data-toggle="tooltip" data-placement="top" title="View" class="fa fa-eye"></i>
+                </a>';
+        }
+    }
+
     /**
      * @return string
      */

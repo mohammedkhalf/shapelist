@@ -18,8 +18,14 @@ trait OrderAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
-                '.$this->getEditButtonAttribute("edit-order", "admin.orders.edit").'
+                '.$this->getViewButtonAttribute("view-order", "admin.orders.show").'
                 '.$this->getDeleteButtonAttribute("delete-order", "admin.orders.destroy").'
                 </div>';
     }
+
+
+    // '.$this->getEditButtonAttribute("edit-order", "admin.orders.edit").'
+
+
+
 }

@@ -313,21 +313,45 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-				"musicsamples" => [
+	"musicsamples" => [
+	"create" => "Create MusicSample",
+	"edit" => "Edit MusicSample",
+	"management" => "MusicSample Management",
+	"title" => "MusicSamples",
+	"table" => [
+	"id" => "Id",
+	"name" => "name",
+	"type" => "type",
+	"url" => "audioPlayer",
+	"createdat" => "Created At",
+	],
+	],
+					"locations" => [
 
-					"create" => "Create MusicSample",
-					"edit" => "Edit MusicSample",
-					"management" => "MusicSample Management",
-					"title" => "MusicSamples",
+						"create" => "Create Location",
+						"edit" => "Edit Location",
+						"management" => "Location Management",
+						"title" => "Locations",
 
-					"table" => [
+						"table" => [
 						"id" => "Id",
-						"name"=>"name",
-						"type"=>"type",
-						"url"=>"audioPlayer",   //audio player == url
+						"country" => "country",
+						"city" => "city",
 						"createdat" => "Created At",
+						],
 					],
-				],
+
+					"orders" => [
+						"create" => "Create Order",
+						"edit" => "Edit Order",
+						"management" => "Order Management",
+						"title" => "Orders",
+						
+						"table" => [
+						"id" => "Id",
+						"createdat" => "Created At",
+						],
+					],
 	],
 	"frontend" => [
 	"auth" => [

@@ -11,155 +11,145 @@ use App\Models\MusicSample\MusicSample;
 use App\Models\Status\Status;
 use App\Models\Access\User\User;
 use Illuminate\Http\Request;
-
+use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order\Traits\OrderAttribute;
+use App\Models\Order\Traits\OrderRelationship;
 
 class Order extends Model
 {
-    protected $table='orders';
+    use ModelTrait,
+        OrderAttribute,
+    	OrderRelationship {
+            // OrderAttribute::getEditButtonAttribute insteadof ModelTrait;
+        }
 
+    /**
+     * The database table used by the model.
+     * @var string
+     */
+    protected $table = 'orders';
 
-    protected $fillable = [
-     'product_id','platform_id','addon_id',
-        'music_id','status_id','products_quantity','video_length'
-       ,'notes','product_price','template_id','product_quantity'
-       ,'logo','user_id','coupon_code','product_price','total_price'
-    ];
- //====================================== Relationships =======================================
- public function users()
- {
-     return $this->belongsTo(User::class,'user_id','id');   
- }
- public function product()
- {
-     return $this->belongsTo(Product::class,'Product_id','id');   
- }
-//==============================       
- public function template()
- {
-     return $this->belongsTo(Template::class,'template_id','id');   
- }
- //==============================
- public function addon()
- {
-     return $this->belongsTo(Addon::class,'addon_id','id');   
- }
- //==============================
- public function platform()
- {
-     return $this->belongsTo(Platform::class,'platform_id','id');   
- } 
- //==============================
- public function location()
- {
-     return $this->hasMany(Location::class,'user_id','id');   
- } 
- //==============================
- public function coupon()
- {
-     return $this->belongsTo(Coupon::class,'coupon_id','id');   
- }  
- //==============================
- public function musicSample()
- {
-     return $this->belongsTo(MusicSample::class,'music_id','id');   
- } 
- //==============================
- public function status()
- {
-     return $this->belongsTo(Status::class,'status_id','id');   
- }  
-//=============================== Insert Order ================================================
+    /**
+     * Mass Assignable fields of model
+     * @var array
+     */
+    protected $fillable = ['user_id','product_id','platform_id','addon_id',
+    'music_id','status_id','template_id','payment_status','coupon_code','product_quantity',
+    'total_price','logo','video_length','notes'];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class,'user_id','id');   
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id','id');   
+    }
+    //==============================       
+    public function template()
+    {
+        return $this->belongsTo(Template::class,'template_id','id');   
+    }
+    //==============================
+    public function addon()
+    {
+        return $this->belongsTo(Addon::class,'addon_id','id');   
+    }
+    //==============================
+    public function platform()
+    {
+        return $this->belongsTo(Platform::class,'platform_id','id');   
+    } 
+    //==============================
+    public function location()
+    {
+        return $this->hasMany(Location::class,'order_id','id');   
+    } 
+   
+    public function musicSample()
+    {
+        return $this->belongsTo(MusicSample::class,'music_id','id');   
+    } 
+    //==============================
+    public function status()
+    {
+        return $this->belongsTo(Status::class,'status_id','id');   
+    }  
+
+    //=============================== Insert Order ================================================
     public static function insertOrder($request)
     {
-        $request->validate([
-            'logo'=> 'image|nullable|max:1999',
-            'city'=> 'required',
-            'country'=> 'required',
-            'product_id'=> 'required|exists:products,id',
-            'platform_id'=> 'exists:platforms,id',
-            'addon_id'=> 'exists:addons,id',
-            'music_id'=> 'exists:music_samples,id',
-            'template_id'=> 'exists:templates,id',
-            'coupon_code'=> 'exists:coupons,code',
-            'product_quantity'=> 'required|integer',
-            'video_length'=> 'integer',
-            ]);
+          global $priceInfo;
+          global  $couponAmount;
+          global $fileNameToStore;
+
+            if($request->hasFile('logo'))
+            {
+                $filenameWithExt = $request->file('logo')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('logo')->getClientOriginalExtension();
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
+            }
+
+            $productPrice= Product::findOrFail($request->product_id)->price;
+            if($request->coupon_code){
+            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+                if ($coupon->valid == 1){$couponAmount=$coupon->amount;}
+                else{echo("invaild coupon code!"); die;}
+            }
+            if($request->addon_id){
+                $priceInfo=Addon::findOrFail($request->addon_id)->price;
+            }
+            $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
+            $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
+            'notes','video_length','product_quantity');
+            $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
+            $OrderData = Order::create($OrderInfo);
+            if($request->city || $request->countery || $request->address || $request->lat || $request->long){
+                Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
+                'lat'=>$request->lat,'lng'=>$request->long, 'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
+             }
+            return $OrderData;
+        
+    }
+
+    //=============================== update Order ================================================
+    public static function updateOrder($request,$id)
+    {
         global $priceInfo;
         global  $couponAmount;
+        global $fileNameToStore;
 
+        $order = Order::findOrFail($id);
+        $productPrice= Product::findOrFail($order->product_id)->price;
+        if($request->coupon_code){
+        $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+            if ($coupon->valid == 1){
+            $couponAmount=$coupon->amount;
+            }else{echo("invaild coupon code!"); die;}
+        }
+        if($request->addon_id){
+            $priceInfo=Addon::findOrFail($request->addon_id)->price;
+        }
         if($request->hasFile('logo')){
             $filenameWithExt = $request->file('logo')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo')->getClientOriginalExtension();
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
-
-        $productPrice= Product::findOrFail($request->product_id)->price;
-        if($request->coupon_code){
-           $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-            if ($coupon->valid == 1){
-            $couponAmount=$coupon->amount;
-            }else{echo("invaild coupon code!"); die;}}
-        if($request->addon_id){
-            $priceInfo=Addon::findOrFail($request->addon_id)->price;
+            $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
         }
+       
+        $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );  
+        $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
+            'notes','video_length','product_quantity');
+        $updateOrder = array_merge($updateData ,  ['total_price'=> $total_price ,'logo' => $fileNameToStore]);
+        $order->update($updateOrder);
         if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-            Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
-            'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); }
-        $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
-        $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
-        'notes','video_length','product_quantity');
-        $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo' =>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
-        return $OrderInfo;
+            Location::create(['country'=>$request->country ,'city'=>$request->city,'address'=>$request->address,
+            'lat'=>$request->lat,'lng'=>$request->long, 'order_id' =>  $order->id,'user_id' => auth()->guard('api')->user()->id]);
+        }
     }
-//=============================== update Order ================================================
-public static function updateOrder($request,$id){
-    $request->validate([
-        'logo'=> 'image|nullable|max:1999',
-        'city'=> 'required',
-        'country'=> 'required',
-        'product_id'=> 'required|exists:products,id',
-        'platform_id'=> 'exists:platforms,id',
-        'addon_id'=> 'exists:addons,id',
-        'music_id'=> 'exists:music_samples,id',
-        'template_id'=> 'exists:templates,id',
-        'coupon_code'=> 'exists:coupons,code',
-        'product_quantity'=> 'required|integer',
-        'video_length'=> 'integer',
-        ]);
-    global $priceInfo;
-    global  $couponAmount;
-
-$order = Order::findOrFail($id);
-$productPrice= Product::findOrFail($order->product_id)->price;
-if($request->coupon_code){
-   $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-    if ($coupon->valid == 1){
-    $couponAmount=$coupon->amount;
-    }else{echo("invaild coupon code!"); die;}}
-if($request->addon_id){
-    $priceInfo=Addon::findOrFail($request->addon_id)->price;
-}
-if($request->hasFile('logo')){
-    $filenameWithExt = $request->file('logo')->getClientOriginalName();
-    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-    $extension = $request->file('logo')->getClientOriginalExtension();
-    $fileNameToStore= $filename.'_'.time().'.'.$extension;
-    $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);}
-else {
-    $order = Order::findOrFail($id);
-    $fileNameToStore = $order->logo;} 
-    if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-        Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
-        'lat'=>$request->lat,'lng'=>$request->long,'user_id' => auth()->guard('api')->user()->id]); } 
-    $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );  
-    $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
-    'notes','video_length','product_quantity');
-    $updateOrder = array_merge($updateData ,  ['total_price'=> $total_price ,'logo' => $fileNameToStore]);
-    $order->update($updateOrder);
- }
-
-//==============================================================================================
 
 }

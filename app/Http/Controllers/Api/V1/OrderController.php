@@ -27,8 +27,8 @@ class OrderController extends APIController
         //======================== create order  ======================
         public function store(Request $request)
         {
-            $OrderInfo=Order::insertOrder($request); 
-             Order::create($OrderInfo);
+            Order::insertOrder($request); 
+            //  Order::create($OrderInfo);
              return response()->json(['message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================

@@ -23,8 +23,8 @@ class CreateLocationsTable extends Migration
             $table->decimal('lng', 8, 2)->nullable();	
             $table->decimal('lat', 8, 2)->nullable();	
             $table->string('state', 225)->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;            
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');            
             $table->timestamps();
         });
     }

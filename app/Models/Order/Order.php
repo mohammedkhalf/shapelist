@@ -66,12 +66,7 @@ class Order extends Model
     {
         return $this->hasMany(Location::class,'order_id','id');   
     } 
-    //==============================
-    // public function coupon()
-    // {
-    //     return $this->belongsTo(Coupon::class,'coupon_id','id');   
-    // }  
-    //==============================
+   
     public function musicSample()
     {
         return $this->belongsTo(MusicSample::class,'music_id','id');   

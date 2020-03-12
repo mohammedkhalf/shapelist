@@ -17,7 +17,10 @@ class CouponController extends APIController
     //======================== create coupon  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'code'=> 'required|unique:coupons',
+            'amount'=> 'required',
+            ]);
     try{
         $coupon = $request->only('code','amount');
         Coupon::create($coupon);
@@ -42,7 +45,10 @@ class CouponController extends APIController
 
     public function update(Request $request, $id)
     {
-       
+        $this->validate($request,[
+            'code'=> 'required|unique:coupons',
+            'amount'=> 'required',
+            ]);
         $coupon = Coupon::findOrFail($id);
         $couponData = $request->only('code','amount','valid');
         $coupon->update($couponData);

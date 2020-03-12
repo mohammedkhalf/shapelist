@@ -18,7 +18,11 @@ class ProductController extends APIController
     //======================== create product  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'name'=> 'required|unique:products',
+            'price'=> ' required|regex:/^\d+(\.\d{1,2})?$/',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension
@@ -35,13 +39,9 @@ class ProductController extends APIController
             $fileNameToStore = 'noimage.jpg';
         }
 
-
-        $product = new Product;
-        $product->name= $request->name;
-        $product->description= $request->description;
-        $product->image= $fileNameToStore;
-        $product->price= $request->price;
-        $product->save();
+        $data = $request->only('name','description','price');
+        $product = array_merge($data ,  ['image' => $fileNameToStore]);
+        Product::create($product);
         return response()->json($product);
 
 
@@ -65,6 +65,12 @@ class ProductController extends APIController
 
     public function update(Request $request, $id)
     {
+        
+        $this->validate($request,[
+            'name'=> 'required|unique:products',
+            'price'=> ' required|regex:/^\d+(\.\d{1,2})?$/',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
         if($request->hasFile('image')){
             // Get filename with the extension
             $filenameWithExt = $request->file('image')->getClientOriginalName();
@@ -80,13 +86,10 @@ class ProductController extends APIController
             $product = Product::findOrFail($id);
             $fileNameToStore = $product->image;
         }    
-              
                     $product = Product::findOrFail($id);
-                    $product->name= $request->name;
-                    $product->description= $request->description;
-                    $product->image= $fileNameToStore;
-                    $product->price= $request->price;
-                    $product->save();
+                    $data = $request->only('name','description','price');
+                    $productData = array_merge($data ,  ['image' => $fileNameToStore]);
+                    $product->update($productData);
 
                     return response()->json($product);
                  }

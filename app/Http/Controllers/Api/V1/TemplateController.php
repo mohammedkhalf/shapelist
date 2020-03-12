@@ -18,6 +18,11 @@ class TemplateController extends APIController
     //======================== create Position  ======================
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'name'=> 'required|unique:templates',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension
@@ -61,6 +66,11 @@ class TemplateController extends APIController
 
     public function update(Request $request, $id)
     {
+        
+        $this->validate($request,[
+            'name'=> 'required|unique:templates',
+            'image'=> 'required|image|nullable|max:1999'
+            ]);
         if($request->hasFile('image')){
             // Get filename with the extension
             $filenameWithExt = $request->file('image')->getClientOriginalName();
@@ -76,11 +86,13 @@ class TemplateController extends APIController
             $position = Template::findOrFail($id);
             $fileNameToStore = $position->image;
         }    
-                    $position = Template::findOrFail($id);
-                    $position->name= $request->name;
-                    $position->image= $request->image;
-                    $position->save();
-                    return response()->json($position);
+
+
+        $position = Template::findOrFail($id);
+        $data = $request->only('name');
+        $positionData = array_merge($data ,  ['image' => $fileNameToStore]);
+        $position->update($positionData);
+        return response()->json($position);
                  }
 
     //======================== delete Position  ======================

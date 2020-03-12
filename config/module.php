@@ -41,7 +41,13 @@ return [
 	"musicsamples" => [
 	"table" => "music_samples",
 	],
+
 	"locations" => [
-	"table" => "locations",
+		"table" => "locations",
 	],
+
+	"orders" => [
+		"table" => "orders",
+	],
+	
 ];

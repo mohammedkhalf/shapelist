@@ -157,13 +157,6 @@ return [
 	"management" => "MusicSample Management",
 	"main" => "MusicSamples",
 	],
-	"locations" => [
-	"all" => "All Locations",
-	"create" => "Create Location",
-	"edit" => "Edit Location",
-	"management" => "Location Management",
-	"main" => "Locations",
-	],
 	],
 	"language-picker" => [
 	"language" => "Language",

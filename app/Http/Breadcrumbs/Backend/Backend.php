@@ -25,3 +25,5 @@ require __DIR__.'/Coupon.php';
 require __DIR__.'/Template.php';
 require __DIR__.'/MusicSample.php';
 require __DIR__.'/Location.php';
+require __DIR__.'/Order.php';
+

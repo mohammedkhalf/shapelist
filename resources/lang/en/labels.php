@@ -327,6 +327,7 @@ return [
 	],
 	],
 					"locations" => [
+
 						"create" => "Create Location",
 						"edit" => "Edit Location",
 						"management" => "Location Management",
@@ -336,6 +337,18 @@ return [
 						"id" => "Id",
 						"country" => "country",
 						"city" => "city",
+						"createdat" => "Created At",
+						],
+					],
+
+					"orders" => [
+						"create" => "Create Order",
+						"edit" => "Edit Order",
+						"management" => "Order Management",
+						"title" => "Orders",
+						
+						"table" => [
+						"id" => "Id",
 						"createdat" => "Created At",
 						],
 					],

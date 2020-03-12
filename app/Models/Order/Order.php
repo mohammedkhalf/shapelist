@@ -25,11 +25,6 @@ class Order extends Model
         }
 
     /**
-     * NOTE : If you want to implement Soft Deletes in this model,
-     * then follow the steps here : https://laravel.com/docs/5.4/eloquent#soft-deleting
-     */
-
-    /**
      * The database table used by the model.
      * @var string
      */
@@ -69,13 +64,13 @@ class Order extends Model
     //==============================
     public function location()
     {
-        return $this->hasMany(Location::class,'user_id','id');   
+        return $this->hasMany(Location::class,'order_id','id');   
     } 
     //==============================
-    public function coupon()
-    {
-        return $this->belongsTo(Coupon::class,'coupon_id','id');   
-    }  
+    // public function coupon()
+    // {
+    //     return $this->belongsTo(Coupon::class,'coupon_id','id');   
+    // }  
     //==============================
     public function musicSample()
     {

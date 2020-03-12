@@ -21,7 +21,10 @@
                 <table id="orders-table" class="table table-condensed table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>{{ trans('labels.backend.orders.table.id') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.orderId') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.userName') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.productName') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.quantity') }}</th>
                             <th>{{ trans('labels.backend.orders.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -61,6 +64,9 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.orders.table')}}.id'},
+                    {data: 'user_id', name: '{{config('module.orders.table')}}.user_id'},
+                    {data: 'product_id', name: '{{config('module.orders.table')}}.product_id'},
+                    {data: 'quantity', name: '{{config('module.orders.table')}}.quantity'},
                     {data: 'created_at', name: '{{config('module.orders.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

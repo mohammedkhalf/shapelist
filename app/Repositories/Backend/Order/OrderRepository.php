@@ -30,6 +30,9 @@ class OrderRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.orders.table').'.id',
+                config('module.orders.table').'.user_id',
+                config('module.orders.table').'.product_id',
+                config('module.orders.table').'.platform_id',
                 config('module.orders.table').'.created_at',
                 config('module.orders.table').'.updated_at',
             ]);

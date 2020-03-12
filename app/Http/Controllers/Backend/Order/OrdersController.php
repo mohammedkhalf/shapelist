@@ -45,6 +45,7 @@ class OrdersController extends Controller
      */
     public function index(ManageOrderRequest $request)
     {
+       
         return new ViewResponse('backend.orders.index');
     }
     /**

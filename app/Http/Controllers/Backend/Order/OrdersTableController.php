@@ -36,6 +36,8 @@ class OrdersTableController extends Controller
      */
     public function __invoke(ManageOrderRequest $request)
     {
+        // $data = Order::with('users','product','template','addon','platform','location','musicSample','status')->get();
+        // dd($data);
         return Datatables::of($this->order->getForDataTable())
             ->escapeColumns(['id'])
             ->addColumn('created_at', function ($order) {

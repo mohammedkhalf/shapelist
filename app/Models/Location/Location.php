@@ -6,6 +6,7 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Location\Traits\LocationAttribute;
 use App\Models\Location\Traits\LocationRelationship;
+use App\Models\Order\Order;
 
 class Location extends Model
 {
@@ -72,4 +73,9 @@ class Location extends Model
     {
         return $this->belongsTo(User::class,'id','user_id');   
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class,'order_id');   
+    } 
 }

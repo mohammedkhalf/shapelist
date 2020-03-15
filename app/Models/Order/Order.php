@@ -64,7 +64,7 @@ class Order extends Model
     //==============================
     public function location()
     {
-        return $this->hasMany(Location::class,'order_id','id');   
+        return $this->hasOne(Location::class,'order_id');   
     } 
    
     public function musicSample()

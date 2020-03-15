@@ -11,6 +11,8 @@ use App\Models\Access\User\User;
 use App\Models\Order\Order;
 use App\Models\Product\Product;
 use App\Models\Platform\Platform;
+use App\Models\Status\Status;
+
 
 
 /**
@@ -58,6 +60,10 @@ class OrdersTableController extends Controller
             }) 
             ->addColumn('product_quantity', function ($order) {
                 return $order->product_quantity;
+            }) 
+            ->addColumn('status_id', function ($order) {
+                $status = Status::where('id', $order->status_id )->pluck('type')->toArray();
+                return $status;
             }) 
             ->addColumn('created_at', function ($order) {
                 return Carbon::parse($order->created_at)->toDateString();

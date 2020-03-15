@@ -6,11 +6,13 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Platform\Traits\PlatformAttribute;
 use App\Models\Platform\Traits\PlatformRelationship;
+use App\Models\SharedModel;
 
 class Platform extends Model
 {
     use ModelTrait,
         PlatformAttribute,
+        SharedModel,
     	PlatformRelationship {
             // PlatformAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

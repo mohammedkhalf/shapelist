@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Order;
 
 use App\Models\Order\Order;
+use App\Models\Status\Status;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\RedirectResponse;
@@ -82,7 +83,9 @@ class OrdersController extends Controller
      */
     public function edit(Order $order, EditOrderRequest $request)
     {
-        return new EditResponse($order);
+        $statusesData =  Status::all();
+        $selectedID = Status::first()->id;
+        return new ViewResponse('backend.orders.edit', compact('order','statusesData','selectedID'));
     }
     /**
      * Update the specified resource in storage.
@@ -110,11 +113,11 @@ class OrdersController extends Controller
 
     public function show(Order $order)
     {
-        dd("hello");
-        // //Calling the delete method on repository
-        // $this->repository->delete($order);
-        // //returning with successfull message
-        // return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
+        if(is_null($order))
+        {
+            return back();
+        }  
+        return new ViewResponse('backend.orders.view', compact('order'));
     }
 
     public function destroy(Order $order, DeleteOrderRequest $request)

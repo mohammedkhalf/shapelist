@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Order\Order
      */
-    protected $orders;
+    protected $order;
 
     /**
      * @param App\Models\Order\Order $orders
      */
-    public function __construct($orders)
+    public function __construct($order)
     {
-        $this->orders = $orders;
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.orders.edit')->with([
-            'orders' => $this->orders
+            'order' => $this->order
         ]);
     }
 }

@@ -19,12 +19,12 @@ trait OrderAttribute
     {
         return '<div class="btn-group action-btn">
                 '.$this->getViewButtonAttribute("view-order", "admin.orders.show").'
+                '.$this->getEditButtonAttribute("edit-order", "admin.orders.edit").'
                 '.$this->getDeleteButtonAttribute("delete-order", "admin.orders.destroy").'
                 </div>';
     }
 
 
-    // '.$this->getEditButtonAttribute("edit-order", "admin.orders.edit").'
 
 
 

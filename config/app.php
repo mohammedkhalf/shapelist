@@ -198,6 +198,7 @@ return [
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Krgupta\Active\Providers\ActiveServiceProvider::class,
+        // Ixudra\Curl\CurlServiceProvider::class,
     ],
 
     /*
@@ -257,5 +258,7 @@ return [
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         //'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Active'      => Krgupta\Active\Facades\Active::class,
+        // 'Curl' => Ixudra\Curl\Facades\Curl::class,
+
     ],
 ];

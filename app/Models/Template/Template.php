@@ -6,11 +6,13 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Template\Traits\TemplateAttribute;
 use App\Models\Template\Traits\TemplateRelationship;
+use App\Models\SharedModel;
 
 class Template extends Model
 {
     use ModelTrait,
         TemplateAttribute,
+        SharedModel,
     	TemplateRelationship {
             // TemplateAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

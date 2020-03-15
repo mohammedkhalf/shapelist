@@ -6,11 +6,13 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\MusicSample\Traits\MusicSampleAttribute;
 use App\Models\MusicSample\Traits\MusicSampleRelationship;
+use App\Models\SharedModel;
 
 class MusicSample extends Model
 {
     use ModelTrait,
         MusicSampleAttribute,
+        SharedModel,
     	MusicSampleRelationship {
             // MusicSampleAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

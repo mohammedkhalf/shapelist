@@ -1,24 +1,12 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <div class="row">
-
-        <example></example>
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-home"></i> {{ trans('navs.general.home') }}
-                </div>
-
-                <div class="panel-body">
-                    {{ trans('strings.frontend.welcome_to', ['place' => app_name()]) }}
-                </div>
-            </div><!-- panel -->
-
+        <div style="display:flex; justify-content:center; align-items:center; height:80Vh;" >
+        <div style="width:30%">
+                    
+                    <img style=" width:100% " src="{{ asset('storage/public_images/ShapeList_Logo2_RGB.jpg')}}">
         </div><!-- col-md-10 -->
-
+         </div>
         @role('Administrator')
             {{-- You can also send through the Role ID --}}
 
@@ -152,5 +140,4 @@
 
        
 
-    </div><!--row-->
 @endsection

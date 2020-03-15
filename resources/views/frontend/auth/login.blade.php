@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <div class="row">
+    <div style="display:flex; justify-content:center; align-items:center; height:80Vh;"  >
 
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 ">
 
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('labels.frontend.auth.login_box_title') }}</div>
+                <div class="panel-heading"  style="color:#FFF;background-color:#22A67E;">{{ trans('labels.frontend.auth.login_box_title') }}</div>
 
                 <div class="panel-body">
 

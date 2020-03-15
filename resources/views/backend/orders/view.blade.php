@@ -50,7 +50,7 @@
 
             <tr>
                 <th ><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.music') }} <h5></th>
-                <td><audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('samples/'.$order->musicsample->url)}}' ></audio></td>
+                <td><audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('smaples/'.$order->musicsample->url)}}' ></audio></td>
             </tr>
 
             <tr>

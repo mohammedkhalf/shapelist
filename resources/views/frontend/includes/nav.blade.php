@@ -11,7 +11,7 @@
            {{--   @if(settings()->logo)
             <a href="{{ route('frontend.index') }}" class="logo"><img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{settings()->logo}}"></a>
             @else --}}
-            <img height="48"  class="navbar-brand"  src="{{ asset('storage/public_images/ShapeList_Icon_CMYK.png')}}">
+            <img height="48"  class="navbar-brand"  src="{{ asset('img/frontend/dashboard_images/ShapeList_Icon_CMYK.png')}}">
              {{ link_to_route('frontend.index',app_name(), [], ['class' => 'navbar-brand']) }}
            {{--  @endif --}}
         </div><!--navbar-header-->

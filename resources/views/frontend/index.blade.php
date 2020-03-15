@@ -4,7 +4,7 @@
         <div style="display:flex; justify-content:center; align-items:center; height:80Vh;" >
         <div style="width:30%">
                     
-                    <img style=" width:100% " src="{{ asset('storage/public_images/ShapeList_Logo2_RGB.jpg')}}">
+                    <img style=" width:100% " src="{{ asset('img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg')}}">
         </div><!-- col-md-10 -->
          </div>
         @role('Administrator')

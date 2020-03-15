@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Order\Order;
-use App\Models\Product\Product;
-use App\Models\Template\Template;
-use App\Models\Platform\Platform;
-use App\Models\Addon\Addon;
-use App\Models\Location\Location;
-use App\Models\Coupon\Coupon;
-use App\Models\MusicSample\MusicSample;
-use App\Models\Status\Status;
-use App\Models\Access\User\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreOrderFront;
+// use App\Models\Product\Product;
+// use App\Models\Template\Template;
+// use App\Models\Platform\Platform;
+// use App\Models\Addon\Addon;
+// use App\Models\Location\Location;
+// use App\Models\Coupon\Coupon;
+// use App\Models\MusicSample\MusicSample;
+// use App\Models\Status\Status;
+// use App\Models\Access\User\User;
 
 
 class OrderController extends APIController
@@ -25,16 +26,10 @@ class OrderController extends APIController
             return response()->json($orders);
         } 
         //======================== create order  ======================
-        public function store(Request $request)
+        public function store(StoreOrderFront $request)
         {
-            $OrderInfo=Order::insertOrder($request); 
-           if(Order::where(['product_id' => $OrderInfo['product_id'] , 'status_id'=> 1])->first() ) {
-            return response()->json(['message'=>'This Order is Already Exist']); 
-            }
-            else{
-                Order::create($OrderInfo);
-                return response()->json(['message' => 'Order Created Successfully']);
-            }
+            Order::insertOrder($request); 
+            return response()->json(['message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 
@@ -45,10 +40,10 @@ class OrderController extends APIController
         }
         //======================== update order  ======================
 
-        public function update($id)
+        public function update(StoreOrderFront $request, $id)
         {
-            $order = Order::findOrFail($id);
-            return response()->json($order);
+            $order=Order::updateOrder($request,$id);
+            return response()->json("updated successfully!");
         }
         //======================== delete order  ======================
 

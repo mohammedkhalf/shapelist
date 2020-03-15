@@ -6,11 +6,14 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Addon\Traits\AddonAttribute;
 use App\Models\Addon\Traits\AddonRelationship;
+use App\Models\SharedModel;
+
 
 class Addon extends Model
 {
     use ModelTrait,
         AddonAttribute,
+        SharedModel,
     	AddonRelationship {
             // AddonAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

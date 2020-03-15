@@ -6,11 +6,14 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Coupon\Traits\CouponAttribute;
 use App\Models\Coupon\Traits\CouponRelationship;
+use App\Models\SharedModel;
+
 
 class Coupon extends Model
 {
     use ModelTrait,
         CouponAttribute,
+        SharedModel,
     	CouponRelationship {
             // CouponAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

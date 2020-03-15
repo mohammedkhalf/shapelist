@@ -65,6 +65,10 @@ class TemplatesController extends Controller
      */
     public function store(StoreTemplateRequest $request)
     {
+        if( Template::where('name','=',$request->name)->count() > 0 )
+        {
+            return new RedirectResponse(route('admin.templates.index'), ['flash_success' => 'this template is already exist']);
+        }
         //Input received from the request
         $input = $request->except(['_token']);
         //Create the model using repository create method

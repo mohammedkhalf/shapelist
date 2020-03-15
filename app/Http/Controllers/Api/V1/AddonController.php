@@ -17,17 +17,15 @@ class AddonController extends APIController
     //======================== create addon  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'name'=> 'required|unique:addons',
+            'type'=> 'required',
+            'price'=> 'required',
+            ]);
     try{
-
-        $addon = new Addon;
-        $addon->name= $request->name;
-        $addon->type= $request->type;
-        $addon->price= $request->price;
-        $addon->save();
+         $addon = $request->only('name','type','price');
+         Addon::create($addon);
         return response()->json($addon);
-
-
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
         if($errorCode == '1062'){
@@ -43,19 +41,19 @@ class AddonController extends APIController
         return response()->json($addon);
     }
 
-
     //======================== update addon  ======================
 
     public function update(Request $request, $id)
-    {
-
-                    $addon = Addon::findOrFail($id);
-                    $addon->name= $request->name;
-                    $addon->type= $request->type;
-                    $addon->price= $request->price;
-                    $addon->save();
-
-                    return response()->json($addon);
+    { 
+        $this->validate($request,[
+        'name'=> 'required|unique:addons',
+        'type'=> 'required',
+        'price'=> 'required',
+        ]);
+        $addon = Addon::findOrFail($id);
+        $addonData = $request->only('name','type','price');
+        $addon->update($addonData);
+        return response()->json($addon);
                  }
 
     //======================== delete addon  ======================

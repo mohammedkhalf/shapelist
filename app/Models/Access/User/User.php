@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Models\SharedModel;
+
 
 /**
  * Class User.
@@ -24,7 +26,8 @@ class User extends Authenticatable
         UserAttribute,
         UserRelationship,
         UserSendPasswordReset,
-        HasApiTokens;
+        HasApiTokens,
+        SharedModel;
 
     /**
      * The database table used by the model.

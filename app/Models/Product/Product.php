@@ -6,11 +6,13 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\Traits\ProductAttribute;
 use App\Models\Product\Traits\ProductRelationship;
+use App\Models\SharedModel;
 
 class Product extends Model
 {
     use ModelTrait,
         ProductAttribute,
+        SharedModel,
     	ProductRelationship {
             // ProductAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

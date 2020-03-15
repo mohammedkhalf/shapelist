@@ -17,7 +17,11 @@ class MusicSamplesController extends APIController
     //======================== create music_samples  ======================
     public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'name'=> 'required|unique:music_samples',
+            'type'=> 'required',
+            'url'=> 'required|mimes:mpga,ogg',
+            ]);
     try{
         if($request->hasFile('url')){
             // Get filename with the extension
@@ -35,11 +39,9 @@ class MusicSamplesController extends APIController
         }
 
 
-        $music_sample = new MusicSample;
-        $music_sample->name= $request->name;
-        $music_sample->type= $request->type;
-        $music_sample->url= $fileNameToStore;
-        $music_sample->save();
+        $data = $request->only('name','type');
+        $musicData = array_merge($data ,  ['url' => $fileNameToStore]);
+        MusicSample::create($musicData);
         return response()->json($music_sample);
 
 
@@ -62,7 +64,12 @@ class MusicSamplesController extends APIController
     //======================== update music_sample  ======================
 
     public function update(Request $request, $id)
-    {
+    { 
+        $this->validate($request,[
+        'name'=> 'required|unique:music_samples',
+        'type'=> 'required',
+        'url'=> 'required|mimes:mpga,ogg',
+        ]);
         if($request->hasFile('url')){
             // Get filename with the extension
             $filenameWithExt = $request->file('url')->getClientOriginalName();
@@ -79,12 +86,14 @@ class MusicSamplesController extends APIController
             $fileNameToStore = $music_sample->url;
         }    
               
-                    $music_sample = MusicSample::findOrFail($id);
-                    $music_sample->name= $request->name;
-                    $music_sample->type= $request->type;
+                   
                     $music_sample->url= $fileNameToStore;
                     $music_sample->save();
 
+                    $music_sample = MusicSample::findOrFail($id);
+                    $data = $request->only('name','type');
+                    $MusicData = array_merge($data ,  ['url' => $fileNameToStore]);
+                    $music_sample->update($MusicData);
                     return response()->json($music_sample);
                  }
 

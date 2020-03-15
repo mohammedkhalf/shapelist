@@ -18,7 +18,11 @@ class PlatformController extends APIController
     //======================== create platform  ======================
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'name'=> 'required|unique:platforms',
+            'image'=> ' required',
 
+            ]);
     try{
         if($request->hasFile('image')){
             // Get filename with the extension
@@ -36,12 +40,11 @@ class PlatformController extends APIController
         }
 
 
-        $platform = new Platform;
-        $platform->name= $request->name;
-        $platform->image= $fileNameToStore;
-        $platform->save();
-        return response()->json($platform);
 
+        $data = $request->only('name');
+        $platformData = array_merge($data ,  ['image' => $fileNameToStore]);
+        Platform::create($platformData);
+        return response()->json($platformData);
 
     } catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
@@ -80,10 +83,9 @@ class PlatformController extends APIController
         }    
               
                     $platform = Platform::findOrFail($id);
-                    $platform->name= $request->name;
-                    $platform->image= $fileNameToStore;
-                    $platform->save();
-
+                    $data = $request->only('name');
+                    $platformData = array_merge($data ,  ['image' => $fileNameToStore]);
+                    $platform->update($platformData);
                     return response()->json($platform);
                  }
 

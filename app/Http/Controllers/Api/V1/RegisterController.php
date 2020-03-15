@@ -31,12 +31,13 @@ class RegisterController extends APIController
     public function register(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'first_name'            => 'required',
-            'last_name'             => 'required',
+            'first_name'            => 'string|required',
+            'last_name'             => 'string|required',
             'email'                 => 'required|email|unique:users',
             'password'              => 'required|min:8',
             'password_confirmation' => 'required|same:password',
-            'is_term_accept'        => 'required',
+            'phone_number'    => 'required|max:10|regex:/(0)[0-9]{9}/',
+            // 'is_term_accept'        => 'required',
         ]);
 
         if ($validation->fails()) {

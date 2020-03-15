@@ -47,9 +47,9 @@ class MusicSamplesTableController extends Controller
             })
             ->addColumn('url', function ($musicsample) {
 
-                $url=Storage::disk('public')->url('samples/'.$musicsample->url);
+                $url=Storage::disk('public')->url('smaples/'.$musicsample->url);
 
-                return '<audio controls style="height:54px;" ><source src='.$url.' ></audio>
+                return '<audio controls style="height:54px;"  autoplay><source src='.$url.' ></audio>
                 ';
             })
             ->addColumn('created_at', function ($musicsample) {

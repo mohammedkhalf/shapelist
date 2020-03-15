@@ -313,21 +313,73 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-				"musicsamples" => [
+	"musicsamples" => [
+	"create" => "Create MusicSample",
+	"edit" => "Edit MusicSample",
+	"management" => "MusicSample Management",
+	"title" => "MusicSamples",
+	"table" => [
+	"id" => "Id",
+	"name" => "name",
+	"type" => "type",
+	"url" => "audioPlayer",
+	"createdat" => "Created At",
+	],
+	],
+					"locations" => [
 
-					"create" => "Create MusicSample",
-					"edit" => "Edit MusicSample",
-					"management" => "MusicSample Management",
-					"title" => "MusicSamples",
+						"create" => "Create Location",
+						"edit" => "Edit Location",
+						"management" => "Location Management",
+						"title" => "Locations",
 
-					"table" => [
+						"table" => [
 						"id" => "Id",
-						"name"=>"name",
-						"type"=>"type",
-						"url"=>"audioPlayer",   //audio player == url
+						"country" => "country",
+						"city" => "city",
 						"createdat" => "Created At",
+						],
 					],
-				],
+
+					"orders" => [
+						"create" => "Create Order",
+						"edit" => "Edit Order",
+						"management" => "Order Management",
+						"Info" => "Order Information",
+						"title" => "Orders",
+						"statusType" => 'status Type',
+						
+						"table" => [
+						"orderId" => "Id",
+						"userName" => "user name",
+						"platform" => 'platform',
+						"product" => "product",
+						"quantity" => "quantity",
+						"createdat" => "Created At",
+						"firstname" => "FirstName",
+						"lastname" => "LastName",
+						"email" => "Email",
+						"phone" => "Phone Number",
+						"PackageName" => "Package Name",
+						"platform" => "Platform",
+						"addon" => "Addon",
+						"music" => "Music",
+						"templateImage"=> "template Image",
+						"couponCode" => "coupon Code",
+						"productQuantity" => "product Quantity",
+						"totalPrice" => "total Price",
+						"logo"  => "client Logo",
+						"videoLength" => "videoLength",
+						"notes" => "Notes",
+						"OrderStatus" => "Order Status",
+						"paymentStatus" => "payment Status",
+						"NotPay" => "Not Pay",
+						"PayDone" => "Pay Done",
+						"country" => "Country",
+						"city" => "City",
+						"address" => "Address"
+						],
+					],
 	],
 	"frontend" => [
 	"auth" => [

@@ -8,13 +8,15 @@
 
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
+            <img height="30" src="{{ asset('img/frontend/dashboard_images/ShapeList_Icon_CMYK.png')}}">
+            ShapeList
+
            {{--  @php
                  $settings = settings();
             @endphp
             @if($settings->logo)
                 <img height="48" width="226" class="navbar-brand" src="{{route('frontend.index')}}/img/site_logo/{{$settings->logo}}">
             @else --}}
-                {{ app_name() }}
            {{--  @endif --}}
         </span>
     </a>

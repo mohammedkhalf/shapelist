@@ -1,24 +1,12 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <div class="row">
-
-        <example></example>
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-home"></i> {{ trans('navs.general.home') }}
-                </div>
-
-                <div class="panel-body">
-                    {{ trans('strings.frontend.welcome_to', ['place' => app_name()]) }}
-                </div>
-            </div><!-- panel -->
-
+        <div style="display:flex; justify-content:center; align-items:center; height:80Vh;" >
+        <div style="width:30%">
+                    
+                    <img style=" width:100% " src="{{ asset('img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg')}}">
         </div><!-- col-md-10 -->
-
+         </div>
         @role('Administrator')
             {{-- You can also send through the Role ID --}}
 
@@ -148,35 +136,8 @@
             </div><!-- col-md-10 -->
         @endif
 
-        <div class="col-xs-12">
+      
 
-            <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-home"></i> Bootstrap Glyphicon {{ trans('strings.frontend.test') }}</div>
+       
 
-                <div class="panel-body">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-euro" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                    <span class="glyphicon glyphicon glyphicon-envelope" aria-hidden="true"></span>
-                </div>
-            </div><!-- panel -->
-
-        </div><!-- col-md-10 -->
-
-        <div class="col-xs-12">
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-home"></i> Font Awesome {{ trans('strings.frontend.test') }}</div>
-
-                <div class="panel-body">
-                    <i class="fa fa-home"></i>
-                    <i class="fa fa-facebook"></i>
-                    <i class="fa fa-twitter"></i>
-                    <i class="fa fa-pinterest"></i>
-                </div>
-            </div><!-- panel -->
-
-        </div><!-- col-md-10 -->
-
-    </div><!--row-->
 @endsection

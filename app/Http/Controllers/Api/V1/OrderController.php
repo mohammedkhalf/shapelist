@@ -36,7 +36,11 @@ class OrderController extends APIController
         public function show($id)
         {
             $order = Order::findOrFail($id);
-            return response()->json($order);
+            if(is_null($order)){
+                return back();
+            }
+            $responseCheckout = Order::prepareCheckout($order->total_price);
+            return response()->json(['order'=>$order , 'responseCheckout'=>$responseCheckout]);
         }
         //======================== update order  ======================
 

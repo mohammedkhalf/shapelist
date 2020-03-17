@@ -132,11 +132,5 @@
             </tr>
 
            
-
-
         </table>
-
-           
-
-
 @endsection

@@ -29,14 +29,14 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
-                @if (config('locale.status') && count(config('locale.languages')) > 1)
+                {{-- @if (config('locale.status') && count(config('locale.languages')) > 1)
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <i class="fa fa-language"></i> {{ trans('menus.language-picker.language') }} <span class="caret"></span>
                         </a>
                         @include('includes.partials.lang')
                     </li>
-                @endif
+                @endif --}}
 
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

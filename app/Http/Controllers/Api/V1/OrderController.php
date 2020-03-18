@@ -13,6 +13,9 @@ class OrderController extends APIController
         public function index(Request $request)
         {
             $orders = Order::where('user_id',auth()->user()->id)->get();
+            if(is_null($orders)){
+                return back();
+            } 
             return response()->json($orders);
         } 
         //======================== create order  ======================

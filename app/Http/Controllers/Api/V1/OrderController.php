@@ -5,16 +5,6 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderFront;
-// use App\Models\Product\Product;
-// use App\Models\Template\Template;
-// use App\Models\Platform\Platform;
-// use App\Models\Addon\Addon;
-// use App\Models\Location\Location;
-// use App\Models\Coupon\Coupon;
-// use App\Models\MusicSample\MusicSample;
-// use App\Models\Status\Status;
-// use App\Models\Access\User\User;
-
 
 class OrderController extends APIController
 {
@@ -38,9 +28,11 @@ class OrderController extends APIController
             $order = Order::findOrFail($id);
             if(is_null($order)){
                 return back();
-            }
+            } 
+            $data = Order::getOrderData($order);
             $responseCheckout = Order::prepareCheckout($order->total_price);
-            return response()->json(['order'=>$order , 'responseCheckout'=>$responseCheckout]);
+            $OrderData = array_merge($data , ['responseCheckout'=>json_decode($responseCheckout)]);
+            return response()->json($OrderData);
         }
         //======================== update order  ======================
 

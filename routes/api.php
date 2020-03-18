@@ -69,10 +69,13 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //Orders
         Route::apiResource('orders', 'OrderController');
 
+<<<<<<< HEAD
         //payment
         // Route::apiResource('payment', 'PaymentController');
         // Route::post('checkout', 'PaymentController@prepareCheckout');
 
+=======
+>>>>>>> staging
     }); //auth:api
 
 

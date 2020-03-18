@@ -152,6 +152,29 @@ class Order extends Model
         }
     }
 
+    public static function getOrderData($order)
+    {
+        $data = [
+            'orderID' => $order->id,
+            'firstName' => $order->users->first_name,
+            'lastName' => $order->users->last_name,
+            'email' => $order->users->email,
+            'phoneNumber' => $order->users->phone_number,
+            'product' =>$order->product->name,
+            'platform' => $order->platform->name,
+            'addon' => $order->addon->name,
+            'couponCode' =>  $order->coupon_code,
+            'productQuantity' => $order->product_quantity,
+            'totalPrice' => $order->total_price,
+            'videoLength' => $order->video_length,
+            'OrderStatus' => $order->status->type,
+            'Payment' => $order->payment_status == null ? "Not-Pay" : "Payment-Done",
+            'created_at' => $order->created_at,
+            'updated_at' => $order->updated_at,
+        ];
+        return $data;
+    }
+
     public static function prepareCheckout($price)
     {
         $url = "https://test.oppwa.com/v1/checkouts";
@@ -174,7 +197,8 @@ class Order extends Model
             }
             curl_close($ch);
             return $responseData;
+    } //prepareCheckout
 
-    }
+
 
 }

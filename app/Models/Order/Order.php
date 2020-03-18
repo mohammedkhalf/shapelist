@@ -166,6 +166,7 @@ class Order extends Model
             'videoLength' => $order->video_length,
             'logo' => $order->logo,
             'addon' => $order->addon->name,
+            'music' => $order->music_id,
             'couponCode' =>  $order->coupon_code,
             'productQuantity' => $order->product_quantity,
             'productPrice' =>$order->product->price,

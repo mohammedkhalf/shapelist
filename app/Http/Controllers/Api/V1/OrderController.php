@@ -10,13 +10,17 @@ class OrderController extends APIController
 {
     
         //======================== index orders  ======================
-        public function index(Request $request)
+        public function index()
         {
-            $orders = Order::where('user_id',auth()->user()->id)->get();
+            $id = Order::where('user_id',auth()->user()->id)->pluck('id');
+            $orders = Order::findOrFail($id);
             if(is_null($orders)){
                 return back();
             } 
-            return response()->json($orders);
+            foreach($orders as $order)
+             $data = Order::getOrderData($order);
+
+            return response()->json($data);
         } 
         //======================== create order  ======================
         public function store(StoreOrderFront $request)

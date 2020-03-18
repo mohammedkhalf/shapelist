@@ -162,6 +162,7 @@ class Order extends Model
             'phoneNumber' => $order->users->phone_number,
             'product' =>$order->product->name,
             'platform' => $order->platform->name,
+            'template' => $order->template->name,
             'addon' => $order->addon->name,
             'couponCode' =>  $order->coupon_code,
             'productQuantity' => $order->product_quantity,

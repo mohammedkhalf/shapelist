@@ -14,13 +14,15 @@ class OrderController extends APIController
         {
             $id = Order::where('user_id',auth()->user()->id)->pluck('id');
             $orders = Order::findOrFail($id);
+            $allOrders = collect([]);
+
             if(is_null($orders)){
                 return back();
             } 
             foreach($orders as $order)
-             $data = Order::getOrderData($order);
+            $allOrders->push(Order::getOrderData($order));
 
-            return response()->json($data);
+            return response()->json($allOrders);
         } 
         //======================== create order  ======================
         public function store(StoreOrderFront $request)

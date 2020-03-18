@@ -163,6 +163,7 @@ class Order extends Model
             'product' =>$order->product->name,
             'platform' => $order->platform->name,
             'template' => $order->template->name,
+            'logo' => $order->logo,
             'addon' => $order->addon->name,
             'couponCode' =>  $order->coupon_code,
             'productQuantity' => $order->product_quantity,

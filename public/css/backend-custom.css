@@ -550,8 +550,8 @@ html, body {
 }
 
 .skin-blue-light .main-sidebar {
-    background: var(--theme-co);
-    color: #fff;
+    background:#272D37 ;
+    color: #ddd;
 }
 
 a.dt-button.copyButton {
@@ -772,7 +772,7 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 .skin-blue-light .sidebar-menu>li#hover{ background-color: var(--theme-co) }
 .skin-blue-light .sidebar a { color: #fff;  }
 .skin-blue-light .sidebar a { color: #fff;  }
-.skin-blue-light .sidebar-menu>li.header {     background-color: var(--theme-co);   color: #fff; font-weight: bold; }
+.skin-blue-light .sidebar-menu>li.header {     background-color: #272D37 ;   color: #ddd; font-weight: bold; }
 
 .sidebar-menu .treeview-menu>li>a { font-size: 13px; white-space: normal; }
 .skin-blue-light .main-header .logo { height: 53px; line-height: 53px; background-color: #fff; color: var(--theme-co); font-family: 'Fira Sans', sans-serif;}

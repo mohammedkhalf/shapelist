@@ -498,6 +498,7 @@ table.dataTable{clear:both;margin-top:6px !important;margin-bottom:6px !importan
 :root {
     --theme-co: #22A67E ;
     --light-blue: rgb(6, 7, 7);
+
 }
 html, body {
     height: 100%;
@@ -750,6 +751,7 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 /*Custom Fileinputs start*/
 .custom-file-input input[type=file] { display: none; }
 .custom-file-input .inputfile + label { max-width: 100%; font-size: 14px; font-weight: 500 ;text-overflow: ellipsis; white-space: nowrap; cursor: pointer; display: inline-block; padding: 8px 12px; margin-bottom: 0; height: 36px; border:1px solid var(--theme-co) }
+
 .custom-file-input .inputfile + label .fa { margin-right: 10px; }
 .custom-file-input .inputfile:focus + label,.custom-file-input .inputfile.has-focus + label { outline: 1px dotted #000; outline: -webkit-focus-ring-color auto 5px; }
 
@@ -776,6 +778,7 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 
 .sidebar-menu .treeview-menu>li>a { font-size: 13px; white-space: normal; }
 .skin-blue-light .main-header .logo { height: 53px; line-height: 53px; background-color: #272D37; color: var(--theme-co); font-family: 'Fira Sans', sans-serif;}
+
 .btn-primary { color: #fff; background-color: var(--theme-co); border-color: rgba(0,0,0,.1);}
 .btn-primary:hover {background: rgba(0,0,0,.8);}
 .skin-blue-light .main-header .logo:hover, .skin-blue-light .main-header .navbar .sidebar-toggle:hover {     background: rgba(0,0,0,.1);
@@ -858,6 +861,7 @@ ul.timeline.notification-list>li>.timeline-item>.timeline-header>span.comment-hl
  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
      text-align: center;
  }
+
 /*!
  * Datetimepicker for Bootstrap 3
  * version : 4.17.47

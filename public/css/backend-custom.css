@@ -856,8 +856,7 @@ ul.timeline.notification-list>li>.timeline-item>.timeline-header>span.comment-hl
  }
  /*Responsive CSS end*/
  .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-     /* text-align: center; */
-
+     text-align: center;
  }
 
 /*!

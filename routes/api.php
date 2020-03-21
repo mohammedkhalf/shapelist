@@ -17,6 +17,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
+        //Social Login 
+        Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+        Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('find/{token}', 'ForgotPasswordController@find');

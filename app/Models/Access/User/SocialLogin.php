@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Access\User;
+namespace App\Models\Access\SocialLogin;
 
 use App\Models\BaseModel;
 

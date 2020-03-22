@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\SharedModel;
-
+use App\Models\Access\SocialLogin;
 
 /**
  * Class User.
@@ -110,6 +110,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
 
-
+    public function linkedSocialAccounts()
+    {
+        return $this->hasMany(SocialLogin::class);
+    }
 
 }

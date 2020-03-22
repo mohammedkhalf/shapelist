@@ -17,45 +17,65 @@
         <table class="table table-striped table-hover">
             <tr>
                 <th>{{ trans('labels.backend.orders.table.firstname') }}</th>
-                <td>{{ $order->users->first_name }}</td>
+                <td>{{ !empty($order->users) ?  $order->users->first_name : '' }}</td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.lastname') }}</th>
-                <td>{{ $order->users->last_name }}</td>
+                <td>{{ !empty($order->users) ? $order->users->last_name : '' }}</td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.email') }}</th>
-                <td>{{ $order->users->email }}</td>
+                <td>{{ !empty($order->users) ? $order->users->email : '' }}</td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.phone') }}</th>
-                <td>{{ $order->users->phone_number }}</td>
+                <td>
+                @if(!empty($order->users))
+                  {{ $order->users->phone_number }}
+                @else
+                    <p>There is No Phone Number</p>
+                @endif
+                   
+                </td>
             </tr>
             <tr>
                 <th>{{ trans('labels.backend.orders.table.PackageName') }}</th>
-                <td>{{ $order->product->name }} </td>
+                <td>{{ !empty($order->product) ? $order->product->name : '' }} </td>
             </tr>
             <tr>
                 <th>{{ trans('labels.backend.orders.table.platform') }}</th>
-                <td>{{ $order->platform->name }} </td>
+                <td>{{ !empty($order->platform) ?  $order->platform->name : '' }} </td> 
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.addon') }}</th>
-                <td>{{ $order->addon->name }} </td>
+                <td> {{ !empty($order->addon) ? $order->addon->name : ''  }}</td>
             </tr>
 
             <tr>
                 <th ><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.music') }} <h5></th>
-                <td><audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('smaples/'.$order->musicsample->url)}}' ></audio></td>
+                <td>
+                    @if(!empty($order->musicSample))
+                    <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('smaples/'.$order->musicsample->url)}}' ></audio></td>
+                    @else
+                        <p style="margin-top:20px;">There is No Music Sample</p>
+                    @endif
+
+                    
             </tr>
 
             <tr>
                 <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.templateImage') }} </h5></th>
-                <td> <img src='{{Storage::disk('public')->url('templates/'.$order->template->image)}}' border="0" width="100" class="img-rounded" align="center" /> </td>
+                <td> 
+                    @if(!empty($order->template))
+                     <img src='{{Storage::disk('public')->url('templates/'. $order->template->image)}}' border="0" width="100" class="img-rounded" align="center" /> 
+                    @else
+                        <p>There is No Template</p>
+                    @endif
+                </td>
             </tr>
 
             <tr>
@@ -74,7 +94,14 @@
             </tr>
             <tr>
                 <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.logo') }}</h5></th>
-                <td> <img src='{{Storage::disk('public')->url('order_logo/'.$order->logo)}}' border="0" width="50" class="img-rounded" align="center" /> </td>
+                <td>
+                    @if(!empty($order->logo))
+                     <img src='{{Storage::disk('public')->url('order_logo/'.$order->logo)}}' border="0" width="50" class="img-rounded" align="center" />
+                    @else
+                      <p style="margin-top:20px;">There is No logo</p>
+
+                    @endif
+                </td>
             </tr>
 
             <tr>
@@ -89,22 +116,24 @@
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.country') }}</th>
-                <td>  {{ $order->location->country }} </td>
+                <td>  
+                    {{ !empty($order->location) ? $order->location->country : '' }} 
+                </td> 
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.city') }}</th>
-                <td>  {{ $order->location->city }} </td>
+                <td>  {{ !empty($order->location) ? $order->location->city : '' }} </td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.address') }}</th>
-                <td>  {{ $order->location->address }} </td>
+                <td>  {{ !empty($order->location) ? $order->location->address : '' }} </td>
             </tr>
 
             <tr>
                 <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>
-                <td> <h5 class="btn btn-default"> {{ $order->status->type }}</h5> </td>
+                <td> <h5 class="btn btn-default"> {{ !empty($order->status) ? $order->status->type : '' }}</h5> </td> 
             </tr>
     
             <tr>

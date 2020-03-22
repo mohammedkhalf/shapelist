@@ -332,6 +332,7 @@ return [
 						"edit" => "Edit Location",
 						"management" => "Location Management",
 						"title" => "Locations",
+						"all" => "All Locations",
 
 						"table" => [
 						"id" => "Id",

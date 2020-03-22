@@ -65,6 +65,7 @@ class CouponsController extends Controller
      */
     public function store(StoreCouponRequest $request)
     {
+        // dd($request->all());
         //Input received from the request
         $input = $request->except(['_token']);
         //Create the model using repository create method

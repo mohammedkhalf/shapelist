@@ -10,6 +10,7 @@ use App\Models\Platform\Platform;
 use App\Models\Product\Product;
 use App\Models\Template\Template;
 
+
 class StoreOrderFront extends FormRequest
 {
     /**
@@ -40,7 +41,10 @@ class StoreOrderFront extends FormRequest
             'product_quantity' => ['required' , 'numeric' , 'not_in:0'],
             'logo' => ['mimes:jpeg,png,jpg'],
             'video_length' => [ 'numeric' , 'not_in:0'],
-            'notes' => ['string']
+            'notes' => ['string'],
+            'country'=>[ 'string'],
+            'city'=>[ 'string'],
+            'address' =>['string'],
         ];
     }
 }

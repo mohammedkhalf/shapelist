@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Backend\Coupon;
+namespace App\Http\Requests\Backend\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCouponRequest extends FormRequest
+class ViewOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateCouponRequest extends FormRequest
      */
     public function authorize()
     {
-        return access()->allow('update-coupon');
+        return access()->allow('view-order');
     }
 
     /**
@@ -27,10 +27,6 @@ class UpdateCouponRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
-            'code' => ['string','max:10'],
-            'amount' => ['numeric','not_in:0'],
-            'valid' => ['numeric','not_in:0']
-
         ];
     }
 

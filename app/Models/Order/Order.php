@@ -15,7 +15,7 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
-
+use Storage;
 class Order extends Model
 {
     use ModelTrait,
@@ -108,8 +108,12 @@ class Order extends Model
             $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
             $OrderData = Order::create($OrderInfo);
             if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-                Location::create(['country'=>$request->country  ,'city'=>$request->city,'address'=>$request->address,
-                'lat'=>$request->lat,'lng'=>$request->long, 'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
+                Location::create([
+                    'country'=>$request->country 
+                    ,'city'=>$request->city,
+                    'address'=>$request->address,
+                    'lat'=>$request->lat,
+                    'lng'=>$request->long, 'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
              }
             return $OrderData;
         
@@ -154,24 +158,40 @@ class Order extends Model
 
     public static function getOrderData($order)
     {
+        /** template **/
+        $tempInfo = !empty($order->template) ? $order->template->image : 'asd.png';
+        $tempLink = Storage::disk('public')->url('templates/'.$tempInfo);
+        
+        /** music **/
+        $musicInfo = !empty($order->musicSample) ? $order->musicSample->url : 'asd.mp3';
+        $musicLink = Storage::disk('public')->url('smaples/'.$musicInfo);
+        
+        /** logo **/
+        $logoInfo = !empty($order->logo) ? $order->logo : 'asd.png';
+        $logoLink = Storage::disk('public')->url('order_logo/'.$logoInfo);
+
+        
         $data = [
             'orderID' => $order->id,
             'firstName' => $order->users->first_name,
             'lastName' => $order->users->last_name,
             'email' => $order->users->email,
-            'phoneNumber' => $order->users->phone_number,
+            'phoneNumber' => !empty($order->users->phone_number) ? $order->users->phone_number : 'There is No Phone Number',
             'product' =>$order->product->name,
-            'platform' => $order->platform->name,
-            'template' => $order->template->name,
-            'videoLength' => $order->video_length,
-            'logo' => $order->logo,
-            'addon' => $order->addon->name,
-            'music' => $order->music_id,
-            'couponCode' =>  $order->coupon_code,
+            'platform' => !empty($order->platform) ?  $order->platform->name : 'There is No Platform' ,
+            'addon' => !empty($order->addon) ? $order->addon->name : 'There is No Addon',
+            
+            'template' =>  '<img src='.$tempLink.' border="0" width="100" class="img-rounded" align="center" />',
+            
+            'music' => '<audio controls style="height:54px;" ><source src='.$musicLink.' ></audio></td>' ,
+            
+            'logo' => '<img src='.$logoLink.' border="0" width="50" class="img-rounded" align="center" />',
+            
+            'couponCode' =>  !empty($order->coupon_code) ? $order->coupon_code : 'There is No Coupon Code',
             'productQuantity' => $order->product_quantity,
-            'productPrice' =>$order->product->price,
             'totalPrice' => $order->total_price,
-            'OrderStatus' => $order->status->type,
+            'videoLength' => $order->video_length,
+            'OrderStatus' => !empty($order->status) ? $order->status->type : '',
             'Payment' => $order->payment_status == null ? "Not-Pay" : "Payment-Done",
             'created_at' => $order->created_at,
             'updated_at' => $order->updated_at,

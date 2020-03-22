@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Location\Traits\LocationAttribute;
 use App\Models\Location\Traits\LocationRelationship;
 use App\Models\Order\Order;
-
+use App\Models\SharedModel;
 class Location extends Model
 {
     use ModelTrait,
         LocationAttribute,
+        SharedModel,
     	LocationRelationship {
             // LocationAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

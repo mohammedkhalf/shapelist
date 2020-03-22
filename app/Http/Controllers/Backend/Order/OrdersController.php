@@ -16,7 +16,8 @@ use App\Http\Requests\Backend\Order\CreateOrderRequest;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Http\Requests\Backend\Order\EditOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
-use App\Http\Requests\Backend\Order\DeleteOrderRequest;
+use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
+use App\Http\Requests\Backend\Order\ViewOrderRequest; 
 
 /**
  * OrdersController
@@ -111,7 +112,7 @@ class OrdersController extends Controller
      * @return \App\Http\Responses\RedirectResponse
      */
 
-    public function show(Order $order)
+    public function show(ViewOrderRequest $request , Order $order)
     {
         if(is_null($order))
         {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
-use App\Helpers\Auth\Auth;
+//use App\Helpers\Auth\Auth;
 //use App\Helpers\Frontend\Auth\Socialite;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\NotificationIos;
@@ -13,6 +13,7 @@ use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Socialite;
+use Auth;
 use App\Models\Access\SocialLogin\SocialLogin;
 use App\Models\Access\User\User;
 
@@ -181,10 +182,14 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
     public function findOrCreateUser($user, $provider){
-       $authUser =SocialLogin::where('provider_id',$user->id)->frist();
+        $authUser =SocialLogin::where('provider_id',$user->id)->first();
         if($authUser){
             return $authUser;
         }
-        return 123;
+        
+        return User::create ([
+            'name'=> $user->name,
+            'email'=>$user->email, 
+        ]);
     }
 }

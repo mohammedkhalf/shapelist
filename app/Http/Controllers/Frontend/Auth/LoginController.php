@@ -13,8 +13,8 @@ use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Socialite;
-use App\Models\Access\SocialLogin;
-use App\Models\Access\User;
+use App\Models\Access\SocialLogin\SocialLogin;
+use App\Models\Access\User\User;
 
 
 /**

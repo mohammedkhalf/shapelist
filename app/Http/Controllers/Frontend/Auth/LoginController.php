@@ -178,6 +178,7 @@ class LoginController extends Controller
     {
         $user = Socialite::driver($provider)->stateless()->user();
         $authUser = $this->findOrCreateUser($user, $provider);
+
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
     }
@@ -186,10 +187,17 @@ class LoginController extends Controller
         if($authUser){
             return $authUser;
         }
-        
-        return User::create ([
+        $my_user = new User();
+         $my_user->create ([
             'name'=> $user->name,
             'email'=>$user->email, 
+        ]);
+        $user_id =  User::where('email',$user->name)->get('id');
+
+        SocialLogin::create([
+            'user_id'=> $user_id,
+            'provider'=> strtoupper($provider),
+            'provider_id' =>$user->id,
         ]);
     }
 }

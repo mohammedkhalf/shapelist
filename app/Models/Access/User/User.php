@@ -110,9 +110,4 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
 
-    public function linkedSocialAccounts()
-    {
-        return $this->hasMany(SocialLogin::class);
-    }
-
 }

@@ -70,7 +70,7 @@
                             {{ Form::submit(trans('labels.frontend.auth.register_button'), ['class' => 'btn btn-primary']) }}
                         </div><!--col-md-6-->
                     </div><!--form-group-->
-                        <a href= "{{url('auth/google')}}" class="btn btn primary" > register with google </a>
+
                     {{ Form::close() }}
 
                 </div><!-- panel body -->

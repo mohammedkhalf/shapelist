@@ -44,6 +44,7 @@
                             {{ link_to_route('frontend.auth.password.reset', trans('labels.frontend.passwords.forgot_password')) }}
                         </div><!--col-md-6-->
                     </div><!--form-group-->
+                    <a href= "{{url('auth/google')}}" class="btn btn primary" > register with google </a>
 
                     {{ Form::close() }}
 

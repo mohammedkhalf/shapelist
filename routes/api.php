@@ -18,8 +18,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('register', 'RegisterController@register');
         Route::post('login', 'AuthController@login');
         //Social Login 
-        Route::get('google', 'Auth\AuthController@redirectToProvider');
-        Route::get('google/callback', 'Auth\AuthController@handleProviderCallback');
+        Route::get('google', 'Frontend\Auth\LoginController@redirectToProvider');
+        Route::get('google/callback', 'Frontend\Auth\LoginController@handleProviderCallback');
         // Password Reset
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('find/{token}', 'ForgotPasswordController@find');

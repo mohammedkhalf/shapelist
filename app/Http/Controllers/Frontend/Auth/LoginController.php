@@ -6,13 +6,13 @@ use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
 use App\Helpers\Auth\Auth;
-// use App\Helpers\Frontend\Auth\Socialite;
+use App\Helpers\Frontend\Auth\Socialite;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\NotificationIos;
 use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Socialite;
+//use Socialite;
 use App\Models\Access\SocialLogin;
 use App\Models\Access\User;
 
@@ -167,5 +167,16 @@ class LoginController extends Controller
 
             return redirect()->route('frontend.auth.login');
         }
+    }
+    //========================= social login =============================
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->stateless()->user();
+
+        return $user->token;
     }
 }

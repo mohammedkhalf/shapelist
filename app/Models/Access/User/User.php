@@ -110,4 +110,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
 
+    public function socialLoginTable()
+    {
+        return $this->hasOne( 'App\Models\Access\SocialLogin\SocialLogin','user_id','id');
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Auth;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
@@ -21,7 +21,7 @@ use App\Models\Access\User\User;
 /**
  * Class LoginController.
  */
-class LoginController extends Controller
+class LoginController extends APIController
 {
     use AuthenticatesUsers;
 
@@ -180,7 +180,7 @@ class LoginController extends Controller
         $authUser = $this->findOrCreateUser($user, $provider);
         auth::login($authUser,true);
         // return redirect($this->redirectTo);
-         return $authUser ;
+         return response()->json($authUser) ;
     }
     public function findOrCreateUser($user, $provider){
         $authUser =User::where('provider_id',$user->id)->first();

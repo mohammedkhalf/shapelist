@@ -21,6 +21,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('find/{token}', 'ForgotPasswordController@find');
         Route::post('password-reset', 'ForgotPasswordController@resetPassword')->name('password.reset');
+        //=============== Social Login ===================
+        
+        //================================================
     });
 
     Route::group(['middleware' => ['auth:api']], function () {

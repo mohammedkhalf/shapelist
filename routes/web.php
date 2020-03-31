@@ -40,3 +40,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 */
 includeRouteFiles(__DIR__.'/Generator/');
 
+Route::get('auth/{provider}', 'Api\V1\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Api\V1\LoginController@handleProviderCallback');

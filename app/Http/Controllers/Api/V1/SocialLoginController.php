@@ -19,9 +19,9 @@ use App\Models\Access\User\User;
 
 
 /**
- * Class LoginController.
+ * Class SocialLoginController.
  */
-class LoginController extends APIController
+class SocialLoginController extends APIController
 {
     use AuthenticatesUsers;
 

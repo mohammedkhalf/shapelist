@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Frontend\Auth;
 use App\Events\Frontend\Auth\UserLoggedIn;
 use App\Events\Frontend\Auth\UserLoggedOut;
 use App\Exceptions\GeneralException;
-//use App\Helpers\Auth\Auth;
-//use App\Helpers\Frontend\Auth\Socialite;
+use App\Helpers\Auth\Auth;
+use App\Helpers\Frontend\Auth\Socialite;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\NotificationIos;
 use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Socialite;
-use Auth;
+//use Socialite;
+//use Auth;
 use App\Models\Access\SocialLogin\SocialLogin;
 use App\Models\Access\User\User;
 
@@ -59,8 +59,8 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('frontend.auth.login');
-            //->withSocialiteLinks((new Socialite())->getSocialLinks());
+        return view('frontend.auth.login')
+            ->withSocialiteLinks((new Socialite())->getSocialLinks());
     }
 
     /**
@@ -121,7 +121,7 @@ class LoginController extends Controller
         /*
          * Remove any session data from backend
          */
-        //app()->make(Auth::class)->flushTempSession();
+        app()->make(Auth::class)->flushTempSession();
 
         /*
          * Fire event, Log out user, Redirect

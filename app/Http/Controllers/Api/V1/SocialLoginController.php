@@ -37,8 +37,6 @@ class SocialLoginController extends APIController
     {
         $this->notification = $notification;
     }
-
-
     //========================= social login =============================
     public function redirectToProvider($provider)
     {
@@ -48,12 +46,12 @@ class SocialLoginController extends APIController
     {
         $user = Socialite::driver($provider)->stateless()->user();
         $authUser = $this->findOrCreateUser($user, $provider);
-        auth::login($authUser,true);
+        //auth::login($authUser,true);
         // return redirect($this->redirectTo);
          return response()->json($authUser) ;
     }
     public function findOrCreateUser($user, $provider){
-        $authUser =User::where('provider_id',$user->id)->first();
+        $authUser =SocialLogin::where('provider_id',$user->id)->first();
         if($authUser){
             return $authUser;
         }
@@ -61,8 +59,6 @@ class SocialLoginController extends APIController
          $my_user->create ([
             'name'=> $user->name,
             'email'=>$user->email, 
-            'provider'=> strtoupper($provider),
-            'provider_id' =>$user->id,
 
         ])->socialLoginTable()->create([  
                 'provider'=> strtoupper($provider),
@@ -72,4 +68,5 @@ class SocialLoginController extends APIController
             return $my_user;
         
     }
+    //======================================================================
 }

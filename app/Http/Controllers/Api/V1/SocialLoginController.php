@@ -60,7 +60,7 @@ class SocialLoginController extends APIController
          return response()->json([
             'user'   => $my_account,
             'token'     => $token,
-            'message'   => trans('api.messages.registeration.success'),
+            'message'   => trans('api.messages.login.success'),
         ]);
         }
         $my_user = new User();
@@ -79,7 +79,7 @@ class SocialLoginController extends APIController
             return response()->json([
                'user'   => $my_account,
                'token'     => $token,
-               'message'   => trans('api.messages.registeration.success'),
+               'message'   => trans('api.messages.login.success'),
                ]);
         
     }

@@ -39,6 +39,3 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 * Routes From Module Generator
 */
 includeRouteFiles(__DIR__.'/Generator/');
-//======================= Social Login ==================================
-Route::get('auth/{provider}', 'Api\V1\SocialLoginController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Api\V1\SocialLoginController@handleProviderCallback');

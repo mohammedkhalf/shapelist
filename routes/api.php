@@ -76,6 +76,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Route::post('checkout', 'PaymentController@prepareCheckout');
     }); //auth:api
 
+//======================= Social Login ==================================
+Route::get('auth/{provider}', 'SocialLoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'SocialLoginController@handleProviderCallback');
 
 
 });

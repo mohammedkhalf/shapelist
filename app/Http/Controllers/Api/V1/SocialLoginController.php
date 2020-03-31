@@ -53,19 +53,34 @@ class SocialLoginController extends APIController
     public function findOrCreateUser($user, $provider){
         $authUser =SocialLogin::where('provider_id',$user->id)->first();
         if($authUser){
-            return $authUser;
+         $my_account = User::where('email',$user->email)->first();
+         $passportToken = $my_account->createToken('API Access Token');
+         $passportToken->token->save();
+         $token = $passportToken->accessToken;
+         return response()->json([
+            'user'   => $my_account,
+            'token'     => $token,
+            'message'   => trans('api.messages.registeration.success'),
+        ]);
         }
         $my_user = new User();
          $my_user->create ([
-            'name'=> $user->name,
+            'first_name'=> $user->name,
             'email'=>$user->email, 
 
         ])->socialLoginTable()->create([  
                 'provider'=> strtoupper($provider),
                 'provider_id' =>$user->id,
             ]);
-        
-            return $my_user;
+            $my_account = User::where('email',$user->email)->first();
+            $passportToken = $my_account->createToken('API Access Token');
+            $passportToken->token->save();
+            $token = $passportToken->accessToken;
+            return response()->json([
+               'user'   => $my_account,
+               'token'     => $token,
+               'message'   => trans('api.messages.registeration.success'),
+               ]);
         
     }
     //======================================================================

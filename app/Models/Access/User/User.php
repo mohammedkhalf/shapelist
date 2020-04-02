@@ -12,7 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\SharedModel;
-use App\Models\Access\SocialLogin;
+use App\Models\Access\SocialLogin\SocialLogin;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+
 
 /**
  * Class User.
@@ -27,6 +29,7 @@ class User extends Authenticatable
         UserRelationship,
         UserSendPasswordReset,
         HasApiTokens,
+        AuthenticableTrait,
         SharedModel;
 
     /**
@@ -113,7 +116,25 @@ class User extends Authenticatable
 
     public function socialLoginTable()
     {
-        return $this->hasOne( 'App\Models\Access\SocialLogin\SocialLogin','user_id','id');
+        return $this->hasOne(SocialLogin::class,'user_id','id');
+    }
+
+    public static function findOrCreateUser($user, $provider)
+    {
+        //user is exist
+        if(SocialLogin::where(['provider'=>$provider,'provider_id'=>$user->id])->first())
+        {
+            return User::where('email',$user->email)->first();
+        }
+        else{
+            //user will create   
+            $userInfo = User::create(['first_name'=> $user->name,'email'=>$user->email,'confirmed' => 1]);
+            $socialInfo=SocialLogin::create(['user_id'=>$userInfo->id,'provider'=> strtoupper($provider),'provider_id'=>$user->id , 
+                                'avatar'=>$user->avatar , 'token'=>$user->token]);
+            $data=['userInfo'=>$userInfo,'socialInfo'=>$socialInfo];
+            return $data;
+        }
+        
     }
 
 }

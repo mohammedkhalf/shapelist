@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Access\SocialLogin;
-
+use App\Models\Access\User;
 use App\Models\BaseModel;
 
 /**
@@ -25,6 +25,6 @@ class SocialLogin extends BaseModel
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

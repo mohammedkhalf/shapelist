@@ -12,6 +12,11 @@ use App\Http\Utilities\NotificationIos;
 use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+//use Socialite;
+//use Auth;
+use App\Models\Access\SocialLogin\SocialLogin;
+use App\Models\Access\User\User;
+
 
 /**
  * Class LoginController.
@@ -163,5 +168,38 @@ class LoginController extends Controller
 
             return redirect()->route('frontend.auth.login');
         }
+    }
+    //========================= social login =============================
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->stateless()->user();
+        $authUser = $this->findOrCreateUser($user, $provider);
+        auth::login($authUser,true);
+        // return redirect($this->redirectTo);
+         return $authUser ;
+    }
+    public function findOrCreateUser($user, $provider){
+        $authUser =User::where('provider_id',$user->id)->first();
+        if($authUser){
+            return $authUser;
+        }
+        $my_user = new User();
+         $my_user->create ([
+            'name'=> $user->name,
+            'email'=>$user->email, 
+            'provider'=> strtoupper($provider),
+            'provider_id' =>$user->id,
+
+        ])->socialLoginTable()->create([  
+                'provider'=> strtoupper($provider),
+                'provider_id' =>$user->id,
+            ]);
+        
+            return $my_user;
+        
     }
 }

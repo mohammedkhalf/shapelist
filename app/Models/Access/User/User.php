@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\SharedModel;
-
+use App\Models\Access\SocialLogin;
 
 /**
  * Class User.
@@ -50,6 +50,7 @@ class User extends Authenticatable
         'confirmed',
         'created_by',
         'updated_by',
+
     ];
 
     /**
@@ -110,6 +111,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
 
-
+    public function socialLoginTable()
+    {
+        return $this->hasOne( 'App\Models\Access\SocialLogin\SocialLogin','user_id','id');
+    }
 
 }

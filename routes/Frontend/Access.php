@@ -28,8 +28,9 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         Route::post('login', 'LoginController@login')->name('login');
 
         // Socialite Routes
-        Route::get('login/{provider}', 'SocialLoginController@login')->name('social.login');
-
+       // Route::get('login/{provider}', 'SocialLoginController@login')->name('social.login');
+        // Route::get('auth/{provider}', 'LoginController@redirectToProvider');
+        // Route::get('auth/{provider}/callback', 'LoginController@handleProviderCallback');
         // Registration Routes
         if (config('access.users.registration')) {
             Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
@@ -48,3 +49,4 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset');
     });
 });
+       

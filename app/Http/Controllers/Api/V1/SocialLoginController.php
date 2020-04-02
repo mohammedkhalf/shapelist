@@ -48,12 +48,9 @@ class SocialLoginController extends APIController
         $user = Socialite::driver($provider)->stateless()->user();
         $data = User::findOrCreateUser($user, $provider);
         Auth::login($data['userInfo'], true);
-        $passportToken = $data['userInfo']->createToken('API Access Token');
-        $passportToken->token->save();
-        $token = $passportToken->accessToken;
         return response()->json([
            'user'       => $data['userInfo'],
-           'token'      => $token,
+           'token'      => $data['socialInfo']->token,
            'message'    => trans('api.messages.login.success'),
            'avatar'     => $data['socialInfo']->avatar
            ]);

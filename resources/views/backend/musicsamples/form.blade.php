@@ -6,12 +6,6 @@
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
-    <!-- <div class="form-group">
-        {{ Form::label('type', trans('labels.backend.musicsamples.table.type'), ['class' => 'col-lg-2 control-label']) }}
-        <div class="col-lg-10">
-        {{ Form::text('type', old('type'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.musicsamples.table.name')]) }}
-        </div>
-    </div> -->
 
     <div class="form-group">
         {{ Form::label('url', trans('labels.backend.musicsamples.table.url'), ['class' => 'col-lg-2 control-label required']) }}

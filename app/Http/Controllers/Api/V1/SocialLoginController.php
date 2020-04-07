@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-
-use App\Events\Frontend\Auth\UserLoggedIn;
-use App\Events\Frontend\Auth\UserLoggedOut;
-use App\Exceptions\GeneralException;
 // use App\Helpers\Auth\Auth;
 // use App\Helpers\Frontend\Auth\Socialite;
 use App\Http\Controllers\Controller;

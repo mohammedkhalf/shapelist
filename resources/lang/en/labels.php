@@ -313,18 +313,20 @@ return [
 	"createdat" => "Created At",
 	],
 	],
+
 	"musicsamples" => [
 	"create" => "Create MusicSample",
 	"edit" => "Edit MusicSample",
 	"management" => "MusicSample Management",
 	"title" => "MusicSamples",
-	"table" => [
-	"id" => "Id",
-	"name" => "name",
-	"type" => "type",
-	"url" => "audioPlayer",
-	"createdat" => "Created At",
-	],
+	
+			"table" => [
+			"id" => "Id",
+			"name" => "name",
+			"type" => "type",
+			"url" => "audioPlayer",
+			"createdat" => "Created At",
+			],
 	],
 					"locations" => [
 

@@ -37,9 +37,10 @@ class SocialLoginController extends APIController
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->stateless()->user();
-        if(User::where('email','=',$user->email)->first())
+        if($userInfo=User::where('email','=',$user->email)->first())
         {
-             return response()->json(['message'=>"this email already exist"]);
+            return response()->json(['message'=>"this email already exist",'userInfo'=>$userInfo,
+            'avatar'=> $userInfo->socialLoginTable->avatar]);
         }
         $userInfo = User::CreateUser($user, $provider);
         Auth::login($userInfo,true);

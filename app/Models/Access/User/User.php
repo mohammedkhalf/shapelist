@@ -12,9 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use App\Models\SharedModel;
-use App\Models\Access\SocialLogin\SocialLogin;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
-
+use App\Models\Access\User\SocialLogin;
 
 /**
  * Class User.
@@ -29,7 +27,6 @@ class User extends Authenticatable
         UserRelationship,
         UserSendPasswordReset,
         HasApiTokens,
-        AuthenticableTrait,
         SharedModel;
 
     /**
@@ -53,7 +50,6 @@ class User extends Authenticatable
         'confirmed',
         'created_by',
         'updated_by',
-
     ];
 
     /**
@@ -113,28 +109,22 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Location\Location','user_id','id');
     }
-
+    
+    
     public function socialLoginTable()
     {
         return $this->hasOne(SocialLogin::class,'user_id','id');
     }
 
-    public static function findOrCreateUser($user, $provider)
+    public static function CreateUser($user, $provider)
     {
-        //user is exist
-        if(SocialLogin::where(['provider'=>$provider,'provider_id'=>$user->id])->first())
-        {
-            return User::where('email',$user->email)->first();
-        }
-        else{
             //user will create   
             $userInfo = User::create(['first_name'=> $user->name,'email'=>$user->email,'confirmed' => 1]);
-            $socialInfo=SocialLogin::create(['user_id'=>$userInfo->id,'provider'=> strtoupper($provider),'provider_id'=>$user->id , 
+            SocialLogin::create(['user_id'=>$userInfo->id,'provider'=> strtoupper($provider),'provider_id'=>$user->id , 
                                 'avatar'=>$user->avatar , 'token'=>$user->token]);
-            $data=['userInfo'=>$userInfo,'socialInfo'=>$socialInfo];
-            return $data;
-        }
-        
+            return $userInfo;
     }
+
+
 
 }

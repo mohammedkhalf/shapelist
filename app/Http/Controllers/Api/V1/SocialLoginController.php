@@ -1,16 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-// use App\Helpers\Auth\Auth;
-// use App\Helpers\Frontend\Auth\Socialite;
-use App\Http\Controllers\Controller;
 use App\Http\Utilities\NotificationIos;
 use App\Http\Utilities\PushNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 use Socialite;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Access\SocialLogin\SocialLogin;
 use App\Models\Access\User\User;
 
 
@@ -42,13 +37,17 @@ class SocialLoginController extends APIController
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->stateless()->user();
-        $data = User::findOrCreateUser($user, $provider);
-        Auth::login($data['userInfo'], true);
+        if(User::where('email','=',$user->email)->first())
+        {
+             return response()->json(['message'=>"this email already exist"]);
+        }
+        $userInfo = User::CreateUser($user, $provider);
+        Auth::login($userInfo,true);
         return response()->json([
-           'user'       => $data['userInfo'],
-           'token'      => $data['socialInfo']->token,
+           'user'       => $userInfo,
+           'token'      =>  $userInfo->socialLoginTable->token,
            'message'    => trans('api.messages.login.success'),
-           'avatar'     => $data['socialInfo']->avatar
+          'avatar'     => $userInfo->socialLoginTable->avatar
            ]);
     }
    

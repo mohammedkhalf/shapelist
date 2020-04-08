@@ -46,6 +46,7 @@ class AuthController extends APIController
         }
 
         return $this->respond([
+            'user'      => $user,
             'message'   => trans('api.messages.login.success'),
             'token'     => $token,
         ]);

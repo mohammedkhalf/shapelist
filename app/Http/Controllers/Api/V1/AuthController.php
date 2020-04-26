@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Access\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+
+
 
 class AuthController extends APIController
 {
@@ -79,4 +82,14 @@ class AuthController extends APIController
             'message'   => trans('api.messages.logout.success'),
         ]);
     }
+
+    /** get user data using id*/
+    public function userData($id)
+    {
+        $userInfo = User::findOrFail($id);
+        return $this->respond([
+            'userInfo'   => $userInfo
+        ]);
+    }
+
 }

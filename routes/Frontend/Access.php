@@ -35,7 +35,7 @@ Route::group(['namespace' => 'Auth', 'as' => 'auth.'], function () {
             Route::post('register', 'RegisterController@register')->name('register');
         }
 
-        // Confirm Account Routes
+        // Confirm Account Routes 
         Route::get('account/confirm/{token}', 'ConfirmAccountController@confirm')->name('account.confirm');
         Route::get('account/confirm/resend/{user}', 'ConfirmAccountController@sendConfirmationEmail')->name('account.confirm.resend');
 

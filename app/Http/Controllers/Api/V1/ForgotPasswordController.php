@@ -55,6 +55,7 @@ class ForgotPasswordController extends APIController
 
         return $this->respond([
             'status'    => 'ok',
+            'token'     => $token,
             'message'   => trans('api.messages.forgot_password.success'),
         ]);
     }

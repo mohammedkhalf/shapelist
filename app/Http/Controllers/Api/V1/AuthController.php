@@ -6,6 +6,7 @@ use App\Models\Access\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -90,6 +91,42 @@ class AuthController extends APIController
         return $this->respond([
             'userInfo'   => $userInfo
         ]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        // The passwords matches
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) 
+        {
+            return $this->respond([
+                'message'   => 'Your current password does not 
+                                matches with the password you provided. Please try again',
+            ]);
+        }
+        //Current password and new password are same
+        elseif(strcmp($request->get('current-password'), $request->get('new-password')) == 0)
+        {
+            return $this->respond([
+                'message'   => 'New Password cannot be same as your current password.
+                                 Please choose a different password.',
+            ]);
+        }
+        else
+        {
+                $request->validate([
+                    'current-password' => 'required',
+                    'new-password' => 'required|string|min:6',
+                    'confirm-new-password' => 'required|same:new-password'
+                ]);
+                //Change Password
+                $user = Auth::user();
+                $user->password = bcrypt($request->get('new-password'));
+                $user->save();
+
+                return $this->respond([
+                    'message'   => 'Password changed successfully',
+                ]);
+        }
     }
 
 }

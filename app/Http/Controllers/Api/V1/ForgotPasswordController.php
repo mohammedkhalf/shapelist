@@ -1,13 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-
-// use App\Models\User\User;
 use App\Models\Access\PasswordReset\PasswordReset;
-
 use App\Notifications\Frontend\Auth\UserNeedsPasswordReset;
 use App\Notifications\Frontend\Auth\PasswordResetSuccess;
-
 use App\Repositories\Frontend\Access\User\UserRepository;
 use Illuminate\Http\Request;
 use Validator;
@@ -55,6 +51,7 @@ class ForgotPasswordController extends APIController
 
         return $this->respond([
             'status'    => 'ok',
+            'token'     => $token,
             'message'   => trans('api.messages.forgot_password.success'),
         ]);
     }
@@ -78,9 +75,6 @@ class ForgotPasswordController extends APIController
 
       public function resetPassword(Request $request)
     {
-        // dd($request->all());
-
-
         $request->validate([
             'email' => 'required|string|email',
             'password'              => 'required|string|min:8',
@@ -102,7 +96,6 @@ class ForgotPasswordController extends APIController
             ], 404);
         $user->password = bcrypt($request->password);
         $user->save();
-        // $passwordReset->delete();
         $user->notify(new PasswordResetSuccess($passwordReset));
         return response()->json($user);
     }

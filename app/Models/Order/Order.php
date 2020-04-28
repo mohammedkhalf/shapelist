@@ -95,9 +95,17 @@ class Order extends Model
 
             $productPrice= Product::findOrFail($request->product_id)->price;
             if($request->coupon_code){
-            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-                if ($coupon->valid == 1){$couponAmount=$coupon->amount;}
-                else{echo("invaild coupon code!"); die;}
+
+                $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+
+                if ($coupon->valid == 1)
+                {
+                    $couponAmount=$coupon->amount;
+                }
+                else{
+                    return response()->json(['message'=>'invaild coupon code!']);
+                }
+
             }
             if($request->addon_id){
                 $priceInfo=Addon::findOrFail($request->addon_id)->price;
@@ -107,13 +115,18 @@ class Order extends Model
             'notes','video_length','product_quantity');
             $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
             $OrderData = Order::create($OrderInfo);
-            if($request->city || $request->countery || $request->address || $request->lat || $request->long){
+            if($request->city || $request->countery || $request->address || $request->lat || $request->lng || $request->rep_first_name || $request->rep_last_name || $request->rep_phone_number)
+            {
                 Location::create([
                     'country'=>$request->country 
                     ,'city'=>$request->city,
                     'address'=>$request->address,
                     'lat'=>$request->lat,
-                    'lng'=>$request->long, 'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
+                    'lng'=>$request->lng,
+                    'rep_first_name' => $request->rep_first_name,
+                    'rep_last_name' => $request->rep_last_name,
+                    'rep_phone_number'=>$request->rep_phone_number,
+                    'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
              }
             return $OrderData;
         
@@ -127,12 +140,19 @@ class Order extends Model
         global $fileNameToStore;
 
         $order = Order::findOrFail($id);
+        $location = Location::where('order_id','=', $order->id)->first();
+
+
         $productPrice= Product::findOrFail($order->product_id)->price;
         if($request->coupon_code){
-        $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-            if ($coupon->valid == 1){
-            $couponAmount=$coupon->amount;
-            }else{echo("invaild coupon code!"); die;}
+            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+            if ($coupon->valid == 1)
+            {
+                $couponAmount=$coupon->amount;
+            }
+            else{
+                return response()->json(['message'=>'invaild coupon code!']);
+            }
         }
         if($request->addon_id){
             $priceInfo=Addon::findOrFail($request->addon_id)->price;
@@ -149,10 +169,14 @@ class Order extends Model
         $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
             'notes','video_length','product_quantity');
         $updateOrder = array_merge($updateData ,  ['total_price'=> $total_price ,'logo' => $fileNameToStore]);
+        // dd($updateOrder);
         $order->update($updateOrder);
-        if($request->city || $request->countery || $request->address || $request->lat || $request->long){
-            Location::create(['country'=>$request->country ,'city'=>$request->city,'address'=>$request->address,
-            'lat'=>$request->lat,'lng'=>$request->long, 'order_id' =>  $order->id,'user_id' => auth()->guard('api')->user()->id]);
+
+        if($request->city || $request->countery || $request->address || $request->lat || $request->long)
+        {
+            $Data = $request->only('country','city','address','lat','lng');
+            $locationData = array_merge($Data,['order_id' =>  $order->id,'user_id' => auth()->guard('api')->user()->id]);
+            $location->update($locationData);
         }
     }
 
@@ -180,13 +204,9 @@ class Order extends Model
             'product' =>$order->product->name,
             'platform' => !empty($order->platform) ?  $order->platform->name : 'There is No Platform' ,
             'addon' => !empty($order->addon) ? $order->addon->name : 'There is No Addon',
-            
             'template' =>  '<img src='.$tempLink.' border="0" width="100" class="img-rounded" align="center" />',
-            
             'music' => '<audio controls style="height:54px;" ><source src='.$musicLink.' ></audio></td>' ,
-            
             'logo' => '<img src='.$logoLink.' border="0" width="50" class="img-rounded" align="center" />',
-            
             'couponCode' =>  !empty($order->coupon_code) ? $order->coupon_code : 'There is No Coupon Code',
             'productQuantity' => $order->product_quantity,
             'totalPrice' => $order->total_price,

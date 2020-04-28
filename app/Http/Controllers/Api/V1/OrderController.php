@@ -25,8 +25,8 @@ class OrderController extends APIController
         //======================== create order  ======================
         public function store(StoreOrderFront $request)
         {
-            Order::insertOrder($request); 
-            return response()->json(['message' => 'Order Created Successfully']);
+            $orderInfo=Order::insertOrder($request); 
+            return response()->json(['orderInfo'=>$orderInfo ,'message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 
@@ -45,8 +45,8 @@ class OrderController extends APIController
 
         public function update(StoreOrderFront $request, $id)
         {
-            $order=Order::updateOrder($request,$id);
-            return response()->json("updated successfully!");
+            $updatedOrder=Order::updateOrder($request,$id);
+            return response()->json(['updatedOrder'=>$updatedOrder ,'message' => 'Order updated successfully!']);
         }
         //======================== delete order  ======================
 
@@ -54,6 +54,6 @@ class OrderController extends APIController
         {
             $order = Order::findOrFail($id);
             $order->delete();  
-            return response()->json("deleted successfully");
+            return response()->json("Order deleted successfully");
         }
 }

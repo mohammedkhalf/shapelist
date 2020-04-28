@@ -43,7 +43,6 @@ class OrdersTableController extends Controller
      */
     public function __invoke(ManageOrderRequest $request)
     {
-
             return Datatables::of($this->order->getForDataTable())
             ->escapeColumns(['id'])
             ->addColumn('user_id', function ($order) {

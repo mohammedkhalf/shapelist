@@ -380,7 +380,10 @@ return [
 						"PayDone" => "Pay Done",
 						"country" => "Country",
 						"city" => "City",
-						"address" => "Address"
+						"address" => "Address",
+						"rep_first_name" => "RepFirstName",
+						"rep_last_name" => "RepLastName",
+						"rep_phone_number" => "RepPhoneNumber"
 						],
 					],
 	],

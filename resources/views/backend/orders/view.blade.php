@@ -132,6 +132,22 @@
             </tr>
 
             <tr>
+                <th>{{ trans('labels.backend.orders.table.rep_first_name') }}</th>
+                <td>  {{ !empty($order->location) ? $order->location->rep_first_name : '' }} </td>
+            </tr>
+
+            <tr>
+                <th>{{ trans('labels.backend.orders.table.rep_last_name') }}</th>
+                <td>  {{ !empty($order->location) ? $order->location->rep_last_name : '' }} </td>
+            </tr>
+
+            <tr>
+                <th>{{ trans('labels.backend.orders.table.rep_phone_number') }}</th>
+                <td>  {{ !empty($order->location) ? $order->location->rep_phone_number : '' }} </td>
+            </tr>
+
+
+            <tr>
                 <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>
                 <td> <h5 class="btn btn-default"> {{ !empty($order->status) ? $order->status->type : '' }}</h5> </td> 
             </tr>

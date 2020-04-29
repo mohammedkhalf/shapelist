@@ -50,6 +50,7 @@ class User extends Authenticatable
         'confirmed',
         'created_by',
         'updated_by',
+        'phone_number'
     ];
 
     /**

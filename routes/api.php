@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             Route::post('logout', 'AuthController@logout');
             Route::get('user-data/{id}', 'AuthController@userData');
             Route::post('password/change', 'AuthController@changePassword');
-
+            Route::post('update-profile', 'AuthController@updateProfile');
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);

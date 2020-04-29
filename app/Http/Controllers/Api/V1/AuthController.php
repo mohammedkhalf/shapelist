@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Validation\Rule;
 
 
 class AuthController extends APIController
@@ -127,6 +127,23 @@ class AuthController extends APIController
                     'message'   => 'Password changed successfully',
                 ]);
         }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'first_name'    => 'required|max:255',
+            'last_name'     => 'required|max:255',
+            'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
+            'phone_number'  => 'required|max:10|string|regex:/(0)[0-9]{9}/',
+        ]);
+        $user = User::findOrFail(auth()->user()->id);
+        $user->update($request->only('first_name','last_name','email','phone_number'));
+        return $this->respond([
+            'message'=>'Profile Updated Successfully',
+            'user'=> $user,
+        ]);
+
     }
 
 }

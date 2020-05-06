@@ -30,8 +30,10 @@ class AddonRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.addons.table').'.id',
-                config('module.addons.table').'.name',
-                config('module.addons.table').'.type',
+                config('module.addons.table').'.name_en',
+                config('module.addons.table').'.name_ar',
+                config('module.addons.table').'.description_en',
+                config('module.addons.table').'.description_ar',
                 config('module.addons.table').'.price',
                 config('module.addons.table').'.created_at',
                 config('module.addons.table').'.updated_at',

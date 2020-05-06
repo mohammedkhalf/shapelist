@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Addon;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\FilterStringRule;
 
 class UpdateAddonRequest extends FormRequest
 {
@@ -24,12 +25,11 @@ class UpdateAddonRequest extends FormRequest
     public function rules()
     {
         return [
-            //Put your rules for the request in here
-            //For Example : 'title' => 'required'
-            //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
-            'name' => ['string','regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:50'],
-            'type' => ['string','regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:50'],
-            'price' => ['numeric']
+            'name_en' => ['string','max:50', new FilterStringRule],
+            'name_ar' => ['string','max:50' , new FilterStringRule],
+            'description_en'=>['string','max:50' , new FilterStringRule],
+            'description_ar'=>['string','max:50' , new FilterStringRule],
+            'price' => ['numeric','not_in:0'],
         ];
     }
 

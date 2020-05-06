@@ -22,8 +22,10 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.addons.table.id') }}</th>
-                            <th>{{ trans('labels.backend.addons.table.name') }}</th>
-                            <th>{{ trans('labels.backend.addons.table.type') }}</th>
+                            <th>{{ trans('labels.backend.addons.table.name_en') }}</th>
+                            <th>{{ trans('labels.backend.addons.table.name_ar') }}</th>
+                            <th>{{ trans('labels.backend.addons.table.description_en') }}</th>
+                            <th>{{ trans('labels.backend.addons.table.description_ar') }}</th>
                             <th>{{ trans('labels.backend.addons.table.price') }}</th>
                             <th>{{ trans('labels.backend.addons.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
@@ -64,8 +66,10 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.addons.table')}}.id'},
-                    {data: 'name', name: '{{config('module.addons.table')}}.name'},
-                    {data: 'type', name: '{{config('module.addons.table')}}.type'},
+                    {data: 'name_en', name: '{{config('module.addons.table')}}.name_en'},
+                    {data: 'name_ar', name: '{{config('module.addons.table')}}.name_ar'},
+                    {data: 'description_en', name: '{{config('module.addons.table')}}.description_en'},
+                    {data: 'description_ar', name: '{{config('module.addons.table')}}.description_ar'},
                     {data: 'price', name: '{{config('module.addons.table')}}.price'},
                     {data: 'created_at', name: '{{config('module.addons.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}

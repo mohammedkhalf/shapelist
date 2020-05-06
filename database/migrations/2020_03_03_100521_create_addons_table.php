@@ -15,9 +15,12 @@ class CreateAddonsTable extends Migration
     {
         Schema::create('addons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 225)->unique();
-            $table->string('type', 225);
-            $table->integer('price')->nullable();	
+            $table->string('name_en', 225)->unique();
+            $table->string('name_ar', 225)->unique();
+            $table->string('package_type', 225)->nullable();
+            $table->string('description_en', 225)->nullable();
+            $table->string('description_ar', 225)->nullable();
+            $table->decimal('price');	
             $table->timestamps();
         });
     }

@@ -38,11 +38,17 @@ class AddonsTableController extends Controller
     {
         return Datatables::of($this->addon->getForDataTable())
             ->escapeColumns(['id'])
-            ->addColumn('name', function ($addon) {
-                return $addon->name;
+            ->addColumn('name_en', function ($addon) {
+                return $addon->name_en;
             })
-            ->addColumn('type', function ($addon) {
-                return $addon->type;
+            ->addColumn('name_ar', function ($addon) {
+                return $addon->name_ar;
+            })
+            ->addColumn('description_en', function ($addon) {
+                return $addon->description_en;
+            })
+            ->addColumn('description_ar', function ($addon) {
+                return $addon->description_ar;
             })
             ->addColumn('price', function ($addon) {
                 return $addon->price;

@@ -23,20 +23,24 @@ class LocationController extends APIController
             $this->validate($request,[
                   'country'=> 'string|required',
                   'city'=> 'string|required',
+                  'address' => 'string|required',
                   'postal_code'=>'string|nullable',
                   'unit_no'=>'string|nullable',
+                  'state'=>'string|nullable',
                   'lng'=>'string|nullable',
                   'lat'=>'string|nullable',
                   'rep_first_name'=>'string|nullable',
                   'rep_last_name'=>'string|nullable',
-                  'rep_phone_number'=>'string|nullable',
+                  'rep_phone_number'=>'string|nullable'
 
                ]);
 
-         $location = Location::findOrFail($id);
-         $locationData = $request->only('country','city','address','unit_no','postal_code','state','lng','lat');
-         $location->update($locationData);
-         return response()->json($location);
+         $location = new Location();
+         $locationData = $request->only('country','city','address','unit_no','postal_code','state','lng','lat'
+                           ,'rep_first_name','rep_last_name','rep_phone_number');
+         $location->save($locationData);
+         return response()->json(['message'=>'location Saved susseccfully', 'location'=>$location ]);
+
       }
    //======================== Update location  ======================
       public function update(Request $request, $id)
@@ -57,7 +61,7 @@ class LocationController extends APIController
          $locationData = $request->only('country','city','address','unit_no',
                                  'postal_code','lng','lat','rep_first_name','rep_last_name','rep_phone_number');
          $location->update($locationData);
-         return response()->json(['message'=>'location created susseccfully','location'=>$location]);
+         return response()->json(['message'=>'location Updated susseccfully','location'=>$location]);
       }
 
    //======================== delete location  ======================

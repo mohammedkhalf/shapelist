@@ -60,6 +60,7 @@ class RegisterController extends APIController
         $token = $passportToken->accessToken;
 
         return $this->respondCreated([
+            'user'      => $user,
             'message'   => trans('api.messages.registeration.success'),
             'token'     => $token,
         ]);

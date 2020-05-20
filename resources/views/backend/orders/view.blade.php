@@ -146,6 +146,46 @@
                 <td>  {{ !empty($order->location) ? $order->location->rep_phone_number : '' }} </td>
             </tr>
 
+            <tr>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.background') }} </h5> </th>
+                <td>
+                     @if( $order->background == 1)  
+                        <button class="btn btn-success"> Flat </button>
+                     @else
+                        <button class="btn btn-success"> Decorative </button>
+                     @endif
+                </td>
+            </tr>
+
+            <tr>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.background_color') }} </h5> </th>
+                <td>  {{$order->background_color}} </td>
+            </tr>
+            
+            <tr>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.deliver_id') }} </h5> </th>
+                <td> 
+                    @if($order->deliver_id == 1)  
+                        <button class="btn btn-success"> regular </button>
+                    @elseif($order->deliver_id == 2)
+                        <button class="btn btn-success"> Fast </button>
+                    @else
+                        <button class="btn btn-success"> Express </button>
+                    @endif
+                </td>
+            </tr>
+
+            <tr>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.user_music') }} </h5> </th>
+                <td> 
+                    @if($order->user_music)
+                        <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('users_music/'.$order->user_music)}}' ></audio></td>
+                    @else
+                        <p style="margin-top:20px;">There is No Music Sample</p>
+                    @endif
+                </td>
+            </tr>
+
 
             <tr>
                 <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>

@@ -157,6 +157,13 @@ return [
 	"management" => "MusicSample Management",
 	"main" => "MusicSamples",
 	],
+	"promotions" => [
+	"all" => "All Promotions",
+	"create" => "Create Promotion",
+	"edit" => "Edit Promotion",
+	"management" => "Promotion Management",
+	"main" => "Promotions",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

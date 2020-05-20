@@ -127,7 +127,6 @@ return [
 	"not_found" => "That MusicSample does not exist.",
 	"update_error" => "There was a problem updating this MusicSample. Please try again.",
 	],
-
 	"locations" => [
 	"already_exists" => "That Location already exists. Please choose a different name.",
 	"create_error" => "There was a problem creating this Location. Please try again.",
@@ -135,7 +134,6 @@ return [
 	"not_found" => "That Location does not exist.",
 	"update_error" => "There was a problem updating this Location. Please try again.",
 	],
-
 	"orders" => [
 	"already_exists" => "That Order already exists. Please choose a different name.",
 	"create_error" => "There was a problem creating this Order. Please try again.",
@@ -143,7 +141,6 @@ return [
 	"not_found" => "That Order does not exist.",
 	"update_error" => "There was a problem updating this Order. Please try again.",
 	],
-
 	"frontend" => [
 	"auth" => [
 	"confirmation" => [
@@ -164,6 +161,13 @@ return [
 	],
 	"registration_disabled" => "Registration is currently closed.",
 	],
+	],
+	"promotions" => [
+	"already_exists" => "That Promotion already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Promotion. Please try again.",
+	"delete_error" => "There was a problem deleting this Promotion. Please try again.",
+	"not_found" => "That Promotion does not exist.",
+	"update_error" => "There was a problem updating this Promotion. Please try again.",
 	],
 	],
 ];

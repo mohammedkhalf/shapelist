@@ -18,7 +18,7 @@ use App\Http\Requests\Backend\Order\EditOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
-
+use App\Models\Promotion\Promotion;
 /**
  * OrdersController
  */
@@ -118,6 +118,7 @@ class OrdersController extends Controller
         {
             return back();
         }  
+
         return new ViewResponse('backend.orders.view', compact('order'));
     }
 
@@ -128,5 +129,11 @@ class OrdersController extends Controller
         //returning with successfull message
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
     }
+
+    // public function getPromotions (Order $order)
+    // {
+    //     $promotions = Promotion::where('order_id',$order->id)->get();
+    //     return new ViewResponse('backend.orders.show-promotions',compact('promotions'));
+    // }
     
 }

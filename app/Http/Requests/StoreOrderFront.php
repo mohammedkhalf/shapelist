@@ -1,10 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Backend\Order;
-
+namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Access\User\User;
+use App\Models\Addon\Addon;
+use App\Models\Coupon\Coupon;
+use App\Models\MusicSample\MusicSample;
+use App\Models\Platform\Platform;
+use App\Models\Product\Product;
+use App\Models\Template\Template;
 
-class UpdateOrderRequest extends FormRequest
+
+class StoreOrderFront extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,14 +20,10 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return access()->allow('update-order');
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
+ 
     public function rules()
     {
         return [
@@ -42,16 +45,6 @@ class UpdateOrderRequest extends FormRequest
             'background_color'=>['string'],
             'delivery_id'=>['numeric' , 'not_in:0'],
             'user_music' => ['mimes:mpga,ogg']
-         
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            //The Custom messages would go in here
-            //For Example : 'title.required' => 'You need to fill in the title field.'
-            //Further, see the documentation : https://laravel.com/docs/5.4/validation#customizing-the-error-messages
         ];
     }
 }

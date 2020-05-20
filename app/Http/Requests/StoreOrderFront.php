@@ -45,6 +45,10 @@ class StoreOrderFront extends FormRequest
             'country'=>[ 'string'],
             'city'=>[ 'string'],
             'address' =>['string'],
+            'background' =>['numeric' , 'not_in:0'],
+            'background_color'=>['string'],
+            'delivery_id'=>['numeric' , 'not_in:0'],
+            'user_music' => ['mimes:mpga,ogg']
         ];
     }
 }

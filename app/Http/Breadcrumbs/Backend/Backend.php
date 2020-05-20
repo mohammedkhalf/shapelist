@@ -27,3 +27,5 @@ require __DIR__.'/MusicSample.php';
 require __DIR__.'/Location.php';
 require __DIR__.'/Order.php';
 
+
+require __DIR__.'/Promotion.php';

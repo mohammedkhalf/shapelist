@@ -39,6 +39,7 @@ class OrderController extends APIController
             $data = Order::getOrderData($order);
             $responseCheckout = Order::prepareCheckout($order->total_price);
             $OrderData = array_merge($data , ['responseCheckout'=>json_decode($responseCheckout)]);
+            
             return response()->json($OrderData);
         }
         //======================== update order  ======================

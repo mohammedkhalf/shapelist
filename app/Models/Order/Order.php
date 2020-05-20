@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
 use Storage;
+use App\Models\Promotion\Promotion;
+
 class Order extends Model
 {
     use ModelTrait,
@@ -36,7 +38,7 @@ class Order extends Model
      */
     protected $fillable = ['user_id','product_id','platform_id','addon_id',
     'music_id','status_id','template_id','payment_status','coupon_code','product_quantity',
-    'total_price','logo','video_length','notes'];
+    'total_price','logo','video_length','notes','background','background_color','delivery_id','user_music'];
 
     public function users()
     {
@@ -77,13 +79,16 @@ class Order extends Model
         return $this->belongsTo(Status::class,'status_id','id');   
     }  
 
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class,'order_id','id');   
+    }  
+
     //=============================== Insert Order ================================================
     public static function insertOrder($request)
-    {
-          global $priceInfo;
-          global  $couponAmount;
-          global $fileNameToStore;
-
+    {      
+            global $fileNameToStore;
+            global $userMusic;
             if($request->hasFile('logo'))
             {
                 $filenameWithExt = $request->file('logo')->getClientOriginalName();
@@ -92,92 +97,81 @@ class Order extends Model
                 $fileNameToStore= $filename.'_'.time().'.'.$extension;
                 $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
             }
-
+            if($request->hasFile('user_music'))
+            {
+                $filenameWithExt = $request->file('user_music')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('user_music')->getClientOriginalExtension();
+                $userMusic= $filename.'_'.time().'.'.$extension;
+                $path = $request->file('user_music')->storeAs('public/users_music', $userMusic);
+            }
             $productPrice= Product::findOrFail($request->product_id)->price;
-            if($request->coupon_code){
-
-                $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-
-                if ($coupon->valid == 1)
-                {
-                    $couponAmount=$coupon->amount;
-                }
-                else{
-                    return response()->json(['message'=>'invaild coupon code!']);
-                }
-
-            }
-            if($request->addon_id){
-                $priceInfo=Addon::findOrFail($request->addon_id)->price;
-            }
-            $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );
-            $data = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
-            'notes','video_length','product_quantity');
-            $OrderInfo = array_merge($data , ['total_price'=> $total_price ,'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id]);
+            $total_price =  ($productPrice*$request->product_quantity);
+            $data = $request->only('product_id','platform_id','music_id','template_id',
+            'notes','video_length','product_quantity','background','background_color','delivery_id','user_music');
+            $OrderInfo = array_merge($data , ['total_price'=> $total_price ,
+            'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id,'user_music'=>$userMusic]);
             $OrderData = Order::create($OrderInfo);
             if($request->city || $request->countery || $request->address || $request->lat || $request->lng || $request->rep_first_name || $request->rep_last_name || $request->rep_phone_number)
             {
-                Location::create([
-                    'country'=>$request->country 
-                    ,'city'=>$request->city,
-                    'address'=>$request->address,
-                    'lat'=>$request->lat,
-                    'lng'=>$request->lng,
-                    'rep_first_name' => $request->rep_first_name,
-                    'rep_last_name' => $request->rep_last_name,
-                    'rep_phone_number'=>$request->rep_phone_number,
-                    'order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
-             }
+                $locationData = $request->only('country','city','address','lat','lng','rep_first_name','rep_last_name','rep_phone_number');
+                $locationInfo = array_merge($locationData,['order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
+                Location::create($locationInfo);
+            }
             return $OrderData;
-        
     }
 
     //=============================== update Order ================================================
     public static function updateOrder($request,$id)
     {
-        global $priceInfo;
-        global  $couponAmount;
         global $fileNameToStore;
-
+        global $userMusic;
         $order = Order::findOrFail($id);
         $location = Location::where('order_id','=', $order->id)->first();
 
-
-        $productPrice= Product::findOrFail($order->product_id)->price;
-        if($request->coupon_code){
-            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
-            if ($coupon->valid == 1)
-            {
-                $couponAmount=$coupon->amount;
+        if($request->hasFile('logo'))
+        {
+            $old_logo_path = public_path() .  '/storage/order_logo/' . $order->logo;  // prev url path
+            if (file_exists($old_logo_path)) {
+                @unlink($old_logo_path);
             }
-            else{
-                return response()->json(['message'=>'invaild coupon code!']);
-            }
-        }
-        if($request->addon_id){
-            $priceInfo=Addon::findOrFail($request->addon_id)->price;
-        }
-        if($request->hasFile('logo')){
             $filenameWithExt = $request->file('logo')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo')->getClientOriginalExtension();
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
         }
-       
-        $total_price = ( ($productPrice*$request->product_quantity) + $priceInfo ) * (1-($couponAmount/100) );  
-        $updateData = $request->only('product_id','platform_id','addon_id','music_id','template_id','coupon_code',
-            'notes','video_length','product_quantity');
-        $updateOrder = array_merge($updateData ,  ['total_price'=> $total_price ,'logo' => $fileNameToStore]);
-        // dd($updateOrder);
-        $order->update($updateOrder);
+        if($request->hasFile('user_music'))
+        {
+            $old_user_music_path = public_path() .  '/storage/users_music/' . $order->user_music;  // prev url path
+            if (file_exists($old_user_music_path)) {
+                @unlink($old_user_music_path);
+            }
+            $filenameWithExt = $request->file('user_music')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('user_music')->getClientOriginalExtension();
+            $userMusic= $filename.'_'.time().'.'.$extension;
+            $path = $request->file('user_music')->storeAs('public/users_music', $userMusic);
+        }
 
-        if($request->city || $request->countery || $request->address || $request->lat || $request->long)
+        $productPrice= Product::findOrFail($request->product_id)->price;
+        $total_price =  ($productPrice*$request->product_quantity);
+        $data = $request->only('product_id','platform_id','music_id','template_id',
+            'notes','video_length','product_quantity','background','background_color','delivery_id','user_music');
+        $OrderInfo = array_merge($data , ['total_price'=> $total_price ,
+            'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id,'user_music'=>$userMusic]);
+
+        $orderObject = $order->update($OrderInfo);
+
+        if($request->city || $request->country || $request->address || $request->lat || $request->long)
         {
             $Data = $request->only('country','city','address','lat','lng');
             $locationData = array_merge($Data,['order_id' =>  $order->id,'user_id' => auth()->guard('api')->user()->id]);
             $location->update($locationData);
         }
+
+        return  $orderObject;
+      
     }
 
     public static function getOrderData($order)

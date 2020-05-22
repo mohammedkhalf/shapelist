@@ -38,7 +38,7 @@ class Order extends Model
      */
     protected $fillable = ['user_id','product_id','platform_id','addon_id',
     'music_id','status_id','template_id','payment_status','coupon_code','product_quantity',
-    'total_price','logo','video_length','notes','background','background_color','delivery_id','user_music'];
+    'total_price','logo','video_length','notes','background','background_color','delivery_id','user_music','download_file'];
 
     public function users()
     {
@@ -105,6 +105,7 @@ class Order extends Model
                 $userMusic= $filename.'_'.time().'.'.$extension;
                 $path = $request->file('user_music')->storeAs('public/users_music', $userMusic);
             }
+            
             $productPrice= Product::findOrFail($request->product_id)->price;
             $total_price =  ($productPrice*$request->product_quantity);
             $data = $request->only('product_id','platform_id','music_id','template_id',
@@ -127,6 +128,8 @@ class Order extends Model
     {
         global $fileNameToStore;
         global $userMusic;
+        global $orderDownload;
+        
         $order = Order::findOrFail($id);
         $location = Location::where('order_id','=', $order->id)->first();
 
@@ -142,6 +145,8 @@ class Order extends Model
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             $path = $request->file('logo')->storeAs('public/order_logo', $fileNameToStore);
         }
+       
+
         if($request->hasFile('user_music'))
         {
             $old_user_music_path = public_path() .  '/storage/users_music/' . $order->user_music; 
@@ -160,7 +165,7 @@ class Order extends Model
         $data = $request->only('product_id','platform_id','music_id','template_id',
             'notes','video_length','product_quantity','background','background_color','delivery_id','user_music');
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,
-            'logo'=>$fileNameToStore ,'user_id'=>auth()->guard('api')->user()->id,'user_music'=>$userMusic]);
+            'logo'=>$fileNameToStore ,'download_file'=>$orderDownload ,'user_id'=>auth()->guard('api')->user()->id,'user_music'=>$userMusic]);
 
         $orderObject = $order->update($OrderInfo);
 
@@ -208,6 +213,7 @@ class Order extends Model
             'videoLength' => $order->video_length,
             'OrderStatus' => !empty($order->status) ? $order->status->type : '',
             'Payment' => $order->payment_status == null ? "Not-Pay" : "Payment-Done",
+            'download_file' => $order->download_file,
             'created_at' => $order->created_at,
             'updated_at' => $order->updated_at,
         ];
@@ -258,6 +264,24 @@ class Order extends Model
             return $responseData;
     }
 
+    public static function updateAdminOrder($order, $request){
 
+        if(!empty($request['download_file'])){
+            $image_path = public_path() .  '/storage/orders-download/' . $order->download_file;
+            if (file_exists($image_path)) {
+                @unlink($image_path);
+            }
+            $filenameWithExt = $request['download_file']->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request['download_file']->getClientOriginalExtension();
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            $path = $request['download_file']->storeAs('public/orders-download', $fileNameToStore);
+      
+    
+            $order->update(['status_id'=> $request['status_id'] , 'download_file'=>$fileNameToStore ]);
+        }
+        $order->update(['status_id'=> $request['status_id'] ]);
+
+    }
 
 }

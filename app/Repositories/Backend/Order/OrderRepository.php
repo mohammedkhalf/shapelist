@@ -35,6 +35,7 @@ class OrderRepository extends BaseRepository
                 config('module.orders.table').'.platform_id',
                 config('module.orders.table').'.product_quantity',
                 config('module.orders.table').'.status_id',
+                config('module.orders.table').'.download_file',
                 config('module.orders.table').'.created_at',
                 config('module.orders.table').'.updated_at',
             ]);

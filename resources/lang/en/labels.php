@@ -350,6 +350,7 @@ return [
 					"Info" => "Order Information",
 					"title" => "Orders",
 					"statusType" => "status Type",
+					"download_file" => "Download File",
 
 				"table" => [
 				"orderId" => "Id",

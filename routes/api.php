@@ -74,6 +74,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('locations', 'LocationController');
         //Orders
         Route::apiResource('orders', 'OrderController');
+
+        Route::get('checkouts/{checkoutId}/payment', 'OrderController@getStatus');
+
   
     }); //auth:api
 

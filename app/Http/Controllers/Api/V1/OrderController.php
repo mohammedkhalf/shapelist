@@ -57,4 +57,12 @@ class OrderController extends APIController
             $order->delete();  
             return response()->json("Order deleted successfully");
         }
+
+        public function getStatus ($checkoutId)
+        {
+            $statusResponse = Order::getStatus($checkoutId);
+            dd($statusResponse); 
+        }
+
+        
 }

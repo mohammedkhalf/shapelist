@@ -118,6 +118,7 @@ class Order extends Model
                 $locationInfo = array_merge($locationData,['order_id' => $OrderData->id,'user_id' => auth()->guard('api')->user()->id]);
                 Location::create($locationInfo);
             }
+            
             return $OrderData;
     }
 
@@ -236,6 +237,26 @@ class Order extends Model
             curl_close($ch);
             return $responseData;
     } //prepareCheckout
+
+    public static function getStatus($checkoutId)
+    {
+            $url = "https://test.oppwa.com/v1/checkouts/{$checkoutId}/payment";
+            $url .= "?entityId=8a8294174d0595bb014d05d82e5b01d2";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $responseData = curl_exec($ch);
+            if(curl_errno($ch)) {
+                return curl_error($ch);
+            }
+            curl_close($ch);
+            return $responseData;
+    }
 
 
 

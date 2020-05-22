@@ -26,6 +26,9 @@
             @if(isset($order))
             <td> <a href="{{ route('admin.filedownload',$order) }}">{{ $order->download_file}}</a></td>
 
+          {{-- <br> <img src="{{ Storage::disk('public')->url('orders-download/'.$order->download_file) }}" /> --}}
+
+
             @endif
         </div>
     </div>

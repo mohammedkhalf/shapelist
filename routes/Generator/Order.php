@@ -9,6 +9,11 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
         Route::resource('orders', 'OrdersController');
         //For Datatable
         Route::post('orders/get', 'OrdersTableController')->name('orders.get');
+
+         //For File download
+         Route::get('filedownload/{order}', 'OrdersController@fileDownload')->name('filedownload');
+
+
     });
     
 });

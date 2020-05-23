@@ -205,6 +205,11 @@
             </tr>
 
            
+            <tr>
+                <th>{{ trans('labels.backend.orders.download_file') }}</th>
+                <td> <a href="{{ route('admin.filedownload',$order) }}" class="btn btn-success"> Download </a> </td>
+            </tr>
+
 
             <tr>
                 <th>{{ trans('labels.backend.access.users.tabs.content.overview.created_at') }}</th>

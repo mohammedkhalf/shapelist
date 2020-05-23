@@ -97,11 +97,8 @@ class OrdersController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //Input received from the request
-        $input = $request->except(['_token']);
-        //Update the model using repository update method
-        $this->repository->update( $order, $input );
-        //return with successfull message
+        $orderInfo = Order::updateAdminOrder($order,$request);
+
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.updated')]);
     }
     /**
@@ -129,6 +126,13 @@ class OrdersController extends Controller
         //returning with successfull message
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
     }
+     //================== fileDownload ======================
+     public function fileDownload(Order $order)
+     {
+      return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
+     }
+ 
+ 
 
     // public function getPromotions (Order $order)
     // {

@@ -105,8 +105,17 @@ class Order extends Model
                 $userMusic= $filename.'_'.time().'.'.$extension;
                 $path = $request->file('user_music')->storeAs('public/users_music', $userMusic);
             }
+            
             $productPrice= Product::findOrFail($request->product_id)->price;
-            $total_price =  ($productPrice*$request->product_quantity);
+            if($request->coupon_code)
+            {
+                $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+                $discount = ($productPrice * $request->product_quantity) * ($coupon->amount / 100);
+                $total_price = ($productPrice * $request->product_quantity)-($discount);
+            }
+            else{
+                $total_price = ($productPrice * $request->product_quantity);
+            }
             $data = $request->only('product_id','platform_id','music_id','template_id',
             'notes','video_length','product_quantity','background','background_color','delivery_id','user_music');
             $OrderInfo = array_merge($data , ['total_price'=> $total_price ,
@@ -156,7 +165,15 @@ class Order extends Model
         }
 
         $productPrice= Product::findOrFail($request->product_id)->price;
-        $total_price =  ($productPrice*$request->product_quantity);
+        if($request->coupon_code)
+        {
+            $coupon = Coupon::where('code','=',$request->coupon_code)->first();
+            $discount = ($productPrice * $request->product_quantity) * ($coupon->amount / 100);
+            $total_price = ($productPrice * $request->product_quantity)-($discount);
+        }
+        else{
+            $total_price = ($productPrice * $request->product_quantity);
+        }
         $data = $request->only('product_id','platform_id','music_id','template_id',
             'notes','video_length','product_quantity','background','background_color','delivery_id','user_music');
         $OrderInfo = array_merge($data , ['total_price'=> $total_price ,

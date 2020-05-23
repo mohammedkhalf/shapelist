@@ -61,8 +61,6 @@ class OrderController extends APIController
         public function getStatus ($checkoutId)
         {
             $statusResponse = Order::getStatus($checkoutId);
-            dd($statusResponse); 
+            return response()->json(json_decode($statusResponse));
         }
-
-        
 }

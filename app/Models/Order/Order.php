@@ -34,7 +34,8 @@ class Order extends Model
      */
     protected $fillable = ['user_id','product_id','platform_id','addon_id',
     'music_id','status_id','template_id','payment_status','coupon_code','product_quantity',
-    'total_price','logo','video_length','notes','background','background_color','delivery_id','user_music','download_file'];
+    'total_price','logo','video_length','notes','background','background_color',
+    'delivery_id','user_music','download_file','bank_transaction_id'];
 
     public function users()
     {

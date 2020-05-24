@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
             $table->string('background_color')->nullable();
             $table->string('delivery_id')->nullable();
             $table->string('user_music')->nullable();
+            $table->string('bank_transaction_id')->nullable();
             $table->timestamps();
         });
     }

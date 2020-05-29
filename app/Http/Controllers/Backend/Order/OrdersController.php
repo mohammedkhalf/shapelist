@@ -19,6 +19,7 @@ use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
 use App\Models\Promotion\Promotion;
+use Storage;
 /**
  * OrdersController
  */
@@ -132,15 +133,14 @@ class OrdersController extends Controller
      //================== fileDownload ======================
      public function fileDownload(Order $order)
      {
-      return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
+        if($order->download_file)
+        {
+          return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
+        }
+        else{
+            return back()->with(['flash_success'=>'There Is No Media File']);
+        }
      }
- 
- 
 
-    // public function getPromotions (Order $order)
-    // {
-    //     $promotions = Promotion::where('order_id',$order->id)->get();
-    //     return new ViewResponse('backend.orders.show-promotions',compact('promotions'));
-    // }
     
 }

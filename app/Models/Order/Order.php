@@ -295,7 +295,7 @@ class Order extends Model
             $order->update(['status_id'=> $request['status_id'] , 'download_file'=>$fileNameToStore ]);
         }
         $order->update(['status_id'=> $request['status_id'] ]);
+        return $order;
 
     }
-
 }

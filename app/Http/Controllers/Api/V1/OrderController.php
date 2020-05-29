@@ -63,4 +63,14 @@ class OrderController extends APIController
             $responseData = Order::getStatus($checkoutId);
             return response()->json(['responseData'=>json_decode($responseData)]);          
         }
+
+        public function getMedia($id)
+        {
+            $order = Order::findOrFail($id);
+            if($order->download_file)
+            {
+               return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
+            }
+            return response()->json(['message'=>'There Is No Media File']);          
+        }
 }

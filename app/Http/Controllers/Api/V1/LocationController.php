@@ -15,11 +15,6 @@ class LocationController extends APIController
       //======================== create location  ======================
       public function store(Request $request)
       {     
-            if(Location::where('id','=',$request->id)->first())
-            {
-               return response()->json("location Already susseccfully!");
-            }
-         
             $this->validate($request,[
                   'country'=> 'string|required',
                   'city'=> 'string|required',

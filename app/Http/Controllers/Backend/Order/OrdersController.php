@@ -98,7 +98,10 @@ class OrdersController extends Controller
     public function update(UpdateOrderRequest $request, Order $order)
     {
         $orderInfo = Order::updateAdminOrder($order,$request);
-
+        if(is_null($orderInfo))
+        {
+            return false;
+        }
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.updated')]);
     }
     /**

@@ -277,7 +277,8 @@ class Order extends Model
             return $responseData;
     }
 
-    public static function updateAdminOrder($order, $request){
+    public static function updateAdminOrder($order, $request)
+    {
 
         if(!empty($request['download_file'])){
             $image_path = public_path() .  '/storage/orders-download/' . $order->download_file;

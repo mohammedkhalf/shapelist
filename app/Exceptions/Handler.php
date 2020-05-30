@@ -111,6 +111,10 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 
+        if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
+            return response()->view("backend.orders.post-too-large");
+        }
+
         return parent::render($request, $exception);
     }
 

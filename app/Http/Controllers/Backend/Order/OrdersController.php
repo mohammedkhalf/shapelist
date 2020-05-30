@@ -20,6 +20,8 @@ use App\Http\Requests\Backend\Order\DeleteOrderRequest;
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
 use App\Models\Promotion\Promotion;
 use Storage;
+use Exception;
+
 /**
  * OrdersController
  */
@@ -96,13 +98,10 @@ class OrdersController extends Controller
      * @param  App\Models\Order\Order  $order
      * @return \App\Http\Responses\RedirectResponse
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order,Exception $exception)
     {
+        
         $orderInfo = Order::updateAdminOrder($order,$request);
-        if(is_null($orderInfo))
-        {
-            return false;
-        }
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.updated')]);
     }
     /**

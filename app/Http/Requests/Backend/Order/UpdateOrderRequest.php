@@ -49,7 +49,7 @@ class UpdateOrderRequest extends FormRequest
             'background_color'=>['string'],
             'delivery_id'=>['numeric' , 'not_in:0'],
             'user_music' => ['mimes:mpga,ogg'],
-            'download_file' => ['mimes:jpg,jpeg,png,mp4,mov,ogg,qt','max:10000'],
+            'download_file' => ['mimes:jpg,jpeg,png,mp4,mov,ogg,qt','max:50000'],
 
          
         ];

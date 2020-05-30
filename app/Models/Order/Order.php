@@ -279,7 +279,6 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
-
         if(!empty($request['download_file'])){
             $image_path = public_path() .  '/storage/orders-download/' . $order->download_file;
             if (file_exists($image_path)) {
@@ -290,10 +289,9 @@ class Order extends Model
             $extension = $request['download_file']->getClientOriginalExtension();
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             $path = $request['download_file']->storeAs('public/orders-download', $fileNameToStore);
-      
-    
             $order->update(['status_id'=> $request['status_id'] , 'download_file'=>$fileNameToStore ]);
         }
+        
         $order->update(['status_id'=> $request['status_id'] ]);
         return $order;
 

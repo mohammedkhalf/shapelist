@@ -73,4 +73,17 @@ class OrderController extends APIController
             }
             return response()->json(['message'=>'There Is No Media File']);          
         }
+
+        public function savePaymentInfo(Request $request)
+        {
+            // 1 payment successs
+            if($request->payment_status == 1)
+            {           
+                $orderObj = Order::findOrFail($request->order_id);
+                $orderObj->update($request->only('bank_transaction_id','payment_status'));
+                return response()->json(['message'=>'Payment Process Successfully']);
+            }
+            // Failure
+            return response()->json(['message'=>'Payment Process  Failure']);
+        }
 }

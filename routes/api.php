@@ -78,6 +78,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //payment
         Route::get('checkouts/{checkoutId}/payment','OrderController@getStatus');
+        //savePaymentInfo
+        Route::post('/payment-Info','OrderController@savePaymentInfo');
   
     }); //auth:api
 

@@ -39,14 +39,14 @@ class SocialLoginController extends APIController
         $user = Socialite::driver($provider)->stateless()->user();
         if($userInfo=User::where('email','=',$user->email)->first())
         {
-            return response()->json(['message'=>"this email already exist",'userInfo'=>$userInfo,
-            'avatar'=> $userInfo->socialLoginTable->avatar]);
+            return response()->json(['message'=>"this email already exist",'user'=>$userInfo,
+            'avatar'=> $userInfo->socialLoginTable->avatar , 'token'=>$userInfo->socialLoginTable->token]);
         }
         $userInfo = User::CreateUser($user, $provider);
         Auth::login($userInfo,true);
         return response()->json([
            'user'       => $userInfo,
-           'token'      =>  $userInfo->socialLoginTable->token,
+           'token'      => $userInfo->socialLoginTable->token,
            'message'    => trans('api.messages.login.success'),
           'avatar'     => $userInfo->socialLoginTable->avatar
            ]);

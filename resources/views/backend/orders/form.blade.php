@@ -23,10 +23,10 @@
         <div class="col-lg-10">
   
             <input name="download_file" type="file" class="form-control " id="imgInp" onchange="loadFile(event)" accept="image/* ,video/*">
-            <img id="output" >
-            @if(isset($order))
-             <td> <a href="{{ route('admin.filedownload',$order) }}">{{ $order->download_file}}</a></td>
-            @endif
+            <img id="output">
+                @if(isset($order))
+                <td> <a href="{{ route('admin.filedownload',$order) }}">{{ $order->download_file}}</a></td>
+                @endif
         </div>
     </div>
 

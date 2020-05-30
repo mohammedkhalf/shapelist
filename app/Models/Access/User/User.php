@@ -121,8 +121,12 @@ class User extends Authenticatable
     {
             //user will create   
             $userInfo = User::create(['first_name'=> $user->name,'email'=>$user->email,'confirmed' => 1]);
+            $passportToken = $userInfo->createToken('API Access Token');
+            // Save generated token
+            $passportToken->token->save();
+            $token = $passportToken->accessToken;
             SocialLogin::create(['user_id'=>$userInfo->id,'provider'=> strtoupper($provider),'provider_id'=>$user->id , 
-                                'avatar'=>$user->avatar , 'token'=>$user->token]);
+                                'avatar'=>$user->avatar , 'token'=>$token]);
             return $userInfo;
     }
 

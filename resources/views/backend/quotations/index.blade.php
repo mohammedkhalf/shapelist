@@ -22,6 +22,8 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.quotations.table.id') }}</th>
+                            <th>{{ trans('labels.backend.quotations.table.name') }}</th>
+                            <th>{{ trans('labels.backend.quotations.table.price') }}</th>
                             <th>{{ trans('labels.backend.quotations.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -61,6 +63,8 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.quotations.table')}}.id'},
+                    {data: 'name', name: '{{config('module.quotations.table')}}.name'},
+                    {data: 'price', name: '{{config('module.quotations.table')}}.price'},
                     {data: 'created_at', name: '{{config('module.quotations.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

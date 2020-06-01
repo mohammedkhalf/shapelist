@@ -164,6 +164,13 @@ return [
 	"management" => "Promotion Management",
 	"main" => "Promotions",
 	],
+	"quotations" => [
+	"all" => "All Quotations",
+	"create" => "Create Quotation",
+	"edit" => "Edit Quotation",
+	"management" => "Quotation Management",
+	"main" => "Quotations",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

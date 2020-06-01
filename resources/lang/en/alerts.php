@@ -104,5 +104,10 @@ return [
 	"deleted" => "The Promotion was successfully deleted.",
 	"updated" => "The Promotion was successfully updated.",
 	],
+	"quotations" => [
+	"created" => "The Quotation was successfully created.",
+	"deleted" => "The Quotation was successfully deleted.",
+	"updated" => "The Quotation was successfully updated.",
+	],
 	],
 ];

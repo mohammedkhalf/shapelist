@@ -50,4 +50,7 @@ return [
 	"promotions" => [
 	"table" => "promotions",
 	],
+	"quotations" => [
+	"table" => "quotations",
+	],
 ];

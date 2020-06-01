@@ -29,3 +29,4 @@ require __DIR__.'/Order.php';
 
 
 require __DIR__.'/Promotion.php';
+require __DIR__.'/Quotation.php';

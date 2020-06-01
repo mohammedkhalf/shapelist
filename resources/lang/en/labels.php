@@ -411,6 +411,8 @@ return [
 	"title" => "Quotations",
 	"table" => [
 	"id" => "Id",
+	"name" => "Name",
+	"price" => "Price",
 	"createdat" => "Created At",
 	],
 	],

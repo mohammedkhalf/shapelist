@@ -412,7 +412,7 @@ return [
 	"table" => [
 	"id" => "Id",
 	"name" => "Name",
-	"price" => "Price",
+	"rate" => "Rate",
 	"createdat" => "Created At",
 	],
 	],

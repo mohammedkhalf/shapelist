@@ -17,8 +17,12 @@ trait QuotationAttribute
      */
     public function getActionButtonsAttribute()
     {
-        return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-quotation", "admin.quotations.edit")}
-                {$this->getDeleteButtonAttribute("delete-quotation", "admin.quotations.destroy")}
+        // return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-quotation", "admin.quotations.edit")}
+        //         {$this->getDeleteButtonAttribute("delete-quotation", "admin.quotations.destroy")}
+        //         </div>';
+                return '<div class="btn-group action-btn">
+                '.$this->getEditButtonAttribute("edit-quotation", "admin.quotations.edit").'
+                '.$this->getDeleteButtonAttribute("delete-quotation", "admin.quotations.destroy").'
                 </div>';
     }
 }

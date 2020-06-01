@@ -16,7 +16,7 @@ class CreateQuotationsTable extends Migration
         Schema::create('quotations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 225)->unique();
-            $table->decimal('price');
+            $table->integer('rate');
             $table->timestamps();
         });
     }

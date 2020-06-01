@@ -8,9 +8,9 @@
     </div><!--form-group-->
 
     <div class="form-group">
-    {{ Form::label('price', trans('labels.backend.quotations.table.price'), ['class' => 'col-lg-2 control-label required']) }}
+    {{ Form::label('rate', trans('labels.backend.quotations.table.rate'), ['class' => 'col-lg-2 control-label required']) }}
     <div class="col-lg-10">
-     {{ Form::text('price', old('price'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.quotations.table.price'), 'required' => 'required']) }}
+     {{ Form::text('rate', old('rate'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.quotations.table.rate'), 'required' => 'required']) }}
     </div><!--col-lg-10-->
 </div><!--form-group-->
 

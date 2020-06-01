@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Quotation\Quotation
      */
-    protected $quotations;
+    protected $quotation;
 
     /**
      * @param App\Models\Quotation\Quotation $quotations
      */
-    public function __construct($quotations)
+    public function __construct($quotation)
     {
-        $this->quotations = $quotations;
+        $this->quotation = $quotation;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.quotations.edit')->with([
-            'quotations' => $this->quotations
+            'quotation' => $this->quotation
         ]);
     }
 }

@@ -30,6 +30,8 @@ class QuotationRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.quotations.table').'.id',
+                config('module.quotations.table').'.name',
+                config('module.quotations.table').'.price',
                 config('module.quotations.table').'.created_at',
                 config('module.quotations.table').'.updated_at',
             ]);

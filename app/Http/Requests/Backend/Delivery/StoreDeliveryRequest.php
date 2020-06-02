@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Backend\Delivery;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\FilterStringRule;
 class StoreDeliveryRequest extends FormRequest
 {
     /**
@@ -27,6 +27,8 @@ class StoreDeliveryRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
+            'name' => ['string','max:50' , new FilterStringRule],
+            'price' => ['numeric','not_in:0'],
         ];
     }
 

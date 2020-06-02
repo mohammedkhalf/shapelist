@@ -21,5 +21,6 @@ class QuotationController extends Controller
      public function onSet()
     {
         $onSet = Quotation::where('name', 'On-Set')->get();
-        return response()->json($onSet);    }
+        return response()->json($onSet);    
+    }
 }

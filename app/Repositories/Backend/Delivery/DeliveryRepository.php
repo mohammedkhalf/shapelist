@@ -30,6 +30,8 @@ class DeliveryRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.deliveries.table').'.id',
+                config('module.deliveries.table').'.name',
+                config('module.deliveries.table').'.price',
                 config('module.deliveries.table').'.created_at',
                 config('module.deliveries.table').'.updated_at',
             ]);

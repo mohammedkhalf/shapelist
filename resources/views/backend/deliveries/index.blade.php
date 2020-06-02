@@ -22,6 +22,8 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.deliveries.table.id') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.name') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.price') }}</th>
                             <th>{{ trans('labels.backend.deliveries.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -61,6 +63,8 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.deliveries.table')}}.id'},
+                    {data: 'name', name: '{{config('module.deliveries.table')}}.name'},
+                    {data: 'price', name: '{{config('module.deliveries.table')}}.price'},
                     {data: 'created_at', name: '{{config('module.deliveries.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

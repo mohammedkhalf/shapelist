@@ -17,8 +17,9 @@ trait DeliveryAttribute
      */
     public function getActionButtonsAttribute()
     {
-        return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-delivery", "admin.deliveries.edit")}
-                {$this->getDeleteButtonAttribute("delete-delivery", "admin.deliveries.destroy")}
-                </div>';
+        return '<div class="btn-group action-btn">
+              '.$this->getEditButtonAttribute("edit-delivery", "admin.deliveries.edit").'
+              '.$this->getDeleteButtonAttribute("delete-delivery", "admin.deliveries.destroy").'
+              </div>';
     }
 }

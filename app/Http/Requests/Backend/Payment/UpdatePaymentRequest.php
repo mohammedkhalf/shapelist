@@ -27,6 +27,8 @@ class UpdatePaymentRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
+            'status' => ['numeric','not_in:0',Rule::in(['1','2'])],
+            'failure_reason' => ['string','max:50' , new FilterStringRule],
         ];
     }
 

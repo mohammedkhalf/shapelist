@@ -26,13 +26,13 @@
                 <i class="fa fa-list-ul"></i> {{ trans( 'menus.backend.payments.all' ) }}
             </a>
         </li>
-        @permission( 'create-payment' )
+        {{-- @permission( 'create-payment' )
             <li>
                 <a href="{{ route( 'admin.payments.create' ) }}">
                     <i class="fa fa-plus"></i> {{ trans( 'menus.backend.payments.create' ) }}
                 </a>
             </li>
-        @endauth
+        @endauth --}}
     </ul>
 </div>
 <div class="clearfix"></div>

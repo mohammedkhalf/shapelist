@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Payment\Payment
      */
-    protected $payments;
+    protected $payment;
 
     /**
      * @param App\Models\Payment\Payment $payments
      */
-    public function __construct($payments)
+    public function __construct($payment)
     {
-        $this->payments = $payments;
+        $this->payment = $payment;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.payments.edit')->with([
-            'payments' => $this->payments
+            'payment' => $this->payment
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Backend\Payment;
+use App\Rules\FilterStringRule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +28,7 @@ class UpdatePaymentRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
-            'status' => ['numeric','not_in:0',Rule::in(['1','2'])],
+            'status' => ['numeric','not_in:0' ,'in:1,2' ],
             'failure_reason' => ['string','max:50' , new FilterStringRule],
         ];
     }

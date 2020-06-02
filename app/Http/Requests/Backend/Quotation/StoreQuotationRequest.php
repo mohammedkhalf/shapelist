@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Backend\Quotation;
-
+use App\Rules\FilterStringRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreQuotationRequest extends FormRequest
@@ -27,8 +27,8 @@ class StoreQuotationRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
-            'name' => ['string','regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:50'],
-            'price' => ['numeric','not_in:0'],
+            'name' => ['string','max:50' , new FilterStringRule],
+            'rate' => ['numeric','not_in:0'],
 
         ];
     }

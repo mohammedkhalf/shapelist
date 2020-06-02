@@ -21,7 +21,12 @@ class DeliveryTableSeeder extends Seeder
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
-
+        Delivery::create([
+            'name' => 'Fast',
+            'price' => '200',
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now()
+        ]);
         Delivery::create([
             'name' => 'Standard',
             'price' => '120',

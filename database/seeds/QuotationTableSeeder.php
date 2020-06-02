@@ -23,7 +23,7 @@ class QuotationTableSeeder extends Seeder
         ]);
 
         Quotation::create([
-            'name' => 'On Set',
+            'name' => 'On-Set',
             'rate' => '500',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()

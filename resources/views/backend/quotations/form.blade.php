@@ -3,7 +3,7 @@
         
          {{ Form::label('name', trans('labels.backend.quotations.table.name') , ['class' => 'col-lg-2 control-label required']) }}
         <div class="col-lg-10">
-         {{ Form::text('name', old('name'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.quotations.table.name'), 'required' => 'required']) }}
+         {{ Form::text('name', old('name'), ['class' => 'form-control box-size','readonly' => 'true', 'placeholder' => trans('labels.backend.quotations.table.name'), 'required' => 'required']) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 

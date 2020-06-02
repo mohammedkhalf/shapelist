@@ -30,6 +30,12 @@ class PaymentRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.payments.table').'.id',
+
+                config('module.payments.table').'.id',
+                config('module.payments.table').'.status',
+                config('module.payments.table').'.order_id',
+                config('module.payments.table').'.bank_transaction_id',
+                config('module.payments.table').'.failure_reason',
                 config('module.payments.table').'.created_at',
                 config('module.payments.table').'.updated_at',
             ]);

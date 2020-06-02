@@ -63,6 +63,8 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.payments.table')}}.id'},
+                    {data: 'status', name: '{{config('module.payments.table')}}.status'},
+                    {data: 'order_id', name: '{{config('module.payments.table')}}.order_id'},
                     {data: 'created_at', name: '{{config('module.payments.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

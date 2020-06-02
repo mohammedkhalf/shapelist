@@ -109,5 +109,10 @@ return [
 	"deleted" => "The Quotation was successfully deleted.",
 	"updated" => "The Quotation was successfully updated.",
 	],
+	"deliveries" => [
+	"created" => "The Delivery was successfully created.",
+	"deleted" => "The Delivery was successfully deleted.",
+	"updated" => "The Delivery was successfully updated.",
+	],
 	],
 ];

@@ -171,6 +171,13 @@ return [
 	"management" => "Quotation Management",
 	"main" => "Quotations",
 	],
+	"deliveries" => [
+	"all" => "All Deliveries",
+	"create" => "Create Delivery",
+	"edit" => "Edit Delivery",
+	"management" => "Delivery Management",
+	"main" => "Deliveries",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

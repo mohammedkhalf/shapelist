@@ -53,4 +53,7 @@ return [
 	"quotations" => [
 	"table" => "quotations",
 	],
+	"deliveries" => [
+	"table" => "deliveries",
+	],
 ];

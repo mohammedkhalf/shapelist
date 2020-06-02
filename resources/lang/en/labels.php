@@ -416,6 +416,16 @@ return [
 	"createdat" => "Created At",
 	],
 	],
+	"deliveries" => [
+	"create" => "Create Delivery",
+	"edit" => "Edit Delivery",
+	"management" => "Delivery Management",
+	"title" => "Deliveries",
+	"table" => [
+	"id" => "Id",
+	"createdat" => "Created At",
+	],
+	],
 	],
 	"frontend" => [
 	"auth" => [

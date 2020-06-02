@@ -176,5 +176,12 @@ return [
 	"not_found" => "That Quotation does not exist.",
 	"update_error" => "There was a problem updating this Quotation. Please try again.",
 	],
+	"deliveries" => [
+	"already_exists" => "That Delivery already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Delivery. Please try again.",
+	"delete_error" => "There was a problem deleting this Delivery. Please try again.",
+	"not_found" => "That Delivery does not exist.",
+	"update_error" => "There was a problem updating this Delivery. Please try again.",
+	],
 	],
 ];

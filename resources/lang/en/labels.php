@@ -435,6 +435,10 @@ return [
 	"title" => "Payments",
 	"table" => [
 	"id" => "Id",
+	"status" => "Payment Status",
+	"order_id" => "Order Id",
+	"bank_transaction_id" => "Bank Transaction Id",
+	"failure_reason" => "Failure Reason",
 	"createdat" => "Created At",
 	],
 	],

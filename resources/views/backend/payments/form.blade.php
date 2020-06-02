@@ -1,10 +1,10 @@
 <div class="box-body">
     <div class="form-group">
        
-        {{ Form::label('name', trans('labels.backend.blogs.title'), ['class' => 'col-lg-2 control-label required']) }}
+        {{ Form::label('status', trans('labels.backend.payments.table.status'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10">
-        {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.blogs.title'), 'required' => 'required']) }}
+        {{ Form::text('status', old('status'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.payments.table.status'), 'required' => 'required']) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 </div><!--box-body-->

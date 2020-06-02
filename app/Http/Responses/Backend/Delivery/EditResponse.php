@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Delivery\Delivery
      */
-    protected $deliveries;
+    protected $delivery;
 
     /**
      * @param App\Models\Delivery\Delivery $deliveries
      */
-    public function __construct($deliveries)
+    public function __construct($delivery)
     {
-        $this->deliveries = $deliveries;
+        $this->delivery = $delivery;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.deliveries.edit')->with([
-            'deliveries' => $this->deliveries
+            'delivery' => $this->delivery
         ]);
     }
 }

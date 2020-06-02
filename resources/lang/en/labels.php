@@ -423,6 +423,8 @@ return [
 	"title" => "Deliveries",
 	"table" => [
 	"id" => "Id",
+	"name" => "Name",
+	"price" => "Price",
 	"createdat" => "Created At",
 	],
 	],

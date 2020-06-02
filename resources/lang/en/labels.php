@@ -428,6 +428,16 @@ return [
 	"createdat" => "Created At",
 	],
 	],
+	"payments" => [
+	"create" => "Create Payment",
+	"edit" => "Edit Payment",
+	"management" => "Payment Management",
+	"title" => "Payments",
+	"table" => [
+	"id" => "Id",
+	"createdat" => "Created At",
+	],
+	],
 	],
 	"frontend" => [
 	"auth" => [

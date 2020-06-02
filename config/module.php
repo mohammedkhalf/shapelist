@@ -56,4 +56,7 @@ return [
 	"deliveries" => [
 	"table" => "deliveries",
 	],
+	"payments" => [
+	"table" => "payments",
+	],
 ];

@@ -114,5 +114,10 @@ return [
 	"deleted" => "The Delivery was successfully deleted.",
 	"updated" => "The Delivery was successfully updated.",
 	],
+	"payments" => [
+	"created" => "The Payment was successfully created.",
+	"deleted" => "The Payment was successfully deleted.",
+	"updated" => "The Payment was successfully updated.",
+	],
 	],
 ];

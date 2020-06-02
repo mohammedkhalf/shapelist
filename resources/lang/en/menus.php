@@ -178,6 +178,13 @@ return [
 	"management" => "Delivery Management",
 	"main" => "Deliveries",
 	],
+	"payments" => [
+	"all" => "All Payments",
+	"create" => "Create Payment",
+	"edit" => "Edit Payment",
+	"management" => "Payment Management",
+	"main" => "Payments",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

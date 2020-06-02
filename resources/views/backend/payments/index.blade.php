@@ -22,6 +22,8 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.payments.table.id') }}</th>
+                            <th>{{ trans('labels.backend.payments.table.status') }}</th>
+                            <th>{{ trans('labels.backend.payments.table.order_id') }}</th>
                             <th>{{ trans('labels.backend.payments.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>

@@ -109,6 +109,21 @@ class PaymentsController extends Controller
 
         return new ViewResponse('backend.payments.view', compact('payment'));
     }
+    public function trash(){
+
+        $trash_payments = Payment::withTrashed()->whereNotNull('deleted_at')->get(); 
+        return new ViewResponse('backend.payments.trash',compact('trash_payments'));
+    }
+
+    public function viewTrash(ViewPaymentRequest $request , Payment $payment)
+    {
+        if(is_null($payment))
+        {
+            return back();
+        }  
+
+        return new ViewResponse('backend.payments.view', compact('payment'));
+    }
     /**
      * Remove the specified resource from storage.
      *

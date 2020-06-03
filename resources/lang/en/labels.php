@@ -433,6 +433,7 @@ return [
 		"edit" => "Edit Payment",
 		"Info" => "Payment Information",
 		"management" => "Payment Management",
+		"trash" => "Trash Items",
 		"title" => "Payments",
 		"table" => [
 		"id" => "Id",

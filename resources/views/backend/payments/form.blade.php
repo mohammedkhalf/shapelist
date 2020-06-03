@@ -7,10 +7,10 @@
 
                     <select class="form-control" name="status" id="status" onchange="showReason()" >
                         @if(isset($payment))
-                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}> True </option>
-                            <option value="2" {{ old('status') == 2 ? 'selected' : '' }}> False </option>
+                            <option value="1" {{ $payment->status == 1 ? 'selected' : '' }}> True </option>
+                            <option value="2" {{ $payment->status == 2 ? 'selected' : '' }}> False </option>
                         @else
-                        none
+                              none
                         @endif
                     </select>
                 </div><!--col-lg-10-->

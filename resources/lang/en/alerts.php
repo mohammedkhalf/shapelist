@@ -104,10 +104,20 @@ return [
 	"deleted" => "The Promotion was successfully deleted.",
 	"updated" => "The Promotion was successfully updated.",
 	],
-	"carts" => [
-	"created" => "The Cart was successfully created.",
-	"deleted" => "The Cart was successfully deleted.",
-	"updated" => "The Cart was successfully updated.",
+	"quotations" => [
+	"created" => "The Quotation was successfully created.",
+	"deleted" => "The Quotation was successfully deleted.",
+	"updated" => "The Quotation was successfully updated.",
+	],
+	"deliveries" => [
+	"created" => "The Delivery was successfully created.",
+	"deleted" => "The Delivery was successfully deleted.",
+	"updated" => "The Delivery was successfully updated.",
+	],
+	"payments" => [
+	"created" => "The Payment was successfully created.",
+	"deleted" => "The Payment was successfully deleted.",
+	"updated" => "The Payment was successfully updated.",
 	],
 	],
 ];

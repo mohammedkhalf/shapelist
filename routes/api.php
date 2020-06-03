@@ -74,6 +74,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('locations', 'LocationController');
         //Orders
         Route::apiResource('orders', 'OrderController');
+        //VAT
+        Route::get('quotation/vat', 'QuotationController@vat');
+        //ON-SET
+        Route::get('quotation/onSet', 'QuotationController@onSet');        
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //payment

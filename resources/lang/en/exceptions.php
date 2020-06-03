@@ -169,12 +169,26 @@ return [
 	"not_found" => "That Promotion does not exist.",
 	"update_error" => "There was a problem updating this Promotion. Please try again.",
 	],
-	"carts" => [
-	"already_exists" => "That Cart already exists. Please choose a different name.",
-	"create_error" => "There was a problem creating this Cart. Please try again.",
-	"delete_error" => "There was a problem deleting this Cart. Please try again.",
-	"not_found" => "That Cart does not exist.",
-	"update_error" => "There was a problem updating this Cart. Please try again.",
+	"quotations" => [
+	"already_exists" => "That Quotation already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Quotation. Please try again.",
+	"delete_error" => "There was a problem deleting this Quotation. Please try again.",
+	"not_found" => "That Quotation does not exist.",
+	"update_error" => "There was a problem updating this Quotation. Please try again.",
+	],
+	"deliveries" => [
+	"already_exists" => "That Delivery already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Delivery. Please try again.",
+	"delete_error" => "There was a problem deleting this Delivery. Please try again.",
+	"not_found" => "That Delivery does not exist.",
+	"update_error" => "There was a problem updating this Delivery. Please try again.",
+	],
+	"payments" => [
+	"already_exists" => "That Payment already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Payment. Please try again.",
+	"delete_error" => "There was a problem deleting this Payment. Please try again.",
+	"not_found" => "That Payment does not exist.",
+	"update_error" => "There was a problem updating this Payment. Please try again.",
 	],
 	],
 ];

@@ -404,15 +404,42 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-	"carts" => [
-	"create" => "Create Cart",
-	"edit" => "Edit Cart",
-	"management" => "Cart Management",
-	"title" => "Carts",
+	"quotations" => [
+	"create" => "Create Quotation",
+	"edit" => "Edit Quotation",
+	"management" => "Quotation Management",
+	"title" => "Quotations",
 	"table" => [
 	"id" => "Id",
+	"name" => "Name",
+	"rate" => "Rate",
 	"createdat" => "Created At",
 	],
+	],
+	"deliveries" => [
+	"create" => "Create Delivery",
+	"edit" => "Edit Delivery",
+	"management" => "Delivery Management",
+	"title" => "Deliveries",
+	"table" => [
+	"id" => "Id",
+	"name" => "Name",
+	"price" => "Price",
+	"createdat" => "Created At",
+	],
+	],
+	"payments" => [
+	"create" => "Create Payment",
+	"edit" => "Edit Payment",
+	"management" => "Payment Management",
+	"title" => "Payments",
+	"table" => [
+	"id" => "Id",
+	"status" => "Payment Status",
+	"order_id" => "Order Id",
+	"bank_transaction_id" => "Bank Transaction Id",
+	"failure_reason" => "Failure Reason",
+	"createdat" => "Created At",
 	],
 	],
 	"frontend" => [

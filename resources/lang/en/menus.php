@@ -164,13 +164,27 @@ return [
 	"management" => "Promotion Management",
 	"main" => "Promotions",
 	],
-	"carts" => [
-	"all" => "All Carts",
-	"create" => "Create Cart",
-	"edit" => "Edit Cart",
-	"management" => "Cart Management",
-	"main" => "Carts",
+	"quotations" => [
+	"all" => "All Quotations",
+	"create" => "Create Quotation",
+	"edit" => "Edit Quotation",
+	"management" => "Quotation Management",
+	"main" => "Quotations",
 	],
+	
+	"deliveries" => [
+	"all" => "All Deliveries",
+	"create" => "Create Delivery",
+	"edit" => "Edit Delivery",
+	"management" => "Delivery Management",
+	"main" => "Deliveries",
+	],
+	"payments" => [
+	"all" => "All Payments",
+	"create" => "Create Payment",
+	"edit" => "Edit Payment",
+	"management" => "Payment Management",
+	"main" => "Payments",
 	],
 	"language-picker" => [
 	"language" => "Language",

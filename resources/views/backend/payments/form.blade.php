@@ -25,7 +25,7 @@
                 </div><!--col-lg-10-->
             </div><!--form-group-->
     @else
-        <p>  &nbsp;&nbsp;  You Are Not allowed To Create Payments! <p>
+        <p style="padding-left: 40%;">  This Page Is Not Avilable..! <p>
     @endif
 
 </div><!--box-body-->

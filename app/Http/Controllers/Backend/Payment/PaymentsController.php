@@ -56,8 +56,7 @@ class PaymentsController extends Controller
      */
     public function create(CreatePaymentRequest $request)
     {
-        // return new CreateResponse('backend.payments.create');
-        return "this page is not avilable!";
+        return new CreateResponse('backend.payments.create');
     }
     /**
      * Store a newly created resource in storage.

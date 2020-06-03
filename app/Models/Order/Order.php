@@ -4,6 +4,7 @@ namespace App\Models\Order;
 use App\Models\Product\Product;
 use App\Models\Location\Location;
 use App\Models\Coupon\Coupon;
+use App\Models\Payment\Payment;
 use App\Models\MusicSample\MusicSample;
 use App\Models\Status\Status;
 use App\Models\Access\User\User;
@@ -47,8 +48,11 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class,'order_items');   
+    } 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class,'order_id');   
     }  
-
     //=============================== Insert Order ================================================
     public static function insertOrder($request)
     {      

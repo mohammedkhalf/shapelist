@@ -16,6 +16,7 @@ use App\Http\Requests\Backend\Payment\StorePaymentRequest;
 use App\Http\Requests\Backend\Payment\EditPaymentRequest;
 use App\Http\Requests\Backend\Payment\UpdatePaymentRequest;
 use App\Http\Requests\Backend\Payment\DeletePaymentRequest;
+use App\Http\Requests\Backend\Payment\ViewPaymentRequest; 
 
 /**
  * PaymentsController
@@ -98,6 +99,15 @@ class PaymentsController extends Controller
         $this->repository->update( $payment, $input );
         //return with successfull message
         return new RedirectResponse(route('admin.payments.index'), ['flash_success' => trans('alerts.backend.payments.updated')]);
+    }
+    public function show(ViewPaymentRequest $request , Payment $payment)
+    {
+        if(is_null($payment))
+        {
+            return back();
+        }  
+
+        return new ViewResponse('backend.payments.view', compact('payment'));
     }
     /**
      * Remove the specified resource from storage.

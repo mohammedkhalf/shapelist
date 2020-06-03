@@ -30,8 +30,7 @@
 @section("after-scripts")
     <script type="text/javascript">
         $( document ).ready( function() {
-            document.getElementById("reason").style.display = "none";
-            $status=  document.getElementById("status").value;
+            showReason();
         });
 
         function showReason() {

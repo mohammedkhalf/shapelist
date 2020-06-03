@@ -164,6 +164,13 @@ return [
 	"management" => "Promotion Management",
 	"main" => "Promotions",
 	],
+	"carts" => [
+	"all" => "All Carts",
+	"create" => "Create Cart",
+	"edit" => "Edit Cart",
+	"management" => "Cart Management",
+	"main" => "Carts",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

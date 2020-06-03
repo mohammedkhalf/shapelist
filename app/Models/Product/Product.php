@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\Traits\ProductAttribute;
 use App\Models\Product\Traits\ProductRelationship;
 use App\Models\SharedModel;
+use App\Models\Order\Order;
 
 class Product extends Model
 {
@@ -69,6 +70,12 @@ class Product extends Model
     {
         parent::__construct($attributes);
     }
+
+    //relations
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class,'order_items');   
+    } 
 
     public static function insertProduct($request)
     {

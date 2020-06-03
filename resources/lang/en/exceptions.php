@@ -169,5 +169,12 @@ return [
 	"not_found" => "That Promotion does not exist.",
 	"update_error" => "There was a problem updating this Promotion. Please try again.",
 	],
+	"carts" => [
+	"already_exists" => "That Cart already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Cart. Please try again.",
+	"delete_error" => "There was a problem deleting this Cart. Please try again.",
+	"not_found" => "That Cart does not exist.",
+	"update_error" => "There was a problem updating this Cart. Please try again.",
+	],
 	],
 ];

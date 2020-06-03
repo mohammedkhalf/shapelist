@@ -164,6 +164,27 @@ return [
 	"management" => "Promotion Management",
 	"main" => "Promotions",
 	],
+	"quotations" => [
+		"all" => "All Quotations",
+		"create" => "Create Quotation",
+		"edit" => "Edit Quotation",
+		"management" => "Quotation Management",
+		"main" => "Quotations",
+		],
+		"deliveries" => [
+		"all" => "All Deliveries",
+		"create" => "Create Delivery",
+		"edit" => "Edit Delivery",
+		"management" => "Delivery Management",
+		"main" => "Deliveries",
+		],
+		"payments" => [
+		"all" => "All Payments",
+		"create" => "Create Payment",
+		"edit" => "Edit Payment",
+		"management" => "Payment Management",
+		"main" => "Payments",
+		],
 	"carts" => [
 	"all" => "All Carts",
 	"create" => "Create Cart",

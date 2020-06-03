@@ -50,7 +50,13 @@ return [
 	"promotions" => [
 	"table" => "promotions",
 	],
-	"carts" => [
-	"table" => "carts",
+	"quotations" => [
+	"table" => "quotations",
+	],
+	"deliveries" => [
+	"table" => "deliveries",
+	],
+	"payments" => [
+	"table" => "payments",
 	],
 ];

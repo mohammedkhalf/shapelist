@@ -104,5 +104,10 @@ return [
 	"deleted" => "The Promotion was successfully deleted.",
 	"updated" => "The Promotion was successfully updated.",
 	],
+	"carts" => [
+	"created" => "The Cart was successfully created.",
+	"deleted" => "The Cart was successfully deleted.",
+	"updated" => "The Cart was successfully updated.",
+	],
 	],
 ];

@@ -50,4 +50,7 @@ return [
 	"promotions" => [
 	"table" => "promotions",
 	],
+	"carts" => [
+	"table" => "carts",
+	],
 ];

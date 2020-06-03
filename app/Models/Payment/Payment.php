@@ -4,6 +4,7 @@ namespace App\Models\Payment;
 
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Payment\Traits\PaymentAttribute;
 use App\Models\Payment\Traits\PaymentRelationship;
 
@@ -11,6 +12,7 @@ class Payment extends Model
 {
     use ModelTrait,
         PaymentAttribute,
+        SoftDeletes,
     	PaymentRelationship {
             // PaymentAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

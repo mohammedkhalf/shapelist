@@ -29,7 +29,7 @@ class UpdatePaymentRequest extends FormRequest
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
             'status' => ['numeric','not_in:0' ,'in:1,2' ],
-            'failure_reason' => ['string','max:50' , new FilterStringRule],
+            'failure_reason' => ['string','max:250' , new FilterStringRule],
         ];
     }
 

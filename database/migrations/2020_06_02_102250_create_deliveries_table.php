@@ -14,7 +14,7 @@ class CreateDeliveriesTable extends Migration
     public function up()
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 225)->unique();
             $table->decimal('price');	
             $table->timestamps();

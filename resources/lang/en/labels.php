@@ -431,6 +431,7 @@ return [
 	"payments" => [
 		"create" => "Create Payment",
 		"edit" => "Edit Payment",
+		"Info" => "Payment Information",
 		"management" => "Payment Management",
 		"title" => "Payments",
 		"table" => [

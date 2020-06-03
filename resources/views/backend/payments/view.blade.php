@@ -17,39 +17,45 @@
         <table class="table table-striped table-hover">
             <tr>
                 <th>{{ trans('labels.backend.payments.table.order_id') }}</th>
-                {{-- <td>{{ !empty($payment->users) ?  $order->users->first_name : '' }}</td> --}}
+                <td>{{  $payment->order_id }}</td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.payments.table.status') }}</th>
-                {{-- <td>{{ !empty($order->users) ? $order->users->last_name : '' }}</td> --}}
+                <td>
+                    @if($payment->status ==1)
+                        <p>True</p>
+                    @elseif($payment->status ==2)
+                        <p>False</p>
+                    @endif
+                </td>           
+
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.payments.table.bank_transaction_id') }}</th>
-                {{-- <td>{{ !empty($order->users) ? $order->users->email : '' }}</td> --}}
+                <td>{{ !empty($payment->bank_transaction_id) ? $payment->bank_transaction_id : '' }}</td>
             </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.payments.table.failure_reason') }}</th>
-                {{-- <td>
-                @if(!empty($order->users))
-                  {{ $order->users->phone_number }}
-                @else
-                    <p>There is No Phone Number</p>
-                @endif
-                   
-                </td> --}}
+                <td>
+                    @if($payment->status ==1)
+                        <p></p>
+                    @elseif($payment->status ==2)
+                        {{$payment->failure_reason }}
+                    @endif
+                </td>
             </tr>
             
             <tr>
                 <th>{{ trans('labels.backend.payments.table.createdat') }}</th>
-                {{-- <td>{{ $order->created_at }} ({{ $order->created_at->diffForHumans() }})</td> --}}
+                <td>{{ $payment->created_at }} ({{ $payment->created_at->diffForHumans() }})</td>
             </tr>
 
             <tr>
-                <th>{{ trans('labels.backend.payments.table.last_updated') }}</th>
-                {{-- <td>{{ $order->updated_at }} ({{ $order->updated_at->diffForHumans() }})</td> --}}
+                <th>{{ trans('labels.backend.access.users.tabs.content.overview.last_updated') }}</th>
+                <td>{{ $payment->updated_at }} ({{ $payment->updated_at->diffForHumans() }})</td>
             </tr>
 
            

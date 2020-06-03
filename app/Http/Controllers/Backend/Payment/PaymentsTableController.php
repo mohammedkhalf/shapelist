@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Payment\PaymentRepository;
 use App\Http\Requests\Backend\Payment\ManagePaymentRequest;
+use App\Models\Payment\Payment;
 
 /**
  * Class PaymentsTableController.
@@ -38,6 +39,13 @@ class PaymentsTableController extends Controller
     {
         return Datatables::of($this->payment->getForDataTable())
             ->escapeColumns(['id'])
+            ->addColumn('status', function ($payment) {
+                $paymentStatus = Payment::where('id', $payment->id )->value('status');
+                if($paymentStatus==1)
+                    return "True";
+                else
+                    return "False";
+            }) 
             ->addColumn('created_at', function ($payment) {
                 return Carbon::parse($payment->created_at)->toDateString();
             })

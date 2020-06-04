@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
 use Storage;
+use App\Models\OrderItem\OrderItem;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -30,7 +32,8 @@ class Order extends Model
      */
     protected $fillable = ['user_id','status_id','coupon_code',
     'total_price','notes','delivery_id','on_set'];
-
+    
+    //relationships
     public function users()
     {
         return $this->belongsTo(User::class,'user_id','id');   
@@ -47,15 +50,36 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class,'order_items');   
-    }  
-
-    //=============================== Insert Order ================================================
-    public static function insertOrder($request)
-    {      
-          dd($request->all());
+    }
+    //static functions
+    public static function insertOrderItems($request,$orderObj)
+    {
+        for ($i = 0; $i<count($request->products);$i++)
+        {
+            $data['product_id']=$request->products[$i]['product_id'];
+            $data['platform_id']=$request->products[$i]['platform_id'];
+            $data['music_id']=$request->products[$i]['music_id'];
+            $data['product_quantity']=$request->products[$i]['product_quantity'];
+            $data['product_total_price']=$request->products[$i]['product_total_price'];
+            $data['background']=$request->products[$i]['background'];
+            $data['background_color']=$request->products[$i]['background_color'];
+            $data['content']=$request->products[$i]['content'];
+            $data['notes']=$request->products[$i]['notes'];
+            $data['logo']=$request->products[$i]['logo'];
+            $data['user_music']=$request->products[$i]['user_music'];
+            $items = array_merge($data,['order_id'=>$orderObj->id]);
+            OrderItem::create($items);
+        }        
     }
 
-    //=============================== update Order ================================================
+    public static function insertOrder($request)
+    {      
+        $OrderData = array_merge($request->only('status_id','delivery_id','total_price','coupon_code','notes'),['user_id'=>auth()->guard('api')->user()->id]);
+        $orderObj = Order::create($OrderData);
+        $orderItems = Order::insertOrderItems($request,$orderObj);
+        return response()->json(['message'=>'Order Created Successfully']);
+    }
+
     public static function updateOrder($request,$id)
     {
      

@@ -115,15 +115,11 @@ class PaymentsController extends Controller
         return new ViewResponse('backend.payments.trash',compact('trash_payments'));
     }
 
-    public function viewTrash(ViewPaymentRequest $request , Payment $payment)
+    public function viewTrash($id)
     {
-        return 123;
-        // if(is_null($payment))
-        // {
-        //     return 123;
-        // }  
-
-        // return new ViewResponse('backend.payments.view', compact('payment'));
+        
+        $payment = Payment::withTrashed()->where('id',$id)->first(); 
+         return new ViewResponse('backend.payments.view', compact('payment'));
     }
 
     public function restore($id){

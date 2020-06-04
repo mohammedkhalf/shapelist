@@ -58,6 +58,11 @@
                 <td>{{ $payment->updated_at }} ({{ $payment->updated_at->diffForHumans() }})</td>
             </tr>
 
-           
+            @if($payment->deleted_at!=Null)
+                    <tr style="color:red">
+                        <th> Deleted At</th>
+                        <td>{{ $payment->deleted_at }} ({{ $payment->deleted_at->diffForHumans() }})</td>
+                    </tr>
+            @endif  
         </table>
 @endsection

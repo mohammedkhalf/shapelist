@@ -45,7 +45,12 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach      
+                        @if (count($trash_payments)< 1) 
+                            <tbody>
+                                <tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>
+                            </tbody>
+                        @endif
                 </table>
             </div><!--table-responsive-->
         </div><!-- /.box-body -->

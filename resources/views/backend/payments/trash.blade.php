@@ -36,8 +36,12 @@
                             <td>{{$payment->created_at}}</td>
                             <td> 
                                 <div class="btn-group action-btn">
-                                    <button ><i class="fa fa-eye"></i></button>
-                                    <button ><i class="fa fa-file"></i></button>
+                                    <button>
+                                     <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-eye" data-original-title="veiw"></i>
+                                    </button>
+                                    <button>
+                                    <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-undo" data-original-title="restore"></i>
+                                    </button>
                                 </div>
                             </td>
                             </tr>

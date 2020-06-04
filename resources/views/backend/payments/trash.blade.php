@@ -30,20 +30,20 @@
                     </thead>
                         @foreach($trash_payments as $payment)
                             <tr>
-                            <td>{{$payment->id}}</td>
-                            <td>{{$payment->order_id}}</td>
-                            <td>{{$payment->status}}</td>
-                            <td>{{$payment->created_at}}</td>
-                            <td> 
-                                <div class="btn-group action-btn">
-                                    <button>
-                                     <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-eye" data-original-title="veiw"></i>
-                                    </button>
-                                    <button>
-                                    <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-undo" data-original-title="restore"></i>
-                                    </button>
-                                </div>
-                            </td>
+                                <td>{{$payment->id}}</td>
+                                <td>{{$payment->order_id}}</td>
+                                <td>{{$payment->status}}</td>
+                                <td>{{$payment->created_at}}</td>
+                                <td> 
+                                    <div class="btn-group action-btn">
+                                        <a  class="btn btn-default" href="{{ route('admin.viewTrash', $payment->id ) }}">
+                                            <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-eye" data-original-title="veiw"></i>
+                                        </a>
+                                        <a  class="btn btn-default" href="{{ route('admin.restore', $payment->id ) }}">
+                                            <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-undo" data-original-title="restore"></i>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                 </table>

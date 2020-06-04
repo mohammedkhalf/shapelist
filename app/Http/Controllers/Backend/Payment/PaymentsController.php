@@ -17,7 +17,7 @@ use App\Http\Requests\Backend\Payment\EditPaymentRequest;
 use App\Http\Requests\Backend\Payment\UpdatePaymentRequest;
 use App\Http\Requests\Backend\Payment\DeletePaymentRequest;
 use App\Http\Requests\Backend\Payment\ViewPaymentRequest; 
-
+use DB;
 /**
  * PaymentsController
  */
@@ -117,13 +117,23 @@ class PaymentsController extends Controller
 
     public function viewTrash(ViewPaymentRequest $request , Payment $payment)
     {
-        if(is_null($payment))
-        {
-            return back();
-        }  
+        return 123;
+        // if(is_null($payment))
+        // {
+        //     return 123;
+        // }  
 
-        return new ViewResponse('backend.payments.view', compact('payment'));
+        // return new ViewResponse('backend.payments.view', compact('payment'));
     }
+
+    public function restore($id){
+
+        $trash_item = Payment::withTrashed()->where('id',$id)->first();; 
+        $trash_item->deleted_at = Null;
+        $trash_item->save();
+        return redirect('/admin/payment/trash');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

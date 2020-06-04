@@ -23,6 +23,7 @@
                         <tr>
                             <th>{{ trans('labels.backend.payments.table.id') }}</th>
                             <th>{{ trans('labels.backend.payments.table.order_id') }}</th>
+                            <th>{{ trans('labels.backend.payments.table.bank_transaction_id') }}</th>
                             <th>{{ trans('labels.backend.payments.table.status') }}</th>
                             <th>{{ trans('labels.backend.payments.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
@@ -64,6 +65,7 @@
                 columns: [
                     {data: 'id', name: '{{config('module.payments.table')}}.id'},
                     {data: 'order_id', name: '{{config('module.payments.table')}}.order_id'},
+                    {data: 'bank_transaction_id', name: '{{config('module.payments.table')}}.bank_transaction_id'},
                     {data: 'status', name: '{{config('module.payments.table')}}.status'},
                     {data: 'created_at', name: '{{config('module.payments.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}

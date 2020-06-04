@@ -127,7 +127,7 @@ class PaymentsController extends Controller
         $trash_item = Payment::withTrashed()->where('id',$id)->first();; 
         $trash_item->deleted_at = Null;
         $trash_item->save();
-        return redirect('/admin/payment/trash');
+        return new RedirectResponse(route('admin.payments.index'), ['flash_success' => 'this record is restored successfully']);
     }
 
     /**

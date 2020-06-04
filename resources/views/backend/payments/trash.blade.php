@@ -23,6 +23,7 @@
                         <tr>
                             <th>{{ trans('labels.backend.payments.table.id') }}</th>
                             <th>{{ trans('labels.backend.payments.table.order_id') }}</th>
+                            <th>{{ trans('labels.backend.payments.table.bank_transaction_id') }}</th>
                             <th>{{ trans('labels.backend.payments.table.status') }}</th>
                             <th>{{ trans('labels.backend.payments.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
@@ -32,6 +33,7 @@
                             <tr>
                                 <td>{{$payment->id}}</td>
                                 <td>{{$payment->order_id}}</td>
+                                <td>{{$payment->bank_transaction_id}}</td>
                                 <td>{{$payment->status}}</td>
                                 <td>{{$payment->created_at}}</td>
                                 <td> 

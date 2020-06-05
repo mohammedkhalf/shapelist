@@ -16,8 +16,7 @@ class AddForeignKeysToOrderItems extends Migration
         Schema::table('order_items', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('CASCADE');
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('CASCADE');
-            $table->foreign('music_id')->references('id')->on('music_samples')->onDelete('CASCADE');   
+
         });
     }
 
@@ -31,8 +30,7 @@ class AddForeignKeysToOrderItems extends Migration
         Schema::table('order_items', function (Blueprint $table) {
             $table->dropForeign('order_items_product_id_foreign');
             $table->dropForeign('order_items_order_id_foreign');
-            $table->dropForeign('order_items_platform_id_foreign');
-            $table->dropForeign('order_items_music_id_foreign');
+
         });
     }
 }

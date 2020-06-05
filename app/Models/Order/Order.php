@@ -31,7 +31,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = ['user_id','status_id','coupon_code',
-    'total_price','notes','delivery_id','on_set'];
+    'total_price','notes','delivery_id','on_set' , 'music_id','video_length','user_music'];
     
     //relationships
     public function users()
@@ -52,31 +52,51 @@ class Order extends Model
         return $this->belongsToMany(Product::class,'order_items');   
     }
     //static functions
+
+    public static function findOrCreateLocation($request,$orderObj)
+    {
+        if($request->location_id)
+        {
+            $locationInfo = Location::findOrFail($request->location_id);
+            $locationArr = ['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->city,'lng'=>$locationInfo->lng,
+            'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number];
+            Location::create(array_merge($locationArr,['order_id'=>$orderObj->id, 
+            'user_id'=>auth()->guard('api')->user()->id]));
+        }
+        Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
+        ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
+    }
     public static function insertOrderItems($request,$orderObj)
     {
         for ($i = 0; $i<count($request->products);$i++)
         {
             $data['product_id']=$request->products[$i]['product_id'];
-            $data['platform_id']=$request->products[$i]['platform_id'];
-            $data['music_id']=$request->products[$i]['music_id'];
             $data['product_quantity']=$request->products[$i]['product_quantity'];
             $data['product_total_price']=$request->products[$i]['product_total_price'];
-            $data['background']=$request->products[$i]['background'];
-            $data['background_color']=$request->products[$i]['background_color'];
-            $data['content']=$request->products[$i]['content'];
-            $data['notes']=$request->products[$i]['notes'];
-            $data['logo']=$request->products[$i]['logo'];
-            $data['user_music']=$request->products[$i]['user_music'];
             $items = array_merge($data,['order_id'=>$orderObj->id]);
             OrderItem::create($items);
         }        
     }
 
+    // public static function uploadMusic ($request)
+    // {
+    //     global $fileName;
+    //     if($request->hasFile('user_music'))
+    //     {
+    //             $fileName = time().'.'.$request->user_music->extension();  
+    //             $path = $request->user_music->storeAs('public/users_music', $fileName);
+    //     }
+    //             return  $fileName;
+    // }
+
     public static function insertOrder($request)
     {      
-        $OrderData = array_merge($request->only('status_id','delivery_id','total_price','coupon_code','notes'),['user_id'=>auth()->guard('api')->user()->id]);
+        // dd($request->all());
+        // $fileName = Order::uploadMusic($request);
+        $OrderData = array_merge($request->only('delivery_id','music_id','total_price','video_length','coupon_code','on_set'),['user_music'=>$request->user_music,'user_id'=>auth()->guard('api')->user()->id]);
         $orderObj = Order::create($OrderData);
-        $orderItems = Order::insertOrderItems($request,$orderObj);
+        Order::findOrCreateLocation($request,$orderObj);
+        Order::insertOrderItems($request,$orderObj);
         return response()->json(['message'=>'Order Created Successfully']);
     }
 

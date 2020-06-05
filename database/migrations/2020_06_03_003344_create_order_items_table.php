@@ -17,17 +17,8 @@ class CreateOrderItemsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned()->nullable();
-            $table->integer('platform_id')->unsigned()->nullable();
-            $table->integer('music_id')->unsigned()->nullable();  
             $table->integer('product_quantity')->default(1); 
             $table->decimal('product_total_price');
-            $table->string('logo')->nullable();
-            $table->integer('video_length')->default(10);  //hint fro user
-            $table->longText('content')->nullable();
-            $table->string('background')->nullable();
-            $table->string('background_color')->nullable();
-            $table->string('user_music')->nullable();
-            $table->longText('notes')->nullable();
             $table->timestamps();
         });
     }

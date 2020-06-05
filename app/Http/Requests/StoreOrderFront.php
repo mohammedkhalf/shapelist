@@ -9,7 +9,8 @@ use App\Models\MusicSample\MusicSample;
 use App\Models\Platform\Platform;
 use App\Models\Product\Product;
 use App\Models\Template\Template;
-
+use App\Models\Delivery\Delivery;
+use App\Rules\FilterStringRule;
 
 class StoreOrderFront extends FormRequest
 {
@@ -27,24 +28,25 @@ class StoreOrderFront extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['numeric' , 'not_in:0' , 'exists:'. User::table() .',id'],
-            'product_id' => ['required' , 'numeric' , 'not_in:0' , 'exists:'. Product::table() .',id'],
-            'platform_id' => [ 'numeric' , 'not_in:0' , 'exists:'. Platform::table() .',id'],
-            'addon_id' => ['numeric' , 'not_in:0' , 'exists:'. Addon::table() .',id'],
-            'music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
-            'template_id' => [ 'numeric' , 'not_in:0' , 'exists:'. Template::table() .',id'],
-            'coupon_code' => ['string','max:10'],
-            'product_quantity' => ['required' , 'numeric' , 'not_in:0'],
-            'logo' => ['mimes:jpeg,png,jpg'],
-            'video_length' => [ 'numeric' , 'not_in:0'],
-            'notes' => ['string'],
-            'country'=>[ 'string'],
-            'city'=>[ 'string'],
-            'address' =>['string'],
-            'background' =>['numeric' , 'not_in:0'],
-            'background_color'=>['string'],
-            'delivery_id'=>['numeric' , 'not_in:0'],
-            'user_music' => ['mimes:mpga,ogg']
+            'delivery_id'=>['numeric','not_in:0','exists:'. Delivery::table() .',id'],
+            'total_price'=>['numeric' , 'not_in:0'],
+            'coupon_code' => ['string','max:10' ,  new FilterStringRule],
+            'on_set' =>['date_format:Y-m-d H:i:s'],
+            'country'=>['string',new FilterStringRule],
+            'city'=>['string',new FilterStringRule],
+            'address' =>['string', new FilterStringRule],
+            'rep_first_name'=>['string', new FilterStringRule],
+            'rep_last_name'=>['string', new FilterStringRule],
+            'rep_phone_number'=>['numeric','regex:/(0)[0-9]{9}/'],
+
+
+
+            // 'product_id' => ['required' , 'numeric' , 'not_in:0' , 'exists:'. Product::table() .',id'],
+            // 'product_quantity' => ['required' , 'numeric' , 'not_in:0'],
+            // 'total_price' => ['numeric','not_in:0'],
+            // 'video_length' => ['numeric','not_in:0'],
+            // 'music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
+            // 'user_music' => ['mimes:mpga,ogg']
         ];
     }
 }

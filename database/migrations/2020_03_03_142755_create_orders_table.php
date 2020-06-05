@@ -16,12 +16,14 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('status_id')->unsigned()->nullable();           
-            $table->string('delivery_id')->nullable();
+            $table->integer('status_id')->unsigned()->nullable();     
+            $table->integer('delivery_id')->unsigned()->nullable(); 
             $table->decimal('total_price');
-            $table->dateTime('on_set')->nullable();
+            $table->dateTime('on_set')->nullable(); 
             $table->string('coupon_code')->nullable();
-            $table->string('notes')->nullable();
+            $table->integer('music_id')->unsigned()->nullable();        
+            $table->integer('video_length')->default(10); 
+            $table->string('user_music')->nullable();
             $table->timestamps();
         });
     }

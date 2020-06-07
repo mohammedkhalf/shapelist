@@ -77,7 +77,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //VAT
         Route::get('quotation/vat', 'QuotationController@vat');
         //ON-SET
-        Route::get('quotation/onSet', 'QuotationController@onSet');        
+        Route::get('quotation/onSet', 'QuotationController@onSet');
+        //Deliveries
+        Route::apiResource('/deliveries', 'DeliveryController');        
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //payment
@@ -85,6 +87,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //savePaymentInfo
         Route::post('/payment-Info','OrderController@savePaymentInfo');
   
+
+        
     }); //auth:api
 
 

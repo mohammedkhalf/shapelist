@@ -15,7 +15,6 @@ class PaymentTableSeeder extends Seeder
     public function run()
     {
         Payment::create([
-            'order_id'=> '1',
             'status'=> 1,
             'bank_transaction_id'=> '343874389749380938493',
             'failure_reason'=> '',
@@ -24,7 +23,6 @@ class PaymentTableSeeder extends Seeder
         ]);
 
         Payment::create([
-            'order_id'=> '2',
             'status'=> 1,
             'bank_transaction_id'=> '300949597493809385547',
             'failure_reason'=> '',
@@ -32,7 +30,6 @@ class PaymentTableSeeder extends Seeder
             'updated_at'  => Carbon::now()
         ]);
         Payment::create([
-            'order_id'=> '3',
             'status'=> 2,
             'bank_transaction_id'=> '758477898400555328940',
             'failure_reason'=> ' Bank Transaction error!',

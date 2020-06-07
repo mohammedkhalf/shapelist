@@ -16,19 +16,28 @@ class DeliveryTableSeeder extends Seeder
     {
             
         Delivery::create([
-            'name' => 'Express',
+            'name_en' => 'Express',
+            'name_ar' => 'فائق السرعة',
             'price' => '300',
+            'description_en' => 'Express Delivery',
+            'description_ar' => 'توصيل فائق السرعة',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
         Delivery::create([
-            'name' => 'Fast',
+            'name_en' => 'Fast',
+            'name_ar' => 'سريع',
             'price' => '200',
+            'description_en' => 'Fast Delivery',
+            'description_ar' => ' توصيل سريع',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
         Delivery::create([
-            'name' => 'Standard',
+            'name_en' => 'Standard',
+            'name_ar' => 'عادي',
+            'description_en' => 'Standard Delivery',
+            'description_ar' => ' توصيل عادي',
             'price' => '120',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()

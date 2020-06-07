@@ -29,8 +29,8 @@ class StoreDeliveryRequest extends FormRequest
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
             'name_en' => ['string','max:50' , new FilterStringRule],
             'name_ar' => ['string','max:50' , new FilterStringRule],
-            'description_en' => ['string','max:250' , new FilterStringRule],
-            'description_ar' => ['string','max:250' , new FilterStringRule],
+            'description_en' => ['nullable','string','max:250' , new FilterStringRule],
+            'description_ar' => ['nullable','string','max:250' , new FilterStringRule],
             'price' => ['numeric','not_in:0'],
         ];
     }

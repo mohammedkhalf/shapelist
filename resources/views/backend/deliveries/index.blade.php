@@ -22,8 +22,11 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.deliveries.table.id') }}</th>
-                            <th>{{ trans('labels.backend.deliveries.table.name') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.name_en') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.name_ar') }}</th>
                             <th>{{ trans('labels.backend.deliveries.table.price') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.description_en') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.description_ar') }}</th>
                             <th>{{ trans('labels.backend.deliveries.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -63,8 +66,11 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.deliveries.table')}}.id'},
-                    {data: 'name', name: '{{config('module.deliveries.table')}}.name'},
+                    {data: 'name_en', name: '{{config('module.deliveries.table')}}.name_en'},
+                    {data: 'name_ar', name: '{{config('module.deliveries.table')}}.name_ar'},
                     {data: 'price', name: '{{config('module.deliveries.table')}}.price'},
+                    {data: 'description_en', name: '{{config('module.deliveries.table')}}.description_en'},
+                    {data: 'description_ar', name: '{{config('module.deliveries.table')}}.description_ar'},
                     {data: 'created_at', name: '{{config('module.deliveries.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

@@ -16,7 +16,8 @@ use App\Http\Requests\Backend\Payment\StorePaymentRequest;
 use App\Http\Requests\Backend\Payment\EditPaymentRequest;
 use App\Http\Requests\Backend\Payment\UpdatePaymentRequest;
 use App\Http\Requests\Backend\Payment\DeletePaymentRequest;
-
+use App\Http\Requests\Backend\Payment\ViewPaymentRequest; 
+use DB;
 /**
  * PaymentsController
  */
@@ -99,6 +100,36 @@ class PaymentsController extends Controller
         //return with successfull message
         return new RedirectResponse(route('admin.payments.index'), ['flash_success' => trans('alerts.backend.payments.updated')]);
     }
+    public function show(ViewPaymentRequest $request , Payment $payment)
+    {
+        if(is_null($payment))
+        {
+            return back();
+        }  
+
+        return new ViewResponse('backend.payments.view', compact('payment'));
+    }
+    public function trash(){
+
+        $trash_payments = Payment::withTrashed()->whereNotNull('deleted_at')->get(); 
+        return new ViewResponse('backend.payments.trash',compact('trash_payments'));
+    }
+
+    public function viewTrash($id)
+    {
+        
+        $payment = Payment::withTrashed()->where('id',$id)->first(); 
+         return new ViewResponse('backend.payments.view', compact('payment'));
+    }
+
+    public function restore($id){
+
+        $trash_item = Payment::withTrashed()->where('id',$id)->first();; 
+        $trash_item->deleted_at = Null;
+        $trash_item->save();
+        return new RedirectResponse(route('admin.payments.index'), ['flash_success' => 'this record is restored successfully']);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

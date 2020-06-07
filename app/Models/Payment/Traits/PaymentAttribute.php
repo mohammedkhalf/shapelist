@@ -18,6 +18,7 @@ trait PaymentAttribute
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
+                '.$this->getViewButtonAttribute("view-payment", "admin.payments.show").'
                 '.$this->getEditButtonAttribute("edit-payment", "admin.payments.edit").'
                 '.$this->getDeleteButtonAttribute("delete-payment", "admin.payments.destroy").'
                 </div>';

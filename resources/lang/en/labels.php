@@ -431,7 +431,9 @@ return [
 	"payments" => [
 		"create" => "Create Payment",
 		"edit" => "Edit Payment",
+		"Info" => "Payment Information",
 		"management" => "Payment Management",
+		"trash" => "Trash Items",
 		"title" => "Payments",
 		"table" => [
 		"id" => "Id",

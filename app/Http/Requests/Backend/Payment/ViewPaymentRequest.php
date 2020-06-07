@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Requests\Backend\Payment;
-use App\Rules\FilterStringRule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePaymentRequest extends FormRequest
+class ViewPaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UpdatePaymentRequest extends FormRequest
      */
     public function authorize()
     {
-        return access()->allow('update-payment');
+        return access()->allow('view-payment');
     }
 
     /**
@@ -27,9 +26,7 @@ class UpdatePaymentRequest extends FormRequest
         return [
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
-            //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
-            'status' => ['numeric','not_in:0' ,'in:1,2' ],
-            'failure_reason' => ['string','max:250' , new FilterStringRule],
+            //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
         ];
     }
 
@@ -38,7 +35,7 @@ class UpdatePaymentRequest extends FormRequest
         return [
             //The Custom messages would go in here
             //For Example : 'title.required' => 'You need to fill in the title field.'
-            //Further, see the documentation : https://laravel.com/docs/6.x/validation#customizing-the-error-messages
+            //Further, see the documentation : https://laravel.com/docs/5.4/validation#customizing-the-error-messages
         ];
     }
 }

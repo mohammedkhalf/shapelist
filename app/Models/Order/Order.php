@@ -4,6 +4,7 @@ namespace App\Models\Order;
 use App\Models\Product\Product;
 use App\Models\Location\Location;
 use App\Models\Coupon\Coupon;
+use App\Models\Payment\Payment;
 use App\Models\MusicSample\MusicSample;
 use App\Models\Status\Status;
 use App\Models\Access\User\User;
@@ -51,6 +52,10 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class,'order_items');   
     }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class,'order_id');   
+    }  
     //static functions
     //Insert location
     public static function findOrCreateLocation($request,$orderObj)
@@ -80,8 +85,8 @@ class Order extends Model
         $locationObj=Location::where('order_id',$orderObj->id)
                     ->update(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
                     ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
-    }
-
+    } 
+  
     //Insert orderItems
     public static function insertOrderItems($request,$orderObj)
     {

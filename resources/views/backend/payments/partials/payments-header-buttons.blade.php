@@ -26,6 +26,11 @@
                 <i class="fa fa-list-ul"></i> {{ trans( 'menus.backend.payments.all' ) }}
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.trash' ) }}">
+                <i class="fa fa-trash"></i> {{ trans( 'labels.backend.payments.trash' ) }}
+            </a>
+        </li>
         {{-- @permission( 'create-payment' )
             <li>
                 <a href="{{ route( 'admin.payments.create' ) }}">

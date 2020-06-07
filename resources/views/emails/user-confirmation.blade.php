@@ -42,7 +42,7 @@
 
                     <p style="line-height: 24px">
                         Regards,</br>
-                        @yield('title', app_name())
+                        Shapelist
                     </p>
 
                     <br/>

@@ -100,6 +100,10 @@ class ForgotPasswordController extends APIController
         return response()->json($user);
     }
    
+    public function redirectAfterConfirm(){
+        return redirect('http://www.sparkle.sa');
+
+    }
 
    
 }

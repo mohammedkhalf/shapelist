@@ -18,6 +18,8 @@ class AddForeignKeysToOrders extends Migration
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('CASCADE');
             $table->foreign('music_id')->references('id')->on('music_samples')->onDelete('CASCADE'); 
             $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('CASCADE');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('CASCADE');
+
         });
     }
 
@@ -33,6 +35,8 @@ class AddForeignKeysToOrders extends Migration
             $table->dropForeign('orders_status_id_foreign');
             $table->dropForeign('orders_music_id_foreign');
             $table->dropForeign('orders_delivery_id_foreign');
+            $table->dropForeign('orders_location_id_foreign');
+
         });
     }
 }

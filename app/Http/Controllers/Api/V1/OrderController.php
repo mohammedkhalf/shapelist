@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderFront;
-
+use App\Http\Requests\Backend\Order\StoreOrderRequest;
+use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 class OrderController extends APIController
 {
     
@@ -23,7 +24,7 @@ class OrderController extends APIController
          
         } 
         //======================== create order  ======================
-        public function store(Request $request)
+        public function store(StoreOrderRequest $request)
         {
             $orderInfo=Order::insertOrder($request); 
             return response()->json(['orderInfo'=>$orderInfo ,'message' => 'Order Created Successfully']);
@@ -44,7 +45,7 @@ class OrderController extends APIController
         }
         //======================== update order  ======================
 
-        public function update(StoreOrderFront $request, $id)
+        public function update(UpdateOrderRequest $request, $id)
         {
             $updatedOrder=Order::updateOrder($request,$id);
             return response()->json(['updatedOrder'=>$updatedOrder ,'message' => 'Order updated successfully!']);

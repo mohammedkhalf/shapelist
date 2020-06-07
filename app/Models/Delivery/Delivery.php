@@ -6,11 +6,13 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Delivery\Traits\DeliveryAttribute;
 use App\Models\Delivery\Traits\DeliveryRelationship;
+use App\Models\SharedModel;
 
 class Delivery extends Model
 {
     use ModelTrait,
         DeliveryAttribute,
+        SharedModel,
     	DeliveryRelationship {
             // DeliveryAttribute::getEditButtonAttribute insteadof ModelTrait;
         }

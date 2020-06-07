@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Requests\Backend\Order;
-use App\Models\Access\User\User;
-use App\Models\Addon\Addon;
-use App\Models\Coupon\Coupon;
-use App\Models\MusicSample\MusicSample;
-use App\Models\Platform\Platform;
-use App\Models\Product\Product;
-use App\Models\Template\Template;
-
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product\Product;
+use App\Models\Delivery\Delivery;
+use App\Models\Location\Location;
+use App\Models\MusicSample\MusicSample;
+use App\Rules\FilterStringRule;
+
 
 class UpdateOrderRequest extends FormRequest
 {
@@ -20,7 +18,8 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return access()->allow('update-order');
+        return true;
+        // return access()->allow('update-order');
     }
 
     /**
@@ -31,27 +30,26 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => ['numeric' , 'not_in:0' , 'exists:'. User::table() .',id'],
-            'product_id' => [ 'numeric' , 'not_in:0' , 'exists:'. Product::table() .',id'],
-            'platform_id' => [ 'numeric' , 'not_in:0' , 'exists:'. Platform::table() .',id'],
-            'addon_id' => ['numeric' , 'not_in:0' , 'exists:'. Addon::table() .',id'],
-            'music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
-            'template_id' => [ 'numeric' , 'not_in:0' , 'exists:'. Template::table() .',id'],
-            'coupon_code' => ['string','max:10'],
-            'product_quantity' => [ 'numeric' , 'not_in:0'],
-            'logo' => ['mimes:jpeg,png,jpg'],
-            'video_length' => [ 'numeric' , 'not_in:0'],
-            'notes' => ['string'],
-            'country'=>[ 'string'],
-            'city'=>[ 'string'],
-            'address' =>['string'],
-            'background' =>['numeric' , 'not_in:0'],
-            'background_color'=>['string'],
-            'delivery_id'=>['numeric' , 'not_in:0'],
-            'user_music' => ['mimes:mpga,ogg'],
-            'download_file' => ['mimes:jpg,jpeg,png,mp4,mov,ogg,qt','max:50000'],
-
-         
+            'delivery_id'=>['required','numeric','not_in:0','exists:'. Delivery::table() .',id'],
+            'location_id'=>['numeric','not_in:0','exists:'. Location::table() .',id' , 'nullable'],
+            'total_price'=>['required' ,'numeric' , 'not_in:0'],
+            'coupon_code' => ['string','max:10' ,  new FilterStringRule , 'nullable'],
+            'on_set' =>['date_format:Y-m-d H:i:s' , 'nullable'],
+            'country'=>['string',new FilterStringRule , 'nullable'],
+            'city'=>['string',new FilterStringRule,'nullable'], 
+            'address' =>['string', new FilterStringRule , 'nullable'],
+            'lat' =>['string', new FilterStringRule , 'nullable'],
+            'lng' =>['string', new FilterStringRule , 'nullable'],
+            'rep_first_name'=>['string', new FilterStringRule , 'nullable'],
+            'rep_last_name'=>['string', new FilterStringRule , 'nullable'],
+            'rep_phone_number'=>['numeric','regex:/(0)[0-9]{9}/' , 'nullable'],
+            'video_length' => ['numeric','not_in:0'],
+            'music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id' , 'nullable'],
+            'user_music' => ['mimes:mpga,ogg','nullable'],
+            //products array
+            'products.*.product_id' => ['required' , 'numeric' , 'not_in:0' , 'exists:'. Product::table() .',id'],
+            'products.*.product_quantity' => ['required' , 'numeric' , 'not_in:0'],
+            'products.*.product_total_price' => ['required','numeric','not_in:0'],
         ];
     }
 

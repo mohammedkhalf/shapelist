@@ -22,6 +22,13 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
         Route::get('find/{token}', 'ForgotPasswordController@find');
         Route::post('password-reset', 'ForgotPasswordController@resetPassword')->name('password.reset');
+        // Redirect After Confirmation 
+        Route::get('/email/confirm',  function()
+        {
+            return redirect('http://www.sparkle.sa');
+        })->name('confirm.redirect');
+
+
         //=============== change password ===================
         //================================================
     });

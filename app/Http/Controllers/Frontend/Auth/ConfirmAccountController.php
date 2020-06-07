@@ -35,8 +35,9 @@ class ConfirmAccountController extends Controller
     public function confirm($token)
     {
         $this->user->confirmAccount($token);
-
-        return redirect()->route('frontend.auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
+        $url="http://www.google.com";
+       // return redirect::to($url)->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
+         return redirect()->route('v1.confirm.redirect')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.success'));
     }
 
     /**

@@ -27,7 +27,10 @@ class UpdateDeliveryRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
-            'name' => ['string','max:50' , new FilterStringRule],
+            'name_en' => ['string','max:50' , new FilterStringRule],
+            'name_ar' => ['string','max:50' , new FilterStringRule],
+            'description_en' => ['string','max:250' , new FilterStringRule],
+            'description_ar' => ['string','max:250' , new FilterStringRule],
             'price' => ['numeric','not_in:0'],
         ];
     }

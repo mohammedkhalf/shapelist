@@ -15,7 +15,10 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 225)->unique();
+            $table->string('name_en', 225)->unique();
+            $table->string('name_ar', 225)->unique();
+            $table->text('description_en')->nullable();
+            $table->text('description_ar')->nullable();
             $table->decimal('price');	
             $table->timestamps();
         });

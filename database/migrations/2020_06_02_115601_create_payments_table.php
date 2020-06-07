@@ -16,7 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('status')->default(1);
-            $table->integer('order_id');
+            $table->integer('order_id')->unsigned()->nullable();
             $table->string('bank_transaction_id');
             $table->text('failure_reason')->nullable();
             $table->softDeletes();

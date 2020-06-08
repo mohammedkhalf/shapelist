@@ -41,20 +41,86 @@
                    
                 </td>
             </tr>
+
             <tr>
-                <th>{{ trans('labels.backend.orders.table.PackageName') }}</th>
-                <td>{{ !empty($order->product) ? $order->product->name : '' }} </td>
+                <th>{{ trans('labels.backend.orders.table.totalPrice') }}</th>
+                <td>{{ $order->total_price }} SAR </td>
             </tr>
+              
             <tr>
-                <th>{{ trans('labels.backend.orders.table.platform') }}</th>
-                <td>{{ !empty($order->platform) ?  $order->platform->name : '' }} </td> 
+                <th> <h5>{{ trans('labels.backend.orders.table.deliver_id') }} </h5> </th>
+                <td> 
+                    @if($order->delivery_id == 1)  
+                        <button class="btn btn-success"> Express </button>
+                    @elseif($order->delivery_id == 2)
+                        <button class="btn btn-success"> Fast </button>
+                    @else
+                        <button class="btn btn-success"> Standard </button>
+                    @endif
+                </td>
             </tr>
 
             <tr>
-                <th>{{ trans('labels.backend.orders.table.addon') }}</th>
-                <td> {{ !empty($order->addon) ? $order->addon->name : ''  }}</td>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>
+                <td> <h5 class="btn btn-default"> {{ !empty($order->status) ? $order->status->type : '' }}</h5> </td> 
+            </tr>
+    
+            <tr>
+                <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.paymentStatus') }} </h5> </th>
+                <td> 
+                    @if($order->payment_status == null)
+                        <h4 class="btn btn-danger"> {{ trans('labels.backend.orders.table.NotPay') }} </h4>
+                    @else
+                    <h4 class="btn btn-success"> {{ trans('labels.backend.orders.table.PayDone') }} </h4>
+                    @endif
+                     
+                 </td>
             </tr>
 
+            <tr>
+                <th>{{ trans('labels.backend.orders.table.onSet') }}</th>
+                <td>{{ $order->on_set }} </td>
+            </tr>
+            
+            <tr>
+                <th>{{ trans('labels.backend.orders.table.couponCode') }}</th>
+                <td>{{ $order->coupon_code }} </td>
+            </tr>
+
+            <tr>
+                <th>{{ trans('labels.backend.orders.table.NumOfProducts') }}</th>
+                <td> {{$numProducts}} </td>
+            </tr>
+
+            @foreach($photoProduct as $photo)
+                <tr>
+                    <th>{{ trans('labels.backend.orders.table.FirstProduct') }}</th>
+                    <td> {{ App\Models\Product\Product::where('id','=',$photo->product_id)->pluck('name')->first() }} </td>
+                </tr>
+                <tr>
+                    <th>{{ trans('labels.backend.orders.table.quantity') }} (photo)</th>
+                    <td> {{ $photo->product_quantity }} </td>
+                </tr>
+            @endforeach
+
+            @foreach($vedioProduct as $vedio)
+                <tr>
+                    <th>{{ trans('labels.backend.orders.table.SecondProduct') }}</th>
+                    <td> {{ App\Models\Product\Product::where('id','=',$vedio->product_id)->pluck('name')->first() }} </td>
+                </tr>
+                <tr>
+                    <th>{{ trans('labels.backend.orders.table.quantity') }} (Vedio)</th>
+                    <td> {{ $vedio->product_quantity }} </td>
+                </tr>
+            @endforeach
+            
+
+            
+
+            
+
+
+            <!-- Website Music -->
             <tr>
                 <th ><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.music') }} <h5></th>
                 <td>
@@ -63,56 +129,27 @@
                     @else
                         <p style="margin-top:20px;">There is No Music Sample</p>
                     @endif
-
-                    
             </tr>
 
+            <!-- User Music -->
             <tr>
-                <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.templateImage') }} </h5></th>
+                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.user_music') }} </h5> </th>
                 <td> 
-                    @if(!empty($order->template))
-                     <img src='{{Storage::disk('public')->url('templates/'. $order->template->image)}}' border="0" width="100" class="img-rounded" align="center" /> 
+                    @if($order->user_music)
+                        <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('users_music/'.$order->user_music)}}' ></audio></td>
                     @else
-                        <p>There is No Template</p>
+                        <p style="margin-top:20px;">There is No User Music</p>
                     @endif
                 </td>
             </tr>
 
-            <tr>
-                <th>{{ trans('labels.backend.orders.table.couponCode') }}</th>
-                <td>{{ $order->coupon_code }} </td>
-            </tr>
-
-            <tr>
-                <th>{{ trans('labels.backend.orders.table.productQuantity') }}</th>
-                <td>{{ $order->product_quantity }} </td>
-            </tr>
-
-            <tr>
-                <th>{{ trans('labels.backend.orders.table.totalPrice') }}</th>
-                <td>{{ $order->total_price }} SAR </td>
-            </tr>
-            <tr>
-                <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.logo') }}</h5></th>
-                <td>
-                    @if(!empty($order->logo))
-                     <img src='{{Storage::disk('public')->url('order_logo/'.$order->logo)}}' border="0" width="50" class="img-rounded" align="center" />
-                    @else
-                      <p style="margin-top:20px;">There is No logo</p>
-
-                    @endif
-                </td>
-            </tr>
+            
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.videoLength') }}</th>
                 <td> {{ $order->video_length}} minute</td>
             </tr>
 
-            <tr>
-                <th>{{ trans('labels.backend.orders.table.notes') }}</th>
-                <td> {{ $order->notes}}</td>
-            </tr>
 
             <tr>
                 <th>{{ trans('labels.backend.orders.table.country') }}</th>
@@ -146,69 +183,12 @@
                 <td>  {{ !empty($order->location) ? $order->location->rep_phone_number : '' }} </td>
             </tr>
 
-            <tr>
-                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.background') }} </h5> </th>
-                <td>
-                     @if( $order->background == 1)  
-                        <button class="btn btn-success"> Flat </button>
-                     @else
-                        <button class="btn btn-success"> Decorative </button>
-                     @endif
-                </td>
-            </tr>
-
-            <tr>
-                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.background_color') }} </h5> </th>
-                <td>  {{$order->background_color}} </td>
-            </tr>
-            
-            <tr>
-                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.deliver_id') }} </h5> </th>
-                <td> 
-                    @if($order->deliver_id == 1)  
-                        <button class="btn btn-success"> regular </button>
-                    @elseif($order->deliver_id == 2)
-                        <button class="btn btn-success"> Fast </button>
-                    @else
-                        <button class="btn btn-success"> Express </button>
-                    @endif
-                </td>
-            </tr>
-
-            <tr>
-                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.user_music') }} </h5> </th>
-                <td> 
-                    @if($order->user_music)
-                        <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('users_music/'.$order->user_music)}}' ></audio></td>
-                    @else
-                        <p style="margin-top:20px;">There is No Music Sample</p>
-                    @endif
-                </td>
-            </tr>
-
-
-            <tr>
-                <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>
-                <td> <h5 class="btn btn-default"> {{ !empty($order->status) ? $order->status->type : '' }}</h5> </td> 
-            </tr>
-    
-            <tr>
-                <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.paymentStatus') }} </h5> </th>
-                <td> 
-                     @if($order->payment_status == null)
-                        <h4 class="btn btn-danger"> {{ trans('labels.backend.orders.table.NotPay') }} </h4>
-                    @else
-                    <h4 class="btn btn-success"> {{ trans('labels.backend.orders.table.PayDone') }} </h4>
-                    @endif
-                     
-                 </td>
-            </tr>
 
            
-            <tr>
+            <!-- <tr>
                 <th>{{ trans('labels.backend.orders.download_file') }}</th>
                 <td> <a href="{{ route('admin.filedownload',$order) }}" class="btn btn-success"> Download </a> </td>
-            </tr>
+            </tr> -->
 
 
             <tr>

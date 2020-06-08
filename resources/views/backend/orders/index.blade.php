@@ -23,10 +23,9 @@
                         <tr>
                             <th>{{ trans('labels.backend.orders.table.orderId') }}</th>
                             <th>{{ trans('labels.backend.orders.table.userName') }}</th>
-                            <th>{{ trans('labels.backend.orders.table.product') }}</th>
-                            <th>{{ trans('labels.backend.orders.table.platform') }}</th>
-                            <th>{{ trans('labels.backend.orders.table.quantity') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.deliver_id') }}</th>
                             <th>{{ trans('labels.backend.orders.table.OrderStatus') }}</th>
+                            <th>{{ trans('labels.backend.orders.table.totalPrice') }}</th>
                             <th>{{ trans('labels.backend.orders.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -67,10 +66,9 @@
                 columns: [
                     {data: 'id', name: '{{config('module.orders.table')}}.id'},
                     {data: 'user_id', name: '{{config('module.orders.table')}}.user_id'},
-                    {data: 'product_id', name: '{{config('module.orders.table')}}.product_id'},
-                    {data: 'platform_id', name: '{{config('module.orders.table')}}.platform_id'},
-                    {data: 'product_quantity', name: '{{config('module.orders.table')}}.product_quantity'},
+                    {data: 'delivery_id', name: '{{config('module.orders.table')}}.delivery_id'},
                     {data: 'status_id', name: '{{config('module.orders.table')}}.status_id'},
+                    {data: 'total_price', name: '{{config('module.orders.table')}}.total_price'},
                     {data: 'created_at', name: '{{config('module.orders.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

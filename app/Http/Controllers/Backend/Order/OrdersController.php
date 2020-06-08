@@ -21,6 +21,7 @@ use App\Http\Requests\Backend\Order\ViewOrderRequest;
 use App\Models\Promotion\Promotion;
 use Storage;
 use Exception;
+use App\Models\OrderItem\OrderItem;
 
 /**
  * OrdersController
@@ -114,12 +115,15 @@ class OrdersController extends Controller
 
     public function show(ViewOrderRequest $request , Order $order)
     {
+        $numProducts = OrderItem::where('order_id',$order->id)->count();
+        $vedioProduct =  OrderItem::where(['order_id'=>$order->id,'product_id'=>1])->get();
+        $photoProduct =  OrderItem::where(['order_id'=>$order->id,'product_id'=>2])->get();
         if(is_null($order))
         {
             return back();
         }  
 
-        return new ViewResponse('backend.orders.view', compact('order'));
+        return new ViewResponse('backend.orders.view', compact('order','numProducts','vedioProduct','photoProduct'));
     }
 
     public function destroy(Order $order, DeleteOrderRequest $request)

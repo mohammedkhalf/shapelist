@@ -8,12 +8,8 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Order\OrderRepository;
 use App\Http\Requests\Backend\Order\ManageOrderRequest;
 use App\Models\Access\User\User;
-use App\Models\Order\Order;
-use App\Models\Product\Product;
-use App\Models\Platform\Platform;
 use App\Models\Status\Status;
-
-
+use App\Models\Delivery\Delivery;
 
 /**
  * Class OrdersTableController.
@@ -48,17 +44,13 @@ class OrdersTableController extends Controller
             ->addColumn('user_id', function ($order) {
                 $username = User::where('id', $order->user_id )->pluck('first_name')->toArray();
                 return $username;
-            })
-            ->addColumn('product_id', function ($order) {
-                $productname = Product::where('id', $order->product_id )->pluck('name')->toArray();
-                return $productname;
             }) 
-            ->addColumn('platform_id', function ($order) {
-                $platform = Platform::where('id', $order->platform_id )->pluck('name')->toArray();
-                return $platform;
+            ->addColumn('delivery_id', function ($order) {
+                $devlivery = Delivery::where('id', $order->delivery_id)->pluck('name')->toArray();
+                return $devlivery;
             }) 
-            ->addColumn('product_quantity', function ($order) {
-                return $order->product_quantity;
+            ->addColumn('total_price', function ($order) {
+                return $order->total_price;
             }) 
             ->addColumn('status_id', function ($order) {
                 $status = Status::where('id', $order->status_id )->pluck('type')->toArray();

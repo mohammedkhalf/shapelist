@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <!--<![if !mso]-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Sans+Condensed|Raleway" rel="stylesheet">
     <!--<![endif]-->
 
@@ -20,24 +21,13 @@
             mso-margin-bottom-alt: 0px;
             mso-padding-alt: 0px 0px 0px 0px;
             -webkit-font-smoothing: antialiased;
-            background-color: #495867;
+            background-color: #EFEFEF;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23a594c1' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-
-
-            font-family: 'Fira Sans',Raleway, sans-serif;
-
+            font-family: 'Montserrat', sans-serif;
         }
 
-        p,
-        h1,
-        h2,
-        h3,
-        h4 {
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            font-family: 'Fira Sans',Raleway, sans-serif;
+        td{
+            font-family: 'Montserrat', sans-serif;
         }
 
         span.preheader {
@@ -91,6 +81,78 @@
         .center {
             text-align: center;
         }
+        .fd-header{
+                position: absolute;
+                /* padding-top: 10px; */
+                /* top: 78px; */
+                left: 51px;
+                width: 498px;
+                height: 148px;
+                /* UI Properties */
+                background: #21A67D 0% 0% no-repeat padding-box;
+                border-bottom: 1px solid #7070708c;
+                border-radius: 25px 25px 0px 0px;
+                opacity: 1;
+        }
+        .fd-email-body{
+            position: absolute;
+            padding-left: 45px;
+            padding-top: 36px;
+            font-size:10px
+        }
+
+
+        .fd-card{
+                position: relative;
+                top: 78px;
+                left: 51px;
+                width: 498px;
+                height: 422px;
+                /* UI Properties */
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 1px solid #7070708c;
+                border-radius: 25px;
+                opacity: 1;
+        }
+        .fd-welcome-text{
+            position: absolute;
+            /* UI Properties */
+            text-align: left;
+            letter-spacing: 0px;
+            color: #FFFFFF;
+            opacity: 1;
+        }
+        .fd-email-text{
+            position: absolute;
+
+            /* UI Properties */
+            text-align: left;
+            letter-spacing: 0px;
+            color: #000000;
+            opacity: 1;
+        }
+        .fd-button{
+            position: absolute;
+            left: 202px;
+            width: 197px;
+            height: 35px;
+            background: #21A67D 0% 0% no-repeat padding-box;
+            border: 1px solid #7070708c;
+            border-radius: 50px;
+            opacity: 1;
+            font-size:11px;
+            padding-top: 18px;
+            margin-top: 42px;
+
+        }
+        .fd-email-message{
+            
+            /* top: 412px;
+            left: 96px;
+            width: 376px;
+            height: 59px;
+            opacity: 1; */
+        }
 
         /* ----------- responsivity ----------- */
 
@@ -131,7 +193,7 @@
             }
             
         }
-
+        
         @media only screen and (max-width: 479px) {
             /*------ top header ------ */
             .main-header {
@@ -155,29 +217,14 @@
         }
     </style>
 </head>
-<body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="background-color:#EFEFEF">
 
     <div class="container">
-        <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" style="width:60%; margin: 0 auto;" class="bg_color">
+        <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="EFEFEF" style="width:60%; margin: 0 auto;" class="bg_color">
             <tr>
                 <td align="center">
                     <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
                         <tr>
-                            <td align="center">
-                                <table border="0" width="40" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
-                                    <tr>
-                                        <td align="center" style=""
-                                            class="main-header">
-                                            <!-- section text ======-->    
-                                            <div class="brand">{{ env('APP_SHORT_NAME', 'LAP') }}</div>
-                                        
-                                            <div class="tagline">
-                                                {{ app_name() }}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
                         </tr>
 
                         <tr>

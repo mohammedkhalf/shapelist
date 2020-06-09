@@ -114,6 +114,10 @@
                 border-radius: 25px;
                 opacity: 1;
         }
+        .fd-email-footer{
+                width: 498px;
+                clear: both;
+        }
         .fd-welcome-text{
             position: absolute;
             text-align: left;

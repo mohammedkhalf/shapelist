@@ -83,8 +83,8 @@
         }
         .fd-header{
                 position: absolute;
-                /* padding-top: 10px; */
-                /* top: 78px; */
+                padding-top: 10px;
+                top: 78px;
                 left: 51px;
                 width: 498px;
                 height: 148px;
@@ -116,7 +116,6 @@
         }
         .fd-welcome-text{
             position: absolute;
-            /* UI Properties */
             text-align: left;
             letter-spacing: 0px;
             color: #FFFFFF;
@@ -124,7 +123,8 @@
         }
         .fd-email-text{
             position: absolute;
-
+            margin-left: auto;
+            margin-right: auto;
             /* UI Properties */
             text-align: left;
             letter-spacing: 0px;
@@ -143,8 +143,22 @@
             font-size:11px;
             padding-top: 18px;
             margin-top: 42px;
+            margin-left: 106px;
+            margin-right: 73px;
 
         }
+        .fd-email-image{
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5px;
+            width: 60px;
+            height: 60px;
+            /* UI Properties */
+            background: no-repeat url("https://i.ibb.co/gDB0K0J/Icon.png");
+            opacity: 1;
+        }
+
         .fd-email-message{
             
             /* top: 412px;

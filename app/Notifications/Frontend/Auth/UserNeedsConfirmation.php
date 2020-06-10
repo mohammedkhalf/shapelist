@@ -16,16 +16,16 @@ class UserNeedsConfirmation extends Notification
     /**
      * @var
      */
-    protected $confirmation_code;
+    protected $user;
 
     /**
      * UserNeedsConfirmation constructor.
      *
      * @param $confirmation_code
      */
-    public function __construct($confirmation_code)
+    public function __construct($user)
     {
-        $this->confirmation_code = $confirmation_code;
+        $this->user = $user;
     }
 
     /**
@@ -53,6 +53,6 @@ class UserNeedsConfirmation extends Notification
         $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
 
         return (new MailMessage())
-            ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url]);
+            ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url, 'user'=>$user ] );
     }
 }

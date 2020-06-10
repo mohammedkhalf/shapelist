@@ -99,9 +99,11 @@ class OrdersController extends Controller
      * @param  App\Models\Order\Order  $order
      * @return \App\Http\Responses\RedirectResponse
      */
-    public function update(UpdateOrderRequest $request, Order $order,Exception $exception)
+    public function update(Request $request, Order $order)
     {
-        
+        $request->validate([
+            'status_id' => ['numeric','not_in:0','exists:'. Status::table() .',id']
+        ]);
         $orderInfo = Order::updateAdminOrder($order,$request);
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.updated')]);
     }

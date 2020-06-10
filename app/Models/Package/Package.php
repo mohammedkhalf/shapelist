@@ -1,32 +1,30 @@
 <?php
 
-namespace App\Models\Status;
+namespace App\Models\Package;
 
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Status\Traits\StatusAttribute;
-use App\Models\Status\Traits\StatusRelationship;
-use App\Models\SharedModel;
+use App\Models\Package\Traits\PackageAttribute;
+use App\Models\Package\Traits\PackageRelationship;
 
-class Status extends Model
+class Package extends Model
 {
     use ModelTrait,
-        StatusAttribute,
-        SharedModel,
-    	StatusRelationship {
-            // StatusAttribute::getEditButtonAttribute insteadof ModelTrait;
+        PackageAttribute,
+    	PackageRelationship {
+            // PackageAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
 
     /**
      * NOTE : If you want to implement Soft Deletes in this model,
-     * then follow the steps here : https://laravel.com/docs/5.4/eloquent#soft-deleting
+     * then follow the steps here : https://laravel.com/docs/6.x/eloquent#soft-deleting
      */
 
     /**
      * The database table used by the model.
      * @var string
      */
-    protected $table = 'statuses';
+    protected $table = 'packages';
 
     /**
      * Mass Assignable fields of model

@@ -59,4 +59,7 @@ return [
 	"payments" => [
 	"table" => "payments",
 	],
+	"packages" => [
+	"table" => "packages",
+	],
 ];

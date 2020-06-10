@@ -172,7 +172,8 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
-
+        $data = $request->only('status_id');
+        $order->update($data);
     }
 
     //payment methods

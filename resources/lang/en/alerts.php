@@ -119,5 +119,10 @@ return [
 	"deleted" => "The Payment was successfully deleted.",
 	"updated" => "The Payment was successfully updated.",
 	],
+	"packages" => [
+	"created" => "The Package was successfully created.",
+	"deleted" => "The Package was successfully deleted.",
+	"updated" => "The Package was successfully updated.",
+	],
 	],
 ];

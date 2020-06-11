@@ -32,7 +32,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = ['user_id','status_id','coupon_code',
-    'total_price','notes','delivery_id','on_set' , 'music_id','video_length','user_music'];
+    'total_price','delivery_id','on_set','location_id'];
     
     //relationships
     public function users()
@@ -57,6 +57,43 @@ class Order extends Model
         return $this->hasOne(Payment::class,'order_id');   
     }  
     //static functions
+    //insert Order
+    public static function insertOrder($request)
+    {  
+          $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
+          $orderObj = Order::create($OrderData);
+          Order::findOrCreateLocation($request,$orderObj);
+          $orderItems= Order::insertOrderItems($request,$orderObj);
+          return response()->json(['message'=>'Order Created Successfully']);
+    }
+
+    //Insert orderItems
+    public static function insertOrderItems($request , $orderObj)
+    {
+        $productsArr = $request->products;
+        for ($i=0; $i < count($productsArr); $i++)
+        {
+                if($request->hasFile($productsArr[$i]['user_music']));
+                {
+                      $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
+                      $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                      $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
+                      $userMusic= $filename.'_'.time().'.'.$extension;
+                      $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $userMusic);
+                }
+                $data = [ 
+                            'product_id'=>$request->products[$i]['product_id'],
+                            'product_quantity' =>$request->products[$i]['product_quantity'],
+                          //   'product_total_price' => $request->products[$i]['product_total_price'],
+                          //   'vedio_length' => $request->products[$i]['vedio_length'],
+                          //   'music_id' => $request->products[$i]['music_id'],
+                            'user_music'=> $userMusic
+                        ];
+                  $items = array_merge($data,['order_id'=>$orderObj->id]);
+                  $orderItemsInfo = OrderItem::create($items);
+                  return $orderItemsInfo;
+        } //for 
+    }
     //Insert location
     public static function findOrCreateLocation($request,$orderObj)
     {
@@ -68,10 +105,15 @@ class Order extends Model
             Location::create(array_merge($locationArr,['order_id'=>$orderObj->id, 
             'user_id'=>auth()->guard('api')->user()->id]));
         }
-        Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
-        ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
+        else
+        {
+            Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
+            ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
+        }
+
     }
 
+    //
     //Update location
     public static function updateLocation($request,$orderObj)
     {
@@ -87,22 +129,7 @@ class Order extends Model
                     ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
     } 
   
-    //Insert orderItems
-    public static function insertOrderItems($request,$orderObj)
-    {
-        if($request->products)
-        {
-            for ($i = 0; $i<count($request->products);$i++)
-            {
-                $data = [ 'product_id'=>$request->products[$i]['product_id'],
-                          'product_quantity' =>$request->products[$i]['product_quantity'],
-                          'product_total_price' => $request->products[$i]['product_total_price']
-                        ];
-                $items = array_merge($data,['order_id'=>$orderObj->id]);
-                OrderItem::create($items);
-            } //for      
-        }   
-    }
+  
 
     //update order Item 
     public static function updateOrderItems($request,$orderObj)
@@ -116,55 +143,12 @@ class Order extends Model
         } //for
     }
 
-    //upload Music
-    public static function uploadMusic ($request)
-    {
-        global $fileNameToStore;
-        if($request->hasFile('user_music'))
-        {
-            $filenameWithExt = $request->file('user_music')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('user_music')->getClientOriginalExtension();
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            $path = $request->file('user_music')->storeAs('public/users_music', $fileNameToStore);
-        }
-        return $fileNameToStore;
-    }
-
-    // update upload Music
-    public static function updateUploadMusic ($request, $orderObj)
-    {
-        if($request->hasFile('user_music'))
-        {
-            $old_user_music_path = public_path().'/storage/users_music/'.$orderObj->user_music; 
-            if (file_exists($old_user_music_path)) {
-                @unlink($old_user_music_path);
-            }
-            $filenameWithExt = $request->file('user_music')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('user_music')->getClientOriginalExtension();
-            $userMusic= $filename.'_'.time().'.'.$extension;
-            $path = $request->file('user_music')->storeAs('public/users_music', $userMusic);
-        }
-    }
-
-    //insert Order
-    public static function insertOrder($request)
-    {      
-        $fileName = Order::uploadMusic($request);
-        $OrderData = array_merge($request->only('delivery_id','music_id','total_price','video_length','coupon_code','on_set'),['user_music'=>$fileName ,'user_id'=>auth()->guard('api')->user()->id]);
-        $orderObj = Order::create($OrderData);
-        Order::findOrCreateLocation($request,$orderObj);
-        Order::insertOrderItems($request,$orderObj);
-        return response()->json(['message'=>'Order Created Successfully']);
-    }
-
     //Update Order
     public static function updateOrder($request,$id)
     {
         $orderObj = Order::findOrFail($id);
         $fileName = Order::updateUploadMusic($request, $orderObj);
-        $OrderData = array_merge($request->only('delivery_id','music_id','total_price','video_length','coupon_code','on_set'),['user_music'=>$fileName ,'user_id'=>auth()->guard('api')->user()->id]);
+        $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
         $orderObj->update($OrderData);
         Order::updateLocation($request,$orderObj);
         Order::updateOrderItems($request,$orderObj);

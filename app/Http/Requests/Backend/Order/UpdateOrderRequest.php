@@ -43,13 +43,13 @@ class UpdateOrderRequest extends FormRequest
             'rep_first_name'=>['string', new FilterStringRule , 'nullable'],
             'rep_last_name'=>['string', new FilterStringRule , 'nullable'],
             'rep_phone_number'=>['numeric','regex:/(0)[0-9]{9}/' , 'nullable'],
-            'video_length' => ['numeric','not_in:0'],
-            'music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id' , 'nullable'],
-            'user_music' => ['mimes:mpga,ogg','nullable'],
             //products array
             'products.*.product_id' => ['required' , 'numeric' , 'not_in:0' , 'exists:'. Product::table() .',id'],
             'products.*.product_quantity' => ['required' , 'numeric' , 'not_in:0'],
             'products.*.product_total_price' => ['required','numeric','not_in:0'],
+            'products.*.video_length' => ['numeric','not_in:0' , 'nullable'],
+            'products.*.music_id' => [ 'numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id' , 'nullable'],
+            'products.*.user_music' => ['mimes:mpga,ogg','nullable'],
         ];
     }
 

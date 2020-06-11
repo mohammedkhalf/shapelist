@@ -23,9 +23,6 @@ class CreateOrdersTable extends Migration
             $table->string('payment_status')->nullable();
             $table->dateTime('on_set')->nullable(); 
             $table->string('coupon_code')->nullable();
-            $table->integer('music_id')->unsigned()->nullable();        
-            $table->integer('video_length')->default(10); 
-            $table->string('user_music')->nullable();
             $table->timestamps();
         });
     }

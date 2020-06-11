@@ -19,6 +19,9 @@ class CreateOrderItemsTable extends Migration
             $table->integer('product_id')->unsigned()->nullable();
             $table->integer('product_quantity')->default(1); 
             $table->decimal('product_total_price');
+            $table->integer('music_id')->unsigned()->nullable();        
+            $table->integer('video_length')->nullable();  
+            $table->string('user_music')->nullable();
             $table->timestamps();
         });
     }

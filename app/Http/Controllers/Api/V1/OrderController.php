@@ -13,15 +13,8 @@ class OrderController extends APIController
         //======================== index orders  ======================
         public function index()
         {
-            $allOrders = collect([]);
-            $ordersData = Order::with('product','template','addon','platform','location','musicSample','status')
-                          ->where('user_id',auth()->guard('api')->user()->id)->get();
-            if(is_null($ordersData)){return back();}
-            foreach($ordersData as $order){
-                $allOrders->push(Order::getOrderData($order));
-            }
-            return response()->json($allOrders);   
-         
+            $allOrder = Order::with('products','location')->where('user_id',auth()->guard('api')->user()->id)->get();
+            return response()->json(json_decode($allOrder));   
         } 
         //======================== create order  ======================
         public function store(StoreOrderRequest $request)
@@ -37,16 +30,15 @@ class OrderController extends APIController
             if(is_null($order)){
                 return back();
             } 
-            $data = Order::getOrderData($order);
             $responseCheckout = Order::prepareCheckout($order->total_price);
-            $OrderData = array_merge($data , ['responseCheckout'=>json_decode($responseCheckout)]);
+            $OrderData = array_merge(['responseCheckout'=>json_decode($responseCheckout)]);
             
             return response()->json($OrderData);
         }
         //======================== update order  ======================
 
         public function update(UpdateOrderRequest $request, $id)
-        {
+        {   
             $updatedOrder=Order::updateOrder($request,$id);
             return response()->json(['updatedOrder'=>$updatedOrder ,'message' => 'Order updated successfully!']);
         }

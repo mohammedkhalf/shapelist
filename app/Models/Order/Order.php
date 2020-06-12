@@ -70,29 +70,30 @@ class Order extends Model
     //Insert orderItems
     public static function insertOrderItems($request , $orderObj)
     {
+        global  $fileNameToStore;
         $productsArr = $request->products;
         for ($i=0; $i < count($productsArr); $i++)
         {
-                if($request->hasFile($productsArr[$i]['user_music']));
+                if(!empty($productsArr[$i]['user_music']))
                 {
-                      $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
-                      $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                      $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
-                      $userMusic= $filename.'_'.time().'.'.$extension;
-                      $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $userMusic);
+                    $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
+                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
                 }
-                $data = [ 
-                            'product_id'=>$request->products[$i]['product_id'],
-                            'product_quantity' =>$request->products[$i]['product_quantity'],
-                          //   'product_total_price' => $request->products[$i]['product_total_price'],
-                          //   'vedio_length' => $request->products[$i]['vedio_length'],
-                          //   'music_id' => $request->products[$i]['music_id'],
-                            'user_music'=> $userMusic
-                        ];
+                $data =
+                [ 
+                    'product_quantity' =>$productsArr[$i]['product_quantity'],
+                    'product_id'=>$productsArr[$i]['product_id'],
+                    'vedio_length' => $productsArr[$i]['vedio_length'],
+                    'music_id' => $productsArr[$i]['music_id'],
+                    'user_music'=> $fileNameToStore
+                ];
                   $items = array_merge($data,['order_id'=>$orderObj->id]);
                   $orderItemsInfo = OrderItem::create($items);
-                  return $orderItemsInfo;
         } //for 
+        return $orderItemsInfo;
     }
     //Insert location
     public static function findOrCreateLocation($request,$orderObj)
@@ -113,51 +114,59 @@ class Order extends Model
 
     }
 
-    //
-    //Update location
-    public static function updateLocation($request,$orderObj)
-    {
-        if($request->location_id)
-        {
-            $locationInfo = Location::findOrFail($request->location_id);
-            $locationObj = Location::where('order_id',$orderObj->id)
-                           ->update(['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->city,'lng'=>$locationInfo->lng,
-                          'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number]);          
-        }
-        $locationObj=Location::where('order_id',$orderObj->id)
-                    ->update(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
-                    ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
-    } 
-  
-  
-
-    //update order Item 
-    public static function updateOrderItems($request,$orderObj)
-    {
-        for($i = 0; $i<count($request->products);$i++)
-        {
-             OrderItem::where(['order_id'=>$orderObj->id ,'product_id'=>$request->products[$i]['product_id']])
-                        ->update(['product_quantity'=>$request->products[$i]['product_quantity'] ,
-                                  'product_total_price'=>$request->products[$i]['product_total_price']
-                                ]);
-        } //for
-    }
-
     //Update Order
     public static function updateOrder($request,$id)
     {
         $orderObj = Order::findOrFail($id);
-        $fileName = Order::updateUploadMusic($request, $orderObj);
-        $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
-        $orderObj->update($OrderData);
-        Order::updateLocation($request,$orderObj);
-        Order::updateOrderItems($request,$orderObj);
+        if($orderObj->status_id == NULL)
+        {
+            $orderObj->update(array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]));
+            Order::updateLocation($request,$orderObj);
+            Order::updateOrderItems($request,$orderObj);
+            return response()->json(['message'=>'Order Update Successfully']);     
+        }
+        return response()->json(['message'=>'Not Allow Update Order']);     
     }
+    //update order Item 
+    public static function updateOrderItems($request,$orderObj)
+    {       
+         $productsArr = array();
+         $productsArr= $request->products;
+         for($i = 0; $i<count($productsArr);$i++)
+         {        
+            $updateOrderItems=OrderItem::where(['order_id'=>$orderObj->id ,'product_id'=>$productsArr[$i]['product_id']])
+            ->update([
+                  'product_quantity'=> $productsArr[$i]['product_quantity'],
+                  'product_id'=> $productsArr[$i]['product_id'],
+                  'video_length' => $productsArr[$i]['video_length'],
+                  'music_id' => $productsArr[$i]['music_id'],
+                  'user_music'=> $productsArr[$i]['user_music']
+                ]);
+         } //for
+
+         return $updateOrderItems;
+     }
+
+      //Update location
+      public static function updateLocation($request,$orderObj)
+      {
+          if($request->location_id)
+          {
+              $locationInfo = Location::findOrFail($orderObj->id);
+              $updatedLocation = Location::where('order_id',$orderObj->id)->update(['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->city,'lng'=>$locationInfo->lng,
+             'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number]);          
+          }
+          else
+          {
+            $updatedLocation = Location::where('order_id',$orderObj->id)->update(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
+              ['user_id'=>auth()->guard('api')->user()->id]));
+          }
+          return $updatedLocation;
+      }   
 
     public static function updateAdminOrder($order, $request)
     {
-        $data = $request->only('status_id');
-        $order->update($data);
+        $order->update($request->only('status_id'));
     }
 
     //payment methods

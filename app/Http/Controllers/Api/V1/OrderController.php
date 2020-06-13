@@ -13,27 +13,26 @@ class OrderController extends APIController
         //======================== index orders  ======================
         public function index()
         {
-            $allOrder = Order::with('products','location')->where('user_id',auth()->guard('api')->user()->id)->get();
-            return response()->json(json_decode($allOrder));   
+            $allOrders = Order::with('products','location')->where('user_id',auth()->guard('api')->user()->id)->get();
+            return response()->json(json_decode($allOrders));   
         } 
         //======================== create order  ======================
         public function store(StoreOrderRequest $request)
         {
             $orderInfo=Order::insertOrder($request); 
-            return response()->json(['orderInfo'=>$orderInfo ,'message' => 'Order Created Successfully']);
+            return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 
         public function show($id)
         {
             $order = Order::findOrFail($id);
-            if(is_null($order)){
+            $orderInfo = Order::with('products','location')->where(['id'=>$id,'user_id'=>auth()->guard('api')->user()->id])->get();
+            if(is_null($orderInfo)){
                 return back();
             } 
             $responseCheckout = Order::prepareCheckout($order->total_price);
-            $OrderData = array_merge(['responseCheckout'=>json_decode($responseCheckout)]);
-            
-            return response()->json($OrderData);
+            return response()->json(['order'=> $orderInfo ,'responseCheckout'=>json_decode($responseCheckout)]);
         }
         //======================== update order  ======================
 
@@ -47,8 +46,12 @@ class OrderController extends APIController
         public function destroy($id)
         {
             $order = Order::findOrFail($id);
-            $order->delete();  
-            return response()->json("Order deleted successfully");
+            if(!is_null($order))
+            {
+                $order->delete();  
+                return response()->json("Order deleted successfully");
+            }
+            return response()->json("This Order Not Found");
         }
 
         public function getStatus ($checkoutId)

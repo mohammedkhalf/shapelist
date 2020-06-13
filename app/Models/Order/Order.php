@@ -50,7 +50,7 @@ class Order extends Model
     }  
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_items');   
+        return $this->belongsToMany(Product::class,'order_items')->withPivot('product_quantity','music_id','video_length','user_music');  
     }
     public function payment()
     {
@@ -82,17 +82,21 @@ class Order extends Model
                     $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
                 }
-                $data =
-                [ 
-                    'product_quantity' =>$productsArr[$i]['product_quantity'],
-                    'product_id'=>$productsArr[$i]['product_id'],
-                    'vedio_length' => $productsArr[$i]['vedio_length'],
-                    'music_id' => $productsArr[$i]['music_id'],
-                    'user_music'=> $fileNameToStore
-                ];
-                  $items = array_merge($data,['order_id'=>$orderObj->id]);
-                  $orderItemsInfo = OrderItem::create($items);
+                
+                    $data =
+                    [ 
+                        'product_quantity' =>$productsArr[$i]['product_quantity'],
+                        'product_id'=>$productsArr[$i]['product_id'],
+                        'video_length' => $productsArr[$i]['video_length'],
+                        'music_id' => $productsArr[$i]['music_id'],
+                        'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
+                    ];
+                
+                $items = array_merge($data,['order_id'=>$orderObj->id]);
+                $orderItemsInfo = OrderItem::create($items);
         } //for 
+
+       
         return $orderItemsInfo;
     }
     //Insert location
@@ -130,17 +134,30 @@ class Order extends Model
     //update order Item 
     public static function updateOrderItems($request,$orderObj)
     {       
-         $productsArr = array();
-         $productsArr= $request->products;
-         for($i = 0; $i<count($productsArr);$i++)
-         {        
+         global  $fileNameToStore;
+         $productsArr  = ($request->products);
+         for($i = 0; $i< count($productsArr); $i++)
+         {
+            if(!empty($productsArr[$i]['user_music']))
+            {
+                $old_user_music_path = public_path() .  '/storage/users_music/' . $orderObj->user_music; 
+                if (file_exists($old_user_music_path)) {
+                    @unlink($old_user_music_path);
+                }
+                $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
+                $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
+            }
+
             $updateOrderItems=OrderItem::where(['order_id'=>$orderObj->id ,'product_id'=>$productsArr[$i]['product_id']])
             ->update([
                   'product_quantity'=> $productsArr[$i]['product_quantity'],
                   'product_id'=> $productsArr[$i]['product_id'],
                   'video_length' => $productsArr[$i]['video_length'],
                   'music_id' => $productsArr[$i]['music_id'],
-                  'user_music'=> $productsArr[$i]['user_music']
+                  'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
                 ]);
          } //for
 

@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Subscription\Subscription
      */
-    protected $subscriptions;
+    protected $subscription;
 
     /**
      * @param App\Models\Subscription\Subscription $subscriptions
      */
-    public function __construct($subscriptions)
+    public function __construct($subscription)
     {
-        $this->subscriptions = $subscriptions;
+        $this->subscription = $subscription;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.subscriptions.edit')->with([
-            'subscriptions' => $this->subscriptions
+            'subscription' => $this->subscription
         ]);
     }
 }

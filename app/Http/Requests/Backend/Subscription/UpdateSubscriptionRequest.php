@@ -27,6 +27,12 @@ class UpdateSubscriptionRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
+            'name' => ['string','max:50' , new FilterStringRule],
+            'purchase_points' => ['numeric','not_in:0'],
+            'free_points' => ['numeric','not_in:0'],
+            'discount' => ['numeric','not_in:0'],
+            'details' => ['string' , 'max:255', new FilterStringRule],
+            'price' => ['numeric','not_in:0'],
         ];
     }
 

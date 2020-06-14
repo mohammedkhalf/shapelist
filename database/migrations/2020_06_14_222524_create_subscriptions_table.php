@@ -20,6 +20,7 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('free_points');
             $table->integer('discount');
             $table->text('details')->nullable();
+            $table->decimal('price');
             $table->timestamps();
         });
     }

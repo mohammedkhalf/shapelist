@@ -15,6 +15,11 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name', 225)->unique();
+            $table->integer('purchase_points');
+            $table->integer('free_points');
+            $table->integer('discount');
+            $table->text('details')->nullable();
             $table->timestamps();
         });
     }

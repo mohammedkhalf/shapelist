@@ -124,5 +124,10 @@ return [
 	"deleted" => "The Package was successfully deleted.",
 	"updated" => "The Package was successfully updated.",
 	],
+	"subscriptions" => [
+	"created" => "The Subscription was successfully created.",
+	"deleted" => "The Subscription was successfully deleted.",
+	"updated" => "The Subscription was successfully updated.",
+	],
 	],
 ];

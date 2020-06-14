@@ -474,6 +474,16 @@ return [
 	"createdat" => "Created At",
 	],
 	],
+	"subscriptions" => [
+	"create" => "Create Subscription",
+	"edit" => "Edit Subscription",
+	"management" => "Subscription Management",
+	"title" => "Subscriptions",
+	"table" => [
+	"id" => "Id",
+	"createdat" => "Created At",
+	],
+	],
 	],
 	"frontend" => [
 	"auth" => [

@@ -55,7 +55,8 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class,'order_id');   
-    }  
+    }
+   
     //static functions
     //insert Order
     public static function insertOrder($request)

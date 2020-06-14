@@ -62,4 +62,7 @@ return [
 	"packages" => [
 	"table" => "packages",
 	],
+	"subscriptions" => [
+	"table" => "subscriptions",
+	],
 ];

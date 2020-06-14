@@ -197,5 +197,12 @@ return [
 	"not_found" => "That Package does not exist.",
 	"update_error" => "There was a problem updating this Package. Please try again.",
 	],
+	"subscriptions" => [
+	"already_exists" => "That Subscription already exists. Please choose a different name.",
+	"create_error" => "There was a problem creating this Subscription. Please try again.",
+	"delete_error" => "There was a problem deleting this Subscription. Please try again.",
+	"not_found" => "That Subscription does not exist.",
+	"update_error" => "There was a problem updating this Subscription. Please try again.",
+	],
 	],
 ];

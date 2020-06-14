@@ -199,6 +199,13 @@ return [
 	"management" => "Package Management",
 	"main" => "Packages",
 	],
+	"subscriptions" => [
+	"all" => "All Subscriptions",
+	"create" => "Create Subscription",
+	"edit" => "Edit Subscription",
+	"management" => "Subscription Management",
+	"main" => "Subscriptions",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

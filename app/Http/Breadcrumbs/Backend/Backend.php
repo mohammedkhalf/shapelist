@@ -34,3 +34,4 @@ require __DIR__.'/Delivery.php';
 require __DIR__.'/Payment.php';
 
 require __DIR__.'/Package.php';
+require __DIR__.'/Subscription.php';

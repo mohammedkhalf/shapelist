@@ -114,18 +114,12 @@
                 </tr>
             @endforeach
             
-
-            
-
-            
-
-
             <!-- Website Music -->
             <tr>
                 <th ><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.music') }} <h5></th>
                 <td>
-                    @if(!empty($order->musicSample))
-                    <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('smaples/'.$order->musicsample->url)}}' ></audio></td>
+                    @if(!empty($order->MusicSample))
+                    <audio controls style="height:54px;" ><source src='{{Storage::disk('public')->url('smaples/'.$order->MusicSample->music_id)}}' ></audio></td>
                     @else
                         <p style="margin-top:20px;">There is No Music Sample</p>
                     @endif

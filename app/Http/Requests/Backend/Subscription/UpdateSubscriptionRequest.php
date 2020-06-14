@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Subscription;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\FilterStringRule;
 
 class UpdateSubscriptionRequest extends FormRequest
 {

@@ -17,8 +17,9 @@ trait SubscriptionAttribute
      */
     public function getActionButtonsAttribute()
     {
-        return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-subscription", "admin.subscriptions.edit")}
-                {$this->getDeleteButtonAttribute("delete-subscription", "admin.subscriptions.destroy")}
+        return '<div class="btn-group action-btn"> '
+                .$this->getEditButtonAttribute("edit-subscription", "admin.subscriptions.edit").'
+               '.$this->getDeleteButtonAttribute("delete-subscription", "admin.subscriptions.destroy").'
                 </div>';
     }
 }

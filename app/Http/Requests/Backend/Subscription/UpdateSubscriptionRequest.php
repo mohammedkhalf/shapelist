@@ -31,8 +31,8 @@ class UpdateSubscriptionRequest extends FormRequest
             'name' => ['string','max:50' , new FilterStringRule],
             'purchase_points' => ['numeric','not_in:0'],
             'free_points' => ['numeric','not_in:0'],
-            'discount' => ['numeric','not_in:0'],
-            'details' => ['string' , 'max:255', new FilterStringRule],
+            'discount' => ['nullable','numeric','not_in:0'],
+            'details' => ['nullable','string' , 'max:255', new FilterStringRule],
             'price' => ['numeric','not_in:0'],
         ];
     }

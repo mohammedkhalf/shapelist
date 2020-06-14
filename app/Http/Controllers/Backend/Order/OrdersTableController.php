@@ -46,7 +46,7 @@ class OrdersTableController extends Controller
                 return $username;
             }) 
             ->addColumn('delivery_id', function ($order) {
-                $devlivery = Delivery::where('id', $order->delivery_id)->pluck('name')->toArray();
+                $devlivery = Delivery::where('id', $order->delivery_id)->pluck('name_en')->toArray();
                 return $devlivery;
             }) 
             ->addColumn('total_price', function ($order) {

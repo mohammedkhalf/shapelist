@@ -486,6 +486,7 @@ return [
 	"free_points" => "Free Points",
 	"discount" => "Discount",
 	"details" => "Subscriptions Details",
+	"duration" => "Duration",
 	"price" => "Price",
 	"createdat" => "Created At",
 	],

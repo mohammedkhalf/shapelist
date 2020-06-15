@@ -13,8 +13,8 @@ class SubscriptionDetail extends Model
      * Mass Assignable fields of model
      * @var array
      */
-    protected $fillable = ['subscription_status','purchase_points','free_points','subscription_start_date',
-    'subscription_end_date','subscription_bank_id'
+    protected $fillable = ['status','purchase_points','free_points','start_date',
+    'end_date','bank_transaction_id'
 
     ];
   

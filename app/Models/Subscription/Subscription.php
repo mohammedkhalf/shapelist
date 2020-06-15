@@ -71,7 +71,7 @@ class Subscription extends Model
 
     public function subscription()
     {
-        return $this->belongsToMany(User::class,'subscription_details')->withPivot('subscription_status','purchase_points','free_points','subscription_start_date','subscription_end_date');  
+        return $this->belongsToMany(User::class,'subscription_details')->withPivot('status','purchase_points','free_points','start_date','end_date');  
     }
 
 }

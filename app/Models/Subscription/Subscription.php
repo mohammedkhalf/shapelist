@@ -6,6 +6,7 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Traits\SubscriptionAttribute;
 use App\Models\Subscription\Traits\SubscriptionRelationship;
+use App\Models\Access\User;
 
 class Subscription extends Model
 {
@@ -67,4 +68,10 @@ class Subscription extends Model
     {
         parent::__construct($attributes);
     }
+
+    public function subscription()
+    {
+        return $this->belongsToMany(User::class,'subscription_details')->withPivot('subscription_status','purchase_points','free_points','subscription_start_date','subscription_end_date');  
+    }
+
 }

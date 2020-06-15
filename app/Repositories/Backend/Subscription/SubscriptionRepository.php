@@ -30,6 +30,12 @@ class SubscriptionRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.subscriptions.table').'.id',
+                config('module.subscriptions.table').'.name',
+                config('module.subscriptions.table').'.purchase_points',
+                config('module.subscriptions.table').'.free_points',
+                config('module.subscriptions.table').'.discount',
+                config('module.subscriptions.table').'.details',
+                config('module.subscriptions.table').'.price',
                 config('module.subscriptions.table').'.created_at',
                 config('module.subscriptions.table').'.updated_at',
             ]);

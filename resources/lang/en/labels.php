@@ -481,6 +481,12 @@ return [
 	"title" => "Subscriptions",
 	"table" => [
 	"id" => "Id",
+	"name" => "Name",
+	"purchase_points" => "Purchase Points",
+	"free_points" => "Free Points",
+	"discount" => "Discount",
+	"details" => "Subscriptions Details",
+	"price" => "Price",
 	"createdat" => "Created At",
 	],
 	],

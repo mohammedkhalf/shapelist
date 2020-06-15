@@ -118,14 +118,15 @@ class OrdersController extends Controller
     public function show(ViewOrderRequest $request , Order $order)
     {
         $numProducts = OrderItem::where('order_id',$order->id)->count();
-        $vedioProduct =  OrderItem::where(['order_id'=>$order->id,'product_id'=>1])->get();
-        $photoProduct =  OrderItem::where(['order_id'=>$order->id,'product_id'=>2])->get();
+        $userProducts = Order::with('products','location')->where('id',$order->id)->get();
+        $productsData = OrderItem::where('order_id',$order->id)->get();
+        // dd( $productsData);
         if(is_null($order))
         {
             return back();
         }  
 
-        return new ViewResponse('backend.orders.view', compact('order','numProducts','vedioProduct','photoProduct'));
+        return new ViewResponse('backend.orders.view', compact('order','numProducts','userProducts','productsData'));
     }
 
     public function destroy(Order $order, DeleteOrderRequest $request)

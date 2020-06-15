@@ -109,12 +109,12 @@ return [
 	"products" => [
 	"create" => "Create Product",
 	"edit" => "Edit Product",
-	"management" => "Packages Management",
+	"management" => "Products Management",
 	"pakages" => "pakages",
 	"title" => "Packages",
 	"table" => [
 	"id" => "Id",
-	"PakageName" => "PackageName",
+	"Name" => "Name",
 	"Description" => "Description",
 	"Image" => "Image",
 	"Price" => "Price",

@@ -22,7 +22,7 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.products.table.id') }}</th>
-                            <th>{{ trans('labels.backend.products.table.PakageName') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Name') }}</th>
                             <th>{{ trans('labels.backend.products.table.Description') }}</th>
                             <th>{{ trans('labels.backend.products.table.Image') }}</th>
                             <th>{{ trans('labels.backend.products.table.Price') }}</th>

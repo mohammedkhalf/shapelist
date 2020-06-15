@@ -23,10 +23,10 @@
 
             <div class="box-body">
                 <div class="form-group">
-                    {{ Form::label('name', trans('validation.attributes.backend.products.product-name'), ['class' => 'col-lg-2 control-label required']) }}
+                    {{ Form::label('name', trans('labels.backend.products.table.Name'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
-                        {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.products.product-name'), 'required' => 'required']) }}
+                        {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.Name'), 'required' => 'required']) }}
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
@@ -43,7 +43,7 @@
 
                     <div class="col-lg-10">
 
-                        {!! Form::file('image', array('class'=>'form-control inputfile inputfile-1' , 'required' => 'required' )) !!}
+                        {!! Form::file('image', array('class'=>'form-control inputfile inputfile-1')) !!}
 
                     </div><!--col-lg-10-->
                 </div><!--form control-->

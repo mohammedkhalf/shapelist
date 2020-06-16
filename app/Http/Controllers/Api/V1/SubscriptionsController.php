@@ -16,31 +16,27 @@ class SubscriptionsController extends Controller
         $subscriptions = Subscription::all();
         return response()->json($subscriptions); 
     }
-
-   
-    public function create()
-    {
-        //
-    }
-
-   
-    public function store(Request $request)
-    {
-        //
-    }
-
-    
+  
     public function show($id)
     {
-        //
+        $subscription = Subscription::findOrFail($id);
+        return response()->json($subscription);
     }
 
-   
-    public function edit($id)
+    public function subscribe($id)
+    {
+        
+        $subscription = Subscription::findOrFail($id);
+        // $userSubscriptionDetails = SubscriptionDetail::create($subscription);
+
+        // return  auth()->guard('api')->user()->id;
+        return $subscription;
+    }
+
+    public function unsubscribe($id)
     {
         //
     }
-
     
     public function update(Request $request, $id)
     {

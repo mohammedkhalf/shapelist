@@ -20,6 +20,7 @@ class CreateSubscriptionDetailsTable extends Migration
             $table->boolean('status')->nullable();
             $table->integer('purchase_points')->nullable();
             $table->integer('free_points')->nulllable();
+            $table->integer('discount')->nulllable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('bank_transaction_id')->nullable();

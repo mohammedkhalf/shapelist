@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MusicSamplesTableSeeder::class);  
         $this->call(QuotationTableSeeder::class);  
         $this->call(DeliveryTableSeeder::class);  
-        $this->call(PaymentTableSeeder::class);  
+        $this->call(PaymentTableSeeder::class); 
+        $this->call(PackageTableSeeder::class);  
         Model::reguard();
     }
 }

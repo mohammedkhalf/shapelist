@@ -22,6 +22,11 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.packages.table.id') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.name_ar') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.name_en') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.price') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.desc_ar') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.desc_en') }}</th>
                             <th>{{ trans('labels.backend.packages.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -61,6 +66,11 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.packages.table')}}.id'},
+                    {data: 'name_ar', name: '{{config('module.packages.table')}}.name_ar'},
+                    {data: 'name_en', name: '{{config('module.packages.table')}}.name_en'},
+                    {data: 'price', name: '{{config('module.packages.table')}}.price'},
+                    {data: 'desc_ar', name: '{{config('module.packages.table')}}.desc_ar'},
+                    {data: 'desc_en', name: '{{config('module.packages.table')}}.desc_en'},
                     {data: 'created_at', name: '{{config('module.packages.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

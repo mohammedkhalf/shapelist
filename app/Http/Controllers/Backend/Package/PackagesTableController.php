@@ -38,6 +38,21 @@ class PackagesTableController extends Controller
     {
         return Datatables::of($this->package->getForDataTable())
             ->escapeColumns(['id'])
+            ->addColumn('name_ar', function ($package) {
+                return $package->name_ar;
+            })
+            ->addColumn('name_en', function ($package) {
+                return $package->name_en;
+            })
+            ->addColumn('price', function ($package) {
+                return $package->price;
+            })
+            ->addColumn('desc_ar', function ($package) {
+                return $package->desc_ar;
+            })
+            ->addColumn('desc_en', function ($package) {
+                return $package->desc_en;
+            })
             ->addColumn('created_at', function ($package) {
                 return Carbon::parse($package->created_at)->toDateString();
             })

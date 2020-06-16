@@ -23,9 +23,13 @@ class SubscriptionsController extends Controller
         return response()->json($subscription);
     }
 
+
+
+    // this function contains (subscribe + unsubscribe + change plan)
     public function subscribe($id)
     {
             try{
+                    //for new subscription 
                     if($id != 0){
                             $subscription = Subscription::findOrFail($id);
                             $duration=$subscription->duration;
@@ -36,11 +40,10 @@ class SubscriptionsController extends Controller
                             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
 
                             
-                            // $bank_transaction_id 
 
                             return response()->json($userDetails);
                     }if($id == 0){
-
+                    //for unsubscribe
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
                             if(!$UserSubscription->isEmpty()){
                                 $subscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
@@ -50,9 +53,6 @@ class SubscriptionsController extends Controller
                                 return response()->json("you are not subscribe to this plan..!");  
                              }
                     }
-                  
-
-
 
                         
             }catch(\Illuminate\Database\QueryException $e){
@@ -63,19 +63,5 @@ class SubscriptionsController extends Controller
             }
     }
 
-    public function unsubscribe($id)
-    {
-        //
-    }
-    
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-   
-    public function destroy($id)
-    {
-        //
-    }
+  
 }

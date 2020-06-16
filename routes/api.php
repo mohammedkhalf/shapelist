@@ -92,7 +92,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //subscriptions
         Route::apiResource('subscriptions', 'SubscriptionsController');
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
-        Route::post('subscriptions/unsubscribe/{id}', 'SubscriptionsController@unsubscribe');
 
         
     }); //auth:api

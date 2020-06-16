@@ -464,16 +464,27 @@ return [
 	"createdat" => "Created At",
 	],
 	],
-	"packages" => [
-	"create" => "Create Package",
-	"edit" => "Edit Package",
-	"management" => "Package Management",
-	"title" => "Packages",
-	"table" => [
-	"id" => "Id",
-	"createdat" => "Created At",
-	],
-	],
+			"packages" => [
+				"create" => "Create Package",
+				"edit" => "Edit Package",
+				"management" => "Package Management",
+				"title" => "Packages",
+
+				"table" => [
+					"id" => "Id",
+					"name_ar"=>"Name-AR",
+					"name_en"=>"Name-EN",
+					"price"=>"Price",
+					"desc_ar"=>"Desc-AR",
+					"desc_en"=>"Desc-EN",
+					"createdat" => "Created At",
+					"product" => "product",
+					"quantity"=>"quantity",
+					"add-section" => "add Section",
+					"remove-section" => "remove Section",
+				],
+
+			],
 	"subscriptions" => [
 	"create" => "Create Subscription",
 	"edit" => "Edit Subscription",

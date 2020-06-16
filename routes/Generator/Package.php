@@ -8,7 +8,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     Route::group( ['namespace' => 'Package'], function () {
         Route::resource('packages', 'PackagesController');
         //For Datatable
-        Route::post('packages/get', 'PackagesTableController')->name('packages.get');
+        Route::post('packages/get', 'PackagesTableController')->name('packages.get');        
     });
+
     
 });

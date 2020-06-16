@@ -16,6 +16,7 @@ use App\Http\Requests\Backend\Package\StorePackageRequest;
 use App\Http\Requests\Backend\Package\EditPackageRequest;
 use App\Http\Requests\Backend\Package\UpdatePackageRequest;
 use App\Http\Requests\Backend\Package\DeletePackageRequest;
+use App\Models\Product\Product;
 
 /**
  * PackagesController
@@ -55,7 +56,8 @@ class PackagesController extends Controller
      */
     public function create(CreatePackageRequest $request)
     {
-        return new CreateResponse('backend.packages.create');
+        $products = Product::all();
+        return view ('backend.packages.create',compact('products'));
     }
     /**
      * Store a newly created resource in storage.
@@ -65,6 +67,7 @@ class PackagesController extends Controller
      */
     public function store(StorePackageRequest $request)
     {
+        dd($request->all());
         //Input received from the request
         $input = $request->except(['_token']);
         //Create the model using repository create method
@@ -113,5 +116,8 @@ class PackagesController extends Controller
         //returning with successfull message
         return new RedirectResponse(route('admin.packages.index'), ['flash_success' => trans('alerts.backend.packages.deleted')]);
     }
+
+   
+  
     
 }

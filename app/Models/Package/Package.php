@@ -67,4 +67,5 @@ class Package extends Model
     {
         parent::__construct($attributes);
     }
+    
 }

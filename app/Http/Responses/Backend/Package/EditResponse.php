@@ -9,14 +9,14 @@ class EditResponse implements Responsable
     /**
      * @var App\Models\Package\Package
      */
-    protected $packages;
+    protected $package;
 
     /**
      * @param App\Models\Package\Package $packages
      */
-    public function __construct($packages)
+    public function __construct($package)
     {
-        $this->packages = $packages;
+        $this->package = $package;
     }
 
     /**
@@ -29,7 +29,7 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.packages.edit')->with([
-            'packages' => $this->packages
+            'package' => $this->package
         ]);
     }
 }

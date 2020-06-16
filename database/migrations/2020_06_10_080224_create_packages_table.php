@@ -19,8 +19,8 @@ class CreatePackagesTable extends Migration
             $table->string('name_en');
             $table->text('items')->nullable();
             $table->string('price');
-            $table->string('desc_ar');
-            $table->string('desc_en');
+            $table->string('desc_ar')->nullable();
+            $table->string('desc_en')->nullable();
             $table->timestamps();
         });
     }
@@ -35,3 +35,5 @@ class CreatePackagesTable extends Migration
         Schema::dropIfExists('packages');
     }
 }
+
+

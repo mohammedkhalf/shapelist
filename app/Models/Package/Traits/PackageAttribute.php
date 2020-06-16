@@ -17,8 +17,9 @@ trait PackageAttribute
      */
     public function getActionButtonsAttribute()
     {
-        return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-package", "admin.packages.edit")}
-                {$this->getDeleteButtonAttribute("delete-package", "admin.packages.destroy")}
+        return '<div class="btn-group action-btn">
+                '.$this->getEditButtonAttribute("edit-package", "admin.packages.edit").'
+                '.$this->getDeleteButtonAttribute("delete-package", "admin.packages.destroy").'
                 </div>';
     }
 }

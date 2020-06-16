@@ -30,8 +30,12 @@ class PackageRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.packages.table').'.id',
+                config('module.packages.table').'.name_ar',
+                config('module.packages.table').'.name_en',
+                config('module.packages.table').'.price',
+                config('module.packages.table').'.desc_ar',
+                config('module.packages.table').'.desc_ar',
                 config('module.packages.table').'.created_at',
-                config('module.packages.table').'.updated_at',
             ]);
     }
 

@@ -15,7 +15,7 @@ class CreateSubscriptionDetailsTable extends Migration
     {
         Schema::create('subscription_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable()->unique();
             $table->integer('subscription_id')->unsigned()->nullable();
             $table->boolean('status')->nullable();
             $table->integer('purchase_points')->nullable();

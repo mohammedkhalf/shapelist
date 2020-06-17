@@ -3,6 +3,9 @@
 namespace App\Models\SubscriptionDetail;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Subscription\Subscription;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
+use Carbon\Carbon;
 
 class SubscriptionDetail extends Model
 {
@@ -18,6 +21,40 @@ class SubscriptionDetail extends Model
 
     ];
   
+
+    public static function changePlane($id)
+    {
+            $subscription = Subscription::findOrFail($id);
+            $duration =  $subscription->duration;
+            $newPoints = $subscription->purchase_points;
+            $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
+
+            $newSubscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
+            $newSubscriptionDetail->update(['subscription_id'=>$id , 'status'=>1,
+            'purchase_points'=>$subscription->purchase_points + $oldSubscription->purchase_points  ,
+            'free_points'=>$subscription->free_points ,
+            'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
+            'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
+            return $newSubscriptionDetail;
+    }
+
+    public static function newSubscription($id)
+    {
+            $subscription = Subscription::findOrFail($id);
+            $duration=$subscription->duration;
+            $userDetails = SubscriptionDetail::create(['user_id'=> auth()->guard('api')->user()->id,'subscription_id'=>$id,
+            'status'=>1,'purchase_points'=>$subscription->purchase_points ,'free_points'=>$subscription->free_points ,
+            'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
+            'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
+            return $userDetails;
+    }
+   
+    public static function unsubscribe($id)
+    {
+            $subscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
+            $subscriptionDetail->update(['subscription_id'=>null]);
+            return $subscriptionDetail;     
+    }
    
 
 

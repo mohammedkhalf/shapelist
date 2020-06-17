@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Backend\Subscription;
 
+use App\Models\Access\User\User;
 use App\Models\Subscription\Subscription;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Responses\RedirectResponse;
@@ -99,6 +101,17 @@ class SubscriptionsController extends Controller
         //return with successfull message
         return new RedirectResponse(route('admin.subscriptions.index'), ['flash_success' => trans('alerts.backend.subscriptions.updated')]);
     }
+    public function subscriptionDetails($id)
+    {
+        $allSubscribeUsers = SubscriptionDetail::where('subscription_id',$id)->get(); 
+
+        $subscriber = Subscription::with('subscription')->get();
+        return $subscriber;
+        // return new ViewResponse('backend.subscriptions.subscriptionDetails',compact(['allSubscribeUsers'=>$allSubscribeUsers,'subscriberName'=>$subscriberName]));
+    }
+
+
+
     /**
      * Remove the specified resource from storage.
      *

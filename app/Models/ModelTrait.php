@@ -25,6 +25,15 @@ trait ModelTrait
         }
     }
 
+    public function getListButtonAttribute($permission, $route)
+    {
+        if (access()->allow($permission)) {
+            return '<a href="'.route($route, $this).'" class="btn btn-flat btn-default">
+                    <i data-toggle="tooltip" data-placement="top" title="List" class="fa fa-list"></i>
+                </a>';
+        }
+    }
+
     /**
      * @return string
      */

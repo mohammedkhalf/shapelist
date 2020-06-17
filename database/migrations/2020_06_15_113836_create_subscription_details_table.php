@@ -17,12 +17,12 @@ class CreateSubscriptionDetailsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable()->unique();
             $table->integer('subscription_id')->unsigned()->nullable();
-            $table->boolean('status')->nullable();
-            $table->integer('purchase_points')->nullable();
-            $table->integer('free_points')->nulllable();
+            $table->boolean('status');
+            $table->integer('purchase_points');
+            $table->integer('free_points');
             $table->integer('discount')->nulllable();
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
             $table->string('bank_transaction_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('CASCADE');

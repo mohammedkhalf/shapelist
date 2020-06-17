@@ -493,6 +493,11 @@ return [
 	"table" => [
 	"id" => "Id",
 	"name" => "Name",
+	"user_id" => "User Id",
+	"email" => "Email",
+	"phone" => "Phone Number",
+	"start_date" => "Start Date",
+	"end_date" => "End Date",
 	"purchase_points" => "Purchase Points",
 	"free_points" => "Free Points",
 	"discount" => "Discount",

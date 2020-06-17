@@ -6,7 +6,7 @@ use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Traits\SubscriptionAttribute;
 use App\Models\Subscription\Traits\SubscriptionRelationship;
-use App\Models\Access\User;
+use App\Models\Access\User\User;
 
 class Subscription extends Model
 {

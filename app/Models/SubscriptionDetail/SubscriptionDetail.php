@@ -5,6 +5,7 @@ namespace App\Models\SubscriptionDetail;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Subscription;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
+use App\Models\Access\User\User;
 use Carbon\Carbon;
 
 class SubscriptionDetail extends Model
@@ -21,6 +22,11 @@ class SubscriptionDetail extends Model
 
     ];
   
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');   
+    }  
+
 
     public static function changePlane($id)
     {

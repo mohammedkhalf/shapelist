@@ -489,6 +489,7 @@ return [
 	"create" => "Create Subscription",
 	"edit" => "Edit Subscription",
 	"management" => "Subscription Management",
+	"unSubscribe" => "Unsubscribers Details",
 	"title" => "Subscriptions",
 	"table" => [
 	"id" => "Id",

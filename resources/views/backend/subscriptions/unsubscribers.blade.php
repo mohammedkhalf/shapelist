@@ -9,7 +9,7 @@
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
-            {{-- <h1>{{ trans('labels.backend.subscriptions.management') }}</h1> --}}
+            <h2>{{ trans('labels.backend.subscriptions.unSubscribe') }}</h2>
 
             <div class="box-tools pull-right">
                 @include('backend.subscriptions.partials.subscriptions-header-buttons')
@@ -35,22 +35,18 @@
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
                     </thead>
-                        @foreach($subscriber as $subscribInfo)
-                        
-                            @foreach($subscribInfo->subscription  as $subInfo)
-                                    
-                                
+                        @foreach($unSubscribeUsers as $subscribInfo)  
                                     <tr>
-                                        <td>{{$subInfo->pivot->user_id}}</td>
-                                        <td>{{$subInfo->id}}</td>
-                                        <td>{{$subInfo->first_name}} {{$subInfo->last_name}}</td>
-                                        <td>{{$subInfo->email}}</td>
-                                        <td>{{$subInfo->phone_number}}</td>
-                                        <td>{{$subInfo->pivot->purchase_points}}</td>
-                                        <td>{{$subInfo->pivot->free_points}}</td>
-                                        <td>{{$subInfo->pivot->start_date}}</td>
-                                        <td>{{$subInfo->pivot->end_date}}</td>
-                                        @if($subInfo->pivot->status== 0 )
+                                        <td>{{$subscribInfo->user_id}}</td>
+                                        <td>{{$subscribInfo->user->id}} </td>
+                                        <td>{{$subscribInfo->user->first_name}} </td>
+                                        <td> {{$subscribInfo->user->email}}</td>
+                                        <td> {{$subscribInfo->user->phone_number}}</td>
+                                        <td>{{$subscribInfo->purchase_points}}</td>
+                                        <td>{{$subscribInfo->free_points}}</td>
+                                        <td>{{$subscribInfo->start_date}}</td>
+                                        <td>{{$subscribInfo->end_date}}</td>
+                                        @if($subscribInfo->status== 0 )
                                             <td style="color:red"><b>Inactive</b></td>
                                             <td> 
                                                     <div class="btn-group action-btn">
@@ -60,14 +56,13 @@
                                                 </div>
                                             </td>
                                         @endif
-                                        @if($subInfo->pivot->status== 1)
+                                        @if($subscribInfo->status== 1)
                                             <td style="color:green"><b>Active</b></td>
                                             <td> --- </td>
                                         @endif
                                     </tr>
-                            @endforeach
                         @endforeach      
-                        @if (count($subscriber)< 1) 
+                        @if (count($unSubscribeUsers)< 1) 
                             <tbody>
                                 <tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>
                             </tbody>

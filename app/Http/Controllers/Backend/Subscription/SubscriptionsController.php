@@ -101,16 +101,18 @@ class SubscriptionsController extends Controller
         //return with successfull message
         return new RedirectResponse(route('admin.subscriptions.index'), ['flash_success' => trans('alerts.backend.subscriptions.updated')]);
     }
-    public function subscriptionDetails($id)
+    public function subscribers($id)
     {
-        // $allSubscribeUsers = SubscriptionDetail::where('subscription_id',$id)->get(); 
-
-        $subscriber = Subscription::with('subscription')->get();
-        // return $subscriber;
+        $subscriber = Subscription::with('subscription')->where('id',$id)->get();
         return new ViewResponse('backend.subscriptions.subscriptionDetails',compact('subscriber'));
     }
 
 
+
+    public function unsubscribers(){
+        $unSubscribeUsers = SubscriptionDetail::with('user')->where('subscription_id',null)->get();
+        return new ViewResponse('backend.subscriptions.unsubscribers',compact('unSubscribeUsers'));
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -498,6 +498,7 @@ return [
 	"phone" => "Phone Number",
 	"start_date" => "Start Date",
 	"end_date" => "End Date",
+	"status" => "Status",
 	"purchase_points" => "Purchase Points",
 	"free_points" => "Free Points",
 	"discount" => "Discount",

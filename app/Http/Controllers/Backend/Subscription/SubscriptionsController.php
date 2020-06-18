@@ -103,11 +103,11 @@ class SubscriptionsController extends Controller
     }
     public function subscriptionDetails($id)
     {
-        $allSubscribeUsers = SubscriptionDetail::where('subscription_id',$id)->get(); 
+        // $allSubscribeUsers = SubscriptionDetail::where('subscription_id',$id)->get(); 
 
         $subscriber = Subscription::with('subscription')->get();
-        return $subscriber;
-        // return new ViewResponse('backend.subscriptions.subscriptionDetails',compact(['allSubscribeUsers'=>$allSubscribeUsers,'subscriberName'=>$subscriberName]));
+        // return $subscriber;
+        return new ViewResponse('backend.subscriptions.subscriptionDetails',compact('subscriber'));
     }
 
 

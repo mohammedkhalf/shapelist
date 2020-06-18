@@ -41,8 +41,8 @@
                                     
                                 
                                     <tr>
+                                        <td>{{$subInfo->pivot->id}}</td>
                                         <td>{{$subInfo->pivot->user_id}}</td>
-                                        <td>{{$subInfo->id}}</td>
                                         <td>{{$subInfo->first_name}} {{$subInfo->last_name}}</td>
                                         <td>{{$subInfo->email}}</td>
                                         <td>{{$subInfo->phone_number}}</td>
@@ -54,7 +54,7 @@
                                             <td style="color:red"><b>Inactive</b></td>
                                             <td> 
                                                     <div class="btn-group action-btn">
-                                                    <a  class="btn btn-default" href="{{ route('admin.restore', $subscribInfo->id ) }}">
+                                                    <a  class="btn btn-default" href="{{ route('admin.subscriptions.removesubscriber', $subscribInfo->id ) }}">
                                                         <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-trash" data-original-title="delete"></i>
                                                     </a>
                                                 </div>

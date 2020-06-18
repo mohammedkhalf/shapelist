@@ -107,7 +107,12 @@ class SubscriptionsController extends Controller
         return new ViewResponse('backend.subscriptions.subscriptionDetails',compact('subscriber'));
     }
 
-
+    public function removesubscriber($id)
+    {
+        $unSubscribeUsers = SubscriptionDetail::findOrFail($id)->first();
+        $unSubscribeUsers->delete();
+        return new RedirectResponse(route('admin.subscriptions.index'), ['flash_success' => 'Subscriber has been deleted successfully']);
+    }
 
     public function unsubscribers(){
         $unSubscribeUsers = SubscriptionDetail::with('user')->where('subscription_id',null)->get();

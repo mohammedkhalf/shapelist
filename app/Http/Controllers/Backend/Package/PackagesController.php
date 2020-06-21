@@ -67,12 +67,9 @@ class PackagesController extends Controller
      */
     public function store(StorePackageRequest $request)
     {
-        dd($request->all());
-        //Input received from the request
-        $input = $request->except(['_token']);
-        //Create the model using repository create method
-        $this->repository->create($input);
-        //return with successfull message
+        $data = $request->only('name_ar','name_en','price','desc_ar','desc_en');
+        $packageData = array_merge($data,['product_id'=>implode(",",$request->product_id),'quantity'=>implode(",",$request->quantity)]);
+        Package::create($packageData);
         return new RedirectResponse(route('admin.packages.index'), ['flash_success' => trans('alerts.backend.packages.created')]);
     }
     /**
@@ -117,7 +114,6 @@ class PackagesController extends Controller
         return new RedirectResponse(route('admin.packages.index'), ['flash_success' => trans('alerts.backend.packages.deleted')]);
     }
 
-   
-  
+ 
     
 }

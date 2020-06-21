@@ -7,7 +7,7 @@ use App\Models\Delivery\Delivery;
 use App\Models\Location\Location;
 use App\Models\MusicSample\MusicSample;
 use App\Rules\FilterStringRule;
-
+use App\Models\Package\Package; 
 
 class StoreOrderRequest extends FormRequest
 {
@@ -49,6 +49,9 @@ class StoreOrderRequest extends FormRequest
             'products.*.video_length' => ['nullable','numeric','not_in:0'],
             'products.*.music_id' => ['nullable','numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
             'products.*.user_music' => ['nullable','mimes:mpga,ogg'],
+            //package array
+            'packages.*.package_id'=>['numeric','not_in:0','exists:'. Package::table() .',id'],
+            'packages.*.quantity'=>['numeric','not_in:0']
         ];
     }
 

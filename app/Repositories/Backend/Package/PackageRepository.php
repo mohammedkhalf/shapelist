@@ -33,6 +33,8 @@ class PackageRepository extends BaseRepository
                 config('module.packages.table').'.name_ar',
                 config('module.packages.table').'.name_en',
                 config('module.packages.table').'.price',
+                config('module.packages.table').'.product_id',
+                config('module.packages.table').'.quantity',
                 config('module.packages.table').'.desc_ar',
                 config('module.packages.table').'.desc_ar',
                 config('module.packages.table').'.created_at',

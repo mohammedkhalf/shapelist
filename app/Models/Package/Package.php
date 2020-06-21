@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Models\Package;
-
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Package\Traits\PackageAttribute;
 use App\Models\Package\Traits\PackageRelationship;
+use App\Models\SharedModel;
 
 class Package extends Model
 {
     use ModelTrait,
         PackageAttribute,
+        SharedModel,
     	PackageRelationship {
             // PackageAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
@@ -67,5 +68,4 @@ class Package extends Model
     {
         parent::__construct($attributes);
     }
-    
 }

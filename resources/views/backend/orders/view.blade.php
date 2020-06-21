@@ -121,15 +121,16 @@
                     </tr>
 
                     <tr>
-                        <th>{{ trans('labels.backend.orders.table.NumOfProducts') }}</th>
-                        <td> {{$numProducts}} </td>
+                        <th>{{ trans('labels.backend.orders.table.Num-Of-products-packages') }}</th>
+                        <td> {{$totalCount}} </td>
                     </tr>
                     <!-- many to many relationship -->
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th> {{ trans('labels.backend.orders.table.orderId') }}</th>
-                                <th> {{ trans('labels.backend.orders.table.product-type') }}</th>
+                                <th> {{ trans('labels.backend.orders.table.type') }}</th>
+                                <th> {{ trans('labels.backend.orders.table.productName') }}</th>
                                 <th>{{ trans('labels.backend.orders.table.productQuantity') }} </th>
                                 <th>{{ trans('labels.backend.orders.table.music') }} </th>
                                 <th>{{ trans('labels.backend.orders.table.videoLength') }} </th>
@@ -140,35 +141,60 @@
                             @foreach($productsData  as  $productInfo)
                                 <tr>
                                     <th>{{ $productInfo->product_id }}</th>
+                                    <th>{{ $productInfo->type }}</th>
                                     <th>{{ App\Models\Product\Product::where('id', $productInfo->product_id)->pluck('name')->first() }}</th>
                                     <th>{{ $productInfo->product_quantity }}</th>
                                     <th>
                                         <?php
-                                            $musicName = App\Models\MusicSample\MusicSample::where('id',$productInfo->music_id)->pluck('url')->first();
-                                            $url=Storage::disk('public')->url('smaples/'.$musicName);
+                                            $musicObj = App\Models\MusicSample\MusicSample::where('id',$productInfo->music_id)->get();
+                                            foreach($musicObj  as $muObj)
+                                            {
+                                                $url=Storage::disk('public')->url('smaples/'.$muObj->url);
+                                            }
                                         ?>
                                         @if($productInfo->music_id)
                                            <audio controls style="height:30px;"><source src={{$url}}></audio>
-                                  
                                         @endif
                                     </th>
-                                    <th>{{ $productInfo->video_length ? $productInfo->video_length : ''  }} {{ $productInfo->video_length ? 'Second' : '' }}</th>
+                                    <th>{{ $productInfo->video_length ? $productInfo->video_length : ''  }} {{ $productInfo->video_length ? 'Seconds' : '' }}</th>
                                     <th> 
                                         @if($productInfo->user_music)
                                             <audio controls style="height:30px;"><source src={{Storage::disk('public')->url('users_music/'.$productInfo->user_music)}}></audio>
-                        
                                         @endif
                                     </th>
                                 </tr>
                             @endforeach
+
+                               @foreach($packageData  as $packageObj)
+                                    <th> {{ $packageObj->package_id }}</th>
+                                    <th> {{ $packageObj->type }}</th>
+                                    <th> 
+                                        <?php
+                                            $packageName = App\Models\Package\Package::where('id',$packageObj->package_id)->pluck('name_en')->first();
+                                            echo $packageName;
+                                        ?>
+                                    </th>
+                                    <th> {{ $packageObj->quantity }} </th> 
+                                    <th> 
+
+                                        <?php
+                                            $musicObj = App\Models\MusicSample\MusicSample::where('id',$packageObj->package_music_id)->get();
+                                            foreach($musicObj  as $muObj)
+                                            {
+                                                $url=Storage::disk('public')->url('smaples/'.$muObj->url);
+                                            }
+                                        ?>
+                                        @if($packageObj->package_music_id)                             
+                                           <audio controls style="height:30px;"><source src={{$url}}></audio>
+                                        @endif
+
+                                    </th> 
+                                    <th>  {{ $packageObj->vedio_length }} {{ $packageObj->vedio_length ? 'Seconds' : '' }}</th>
+                                    <th> {{ $packageObj->package_user_music}} </th> 
+
+                               @endforeach
                         </thead>
                     </table>
-
-
-                   
-
-
-
                 
                     <!-- <tr>
                         <th>{{ trans('labels.backend.access.users.tabs.content.overview.created_at') }}</th>

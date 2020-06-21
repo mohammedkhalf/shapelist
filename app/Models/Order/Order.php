@@ -3,9 +3,7 @@
 namespace App\Models\Order;
 use App\Models\Product\Product;
 use App\Models\Location\Location;
-use App\Models\Coupon\Coupon;
 use App\Models\Payment\Payment;
-use App\Models\MusicSample\MusicSample;
 use App\Models\Status\Status;
 use App\Models\Access\User\User;
 use Illuminate\Http\Request;
@@ -15,8 +13,8 @@ use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
 use Storage;
 use App\Models\OrderItem\OrderItem;
-use Illuminate\Support\Str;
-
+use App\Models\Package\Package; 
+use App\Models\OrderPackage\OrderPackage;
 class Order extends Model
 {
     use ModelTrait,
@@ -50,22 +48,28 @@ class Order extends Model
     }  
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_items')->withPivot('product_quantity','music_id','video_length','user_music');  
+        return $this->belongsToMany(Product::class,'order_items')->withPivot('type','product_quantity','music_id','video_length','user_music');  
     }
     public function payment()
     {
         return $this->hasOne(Payment::class,'order_id');   
     }
+    //package_order
+    public function package()
+    {
+        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','package_music_id','package_id','quantity','type','vedio_length','package_user_music'); 
+    }
    
     //static functions
-    //insert Order
     public static function insertOrder($request)
     {  
-          $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
-          $orderObj = Order::create($OrderData);
-          Order::findOrCreateLocation($request,$orderObj);
-          $orderItems= Order::insertOrderItems($request,$orderObj);
-          return response()->json(['message'=>'Order Created Successfully']);
+        // dd($request->all());
+        $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
+        $orderObj = Order::create($OrderData);
+        Order::findOrCreateLocation($request,$orderObj);
+        $orderItems= Order::insertOrderItems($request,$orderObj);
+        $packagesItems= Order::insertPackages($request,$orderObj);
+        return response()->json(['message'=>'Order Created Successfully']);
     }
 
     //Insert orderItems
@@ -117,6 +121,22 @@ class Order extends Model
             ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
         }
 
+    }
+
+    //insert packages
+    public static function insertPackages ($request,$orderObj)
+    {
+        if($request->packages)
+        {
+            for($i=0;$i<count($request->packages);$i++)
+            {
+                OrderPackage::create(['package_id'=>$request->packages[$i]['package_id'],
+                'order_id'=>$orderObj->id,'quantity'=>$request->packages[$i]['quantity'],
+                'package_music_id'=>$request->packages[$i]['package_music_id'],'vedio_length'=>$request->packages[$i]['vedio_length'],
+                'package_user_music'=>$request->packages[$i]['package_user_music']    
+                ]);
+            }
+        }
     }
 
     //Update Order

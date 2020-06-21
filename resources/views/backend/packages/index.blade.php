@@ -24,6 +24,8 @@
                             <th>{{ trans('labels.backend.packages.table.id') }}</th>
                             <th>{{ trans('labels.backend.packages.table.name_ar') }}</th>
                             <th>{{ trans('labels.backend.packages.table.name_en') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.product') }}</th>
+                            <th>{{ trans('labels.backend.packages.table.quantity') }}</th>
                             <th>{{ trans('labels.backend.packages.table.price') }}</th>
                             <th>{{ trans('labels.backend.packages.table.desc_ar') }}</th>
                             <th>{{ trans('labels.backend.packages.table.desc_en') }}</th>
@@ -68,6 +70,8 @@
                     {data: 'id', name: '{{config('module.packages.table')}}.id'},
                     {data: 'name_ar', name: '{{config('module.packages.table')}}.name_ar'},
                     {data: 'name_en', name: '{{config('module.packages.table')}}.name_en'},
+                    {data: 'product_id', name: '{{config('module.packages.table')}}.product_id'},
+                    {data: 'quantity', name: '{{config('module.packages.table')}}.quantity'},
                     {data: 'price', name: '{{config('module.packages.table')}}.price'},
                     {data: 'desc_ar', name: '{{config('module.packages.table')}}.desc_ar'},
                     {data: 'desc_en', name: '{{config('module.packages.table')}}.desc_en'},

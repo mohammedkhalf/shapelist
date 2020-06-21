@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Package\PackageRepository;
 use App\Http\Requests\Backend\Package\ManagePackageRequest;
+use App\Models\Product\Product;
+use App\Models\Package\Package;
+
 
 /**
  * Class PackagesTableController.
@@ -43,6 +46,23 @@ class PackagesTableController extends Controller
             })
             ->addColumn('name_en', function ($package) {
                 return $package->name_en;
+            })
+            ->addColumn('product_id', function ($package) {
+                $product_ids=Package::where('id',$package->id)->pluck('product_id');
+                foreach(explode(",",$product_ids[0])  as $pro)
+                {
+                    $productName = Product::where('id',$pro)->pluck('name')->first();
+                    $data[]=$productName;
+                }
+                return implode(",",$data);
+            })
+            ->addColumn('quantity', function ($package) {
+                $quantity_ids=Package::where('id',$package->id)->pluck('quantity');
+                foreach(explode(",",$quantity_ids[0])  as $quant)
+                {
+                    $quantity[]=$quant;
+                }
+                return implode(",",$quantity);
             })
             ->addColumn('price', function ($package) {
                 return $package->price;

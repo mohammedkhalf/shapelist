@@ -22,6 +22,7 @@ class CreateOrderItemsTable extends Migration
             $table->integer('music_id')->unsigned()->nullable();        
             $table->integer('video_length')->nullable();  
             $table->string('user_music')->nullable();
+            $table->string('type')->default('product');
             $table->timestamps();
         });
     }

@@ -19,9 +19,8 @@ use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
 use App\Models\Promotion\Promotion;
-use Storage;
-use Exception;
 use App\Models\OrderItem\OrderItem;
+use App\Models\OrderPackage\OrderPackage;
 
 /**
  * OrdersController
@@ -118,15 +117,18 @@ class OrdersController extends Controller
     public function show(ViewOrderRequest $request , Order $order)
     {
         $numProducts = OrderItem::where('order_id',$order->id)->count();
+        $numPackages = OrderPackage::where('order_id',$order->id)->count();
+        $totalCount = $numProducts + $numPackages;
         $userProducts = Order::with('products','location')->where('id',$order->id)->get();
         $productsData = OrderItem::where('order_id',$order->id)->get();
-        // dd( $productsData);
+        $packageData =  OrderPackage::where('order_id',$order->id)->get();
+        // dd($packageData);
         if(is_null($order))
         {
             return back();
         }  
 
-        return new ViewResponse('backend.orders.view', compact('order','numProducts','userProducts','productsData'));
+        return new ViewResponse('backend.orders.view', compact('packageData','order','totalCount','userProducts','productsData'));
     }
 
     public function destroy(Order $order, DeleteOrderRequest $request)

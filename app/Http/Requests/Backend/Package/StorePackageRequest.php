@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Backend\Package;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\FilterStringRule;
+use App\Models\Product\Product;
 
 class StorePackageRequest extends FormRequest
 {
@@ -24,9 +26,13 @@ class StorePackageRequest extends FormRequest
     public function rules()
     {
         return [
-            //Put your rules for the request in here
-            //For Example : 'title' => 'required'
-            //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
+            'name_ar' => ['required','string','max:50' , new FilterStringRule],
+            'name_en' => ['required','string','max:50' , new FilterStringRule],
+            'product_id.*' => ['required', 'integer','exists:'. Product::table() .',id'],
+            'quantity.*' => ['required','integer'],
+            'price' =>['required','numeric','not_in:0'],
+            'desc_ar' =>['nullable' , new FilterStringRule],
+            'desc_en' =>['nullable', new FilterStringRule]
         ];
     }
 

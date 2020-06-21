@@ -815,7 +815,7 @@ textarea.form-control { max-width: 100%; min-height: 50px; }
 .data-table-wrapper div.dataTables_wrapper div.dataTables_processing { background: rgba(0, 0, 0, 0.75) none repeat scroll 0 0; border: 1px solid rgba(255, 255, 255, 1); box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); color: #fff;  padding: 5px 0; z-index: 10; }
 /*Action button*/
 .data-table-wrapper .action-btn { min-width: 120px; }
-.data-table-wrapper .action-btn .btn { padding: 4px 8px; font-size: 13px; }
+.data-table-wrapper .action-btn .btn { padding: 4px 8px; font-size: 13px; margin-left: 20px;}
 .data-table-wrapper .action-btn .btn a, .data-table-wrapper .action-btn .btn a:hover, .data-table-wrapper .action-btn .btn a:focus { color: #333; }
 /*.navbar-custom-menu>.navbar-nav>li>.dropdown-menu { right: auto; }*/
 /*Notification list CSS start*/

@@ -49,7 +49,15 @@ class UpdateOrderRequest extends FormRequest
             'products.*.product_total_price' => ['numeric','not_in:0'],
             'products.*.video_length' => ['nullable','numeric','not_in:0'],
             'products.*.music_id' => ['nullable','numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
-            'products.*.user_music' => ['nullable' , 'mimes:mpga,ogg']   //
+            'products.*.user_music' => ['nullable' , 'mimes:mpga,ogg'],
+            //package array
+            'packages.*.package_id'=>['numeric','not_in:0','exists:'. Package::table() .',id'],
+            'packages.*.quantity'=>['numeric','not_in:0'],
+            'packages.*.vedio_length' => ['nullable','numeric','not_in:0'],
+            'packages.*.package_music_id' => ['nullable','numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
+            'packages.*.package_user_music' => ['nullable','mimes:mpga,ogg']
+            
+      
         ];
     }
 

@@ -2,9 +2,12 @@
 
 namespace App\Console\Commands;
 use Carbon\Carbon;
+use App\Mail\ReminderMail;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
+
 
 class subscriptionStatus extends Command
 {
@@ -43,7 +46,12 @@ class subscriptionStatus extends Command
         $subscriptionDetail = subscriptionDetail::where('end_date',$date)->update(array('status' => 0));
         // send email before two days
         $remiderDay = Carbon::now()->subDays(2)->toDateString();
-        $userReminder = subscriptionDetail::where('status', 1)->where( 'end_date', $remiderDay)->get();
-        echo $userReminder;
+        $userReminder = SubscriptionDetail::with('user')->where('status', 1)->where( 'end_date', $remiderDay)->get();
+
+        foreach ($userReminder as $subscribInfo) {
+            Mail::to($subscribInfo->user->email)->send(new ReminderMail());
+        }
+        
+            
     }
 }

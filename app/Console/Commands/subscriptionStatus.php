@@ -47,9 +47,8 @@ class subscriptionStatus extends Command
         // send email before two days
         $remiderDay = Carbon::now()->subDays(2)->toDateString();
         $userReminder = SubscriptionDetail::with('user')->where('status', 1)->where( 'end_date', $remiderDay)->get();
-
         foreach ($userReminder as $subscribInfo) {
-            Mail::to($subscribInfo->user->email)->send(new ReminderMail());
+            Mail::to($subscribInfo->user->email)->send(new ReminderMail($subscribInfo));
         }
         
             

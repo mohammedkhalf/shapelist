@@ -51,7 +51,10 @@ class StoreOrderRequest extends FormRequest
             'products.*.user_music' => ['nullable','mimes:mpga,ogg'],
             //package array
             'packages.*.package_id'=>['numeric','not_in:0','exists:'. Package::table() .',id'],
-            'packages.*.quantity'=>['numeric','not_in:0']
+            'packages.*.quantity'=>['numeric','not_in:0'],
+            'packages.*.vedio_length' => ['nullable','numeric','not_in:0'],
+            'packages.*.package_music_id' => ['nullable','numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
+            'packages.*.package_user_music' => ['nullable','mimes:mpga,ogg'],
         ];
     }
 

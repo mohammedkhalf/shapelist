@@ -19,20 +19,7 @@ class PackageController extends APIController
         $productNames = explode(",",Package::all()->pluck('product_id')[0]);
         $quantityArr = explode(",",Package::all()->pluck('quantity')[0]);
         $data[] = ['products'=>$productNames ,'quantity'=>$quantityArr];
-        dd(array_mereg($productNames,$quantityArr));
-    
-        // foreach($data as $key=>$value)
-        // {
-        //     // $productName = Product::where('id',$productNames[$i])->pluck('name')->first();
-        //     $newArr[] = [
-        //         'producName'=> $value['products'],
-        //         'quantity' => $value['quantity']
-        //     ];
-        // }
-
-        // dd($newArr);
-
-
+        dd($data);
     }
 
     /**

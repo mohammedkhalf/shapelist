@@ -20,7 +20,7 @@ class subscriptionStatus extends Command
      *
      * @var string
      */
-    protected $description = 'this will change status to 0 after 14 day!';
+    protected $description = 'this will change status to 0 after 14 day! and send email before two days!';
 
     /**
      * Create a new command instance.

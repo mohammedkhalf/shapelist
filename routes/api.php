@@ -91,6 +91,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('/payment-Info','OrderController@savePaymentInfo');
         //packages
         Route::apiResource('packages', 'PackageController');
+        //subscriptions
+        Route::apiResource('subscriptions', 'SubscriptionsController');
+        Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
+
         
     }); //auth:api
 });

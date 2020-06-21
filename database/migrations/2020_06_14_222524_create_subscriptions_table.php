@@ -17,9 +17,10 @@ class CreateSubscriptionsTable extends Migration
             $table->increments('id');
             $table->string('name', 225)->unique();
             $table->integer('purchase_points');
-            $table->integer('free_points');
+            $table->integer('free_points');          
             $table->integer('discount')->nullable();
             $table->text('details')->nullable();
+            $table->integer('duration');
             $table->decimal('price');
             $table->timestamps();
         });

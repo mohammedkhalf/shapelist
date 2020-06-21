@@ -26,6 +26,11 @@
                 <i class="fa fa-list-ul"></i> {{ trans( 'menus.backend.subscriptions.all' ) }}
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.subscriptions.unsubscribe') }}">
+                <i class="fa fa-list"></i> {{ trans( 'labels.backend.subscriptions.unSubscribe' ) }}
+            </a>
+        </li>       
         @permission( 'create-subscription' )
             <li>
                 <a href="{{ route( 'admin.subscriptions.create' ) }}">
@@ -36,3 +41,4 @@
     </ul>
 </div>
 <div class="clearfix"></div>
+

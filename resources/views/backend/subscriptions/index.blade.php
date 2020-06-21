@@ -27,6 +27,7 @@
                             <th>{{ trans('labels.backend.subscriptions.table.free_points') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.discount') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.details') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.duration') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.price') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
@@ -72,6 +73,7 @@
                     {data: 'free_points', name: '{{config('module.subscriptions.table')}}.free_points'},
                     {data: 'discount', name: '{{config('module.subscriptions.table')}}.discount'},
                     {data: 'details', name: '{{config('module.subscriptions.table')}}.details'},
+                    {data: 'duration', name: '{{config('module.subscriptions.table')}}.duration'},
                     {data: 'price', name: '{{config('module.subscriptions.table')}}.price'},
                     {data: 'created_at', name: '{{config('module.subscriptions.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}

@@ -35,6 +35,13 @@
     </div><!--form-group-->
 
     <div class="form-group">
+        {{ Form::label('duration', trans('labels.backend.subscriptions.table.duration'), ['class' => 'col-lg-2 control-label']) }}
+        <div class="col-lg-10">
+            {{ Form::text('duration', old('duration'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.duration')]) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
         {{ Form::label('price', trans('labels.backend.subscriptions.table.price'), ['class' => 'col-lg-2 control-label']) }}
         <div class="col-lg-10">
             {{ Form::text('price', old('price'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.price')]) }}

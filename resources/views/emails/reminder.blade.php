@@ -18,7 +18,7 @@
                 You only have 2 days left, so make sure your payment informations is up to date. </p>
            
             <div class="fd-email-message">
-                <p> Once confirmed, you’ll be able to log in to Shapelist with your new account.</p>
+                <p>TEXT TEXT TEXT </p>
             </div>
         </div>
    </div>

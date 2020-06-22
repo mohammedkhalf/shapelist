@@ -41,16 +41,42 @@ class subscriptionStatus extends Command
      * @return mixed
      */
     public function handle()
-    {   
-        $date = Carbon::now()->toDateString();
-        $subscriptionDetail = subscriptionDetail::where('end_date',$date)->update(array('status' => 0));
-        // send email before two days
-        $remiderDay = Carbon::now()->subDays(2)->toDateString();
-        $userReminder = SubscriptionDetail::with('user')->where('status', 1)->where( 'end_date', $remiderDay)->get();
-        foreach ($userReminder as $subscribInfo) {
-            Mail::to($subscribInfo->user->email)->send(new ReminderMail($subscribInfo));
+    { 
+        //=====================================================================
+        $today = Carbon::now()->toDateString();
+        $inactivateDay = Carbon::parse($user->end_date)->addDays(1)->toDateString();
+        $secondReminderDay = Carbon::parse($user->end_date)->subDays(2)->toDateString();
+        $thirdRemindDay = Carbon::parse($user->end_date)->addDays(12)->toDateString();
+        $activeUse = SubscriptionDetail::with('user')->where('status', 1)->get();
+        $inactiveUsers= SubscriptionDetail::with('user')->where('status', 0)->get();
+        //==================Reminder at  Day 28  of  Subscription  ===========================
+        foreach ($activeUse as $user) 
+        {
+            if($secondReminderDay == $today){
+                $userReminder = SubscriptionDetail::with('user')->where('id', $user->user->id)->get();
+                Mail::to($user->user->email)->send(new ReminderMail($user,1));
+            } 
         }
-        
-            
+        //=====================  Reminder at Day 30 Subscription & change status after 30 day ====================================
+        foreach ($activeUse as $user) 
+        {
+            if($today == $user->end_date){
+                Mail::to($user->user->email)->send(new ReminderMail($user,2));
+            }
+            if($today == $inactivateDay){
+                $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('status' => 0,'bank_transaction_id' => Null));
+            }
+        }
+        //================= Subscription Last Reminder =======================================
+        foreach ($inactiveUsers as $user) 
+        {
+            if($thirdRemindDay == $today){
+                Mail::to($user->email)->send(new ReminderMail($user,3));
+            }
+        }
+       //================= delete all points after 14 day =======================================
+
+
+
     }
 }

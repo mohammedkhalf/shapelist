@@ -16,9 +16,10 @@ class ReminderMail extends Mailable
      *
      * @return void
      */
-    public function __construct($subscriber)
+    public function __construct($subscriber, $status)
     {
         $this->subscriber = $subscriber;
+        $this->status = $status;
     }
 
     /**
@@ -28,6 +29,14 @@ class ReminderMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reminder')->with('subscriber', $this->subscriber);
+        if($this->status== 1){
+            return $this->markdown('emails.reminder')->with('subscriber', $this->subscriber);
+        }
+        if($this->status== 2){
+            return $this->markdown('emails.reminder2')->with('subscriber', $this->subscriber);
+        }
+        if($this->status== 3){
+            return $this->markdown('emails.reminder3')->with('subscriber', $this->subscriber);
+        }
     }
 }

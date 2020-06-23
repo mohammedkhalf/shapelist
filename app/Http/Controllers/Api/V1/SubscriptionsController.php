@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Mail\ReminderMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Subscription\Subscription;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class SubscriptionsController extends Controller
 {
@@ -47,8 +50,11 @@ class SubscriptionsController extends Controller
 
                         }else{
                              //for new subscription 
-                             $newSubscription=SubscriptionDetail::newSubscription($id); 
-                             return response()->json(['newSubscription'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscripe in a New Plan..']);            
+                              $subscriptionName =  Subscription::findOrFail($id)->value('name');
+                              $newSubscription=SubscriptionDetail::newSubscription($id);
+                              $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
+                              Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscriptionName));
+                              return response()->json(['newSubscription'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscripe in a New Plan..']);            
 
                         }
 

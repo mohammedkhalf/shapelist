@@ -44,7 +44,7 @@ class subscriptionStatus extends Command
     { 
         //=====================================================================
         $today = Carbon::now()->toDateString();
-        $activeUse = SubscriptionDetail::with('user')->where('status', 1)->get();
+        $activeUse = SubscriptionDetail::with('user')->whereNotNull('subscription_id')->where('status', 1)->get();
         $inactiveUsers= SubscriptionDetail::with('user')->where('status', 0)->get();
         //==================Reminder at  Day 28  of  Subscription  ===========================
         foreach ($activeUse as $user) 
@@ -52,7 +52,7 @@ class subscriptionStatus extends Command
             $secondReminderDay = Carbon::parse($user->end_date)->subDays(2)->toDateString();
             if($secondReminderDay == $today){
                 $userReminder = SubscriptionDetail::with('user')->where('id', $user->user->id)->get();
-                Mail::to($user->user->email)->send(new ReminderMail($user,1));
+                Mail::to($user->user->email)->send(new ReminderMail($user,1,0));
             } 
         }
         //=====================  Reminder at Day 30 Subscription & change status after 30 day ====================================
@@ -60,7 +60,7 @@ class subscriptionStatus extends Command
         {
             $inactivateDay = Carbon::parse($user->end_date)->addDays(1)->toDateString();
             if($today == $user->end_date){
-                Mail::to($user->user->email)->send(new ReminderMail($user,2));
+                Mail::to($user->user->email)->send(new ReminderMail($user,2,0));
             }
             if($today == $inactivateDay){
                 $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('status' => 0,'bank_transaction_id' => Null));
@@ -71,7 +71,7 @@ class subscriptionStatus extends Command
         {
             $thirdRemindDay = Carbon::parse($user->end_date)->addDays(11)->toDateString();
             if($thirdRemindDay == $today){
-                Mail::to($user->user->email)->send(new ReminderMail($user,3));
+                Mail::to($user->user->email)->send(new ReminderMail($user,3,0));
             }
         }
        //================= delete all points after 14 day =======================================

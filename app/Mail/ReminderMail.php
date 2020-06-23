@@ -30,13 +30,13 @@ class ReminderMail extends Mailable
     public function build()
     {
         if($this->status== 1){
-            return $this->markdown('emails.reminder')->with('subscriber', $this->subscriber);
+            return $this->view('emails.reminder')->with('subscriber', $this->subscriber);
         }
         if($this->status== 2){
-            return $this->markdown('emails.reminder2')->with('subscriber', $this->subscriber);
+            return $this->view('emails.reminder2')->with('subscriber', $this->subscriber);
         }
         if($this->status== 3){
-            return $this->markdown('emails.reminder3')->with('subscriber', $this->subscriber);
+            return $this->view('emails.reminder3')->with('subscriber', $this->subscriber);
         }
     }
 }

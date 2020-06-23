@@ -44,14 +44,12 @@ class subscriptionStatus extends Command
     { 
         //=====================================================================
         $today = Carbon::now()->toDateString();
-        $inactivateDay = Carbon::parse($user->end_date)->addDays(1)->toDateString();
-        $secondReminderDay = Carbon::parse($user->end_date)->subDays(2)->toDateString();
-        $thirdRemindDay = Carbon::parse($user->end_date)->addDays(12)->toDateString();
         $activeUse = SubscriptionDetail::with('user')->where('status', 1)->get();
         $inactiveUsers= SubscriptionDetail::with('user')->where('status', 0)->get();
         //==================Reminder at  Day 28  of  Subscription  ===========================
         foreach ($activeUse as $user) 
         {
+            $secondReminderDay = Carbon::parse($user->end_date)->subDays(2)->toDateString();
             if($secondReminderDay == $today){
                 $userReminder = SubscriptionDetail::with('user')->where('id', $user->user->id)->get();
                 Mail::to($user->user->email)->send(new ReminderMail($user,1));
@@ -60,6 +58,7 @@ class subscriptionStatus extends Command
         //=====================  Reminder at Day 30 Subscription & change status after 30 day ====================================
         foreach ($activeUse as $user) 
         {
+            $inactivateDay = Carbon::parse($user->end_date)->addDays(1)->toDateString();
             if($today == $user->end_date){
                 Mail::to($user->user->email)->send(new ReminderMail($user,2));
             }
@@ -70,6 +69,7 @@ class subscriptionStatus extends Command
         //================= Subscription Last Reminder =======================================
         foreach ($inactiveUsers as $user) 
         {
+            $thirdRemindDay = Carbon::parse($user->end_date)->addDays(12)->toDateString();
             if($thirdRemindDay == $today){
                 Mail::to($user->email)->send(new ReminderMail($user,3));
             }

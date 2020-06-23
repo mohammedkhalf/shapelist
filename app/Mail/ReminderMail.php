@@ -36,7 +36,7 @@ class ReminderMail extends Mailable
             return $this->view('emails.second_reminder')->with('subscriber', $this->subscriber);
         }
         if($this->status== 3){
-            return $this->view('emails.reminder3')->with('subscriber', $this->subscriber);
+            return $this->view('emails.third_reminder')->with('subscriber', $this->subscriber);
         }
     }
 }

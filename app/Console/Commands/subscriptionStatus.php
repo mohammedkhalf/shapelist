@@ -69,9 +69,9 @@ class subscriptionStatus extends Command
         //================= Subscription Last Reminder =======================================
         foreach ($inactiveUsers as $user) 
         {
-            $thirdRemindDay = Carbon::parse($user->end_date)->addDays(12)->toDateString();
+            $thirdRemindDay = Carbon::parse($user->end_date)->addDays(11)->toDateString();
             if($thirdRemindDay == $today){
-                Mail::to($user->email)->send(new ReminderMail($user,3));
+                Mail::to($user->user->email)->send(new ReminderMail($user,3));
             }
         }
        //================= delete all points after 14 day =======================================

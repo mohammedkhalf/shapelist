@@ -350,6 +350,8 @@ return [
 				"title" => "Orders",
 				"statusType" => "status Type",
 				"download_file" => "Download File",
+				"Media-Files"=>"Media Files",
+				"invoice_mail_subject"=> "Purchase Invoice From shapelist.com",
 
 					"table" => [
 					"orderId" => "Id",

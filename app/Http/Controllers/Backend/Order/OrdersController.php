@@ -139,16 +139,16 @@ class OrdersController extends Controller
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
     }
      //================== fileDownload ======================
-     public function fileDownload(Order $order)
-     {
-        if($order->download_file)
-        {
-          return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
-        }
-        else{
-            return back()->with(['flash_success'=>'There Is No Media File']);
-        }
-     }
+    //  public function fileDownload(Order $order)
+    //  {
+    //     if($order->download_file)
+    //     {
+    //       return response()->download(storage_path("app/public/orders-download/{$order->download_file}"));
+    //     }
+    //     else{
+    //         return back()->with(['flash_success'=>'There Is No Media File']);
+    //     }
+    //  }
 
     
 }

@@ -15,6 +15,7 @@ use Storage;
 use App\Models\OrderItem\OrderItem;
 use App\Models\Package\Package; 
 use App\Models\OrderPackage\OrderPackage;
+use App\Models\MediaFile\MediaFile;
 class Order extends Model
 {
     use ModelTrait,
@@ -59,7 +60,11 @@ class Order extends Model
     {
         return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','package_music_id','package_id','quantity','type','vedio_length','package_user_music'); 
     }
-   
+    //media attach
+    public function media()
+    {
+        return $this->hasMany(MediaFile::class ,'order_id','id');
+    }
     //static functions
     public static function insertOrder($request)
     {  
@@ -204,9 +209,10 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
+        dd($request->all());
         $order->update($request->only('status_id'));
+        return $order;
     }
-
     //payment methods
     public static function prepareCheckout($price)
     {

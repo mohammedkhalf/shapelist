@@ -206,6 +206,13 @@ return [
 	"management" => "Subscription Management",
 	"main" => "Subscriptions",
 	],
+	"faqcategories" => [
+	"all" => "All FaqCategories",
+	"create" => "Create FaqCategory",
+	"edit" => "Edit FaqCategory",
+	"management" => "FaqCategory Management",
+	"main" => "FaqCategories",
+	],
 	],
 	"language-picker" => [
 	"language" => "Language",

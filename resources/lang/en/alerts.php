@@ -129,5 +129,10 @@ return [
 	"deleted" => "The Subscription was successfully deleted.",
 	"updated" => "The Subscription was successfully updated.",
 	],
+	"faqcategories" => [
+	"created" => "The FaqCategory was successfully created.",
+	"deleted" => "The FaqCategory was successfully deleted.",
+	"updated" => "The FaqCategory was successfully updated.",
+	],
 	],
 ];

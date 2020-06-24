@@ -77,6 +77,7 @@ class OrderController extends APIController
             {           
                 $orderObj = Order::findOrFail($request->order_id);
                 $orderObj->update($request->only('bank_transaction_id','payment_status'));
+                $emailInvoice = Order::sendPdfInvoice($orderObj);
                 return response()->json(['message'=>'Payment Process Successfully']);
             }
             // Failure

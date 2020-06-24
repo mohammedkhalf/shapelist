@@ -9,6 +9,7 @@ use App\Models\Access\User\User;
 use Illuminate\Http\Request;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
 use Storage;
@@ -16,6 +17,8 @@ use App\Models\OrderItem\OrderItem;
 use App\Models\Package\Package; 
 use App\Models\OrderPackage\OrderPackage;
 use App\Models\MediaFile\MediaFile;
+use PDF;
+
 class Order extends Model
 {
     use ModelTrait,
@@ -256,5 +259,37 @@ class Order extends Model
             }
             curl_close($ch);
             return $responseData;
+    }
+
+    //get order data
+    public static function getOrderInfo ($OrderObject)
+    {
+        //
+    }
+
+    public function sendPdfInvoice($OrderObject) 
+    {
+        $orderDataArr = Order::getOrderInfo($OrderObject);
+        $data=["email"=>"khalaf@sparkle.sa","client_name"=>"mohammed khalf","subject"=>"Purchase Invoice"];
+        $pdf = PDF::loadView('emails.email-invoice', $data);
+            try
+            {
+                Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
+                $message->to($data["email"], $data["client_name"])
+                        ->subject($data["subject"])
+                        ->attachData($pdf->output(),"invoice.pdf");
+                });
+            }catch(JWTException $exception){
+                $this->serverstatuscode = "0";
+                $this->serverstatusdes = $exception->getMessage();
+            }
+            if (Mail::failures()) {
+                $this->statusdesc  =   "Error sending mail";
+                $this->statuscode  =   "0";
+            }else{
+            $this->statusdesc  =   "Message sent Succesfully";
+            $this->statuscode  =   "1";
+            }
+            return response()->json(compact('this'));
     }
 }

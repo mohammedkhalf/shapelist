@@ -12,6 +12,6 @@ class OrderPackage extends Model
      * @var array
      */
     protected $fillable = [
-        'order_id','package_id','quantity','package_music_id','vedio_length','package_user_music'
+        'order_id','package_id','quantity','package_total_price','package_music_id','vedio_length','package_user_music'
     ];
 }

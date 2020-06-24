@@ -13,6 +13,7 @@
     "require": {
         "php": "^7.2",
         "arcanedev/log-viewer": "^5.1",
+        "barryvdh/laravel-dompdf": "^0.8.6",
         "beyondcode/laravel-self-diagnosis": "^1.2",
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.0",

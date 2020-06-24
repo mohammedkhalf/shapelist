@@ -55,9 +55,9 @@ class UpdateOrderRequest extends FormRequest
             'packages.*.quantity'=>['numeric','not_in:0'],
             'packages.*.vedio_length' => ['nullable','numeric','not_in:0'],
             'packages.*.package_music_id' => ['nullable','numeric' , 'not_in:0' , 'exists:'. MusicSample::table() .',id'],
-            'packages.*.package_user_music' => ['nullable','mimes:mpga,ogg']
-            
-      
+            'packages.*.package_user_music' => ['nullable','mimes:mpga,ogg'],
+            //zip folder
+            'zip_folder' => ['mimes:zip','max:20000']
         ];
     }
 

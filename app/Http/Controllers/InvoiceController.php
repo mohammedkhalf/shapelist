@@ -7,7 +7,10 @@ use PDF;
 use App\Models\Order\Order;
 class InvoiceController extends Controller
 {
-    
+    public function getInvoice()
+    {
+        return view("emails.email-invoice");
+    }
     // public function sendPdfInvoice() 
     // {
     //     $orderData = Order::getOrderinformation();

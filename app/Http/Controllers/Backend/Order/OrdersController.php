@@ -116,13 +116,13 @@ class OrdersController extends Controller
 
     public function show(ViewOrderRequest $request , Order $order)
     {
+        
         $numProducts = OrderItem::where('order_id',$order->id)->count();
         $numPackages = OrderPackage::where('order_id',$order->id)->count();
         $totalCount = $numProducts + $numPackages;
         $userProducts = Order::with('products','location')->where('id',$order->id)->get();
         $productsData = OrderItem::where('order_id',$order->id)->get();
         $packageData =  OrderPackage::where('order_id',$order->id)->get();
-        // dd($packageData);
         if(is_null($order))
         {
             return back();

@@ -100,6 +100,7 @@ class Order extends Model
                     [ 
                         'product_quantity' =>$productsArr[$i]['product_quantity'],
                         'product_id'=>$productsArr[$i]['product_id'],
+                        'product_total_price' => $productsArr[$i]['product_total_price'],
                         'video_length' => $productsArr[$i]['video_length'],
                         'music_id' => $productsArr[$i]['music_id'],
                         'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
@@ -140,8 +141,10 @@ class Order extends Model
             {
                 OrderPackage::create(['package_id'=>$request->packages[$i]['package_id'],
                 'order_id'=>$orderObj->id,'quantity'=>$request->packages[$i]['quantity'],
-                'package_music_id'=>$request->packages[$i]['package_music_id'],'vedio_length'=>$request->packages[$i]['vedio_length'],
-                'package_user_music'=>$request->packages[$i]['package_user_music']    
+                'package_total_price' => $request->packages[$i]['package_total_price'],
+                'package_music_id'=>$request->packages[$i]['package_music_id'],
+                'vedio_length'=>$request->packages[$i]['vedio_length'],
+                'package_user_music'=> !empty($request->packages[$i]['package_user_music']) ? $request->packages[$i]['package_user_music'] : ''
                 ]);
             }
         }

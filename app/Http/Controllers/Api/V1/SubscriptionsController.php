@@ -74,5 +74,14 @@ class SubscriptionsController extends Controller
 
     }
 
+    public function checkout($id){
+        $subscriptionPrice =  Subscription::findOrFail($id)->value('price');
+
+    }
+
+    public function savePaymentInfo($id){
+
+        
+    }
   
 }

@@ -64,7 +64,7 @@ class subscriptionStatus extends Command
                 $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('status' => 0,'bank_transaction_id' => Null,'discount' => 0,'free_points' => 0));
             }
         }
-        //================= Subscription Last Reminder =======================================
+        //================= Subscription Last Reminder 14 day =======================================
         foreach ($inactiveUsers as $user){
             $thirdRemindDay = Carbon::parse($user->end_date)->addDays(10)->toDateString();
             if($thirdRemindDay == $today){

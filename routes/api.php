@@ -94,7 +94,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //subscriptions
         Route::apiResource('subscriptions', 'SubscriptionsController');
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
+        //subscriptions payment
+        Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
+        Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
 
-        
     }); //auth:api
 });

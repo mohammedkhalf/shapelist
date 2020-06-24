@@ -46,9 +46,8 @@ class subscriptionStatus extends Command
         $today = Carbon::now()->toDateString();
         $activeUse = SubscriptionDetail::with('user')->whereNotNull('subscription_id')->where('status', 1)->get();
         $inactiveUsers= SubscriptionDetail::with('user')->where('status', 0)->get();
-        //==================Reminder at  Day 28  of  Subscription  ===========================
-        foreach ($activeUse as $user) 
-        {
+        //================== Reminder at  Day 28  of  Subscription  ===========================
+        foreach ($activeUse as $user) {
             $secondReminderDay = Carbon::parse($user->end_date)->subDays(2)->toDateString();
             if($secondReminderDay == $today){
                 $userReminder = SubscriptionDetail::with('user')->where('id', $user->user->id)->get();
@@ -56,27 +55,28 @@ class subscriptionStatus extends Command
             } 
         }
         //=====================  Reminder at Day 30 Subscription & change status after 30 day ====================================
-        foreach ($activeUse as $user) 
-        {
+        foreach ($activeUse as $user) {
             $inactivateDay = Carbon::parse($user->end_date)->addDays(1)->toDateString();
             if($today == $user->end_date){
                 Mail::to($user->user->email)->send(new ReminderMail($user,2,0));
             }
             if($today == $inactivateDay){
-                $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('status' => 0,'bank_transaction_id' => Null));
+                $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('status' => 0,'bank_transaction_id' => Null,'discount' => 0,'free_points' => 0));
             }
         }
         //================= Subscription Last Reminder =======================================
-        foreach ($inactiveUsers as $user) 
-        {
-            $thirdRemindDay = Carbon::parse($user->end_date)->addDays(11)->toDateString();
+        foreach ($inactiveUsers as $user){
+            $thirdRemindDay = Carbon::parse($user->end_date)->addDays(10)->toDateString();
             if($thirdRemindDay == $today){
                 Mail::to($user->user->email)->send(new ReminderMail($user,3,0));
             }
         }
        //================= delete all points after 14 day =======================================
-
-
-
+       foreach ($inactiveUsers as $user){
+            $lastDay = Carbon::parse($user->end_date)->addDays(14)->toDateString();
+            if($lastDay == $today){
+                $inactiveUser = subscriptionDetail::where('id', $user->id)->update(array('purchase_points' => 0));
+            }
+        }
     }
 }

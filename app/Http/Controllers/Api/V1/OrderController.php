@@ -72,12 +72,18 @@ class OrderController extends APIController
 
         public function savePaymentInfo(Request $request)
         {
+            // dd($request->all());
+     
             // 1 payment successs
             if($request->payment_status == 1)
             {           
                 $orderObj = Order::findOrFail($request->order_id);
-                $orderObj->update($request->only('bank_transaction_id','payment_status'));
                 $emailInvoice = Order::sendPdfInvoice($orderObj);
+                return  $emailInvoice;
+
+                
+                $orderObj->update($request->only('bank_transaction_id','payment_status'));
+               
                 return response()->json(['message'=>'Payment Process Successfully']);
             }
             // Failure

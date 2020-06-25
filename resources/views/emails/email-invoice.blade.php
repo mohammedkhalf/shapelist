@@ -43,6 +43,61 @@
                         <p> <b> Riyadh , KSA </b> </p>
                     </div>
             </div>
+            <!-- table -->
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Amount</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-9" ></div>
+                <div class="col-sm-3" style="margin-top:20px;"> 
+                    <p> Subtotal:   SAR  </p>
+                    <p> VAT(%):     SAR </p>
+                    <p> Total:          </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-9">
+                    <p> Notes : </p>
+                    <p> Thank you for being our costumer and have a great day </p> <br/>
+
+                    <p> Terms: </p>
+                    <p> <a href="https://www.shapelist.com">www.shapelist.com</a> </p>
+
+                </div>
+                
+            </div>
 
         </div>
        

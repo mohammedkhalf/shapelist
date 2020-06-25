@@ -16,7 +16,6 @@ class CreateSubscriptionDetailsTable extends Migration
         Schema::create('subscription_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable()->unique();
-            $table->integer('subscription_id')->unsigned()->nullable();
             $table->boolean('status');
             $table->integer('purchase_points');
             $table->integer('free_points');
@@ -25,7 +24,6 @@ class CreateSubscriptionDetailsTable extends Migration
             $table->date('end_date');
             $table->string('bank_transaction_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.faqcategories.table.id') }}</th>
+                            <th>{{ trans('labels.backend.faqcategories.table.name') }}</th>
                             <th>{{ trans('labels.backend.faqcategories.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -61,6 +62,7 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('module.faqcategories.table')}}.id'},
+                    {data: 'name', name: '{{config('module.faqcategories.table')}}.name'},
                     {data: 'created_at', name: '{{config('module.faqcategories.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

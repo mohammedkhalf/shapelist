@@ -517,6 +517,7 @@ return [
 	"title" => "FaqCategories",
 	"table" => [
 	"id" => "Id",
+	"name" => "Name",
 	"createdat" => "Created At",
 	],
 	],

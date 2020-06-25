@@ -30,6 +30,10 @@ class FaqCategoryRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.faqcategories.table').'.id',
+<<<<<<< HEAD
+=======
+                config('module.faqcategories.table').'.name',
+>>>>>>> origin/develop
                 config('module.faqcategories.table').'.created_at',
                 config('module.faqcategories.table').'.updated_at',
             ]);

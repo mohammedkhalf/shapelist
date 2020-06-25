@@ -88,7 +88,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //payment
         Route::get('checkouts/{checkoutId}/payment','OrderController@getStatus');
         //savePaymentInfo
-        Route::post('/payment-Info','OrderController@savePaymentInfo');
+        Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         //packages
         Route::apiResource('packages', 'PackageController');
         //subscriptions

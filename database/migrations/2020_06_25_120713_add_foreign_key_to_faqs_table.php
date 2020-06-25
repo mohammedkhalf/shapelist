@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaqcategoriesTable extends Migration
+class AddForeignKeyToFaqsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateFaqcategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('faqcategories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 225)->unique();
-            $table->timestamps();
+        Schema::table('faqs', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('faqcategories')->onDelete('CASCADE');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateFaqcategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faqcategories');
+        Schema::table('faqs', function (Blueprint $table) {
+            $table->dropForeign('faqs_category_id_foreign');
+        });
     }
 }

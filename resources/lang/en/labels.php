@@ -181,6 +181,7 @@ return [
 	"title" => "FAQs",
 	"publish" => "PublishDateTime",
 	"status" => "Status",
+	"categoryId" =>"Category",
 	"createdat" => "Created At",
 	"createdby" => "Created By",
 	"answer" => "Answer",

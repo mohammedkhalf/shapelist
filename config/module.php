@@ -65,4 +65,7 @@ return [
 	"subscriptions" => [
 	"table" => "subscriptions",
 	],
+	"faqcategories" => [
+	"table" => "faqcategories",
+	],
 ];

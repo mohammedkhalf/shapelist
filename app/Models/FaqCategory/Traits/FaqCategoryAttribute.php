@@ -17,14 +17,9 @@ trait FaqCategoryAttribute
      */
     public function getActionButtonsAttribute()
     {
-<<<<<<< HEAD
-        return '<div class="btn-group action-btn"> {$this->getEditButtonAttribute("edit-faqcategory", "admin.faqcategories.edit")}
-                {$this->getDeleteButtonAttribute("delete-faqcategory", "admin.faqcategories.destroy")}
-=======
         return '<div class="btn-group action-btn">
                 '.$this->getEditButtonAttribute("edit-faqcategory", "admin.faqcategories.edit").'
                 '.$this->getDeleteButtonAttribute("delete-faqcategory", "admin.faqcategories.destroy").'
->>>>>>> origin/develop
                 </div>';
     }
 }

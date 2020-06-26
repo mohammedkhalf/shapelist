@@ -3,10 +3,7 @@
 namespace App\Http\Requests\Backend\FaqCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
-<<<<<<< HEAD
-=======
 use App\Rules\FilterStringRule;
->>>>>>> origin/develop
 
 class UpdateFaqCategoryRequest extends FormRequest
 {
@@ -28,10 +25,7 @@ class UpdateFaqCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-<<<<<<< HEAD
-=======
-            'name' => ['string','max:50' , new FilterStringRule],
->>>>>>> origin/develop
+            'name' => ['string','max:50' , new FilterStringRule]
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests

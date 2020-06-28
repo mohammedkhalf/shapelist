@@ -19,7 +19,11 @@ class CreateOrdersTable extends Migration
             $table->integer('status_id')->unsigned()->default(1);     
             $table->integer('delivery_id')->unsigned()->nullable(); 
             $table->integer('location_id')->unsigned()->nullable(); 
-            $table->decimal('total_price');
+
+            $table->decimal('sub_total')->default(1);
+            $table->decimal('vat')->default(1);
+            $table->decimal('total_price')->default(1);
+
             $table->string('payment_status')->nullable();
             $table->dateTime('on_set')->nullable(); 
             $table->string('coupon_code')->nullable();

@@ -14,8 +14,7 @@ class OrderItem extends Model
      * @var array
      */
     protected $fillable = ['order_id','product_id','platform_id','music_id','product_quantity',
-        'product_total_price','logo','video_length','content','background','background_color',
-        'user_music','notes'];
+        'price_per_product','products_total_price','video_length','user_music'];
 
     //relationship
     // public function musicSamples()

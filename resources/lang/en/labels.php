@@ -352,6 +352,17 @@ return [
 	"download_file" => "Download File",
 	"Media-Files" => "Media Files",
 	"invoice_mail_subject" => "Purchase Invoice From shapelist.com",
+	"Invoice" => "Invoice #",
+	"Date"=>"Date",
+	"Amount"=>"Amount",
+	"Bill-To"=>"Bill To",
+	"Deliver-To"=>"Deliver To",
+	"name"=>"Name",
+	"type"=>"type",
+	"Quantity"=>"Quantity",
+	"Rate"=>"Rate",
+	
+
 	"table" => [
 	"orderId" => "Id",
 	"userName" => "user name",

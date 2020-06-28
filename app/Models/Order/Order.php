@@ -9,7 +9,6 @@ use App\Models\Access\User\User;
 use Illuminate\Http\Request;
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 use App\Models\Order\Traits\OrderAttribute;
 use App\Models\Order\Traits\OrderRelationship;
 use Storage;
@@ -17,8 +16,9 @@ use App\Models\OrderItem\OrderItem;
 use App\Models\Package\Package; 
 use App\Models\OrderPackage\OrderPackage;
 use App\Models\MediaFile\MediaFile;
+use App\Models\Quotation\Quotation;
+use Illuminate\Support\Facades\Mail;
 use PDF;
-
 class Order extends Model
 {
     use ModelTrait,
@@ -34,7 +34,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = ['user_id','status_id','coupon_code',
-    'total_price','delivery_id','on_set','location_id'];
+    'sub_total','vat','total_price','delivery_id','on_set','location_id'];
     
     //relationships
     public function users()
@@ -72,7 +72,7 @@ class Order extends Model
     public static function insertOrder($request)
     {  
         // dd($request->all());
-        $OrderData = array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
+        $OrderData = array_merge($request->only('delivery_id','total_price','sub_total','vat','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
         $orderObj = Order::create($OrderData);
         Order::findOrCreateLocation($request,$orderObj);
         $orderItems= Order::insertOrderItems($request,$orderObj);
@@ -100,7 +100,8 @@ class Order extends Model
                     [ 
                         'product_quantity' =>$productsArr[$i]['product_quantity'],
                         'product_id'=>$productsArr[$i]['product_id'],
-                        'product_total_price' => $productsArr[$i]['product_total_price'],
+                        'price_per_product' => $productsArr[$i]['price_per_product'],
+                        'products_total_price' => $productsArr[$i]['products_total_price'],
                         'video_length' => $productsArr[$i]['video_length'],
                         'music_id' => $productsArr[$i]['music_id'],
                         'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
@@ -141,7 +142,8 @@ class Order extends Model
             {
                 OrderPackage::create(['package_id'=>$request->packages[$i]['package_id'],
                 'order_id'=>$orderObj->id,'quantity'=>$request->packages[$i]['quantity'],
-                'package_total_price' => $request->packages[$i]['package_total_price'],
+                'price_per_package' => $request->packages[$i]['price_per_package'],
+                'packages_total_price' => $request->packages[$i]['packages_total_price'],
                 'package_music_id'=>$request->packages[$i]['package_music_id'],
                 'vedio_length'=>$request->packages[$i]['vedio_length'],
                 'package_user_music'=> !empty($request->packages[$i]['package_user_music']) ? $request->packages[$i]['package_user_music'] : ''
@@ -264,46 +266,31 @@ class Order extends Model
             return $responseData;
     }
 
-    //get order data
-    public static function getOrderInfo ($OrderObject)
-    {
-        // dd($OrderObject->location_id);
-        $first_name = auth()->guard('api')->user()->first_name;
-        $last_name = auth()->guard('api')->user()->last_name;
-        $locationInfo  = Order::with('location')->where(['id'=>$OrderObject->location_id,'user_id'=>auth()->guard('api')->user()->id])->first();
-        $city = $locationInfo->location->city;
-        $address = $locationInfo->location->address;
-        $date = $OrderObject->created_at;
-        $total_price = $OrderObject->total_price;
-        $productsInfo = Order::with('products','package')->where(['id'=>$OrderObject->location_id,'user_id'=>auth()->guard('api')->user()->id])->first();
-        dd($productsInfo);
-
-
-    }
-
     public static function sendPdfInvoice($OrderObject) 
     {
-        $orderDataArr = Order::getOrderInfo($OrderObject);
-        $data=["email"=>"khalaf@sparkle.sa","client_name"=>"mohammed khalf","subject"=>"Purchase Invoice"];
-        // $pdf = PDF::loadView('emails.email-invoice', $data);
-        //     try
-        //     {
-        //         Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
-        //         $message->to($data["email"], $data["client_name"])
-        //                 ->subject($data["subject"])
-        //                 ->attachData($pdf->output(),"invoice.pdf");
-        //         });
-        //     }catch(JWTException $exception){
-        //         $this->serverstatuscode = "0";
-        //         $this->serverstatusdes = $exception->getMessage();
-        //     }
-        //     if (Mail::failures()) {
-        //         $this->statusdesc  =   "Error sending mail";
-        //         $this->statuscode  =   "0";
-        //     }else{
-        //     $this->statusdesc  =   "Message sent Succesfully";
-        //     $this->statuscode  =   "1";
-        //     }
-        //     return response()->json(compact('this'));
+        $data = [
+            'Invoice_Number' => $OrderObject->id,
+            'first_name' => auth()->guard('api')->user()->first_name,
+            'last_name' => auth()->guard('api')->user()->last_name,
+            'email'=> auth()->guard('api')->user()->email,
+            'phone_number'=> auth()->guard('api')->user()->phone_number,
+            'sub_total'=> $OrderObject->sub_total,
+            'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
+            'vat_value'=>$OrderObject->vat,
+            'total_price' => $OrderObject->total_price,
+            'date' => $OrderObject->created_at,
+            'subject'=> 'Purchase Invoice',
+            'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->location_id,'user_id'=>auth()->guard('api')->user()->id])->get(),
+            'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
+            'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
+
+        ];
+        $pdf = PDF::loadView('emails.email-invoice', $data);
+        Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
+            $message->to($data["email"], $data["first_name"])
+                    ->subject($data["subject"])
+                    ->attachData($pdf->output(),"invoice.pdf");
+            });   
+        return response()->json(['message'=>'Invoice Send Successfuly']);
     }
 }

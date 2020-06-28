@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderFront;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
+use App\Models\Payment\Payment;
+
 class OrderController extends APIController
 {
     
@@ -71,19 +73,13 @@ class OrderController extends APIController
         }
 
         public function savePaymentInfo(Request $request)
-        {
-            // dd($request->all());
-     
+        {     
             // 1 payment successs
-            if($request->payment_status == 1)
+            if($request->status == 1)
             {           
                 $orderObj = Order::findOrFail($request->order_id);
-                $emailInvoice = Order::sendPdfInvoice($orderObj);
-                return  $emailInvoice;
-
-                
-                $orderObj->update($request->only('bank_transaction_id','payment_status'));
-               
+                Payment::create($request->only('order_id','bank_transaction_id','status'));
+                $InvoiceEmail=Order::sendPdfInvoice($orderObj);
                 return response()->json(['message'=>'Payment Process Successfully']);
             }
             // Failure

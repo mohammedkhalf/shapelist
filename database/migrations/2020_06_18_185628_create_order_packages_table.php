@@ -20,7 +20,8 @@ class CreateOrderPackagesTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('CASCADE');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('CASCADE');
             $table->integer('quantity')->default(1);
-            $table->decimal('package_total_price')->default(0);
+            $table->decimal('price_per_package')->default(1);
+            $table->decimal('packages_total_price')->default(1);
             $table->string('type')->default('package');
             $table->integer('package_music_id')->unsigned()->nullable();
             $table->foreign('package_music_id')->references('id')->on('music_samples')->onDelete('CASCADE');

@@ -133,15 +133,20 @@ class FaqsController extends APIController
     }
 
     public function general(){
-        $faqs= Faq::where('category_id',1)->get();
+        $categotyId= FaqCategory::where('name','general')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
         return response()->json($faqs);
     }
+
     public function package(){
-        $faqs= Faq::where('category_id',2)->get();
+        $categotyId= FaqCategory::where('name','package')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
         return response()->json($faqs);
     }
+    
     public function subscription(){
-        $faqs= Faq::where('category_id',3)->get();
+        $categotyId= FaqCategory::where('name','subscription')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
         return response()->json($faqs);
     }
     

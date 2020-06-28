@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DeliveryTableSeeder::class);  
         $this->call(PaymentTableSeeder::class); 
         $this->call(PackageTableSeeder::class);  
-        $this->call(SubscriptionTableSeeder::class);  
+        $this->call(SubscriptionTableSeeder::class);
+        $this->call(FaqCategoryTableSeeder::class);
         Model::reguard();
     }
 }

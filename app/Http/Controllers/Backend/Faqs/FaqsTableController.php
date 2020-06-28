@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend\Faqs;
-
+use App\Models\FaqCategory\FaqCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Faqs\ManageFaqsRequest;
 use App\Repositories\Backend\Faqs\FaqsRepository;
@@ -37,6 +37,10 @@ class FaqsTableController extends Controller
             })
             ->addColumn('status', function ($faqs) {
                 return $faqs->status_label;
+            })
+            ->addColumn('category_id', function ($faqs) {
+                $categoryName = FaqCategory::where('id',$faqs->category_id)->pluck('name')->toArray();
+                return $categoryName;
             })
             ->addColumn('updated_at', function ($faqs) {
                 return Carbon::parse($faqs->updated_at)->toDateString();

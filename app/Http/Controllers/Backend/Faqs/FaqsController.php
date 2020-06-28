@@ -13,6 +13,7 @@ use App\Http\Responses\Backend\Faq\EditResponse;
 use App\Http\Responses\RedirectResponse;
 use App\Http\Responses\ViewResponse;
 use App\Models\Faqs\Faq;
+use App\Models\FaqCategory\FaqCategory;
 use App\Repositories\Backend\Faqs\FaqsRepository;
 
 class FaqsController extends Controller
@@ -53,7 +54,8 @@ class FaqsController extends Controller
      */
     public function create(CreateFaqsRequest $request)
     {
-        return new ViewResponse('backend.faqs.create');
+        $categories= FaqCategory::all();
+        return new ViewResponse('backend.faqs.create',['categories'=>$categories]);
     }
 
     /**
@@ -80,7 +82,9 @@ class FaqsController extends Controller
      */
     public function edit(Faq $faq, EditFaqsRequest $request)
     {
-        return new EditResponse($faq);
+        $categories= FaqCategory::all();
+
+        return new EditResponse($faq,$categories);
     }
 
     /**

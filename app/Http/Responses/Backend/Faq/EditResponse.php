@@ -9,14 +9,15 @@ class EditResponse implements Responsable
     /**
      * @var \App\Models\Faqs\Faq
      */
-    protected $faq;
+    protected $faq ,$categories;
 
     /**
      * @param \App\Models\Faqs\Faq $faq
      */
-    public function __construct($faq)
+    public function __construct($faq, $categories)
     {
         $this->faq = $faq;
+        $this->categories = $categories;
     }
 
     /**
@@ -29,6 +30,6 @@ class EditResponse implements Responsable
     public function toResponse($request)
     {
         return view('backend.faqs.edit')
-            ->with('faq', $this->faq);
+            ->with(array('faq'=> $this->faq ,'categories'=>$this->categories));
     }
 }

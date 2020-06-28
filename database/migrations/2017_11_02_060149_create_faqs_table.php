@@ -17,6 +17,7 @@ class CreateFaqsTable extends Migration
             $table->string('question', 191);
             $table->text('answer', 65535);
             $table->boolean('status')->default(0);
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

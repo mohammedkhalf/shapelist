@@ -24,6 +24,7 @@
                             <th>{{ trans('labels.backend.faqs.table.question') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.answer') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.status') }}</th>
+                            <th>{{ trans('labels.backend.faqs.table.categoryId') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.updatedat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -87,6 +88,7 @@
                     {data: 'question', name: '{{config('module.faqs.table')}}.question'},
                     {data: 'answer', name: '{{config('module.faqs.table')}}.answer'},
                     {data: 'status', name: '{{config('module.faqs.table')}}.status'},
+                    {data: 'category_id', name: '{{config('module.faqs.table')}}.category_id'},
                     {data: 'updated_at', name: '{{config('module.faqs.table')}}.updated_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

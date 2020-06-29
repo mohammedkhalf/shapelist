@@ -42,11 +42,6 @@ includeRouteFiles(__DIR__.'/Generator/');
 //======================= Social Login ==================================
 Route::get('auth/{provider}', 'Api\V1\SocialLoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Api\V1\SocialLoginController@handleProviderCallback');
-\Artisan::call('migrate',
- array(
-   '--path' => 'database/migrations',
-   '--database' => 'ebdb',
-   '--force' => true));
 Route::get('send-invoice-pdf-mail', 'InvoiceController@sendPdfInvoice');
 Route::get('view-invoice', 'InvoiceController@getInvoice');
 

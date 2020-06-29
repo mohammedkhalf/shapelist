@@ -118,6 +118,7 @@ return [
 	"Description" => "Description",
 	"Image" => "Image",
 	"Price" => "Price",
+	"points" => "Price Per Points",
 	"createdat" => "Created At",
 	],
 	],

@@ -128,7 +128,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th> {{ trans('labels.backend.orders.table.orderId') }}</th>
+                                <!-- <th> {{ trans('labels.backend.orders.table.orderId') }}</th> -->
                                 <th> {{ trans('labels.backend.orders.table.type') }}</th>
                                 <th> {{ trans('labels.backend.orders.table.productName') }}</th>
                                 <th>{{ trans('labels.backend.orders.table.productQuantity') }} </th>
@@ -140,7 +140,7 @@
                         <thead class="transparent-bg">
                             @foreach($productsData  as  $productInfo)
                                 <tr>
-                                    <th>{{ $productInfo->product_id }}</th>
+                                    <!-- <th>{{ $productInfo->product_id }}</th> -->
                                     <th>{{ $productInfo->type }}</th>
                                     <th>{{ App\Models\Product\Product::where('id', $productInfo->product_id)->pluck('name')->first() }}</th>
                                     <th>{{ $productInfo->product_quantity }}</th>
@@ -166,7 +166,7 @@
                             @endforeach
 
                                @foreach($packageData  as $packageObj)
-                                    <th> {{ $packageObj->package_id }}</th>
+                                    <!-- <th> {{ $packageObj->package_id }}</th> -->
                                     <th> {{ $packageObj->type }}</th>
                                     <th> 
                                         <?php

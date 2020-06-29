@@ -14,28 +14,29 @@ class PackageController extends APIController
      */
     public function index()
     {
-        $package = Package::all();
-        foreach($package as $package){
-                
-                $productNames = explode(",",Package::all()->pluck('product_id')[0]);
-                $quantityArr = explode(",",Package::all()->pluck('quantity')[0]);
+        $packages = Package::all();
+        foreach($packages as $package){   
+            $product = Package::where('id',$package->id)->value('product_id');
+            $quantity = Package::where('id',$package->id)->value('quantity');
+            
+                $productNames = explode(",", $product);
+                $quantityArr = explode(",", $quantity);
                 $i=0;
-
-                    foreach($productNames as $product){
-                        $name= Product::where('id',$productNames[$i])->first();
-                        $data[] 
-                        = array(
-                            'product_id' => $productNames[$i],
-                            'name'=>$name->name,
-                            'quantitiy' => $quantityArr[$i],
-                        );
-                    
-                        $i= $i+1;
-                    }
-                return response()->json(['product'=> $data ,'package_id' => $package->id,'name_ar' => $package->name_ar,
-                'name_en' => $package->name_en,'description_ar' => $package->desc_ar  ,'description_en' =>$package->desc_en ,'price' => $package->price ]); 
-        }           
-
+                foreach($productNames as $product){
+                    $name = Product::where('id',$productNames[$i])->first();
+                    $data[] = array(
+                        'product_id' => $productNames[$i],
+                        'name'=>$name->name,
+                        'quantitiy' => $quantityArr[$i],
+                    );                
+                    $i= $i+1;
+                }    
+            $packageData[]= array_merge(['product'=> $data ,'package_id' => $package->id,'name_ar' => $package->name_ar,
+            'name_en' => $package->name_en,'description_ar' => $package->desc_ar, 
+            'description_en' =>$package->desc_en ,'price' => $package->price ]); 
+            unset($data);
+        } 
+        return  $packageData;
     }
 
     /**

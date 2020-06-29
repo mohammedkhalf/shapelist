@@ -283,7 +283,6 @@ class Order extends Model
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->location_id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
             'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
-
         ];
         $pdf = PDF::loadView('emails.email-invoice', $data);
         Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {

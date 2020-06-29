@@ -160,7 +160,7 @@
                 <div class="panel-body">
                     <article>
                         <div style="margin-top:15px">
-                            <img src="http://backend.shapelist.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg"   width="200px" height="100px"/>
+                            <img src="http://backend.shapelist.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg"   width="150px" height="85px"/>
                             <p> <b> CR 1010569681 </b> </p>
                             <p> VAT NO 310053727200003 </p>
                             <p> KSA-RYADH PO-BOX 13321 </p>

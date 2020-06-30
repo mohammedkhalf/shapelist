@@ -27,6 +27,7 @@ class FaqsRepository extends BaseRepository
                 config('module.faqs.table').'.question',
                 config('module.faqs.table').'.answer',
                 config('module.faqs.table').'.status',
+                config('module.faqs.table').'.category_id',
                 config('module.faqs.table').'.created_at',
             ]);
     }

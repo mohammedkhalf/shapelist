@@ -14,6 +14,23 @@
             {{ Form::textarea('answer', null, ['class' => 'form-control box-size']) }}
         </div><!--col-lg-10-->
     </div><!--form control-->
+    
+    <div class="form-group">
+        {{ Form::label('category_id', trans('labels.backend.faqs.table.categoryId'), ['class' => 'col-lg-2 control-label required']) }}
+
+        <div class="col-lg-10 mce-box">
+            <select class="form-control box-size" name="category_id">
+            <option value="0"> --- </option>
+            @foreach($categories as $category)
+                @if(isset($faq))
+                <option value="{{$category->id}}" {{ $category->id == $faq->category_id ? 'selected' : '' }}> {{$category->name}} </option>
+                @else
+                <option value="{{$category->id}}" {{ old('category_id') == $category->id ? 'selected' : '' }}> {{$category->name}} </option>
+                @endif
+            @endforeach
+        </select>     
+        </div><!--col-lg-10-->
+    </div><!--form control-->
 
     <div class="form-group">
         {{ Form::label('status', trans('validation.attributes.backend.faqs.status'), ['class' => 'col-lg-2 control-label']) }}
@@ -31,6 +48,9 @@
             </div>
         </div><!--col-lg-3-->
     </div><!--form control-->
+    <div class="form-group">
+</div><!--form control-->
+
 </div>
 @section('after-scripts')
     <script type="text/javascript">

@@ -47,17 +47,21 @@ class SocialLoginController extends APIController
             $passportToken = $userInfo->createToken('API Access Token');
             $passportToken->token->save();
             $token = $passportToken->accessToken;
-
             $subscription = SubscriptionDetail::where('user_id',$userInfo->id)->get();
             return response()->json(['user'=>$userInfo ,'message'=>"Login Successfully",'token'=>$token,
             'subscription_details'=>$subscription]);
         }
         $userInfo = User::CreateUser($user, $provider);
         Auth::login($userInfo,true);
+        $passportToken = $userInfo->createToken('API Access Token');
+        $passportToken->token->save();
+        $token = $passportToken->accessToken;
+        $subscription = SubscriptionDetail::where('user_id',$userInfo->id)->get();
         return response()->json([
            'user'      => $userInfo,
            'message'=>"Login Successfully",
-           'token'=>$user->token,
+           'token'=>$token,
+           'subscription_details'=>$subscription
         ]);
     }
    

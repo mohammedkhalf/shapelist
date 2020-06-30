@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Resources\FaqsResource;
 use App\Models\Faqs\Faq;
+use App\Models\FaqCategory\FaqCategory;
 use App\Repositories\Backend\Faqs\FaqsRepository;
 use Illuminate\Http\Request;
 use Validator;
@@ -125,4 +126,29 @@ class FaqsController extends APIController
 
         return $validation;
     }
+
+    public function category(){
+        $categories= FaqCategory::all();
+        return $categories;
+    }
+
+    public function general(){
+        $categotyId= FaqCategory::where('name','general')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
+        return response()->json($faqs);
+    }
+
+    public function package(){
+        $categotyId= FaqCategory::where('name','package')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
+        return response()->json($faqs);
+    }
+    
+    public function subscription(){
+        $categotyId= FaqCategory::where('name','subscription')->value('id');
+        $faqs= Faq::where('category_id',$categotyId)->get();
+        return response()->json($faqs);
+    }
+    
+
 }

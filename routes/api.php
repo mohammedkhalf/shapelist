@@ -24,7 +24,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('password-reset', 'ForgotPasswordController@resetPassword')->name('password.reset');
         // Redirect After Confirmation 
         Route::get('/email/confirm','ForgotPasswordController@redirectAfterConfirm')->name('confirm.redirect');
-
         //=============== change password ===================
         //================================================
     });
@@ -49,8 +48,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::resource('permissions', 'PermissionController', ['except' => ['create', 'edit']]);
         // Page
         Route::resource('pages', 'PagesController', ['except' => ['create', 'edit']]);
-        // Faqs
-        Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
         // Blog Categories
         Route::resource('blog_categories', 'BlogCategoriesController', ['except' => ['create', 'edit']]);
         // Blog Tags
@@ -99,4 +96,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
 //new develop
 }); //auth:api
+
+        // Faqs
+        Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
+        Route::get('faqsCategories','FaqsController@category');
+        Route::get('faq/general','FaqsController@general');
+        Route::get('faq/package','FaqsController@package');
+        Route::get('faq/subscription','FaqsController@subscription');
+
+        
+
 });

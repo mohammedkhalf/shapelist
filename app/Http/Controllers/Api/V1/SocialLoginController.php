@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Access\User\User;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
+
 
 
 /**
@@ -37,19 +39,26 @@ class SocialLoginController extends APIController
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->stateless()->user();
+
+        
+
         if($userInfo=User::where('email','=',$user->email)->first())
         {
-            return response()->json(['message'=>"this email already exist",'user'=>$userInfo,
-            'avatar'=> $userInfo->socialLoginTable->avatar , 'token'=>$userInfo->socialLoginTable->token]);
+            $passportToken = $userInfo->createToken('API Access Token');
+            $passportToken->token->save();
+            $token = $passportToken->accessToken;
+
+            $subscription = SubscriptionDetail::where('user_id',$userInfo->id)->get();
+            return response()->json(['user'=>$userInfo ,'message'=>"Login Successfully",'token'=>$token,
+            'subscription_details'=>$subscription]);
         }
         $userInfo = User::CreateUser($user, $provider);
         Auth::login($userInfo,true);
         return response()->json([
-           'user'       => $userInfo,
-           'token'      => $userInfo->socialLoginTable->token,
-           'message'    => trans('api.messages.login.success'),
-          'avatar'     => $userInfo->socialLoginTable->avatar
-           ]);
+           'user'      => $userInfo,
+           'message'=>"Login Successfully",
+           'token'=>$user->token,
+        ]);
     }
    
 }

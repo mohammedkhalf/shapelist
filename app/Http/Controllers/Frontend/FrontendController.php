@@ -16,10 +16,7 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $settingData = Setting::first();
-        $google_analytics = $settingData->google_analytics;
-
-        return view('frontend.index', compact('google_analytics', $google_analytics));
+      
     }
 
     /**
@@ -27,9 +24,6 @@ class FrontendController extends Controller
      */
     public function showPage($slug, PagesRepository $pages)
     {
-        $result = $pages->findBySlug($slug);
-
-        return view('frontend.pages.index')
-            ->withpage($result);
+        
     }
 }

@@ -30,6 +30,7 @@ class ProductRepository extends BaseRepository
         return $this->query()
             ->select([
                 config('module.products.table').'.id',
+                config('module.products.table').'.points',
                 config('module.products.table').'.created_at',
                 config('module.products.table').'.updated_at',
             ]);

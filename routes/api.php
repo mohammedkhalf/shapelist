@@ -101,10 +101,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('faq/general','FaqsController@general');
         Route::get('faq/package','FaqsController@package');
         Route::get('faq/subscription','FaqsController@subscription');
-        //packages
+        //packages Management
         Route::apiResource('packages', 'PackageController');
-        //Subscriptions
+        //Subscriptions Management
         Route::apiResource('subscriptions', 'SubscriptionsController');
-        //products
+        //products Management
         Route::apiResource('/products', 'ProductController');
 });

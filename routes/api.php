@@ -57,7 +57,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
 
         //==================================== apiResource ==================================================
         // Products
-        Route::apiResource('/products', 'ProductController');
         // Templates
         Route::apiResource('/templates', 'TemplateController');
         // platforms
@@ -86,10 +85,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('checkouts/{checkoutId}/payment','OrderController@getStatus');
         //savePaymentInfo
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
-        //packages
-        Route::apiResource('packages', 'PackageController');
+      
         //subscriptions
-        Route::apiResource('subscriptions', 'SubscriptionsController');
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
@@ -100,10 +97,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Faqs
         Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
         Route::get('faqsCategories','FaqsController@category');
+        //Faqs Categories
         Route::get('faq/general','FaqsController@general');
         Route::get('faq/package','FaqsController@package');
         Route::get('faq/subscription','FaqsController@subscription');
-
-        
-
+        //packages Management
+        Route::apiResource('packages', 'PackageController');
+        //Subscriptions Management
+        Route::apiResource('subscriptions', 'SubscriptionsController');
+        //products Management
+        Route::apiResource('/products', 'ProductController');
 });

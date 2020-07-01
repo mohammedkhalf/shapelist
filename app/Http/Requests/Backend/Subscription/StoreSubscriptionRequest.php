@@ -29,12 +29,16 @@ class StoreSubscriptionRequest extends FormRequest
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/6.x/validation#creating-form-requests
             'name' => ['string','max:50' , new FilterStringRule],
+            'name_ar' => ['string','max:50' , new FilterStringRule],
             'purchase_points' => ['numeric','not_in:0'],
             'free_points' => ['numeric','not_in:0'],
             'discount' => ['nullable','numeric','not_in:0'],
             'details' => ['nullable','string' , 'max:255', new FilterStringRule],
             'duration' => ['numeric','not_in:0'],  
             'price' => ['numeric','not_in:0'],
+            'priority_support' => ['numeric','not_in:0' ,'in:1,2' ],
+            'delivery_id' => ['required','numeric','not_in:0'],
+
         ];
     }
 

@@ -14,7 +14,7 @@
        
         <div class="fd-email-body"  style="color: #000000a1; font-weight: 700; padding-top: 18px !important;">
             <p class="fd-email-text"  style="color: #000000a1; opacity: 0.8;">  Your subscription is about to expire,</p>
-            <p style="color: #000000a1;opacity: 0.8;"> Visit your dashboard and renew your subscription to keep your points! </p>
+            <p style="color: #000000a1;opacity: 0.8; text-align: left;"> Visit your dashboard and renew your subscription to keep your points! </p>
             <div class="fd-button center" style="margin-top: 30px !important;">
                 <a href="#" style="color: #ffffff; text-decoration: none;margin-top: 15px;opacity: 0.8;"> Visit your dashboard </a>
             </div> 

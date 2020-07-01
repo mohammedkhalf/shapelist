@@ -3,6 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <!--<![if !mso]-->
@@ -82,7 +83,7 @@
             text-align: center;
         }
         .fd-header{
-                position: absolute;
+                /* position: absolute; */
                 padding-top: 10px;
                 top: 78px;
                 left: 51px;
@@ -95,7 +96,7 @@
                 opacity: 1;
         }
         .fd-email-body{
-            position: absolute;
+            /* position: absolute; */
             padding-left: 45px;
             padding-top: 36px;
             font-size:10px
@@ -117,16 +118,19 @@
         .fd-email-footer{
                 width: 498px;
                 clear: both;
+                position: relative;
+                top: 75px;
+                left: 50px;
         }
         .fd-welcome-text{
-            position: absolute;
+            /* position: absolute; */
             text-align: left;
             letter-spacing: 0px;
             color: #FFFFFF;
             opacity: 1;
         }
         .fd-email-text{
-            position: absolute;
+            /* position: absolute; */
             margin-left: auto;
             margin-right: auto;
             /* UI Properties */
@@ -136,7 +140,7 @@
             opacity: 1;
         }
         .fd-button{
-            position: absolute;
+            /* position: absolute; */
             left: 202px;
             width: 197px;
             height: 35px;
@@ -152,7 +156,8 @@
 
         }
         .fd-email-image{
-            position: absolute;
+            /* position: absolute; */
+            text-align: left;
             margin-left: auto;
             margin-right: auto;
             margin-top: 5px;
@@ -161,15 +166,6 @@
             /* UI Properties */
             background: no-repeat url("https://i.ibb.co/gDB0K0J/Icon.png");
             opacity: 1;
-        }
-
-        .fd-email-message{
-            
-            /* top: 412px;
-            left: 96px;
-            width: 376px;
-            height: 59px;
-            opacity: 1; */
         }
 
         /* ----------- responsivity ----------- */

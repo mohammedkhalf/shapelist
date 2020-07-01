@@ -23,12 +23,14 @@
                         <tr>
                             <th>{{ trans('labels.backend.subscriptions.table.id') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.name') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.name_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.purchase_points') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.free_points') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.discount') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.details') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.duration') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.price') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.delivery_id') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -69,12 +71,14 @@
                 columns: [
                     {data: 'id', name: '{{config('module.subscriptions.table')}}.id'},
                     {data: 'name', name: '{{config('module.subscriptions.table')}}.name'},
+                    {data: 'name_ar', name: '{{config('module.subscriptions.table')}}.name_ar'},
                     {data: 'purchase_points', name: '{{config('module.subscriptions.table')}}.purchase_points'},
                     {data: 'free_points', name: '{{config('module.subscriptions.table')}}.free_points'},
                     {data: 'discount', name: '{{config('module.subscriptions.table')}}.discount'},
                     {data: 'details', name: '{{config('module.subscriptions.table')}}.details'},
                     {data: 'duration', name: '{{config('module.subscriptions.table')}}.duration'},
                     {data: 'price', name: '{{config('module.subscriptions.table')}}.price'},
+                    {data: 'delivery_id', name: '{{config('module.subscriptions.table')}}.delivery_id'},
                     {data: 'created_at', name: '{{config('module.subscriptions.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

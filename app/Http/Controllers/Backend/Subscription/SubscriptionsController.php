@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Subscription;
 
 use App\Models\Access\User\User;
 use App\Models\Subscription\Subscription;
+use App\Models\Delivery\Delivery;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -57,7 +58,8 @@ class SubscriptionsController extends Controller
      */
     public function create(CreateSubscriptionRequest $request)
     {
-        return new CreateResponse('backend.subscriptions.create');
+        $deliveries = Delivery::all();
+        return new ViewResponse('backend.subscriptions.create',['deliveries'=>$deliveries]);
     }
     /**
      * Store a newly created resource in storage.
@@ -83,7 +85,9 @@ class SubscriptionsController extends Controller
      */
     public function edit(Subscription $subscription, EditSubscriptionRequest $request)
     {
-        return new EditResponse($subscription);
+        $deliveries = Delivery::all();
+        $priority = Subscription::where('id',$subscription->id)->value('priority_support');
+        return new EditResponse($subscription,$deliveries,$priority);
     }
     /**
      * Update the specified resource in storage.

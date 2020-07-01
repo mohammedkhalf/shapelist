@@ -36,7 +36,7 @@ class StoreSubscriptionRequest extends FormRequest
             'details' => ['nullable','string' , 'max:255', new FilterStringRule],
             'duration' => ['numeric','not_in:0'],  
             'price' => ['numeric','not_in:0'],
-            'priority_support' => ['numeric','not_in:0' ,'in:1,2' ],
+            'priority_support' => ['numeric','in:0,1' ],
             'delivery_id' => ['required','numeric','not_in:0'],
 
         ];

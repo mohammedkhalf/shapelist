@@ -190,4 +190,10 @@ class APIController extends Controller
         return $this->setStatusCode(422)
             ->respondWithError($message);
     }
+
+    public function throwNotFound($message)
+    {
+        return $this->setStatusCode(404)
+            ->respondWithError($message);
+    }
 }

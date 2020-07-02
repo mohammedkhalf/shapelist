@@ -154,7 +154,7 @@ class UsersController extends APIController
 
         $validation = Validator::make($request->all(), [
             'first_name'      => 'required|max:255',
-            'last_name'       => 'required|max:255',
+            // 'last_name'       => 'required|max:255',
             'phone_number'    => 'required|max:10|regex:/(0)[0-9]{9}/',
             'email'           => 'required|max:255|email|unique:users,email,'.$id,
             'password'        => $password,

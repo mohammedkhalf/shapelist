@@ -34,7 +34,7 @@ class AuthController extends APIController
 
         try {
             if (!Auth::attempt($credentials)) {
-                return $this->throwValidation(trans('api.messages.login.failed'));
+                return $this->throwNotFound(trans('api.messages.login.failed'));
             }
 
             $user = $request->user();

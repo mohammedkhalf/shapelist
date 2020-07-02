@@ -26,6 +26,8 @@ class StoreFaqsRequest extends FormRequest
         return [
             'question' => 'required|max:191',
             'answer'   => 'required',
+            'question_ar' => 'required|max:191',
+            'answer_ar'   => 'required',
             'category_id'=>['required','numeric','not_in:0'],
         ];
     }

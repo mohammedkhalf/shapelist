@@ -8,10 +8,26 @@
     </div><!--form control-->
 
     <div class="form-group">
+        {{ Form::label('question_ar', trans('validation.attributes.backend.faqs.question_ar'), ['class' => 'col-lg-2 control-label required']) }}
+
+        <div class="col-lg-10">
+            {{ Form::text('question_ar', null, ['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.faqs.question_ar'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form control-->
+
+    <div class="form-group">
         {{ Form::label('answer', trans('validation.attributes.backend.faqs.answer'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10 mce-box">
             {{ Form::textarea('answer', null, ['class' => 'form-control box-size']) }}
+        </div><!--col-lg-10-->
+    </div><!--form control-->
+
+    <div class="form-group">
+        {{ Form::label('answer_ar', trans('validation.attributes.backend.faqs.answer_ar'), ['class' => 'col-lg-2 control-label required']) }}
+
+        <div class="col-lg-10 mce-box">
+            {{ Form::textarea('answer_ar', null, ['class' => 'form-control box-size']) }}
         </div><!--col-lg-10-->
     </div><!--form control-->
     

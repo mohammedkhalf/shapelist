@@ -231,7 +231,9 @@ return [
             ],
             'faqs' => [
                     'question' => 'Question',
+                    'question_ar' => 'Question(Arabic)',
                     'answer'   => 'Answer',
+                    'answer_ar'   => 'Answer(Arabic)',
                     'status'   => 'Status',
             ],
         ],

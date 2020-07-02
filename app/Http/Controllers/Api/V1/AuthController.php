@@ -133,12 +133,12 @@ class AuthController extends APIController
     {
         $request->validate([
             'first_name'    => 'required|max:255',
-            'last_name'     => 'required|max:255',
+            // 'last_name'     => 'nullable|max:255',
             'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
             'phone_number'  => 'required|max:10|string|regex:/(0)[0-9]{9}/',
         ]);
         $user = User::findOrFail(auth()->user()->id);
-        $user->update($request->only('first_name','last_name','email','phone_number'));
+        $user->update($request->only('first_name','email','phone_number'));
         return $this->respond([
             'message'=>'Profile Updated Successfully',
             'user'=> $user,

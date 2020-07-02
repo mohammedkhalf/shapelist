@@ -50,9 +50,9 @@
                                       <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-pencil" data-original-title="Edit"></i>
                                     </a>
 
-                                    <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
+                                    {{-- <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
                                       <i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-trash"></i>
-                                    </a>
+                                    </a> --}}
                                     
                                 </div>
                             </td>

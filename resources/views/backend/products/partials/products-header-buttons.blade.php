@@ -27,11 +27,11 @@
             </a>
         </li>
         @permission( 'create-product' )
-            <li>
+            {{-- <li>
                 <a href="{{ route( 'admin.products.create' ) }}">
                     <i class="fa fa-plus"></i> {{ trans( 'menus.backend.products.create' ) }}
                 </a>
-            </li>
+            </li> --}}
         @endauth
     </ul>
 </div>

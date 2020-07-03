@@ -33,7 +33,7 @@
             {{ Form::label('Media Files', trans('labels.backend.orders.Media-Files'), ['class' => 'col-lg-2 control-label required']) }}
             <div class="col-lg-10">
                 <div class="input-group hdtuto control-group lst increment" >
-                    <input type="file" name="zip_folder" class="myfrm form-control"/>
+                    <input type="file" name="media_file" class="myfrm form-control"/>
                 </div>
             </div>
         </div>

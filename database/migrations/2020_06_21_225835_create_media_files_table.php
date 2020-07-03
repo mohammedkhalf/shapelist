@@ -18,6 +18,9 @@ class CreateMediaFilesTable extends Migration
             $table->integer('order_id')->unsigned()->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('CASCADE');
             $table->string('zip_name')->unique();
+            $table->string('path');
+            $table->double('size', 8, 2)->default(0);
+            $table->unsignedInteger('auth_by');
             $table->timestamps();
         });
     }

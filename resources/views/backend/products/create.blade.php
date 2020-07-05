@@ -56,13 +56,13 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     {{ Form::label('points', trans('labels.backend.products.table.points'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
                         {{ Form::text('points', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.points'), 'required' => 'required']) }}
                     </div><!--col-lg-10-->
-                </div><!--form control-->
+                </div><!--form control--> --}}
 
 
                 <div class="form-group">

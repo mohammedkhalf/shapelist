@@ -31,12 +31,15 @@ class SubscriptionRepository extends BaseRepository
             ->select([
                 config('module.subscriptions.table').'.id',
                 config('module.subscriptions.table').'.name',
+                config('module.subscriptions.table').'.name_ar',
                 config('module.subscriptions.table').'.purchase_points',
                 config('module.subscriptions.table').'.free_points',
                 config('module.subscriptions.table').'.discount',
                 config('module.subscriptions.table').'.details',
                 config('module.subscriptions.table').'.duration',
                 config('module.subscriptions.table').'.price',
+                config('module.subscriptions.table').'.priority_support',
+                config('module.subscriptions.table').'.delivery_id',
                 config('module.subscriptions.table').'.created_at',
                 config('module.subscriptions.table').'.updated_at',
             ]);

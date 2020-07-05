@@ -508,6 +508,7 @@ return [
 	"table" => [
 	"id" => "Id",
 	"name" => "Name",
+	"name_ar" => "Name (Arabic)",
 	"user_id" => "User Id",
 	"email" => "Email",
 	"phone" => "Phone Number",
@@ -520,6 +521,8 @@ return [
 	"details" => "Subscriptions Details",
 	"duration" => "Duration",
 	"price" => "Price",
+	"priority_support" => "Priority Support",
+	"delivery_id" => "Delivery",
 	"createdat" => "Created At",
 	],
 	],

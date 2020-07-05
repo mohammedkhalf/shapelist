@@ -29,7 +29,7 @@ class StoreUserRequest extends Request
     {
         return [
             'first_name'      => 'required|max:255',
-            'last_name'       => 'required|max:255',
+            // 'last_name'       => 'nullable',
             'email'           => ['required', 'email', 'max:255', Rule::unique('users')],
             'password'        => 'required|min:6|confirmed',
             'assignees_roles' => 'required',

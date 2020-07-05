@@ -32,7 +32,7 @@ class RegisterController extends APIController
     {
         $validation = Validator::make($request->all(), [
             'first_name'            => 'string|required',
-            'last_name'             => 'string|required',
+            // 'last_name'             => 'nullable',
             'email'                 => 'required|email|unique:users',
             'password'              => 'required|min:8',
             'password_confirmation' => 'required|same:password',

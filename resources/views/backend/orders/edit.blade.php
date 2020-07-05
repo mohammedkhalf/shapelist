@@ -21,8 +21,6 @@
                 </div><!--box-tools pull-right-->
             </div><!--box-header with-border-->
 
-          
-
             <div class="box-body">
                 <div class="form-group">
                     {{-- Including Form blade file --}}

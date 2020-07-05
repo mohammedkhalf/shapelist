@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Subscription;
 
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Models\Delivery\Delivery;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Subscription\SubscriptionRepository;
 use App\Http\Requests\Backend\Subscription\ManageSubscriptionRequest;
@@ -38,6 +39,10 @@ class SubscriptionsTableController extends Controller
     {
         return Datatables::of($this->subscription->getForDataTable())
             ->escapeColumns(['id'])
+            ->addColumn('delivery_id', function ($subscription) {
+                $deliveryName = Delivery::where('id',$subscription->delivery_id)->pluck('name_en')->toArray();
+                return $deliveryName;
+            })
             ->addColumn('created_at', function ($subscription) {
                 return Carbon::parse($subscription->created_at)->toDateString();
             })

@@ -33,6 +33,10 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      */
     includeRouteFiles(__DIR__.'/Backend/');
+
+    
+    //orderUpdate
+    Route::post('upload/{order}', 'UploadMedia@MediaController')->name('media.update');
 });
 
 /*
@@ -40,8 +44,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
 */
 includeRouteFiles(__DIR__.'/Generator/');
 //======================= Social Login ==================================
-Route::get('auth/{provider}', 'Api\V1\SocialLoginController@redirectToProvider');
+Route::get('api/v1/auth/{provider}', 'Api\V1\SocialLoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Api\V1\SocialLoginController@handleProviderCallback');
-Route::get('send-invoice-pdf-mail', 'InvoiceController@sendPdfInvoice');
-Route::get('view-invoice', 'InvoiceController@getInvoice');
-

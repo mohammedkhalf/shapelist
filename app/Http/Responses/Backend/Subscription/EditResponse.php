@@ -14,9 +14,11 @@ class EditResponse implements Responsable
     /**
      * @param App\Models\Subscription\Subscription $subscriptions
      */
-    public function __construct($subscription)
+    public function __construct($subscription,$deliveries ,$priority)
     {
         $this->subscription = $subscription;
+        $this->deliveries = $deliveries;
+        $this->priority = $priority;
     }
 
     /**
@@ -28,8 +30,12 @@ class EditResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return view('backend.subscriptions.edit')->with([
-            'subscription' => $this->subscription
-        ]);
+        return view('backend.subscriptions.edit')->with(array(
+            'subscription' => $this->subscription,
+            'deliveries' => $this->deliveries,
+            'priority' => $this->priority,
+
+        ));
+
     }
 }

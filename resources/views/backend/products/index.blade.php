@@ -26,7 +26,7 @@
                             <th>{{ trans('labels.backend.products.table.Description') }}</th>
                             <th>{{ trans('labels.backend.products.table.Image') }}</th>
                             <th>{{ trans('labels.backend.products.table.Price') }}</th>
-                            <th>{{ trans('labels.backend.products.table.points') }}</th>
+                            {{-- <th>{{ trans('labels.backend.products.table.points') }}</th> --}}
                             <th>{{ trans('labels.backend.products.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
 
@@ -42,7 +42,7 @@
                             <td> {{$product->description}} </td>
                             <td> <img src= "{{ Storage::disk('public')->url('product_images/'.$product->image) }}" width="200" height="100" alt="Card image cap"> </td>
                             <td> {{$product->price}} </td>
-                            <td> {{$product->points}} </td>
+                            {{-- <td> {{$product->points}} </td> --}}
                             <td> {{$product->created_at}} </td>
                             <td class="sorting_1">
                                 <div class="btn-group action-btn">
@@ -50,9 +50,9 @@
                                       <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-pencil" data-original-title="Edit"></i>
                                     </a>
 
-                                    <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
+                                    {{-- <a href="{{route('admin.products.destroy' , $product)}}" class="btn btn-flat btn-default" data-method="delete" >
                                       <i data-toggle="tooltip" data-placement="top" title="Delete" class="fa fa-trash"></i>
-                                    </a>
+                                    </a> --}}
                                     
                                 </div>
                             </td>

@@ -71,7 +71,6 @@ class Order extends Model
     //static functions
     public static function insertOrder($request)
     {  
-        // dd($request->all());
         $OrderData = array_merge($request->only('delivery_id','total_price','sub_total','vat','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
         $orderObj = Order::create($OrderData);
         Order::findOrCreateLocation($request,$orderObj);
@@ -217,9 +216,21 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
-        dd($request->all());
-        $order->update($request->only('status_id'));
-        return $order;
+        // dd($request->all());
+        $request->validate([
+            // 'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
+            // 'media_file' => 'file|mimes:zip,rar|application/octet-stream'
+        ]);
+        // $OrderObj=$order->update($request->only('status_id'));
+        $path = Storage::disk('s3')->put('Order-Media/', $request->file);
+        $request->merge([
+            'size' => $request->file->getClientSize(),
+            'path' => $path,
+            // 'order_id' => $OrderObj->id
+        ]);
+
+        MediaFile::create($request->only('path', 'title', 'size','order_id'));
+        return back()->with('success', 'File Successfully Saved');
     }
     //payment methods
     public static function prepareCheckout($price)

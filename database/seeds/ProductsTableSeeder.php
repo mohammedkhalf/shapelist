@@ -31,5 +31,14 @@ class ProductsTableSeeder extends Seeder
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
+
+        Product::create([
+            'name' => '360',
+            'description' => 'wonderfull 360',
+            'image' => 'photograph.png',
+            'price' => '800',
+            'created_at'  => Carbon::now(),
+            'updated_at'  => Carbon::now()
+        ]);
     }
 }

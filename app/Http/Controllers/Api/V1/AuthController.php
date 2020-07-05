@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Access\User\User;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
-use App\Mail\ConfirmAcoountMail;
+use App\Mail\resendConfirmationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +45,7 @@ class AuthController extends APIController
 
             if( $user->confirmed == 0){
 
-            Mail::to($user->email)->send(new ConfirmAcoountMail($user));
+            Mail::to($user->email)->send(new resendConfirmationEmail($user));
             return $this->respondForbidden('please check your email to confirm your acount ..');            
             }
 

@@ -30,13 +30,17 @@ class FaqsController extends APIController
      */
     public function index(Request $request)
     {
+        $faqs= Faq::all();
+
         $limit = $request->get('paginate') ? $request->get('paginate') : 25;
         $orderBy = $request->get('orderBy') ? $request->get('orderBy') : 'ASC';
         $sortBy = $request->get('sortBy') ? $request->get('sortBy') : 'created_at';
 
-        return FaqsResource::collection(
-            $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
-        );
+        // return FaqsResource::collection(
+        //     $this->repository->getForDataTable()->orderBy($sortBy, $orderBy)->paginate($limit)
+        // );
+        return response()->json($faqs);
+
     }
 
     /**
@@ -122,6 +126,8 @@ class FaqsController extends APIController
         $validation = Validator::make($request->all(), [
             'question' => 'required|max:191',
             'answer'   => 'required',
+            'question_ar' => 'required|max:191',
+            'answer_ar'   => 'required',
         ]);
 
         return $validation;

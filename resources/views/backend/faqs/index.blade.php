@@ -22,7 +22,9 @@
                     <thead>
                         <tr>
                             <th>{{ trans('labels.backend.faqs.table.question') }}</th>
+                            <th>{{ trans('labels.backend.faqs.table.question_ar') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.answer') }}</th>
+                            <th>{{ trans('labels.backend.faqs.table.answer_ar') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.status') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.categoryId') }}</th>
                             <th>{{ trans('labels.backend.faqs.table.updatedat') }}</th>
@@ -86,7 +88,9 @@
                 },
                 columns: [
                     {data: 'question', name: '{{config('module.faqs.table')}}.question'},
+                    {data: 'question_ar', name: '{{config('module.faqs.table')}}.question_ar'},
                     {data: 'answer', name: '{{config('module.faqs.table')}}.answer'},
+                    {data: 'answer_ar', name: '{{config('module.faqs.table')}}.answer_ar'},
                     {data: 'status', name: '{{config('module.faqs.table')}}.status'},
                     {data: 'category_id', name: '{{config('module.faqs.table')}}.category_id'},
                     {data: 'updated_at', name: '{{config('module.faqs.table')}}.updated_at'},

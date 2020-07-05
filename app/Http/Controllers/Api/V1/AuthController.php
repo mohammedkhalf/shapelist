@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Access\User\User;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
+use App\Mail\ConfirmAcoountMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Messages\MailMessage;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -39,6 +43,12 @@ class AuthController extends APIController
 
             $user = $request->user();
 
+            if( $user->confirmed == 0){
+
+            Mail::to($user->email)->send(new ConfirmAcoountMail($user));
+            return response()->json(['error' => 'please confirm your acount ..']);            
+            }
+
             $passportToken = $user->createToken('API Access Token');
 
             // Save generated token
@@ -49,10 +59,14 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
+
+        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
+
         return $this->respond([
             'user'      => $user,
             'message'   => trans('api.messages.login.success'),
             'token'     => $token,
+            'subscription_details'    => $subscription,
         ]);
     }
 

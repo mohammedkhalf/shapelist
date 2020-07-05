@@ -216,18 +216,19 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
-        // dd($request->all());
         $request->validate([
-            // 'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
-            // 'media_file' => 'file|mimes:zip,rar|application/octet-stream'
+            'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
+            'media_file' => 'file|mimes:zip,rar|application/octet-stream'
         ]);
-        // $OrderObj=$order->update($request->only('status_id'));
+        $OrderObj=$order->update($request->only('status_id'));
         $path = Storage::disk('s3')->put('Order-Media/', $request->file);
         $request->merge([
             'size' => $request->file->getClientSize(),
             'path' => $path,
-            // 'order_id' => $OrderObj->id
+            'order_id' => $OrderObj->id
         ]);
+
+        dd($request->all());
 
         MediaFile::create($request->only('path', 'title', 'size','order_id'));
         return back()->with('success', 'File Successfully Saved');

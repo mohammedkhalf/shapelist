@@ -93,7 +93,7 @@ class Product extends Model
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
-        $data = $request->only('name','description','price','points');
+        $data = $request->only('name','name_ar','description','description_ar','price','points');
         $productData = array_merge($data , ['image' => $fileNameToStore]);
         $pakageProduct = Product::create($productData);
         return $pakageProduct;
@@ -116,12 +116,12 @@ class Product extends Model
              $fileNameToStore= $filename.'_'.time().'.'.$extension;
              // Upload Image
             $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
-            $updateData = $request->only('name','description','price','points');
+            $updateData = $request->only('name','name_ar','description','description_ar','price','points');
             $updateProduct = array_merge($updateData , ['image' => $fileNameToStore]);
             $product->update($updateProduct);
         }//if
         else{
-           $updateData=$request->only('name','description','price','points');
+           $updateData=$request->only('name','name_ar','description','description_ar','price','points');
            $product->update($updateData);
         }
 

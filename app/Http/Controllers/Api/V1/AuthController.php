@@ -159,5 +159,19 @@ class AuthController extends APIController
         ]);
 
     }
+    
+    public function getUser(){
+        $user = auth('api')->user()->makeHidden(['status','last_name','updated_at','created_at','created_by','confirmed','is_term_accept','updated_by','deleted_at']);
+        $passportToken = $user->createToken('API Access Token');
+        $passportToken->token->save();
+        $token = $passportToken->accessToken;
+        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
+
+        return $this->respond([
+            'user'      => $user,
+            'token'     => $token,
+            'subscription_details'    => $subscription,
+        ]);
+    }
 
 }

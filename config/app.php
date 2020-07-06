@@ -198,7 +198,7 @@ return [
         Bvipul\Generator\Provider\CrudGeneratorServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Krgupta\Active\Providers\ActiveServiceProvider::class,        
-        Barryvdh\DomPDF\ServiceProvider::class,        
+        // Barryvdh\DomPDF\ServiceProvider::class,        
         // Ixudra\Curl\CurlServiceProvider::class,
     ],
 
@@ -259,7 +259,7 @@ return [
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         //'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Active'      => Krgupta\Active\Facades\Active::class,
-        'PDF'         => Barryvdh\DomPDF\Facade::class,
+        // 'PDF'         => Barryvdh\DomPDF\Facade::class,
         // 'Curl' => Ixudra\Curl\Facades\Curl::class,
 
     ],

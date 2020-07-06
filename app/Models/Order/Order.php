@@ -84,7 +84,7 @@ class Order extends Model
     {
         global  $fileNameToStore;
         $productsArr = $request->products;
-        for ($i=0; $i < count($productsArr); $i++)
+        for ($i=0; $i < count($request->products); $i++)
         {
                 if(!empty($productsArr[$i]['user_music']))
                 {
@@ -94,6 +94,7 @@ class Order extends Model
                     $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
                 }
+
                 
                     $data =
                     [ 
@@ -110,7 +111,6 @@ class Order extends Model
                 $orderItemsInfo = OrderItem::create($items);
         } //for 
 
-       
         return $orderItemsInfo;
     }
     //Insert location

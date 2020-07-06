@@ -99,7 +99,6 @@ class UserRepository extends BaseRepository
         $user->status = 1;
         $user->password = $provider ? null : Hash::make($data['password']);
         // $user->is_term_accept = $data['is_term_accept'];
-
         //If users require approval, confirmed is false regardless of account type
         if (config('access.users.requires_approval')) {
             $user->confirmed = 0; // No confirm e-mail sent, that defeats the purpose of manual approval

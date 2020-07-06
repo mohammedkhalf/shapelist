@@ -62,7 +62,7 @@ class RegisterController extends APIController
         return $this->respondCreated([
             'user'      => $user,
             'message'   => trans('api.messages.registeration.success'),
-            'token'     => $token,
+            // 'token'     => $token,
         ]);
     }
 }

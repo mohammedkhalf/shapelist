@@ -36,7 +36,7 @@ class RegisterController extends APIController
             'email'                 => 'required|email|unique:users',
             'password'              => 'required|min:8',
             'password_confirmation' => 'required|same:password',
-            'phone_number'    => 'required|max:10|regex:/(0)[0-9]{9}/',
+            // 'phone_number'    => 'nullable|max:10|regex:/(0)[0-9]{9}/',
             // 'is_term_accept'        => 'required',
         ]);
 

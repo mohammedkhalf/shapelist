@@ -115,7 +115,9 @@ return [
 	"table" => [
 	"id" => "Id",
 	"Name" => "Name",
+	"Name_ar" => "Name(Arabic)",
 	"Description" => "Description",
+	"Description_ar" => "Description(Arabic)",
 	"Image" => "Image",
 	"Price" => "Price",
 	"points" => "Price Per Points",

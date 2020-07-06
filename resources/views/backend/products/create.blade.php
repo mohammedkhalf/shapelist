@@ -29,12 +29,27 @@
                         {{ Form::text('name', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.Name'), 'required' => 'required']) }}
                     </div><!--col-lg-10-->
                 </div><!--form control-->
+                <div class="form-group">
+                    {{ Form::label('name_ar', trans('labels.backend.products.table.Name_ar'), ['class' => 'col-lg-2 control-label required']) }}
+
+                    <div class="col-lg-10">
+                        {{ Form::text('name_ar', null, ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.Name_ar'), 'required' => 'required']) }}
+                    </div><!--col-lg-10-->
+                </div><!--form control-->
 
                 <div class="form-group">
                     {{ Form::label('description', trans('validation.attributes.backend.products.description'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
                         {{ Form::textarea('description', null,['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.products.description')]) }}
+                    </div><!--col-lg-3-->
+                </div><!--form control-->
+
+                <div class="form-group">
+                    {{ Form::label('description_ar', trans('validation.attributes.backend.products.description_ar'), ['class' => 'col-lg-2 control-label required']) }}
+
+                    <div class="col-lg-10">
+                        {{ Form::textarea('description_ar', null,['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.products.description_ar')]) }}
                     </div><!--col-lg-3-->
                 </div><!--form control-->
 

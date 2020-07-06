@@ -23,7 +23,9 @@
                         <tr>
                             <th>{{ trans('labels.backend.products.table.id') }}</th>
                             <th>{{ trans('labels.backend.products.table.Name') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Name_ar') }}</th>
                             <th>{{ trans('labels.backend.products.table.Description') }}</th>
+                            <th>{{ trans('labels.backend.products.table.Description_ar') }}</th>
                             <th>{{ trans('labels.backend.products.table.Image') }}</th>
                             <th>{{ trans('labels.backend.products.table.Price') }}</th>
                             {{-- <th>{{ trans('labels.backend.products.table.points') }}</th> --}}
@@ -37,9 +39,11 @@
 
                       @foreach($products  as  $product)
                         <tr>
-                            <td > {{$product->id}} </td>
+                            <td> {{$product->id}} </td>
                             <td> {{$product->name}} </td>
+                            <td> {{$product->name_ar}} </td>
                             <td> {{$product->description}} </td>
+                            <td> {{$product->description_ar}} </td>
                             <td> <img src= "{{ Storage::disk('public')->url('product_images/'.$product->image) }}" width="200" height="100" alt="Card image cap"> </td>
                             <td> {{$product->price}} </td>
                             {{-- <td> {{$product->points}} </td> --}}

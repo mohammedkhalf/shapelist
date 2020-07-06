@@ -1,28 +1,29 @@
 <div class="box-body">
     <div class="form-group">
-        <!-- Create Your Field Label Here -->
-        <!-- Look Below Example for reference -->
         {{ Form::label('name', trans('labels.backend.products.table.Name'),['class' => 'col-lg-2 control-label required']) }}
-
         <div class="col-lg-10">
-            <!-- Create Your Input Field Here -->
-            <!-- Look Below Example for reference -->
-            @if(isset($product))
-              {{ Form::text('name', old('name'), ['class' => 'form-control box-size', 'readonly' => 'true' ,'placeholder' => trans('labels.backend.products.product-name')]) }}
-            @else
-              {{ Form::text('name', old('name'), ['class' => 'form-control box-size' ,'placeholder' => trans('labels.backend.products.product-name')]) }}
-            @endif
+            {{ Form::text('name', old('name'), ['class' => 'form-control box-size' ,'placeholder' => trans('labels.backend.products.product-name')]) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
-    <div class="form-group">
-        <!-- Create Your Field Label Here -->
-        <!-- Look Below Example for reference -->
-        {{ Form::label('description', trans('validation.attributes.backend.products.description'),['class' => 'col-lg-2 control-label required']) }}
 
+    <div class="form-group">
+        {{ Form::label('name_ar', trans('labels.backend.products.table.Name_ar'),['class' => 'col-lg-2 control-label required']) }}
         <div class="col-lg-10">
-            <!-- Create Your Input Field Here -->
-            <!-- Look Below Example for reference -->
+            {{ Form::text('name_ar', old('name_ar'), ['class' => 'form-control box-size' ,'placeholder' => trans('labels.backend.products.table.Name_ar')]) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
+        {{ Form::label('description', trans('validation.attributes.backend.products.description'),['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
             {{ Form::textarea('description', old('description'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.description'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
+        {{ Form::label('description_ar', trans('labels.backend.products.table.Description_ar'),['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
+            {{ Form::textarea('description_ar', old('description_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.Description_ar'), 'required' => 'required']) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 

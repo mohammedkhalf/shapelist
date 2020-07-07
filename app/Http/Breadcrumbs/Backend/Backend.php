@@ -36,3 +36,4 @@ require __DIR__.'/Payment.php';
 require __DIR__.'/Package.php';
 require __DIR__.'/Subscription.php';
 require __DIR__.'/FaqCategory.php';
+require __DIR__.'/Cart.php';

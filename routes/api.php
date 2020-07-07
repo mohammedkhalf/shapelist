@@ -107,4 +107,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('subscriptions', 'SubscriptionsController');
         //products Management
         Route::apiResource('/products', 'ProductController');
+        //Return user from token 
+        Route::middleware('auth:api')->get('/me','AuthController@getUser');
 });

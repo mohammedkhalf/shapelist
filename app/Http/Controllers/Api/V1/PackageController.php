@@ -15,6 +15,7 @@ class PackageController extends APIController
     public function index()
     {
         $packages = Package::all();
+        
         foreach($packages as $package){   
             $product = Package::where('id',$package->id)->value('product_id');
             $quantity = Package::where('id',$package->id)->value('quantity');
@@ -36,6 +37,9 @@ class PackageController extends APIController
             'description_en' =>$package->desc_en ,'price' => $package->price ]); 
             unset($data);
         } 
+        if($packages->isEmpty()){
+            $packageData = [];
+        }
         return  $packageData;
     }
 

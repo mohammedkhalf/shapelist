@@ -4,7 +4,7 @@ return [
 
     'messages' => [
         'registeration' => [
-            'success' => 'You have registered successfully',
+            'success' => 'You have registered successfully, Pleace check your email to activate your account..',
         ],
         'login' => [
             'success' => 'Login Successfull.',

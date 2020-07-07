@@ -96,6 +96,7 @@ class Order extends Model
                     $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
                 }
+
                 
                     $data =
                     [ 
@@ -112,7 +113,6 @@ class Order extends Model
                 $orderItemsInfo = OrderItem::create($items);
         } //for 
 
-       
         return $orderItemsInfo;
     }
     //Insert location
@@ -218,7 +218,28 @@ class Order extends Model
 
     public static function updateAdminOrder($order, $request)
     {
-        
+        $request->validate([
+            'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
+            // 'media_file' => 'file|mimes:zip,rar|application/octet-stream'
+        ]);
+        $OrderObj=$order->update($request->only('status_id'));
+        if($request->hasfile('media_file'))
+        {
+           $file = $request->file('media_file');
+           $name=time().$file->getClientOriginalName();
+           $filePath = 'media_files/' . $name;
+           Storage::disk('s3')->put($filePath, file_get_contents($file));
+           return back()->with('success','media_file Uploaded successfully');
+        }
+        $request->merge([
+            'size' => $request->file->getClientSize(),
+            'path' => $filePath,
+            'order_id' => $OrderObj->id
+        ]);
+
+        MediaFile::create($request->only('path', 'title', 'size','order_id'));
+        return back()->with('success', 'File Successfully Saved');
+
     }
     //payment methods
     public static function prepareCheckout($price)

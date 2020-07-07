@@ -91,7 +91,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
-//new develop
+        //order download
+        Route::get('orderDownload/{fileName}','OrderController@orderDownload');
+
+        //new develop
 }); //auth:api
 
         // Faqs

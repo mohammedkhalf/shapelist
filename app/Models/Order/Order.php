@@ -84,7 +84,7 @@ class Order extends Model
     {
         global  $fileNameToStore;
         $productsArr = $request->products;
-        for ($i=0; $i < count($request->products); $i++)
+        for ($i=0; $i < count($productsArr); $i++)
         {
                 if(!empty($productsArr[$i]['user_music']))
                 {

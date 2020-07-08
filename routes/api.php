@@ -90,7 +90,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
         //Cart Items
         Route::apiResource('cart', 'CartController');
-
+        //order download
+        Route::get('orderDownload/{fileName}','OrderController@orderDownload');
+        //new develop
 }); //auth:api
 
         // Faqs

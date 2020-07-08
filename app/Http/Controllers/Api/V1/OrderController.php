@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Storage;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderFront;
@@ -84,5 +85,11 @@ class OrderController extends APIController
             }
             // Failure
             return response()->json(['message'=>'Payment Process  Failure']);
+        }
+
+        //======================== order download===========================
+        public function orderDownload($fileName){
+           $url = Storage::disk('s3')->url('media_files/'.$fileName);
+           return $url;
         }
 }

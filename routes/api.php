@@ -110,4 +110,5 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/products', 'ProductController');
         //Return user from token 
         Route::get('/me','AuthController@getUser');
+
 });

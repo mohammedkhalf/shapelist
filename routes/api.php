@@ -71,8 +71,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/music_samples', 'MusicSamplesController'); 
         //Locations
         Route::apiResource('locations', 'LocationController');
-        //Orders
-        Route::apiResource('orders', 'OrderController');
         //VAT
         Route::get('quotation/vat', 'QuotationController@vat');
         //ON-SET
@@ -85,13 +83,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('checkouts/{checkoutId}/payment','OrderController@getStatus');
         //savePaymentInfo
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
-      
         //subscriptions
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
-//new develop
+        //Cart Items
+        Route::apiResource('cart', 'CartController');
+
 }); //auth:api
 
         // Faqs

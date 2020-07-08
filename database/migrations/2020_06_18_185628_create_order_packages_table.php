@@ -17,16 +17,20 @@ class CreateOrderPackagesTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned()->nullable();
             $table->integer('package_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('CASCADE');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('CASCADE');
-            $table->integer('quantity')->default(1);
-            $table->decimal('price_per_package')->default(1);
-            $table->decimal('packages_total_price')->default(1);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE'); 
+
+            $table->integer('quantity')->default(1); 
+            $table->decimal('price_per_item')->default(1);
+            $table->decimal('items_total_price')->default(1);
+            $table->integer('music_id')->unsigned()->nullable();        
+            $table->integer('video_length')->nullable();  
+            $table->string('user_music')->nullable();
             $table->string('type')->default('package');
-            $table->integer('package_music_id')->unsigned()->nullable();
-            $table->foreign('package_music_id')->references('id')->on('music_samples')->onDelete('CASCADE');
-            $table->string('vedio_length')->default(10);
-            $table->string('package_user_music')->nullable();
+
             $table->timestamps();
         });
     }

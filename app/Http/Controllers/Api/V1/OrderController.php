@@ -18,11 +18,11 @@ class OrderController extends APIController
             $allOrders = Order::with('products','location')->where('user_id',auth()->guard('api')->user()->id)->get();
             return response()->json(json_decode($allOrders));   
         } 
-        //======================== create order  ======================
-        public function store(StoreOrderRequest $request)
+        //======================== create order StoreOrderRequest  ======================
+        public function store(Request $request)
         {
-            $orderInfo=Order::insertOrder($request); 
-            return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
+            // $orderInfo=Order::insertItems($request); 
+            // return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 

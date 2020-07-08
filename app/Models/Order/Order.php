@@ -190,25 +190,19 @@ class Order extends Model
     {
         $request->validate([
             'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
-            // 'media_file' => 'file|mimes:zip,rar|application/octet-stream'
+            'media_file' => 'file|mimes:zip,rar'
         ]);
         $OrderObj=$order->update($request->only('status_id'));
         if($request->hasfile('media_file'))
         {
            $file = $request->file('media_file');
-           $name=time().$file->getClientOriginalName();
+           $name = time().$file->getClientOriginalName();
            $filePath = 'media_files/' . $name;
            Storage::disk('s3')->put($filePath, file_get_contents($file));
+           MediaFile::create(['auth_by'=> auth()->user()->id,'order_id'=>$order->id,
+           'path'=>$filePath,'zip_name'=>$name ,'size' => $request->media_file->getClientSize()]);
            return back()->with('success','media_file Uploaded successfully');
         }
-        $request->merge([
-            'size' => $request->file->getClientSize(),
-            'path' => $filePath,
-            'order_id' => $OrderObj->id
-        ]);
-
-        MediaFile::create($request->only('path', 'title', 'size','order_id'));
-        return back()->with('success', 'File Successfully Saved');
 
     }
     //payment methods

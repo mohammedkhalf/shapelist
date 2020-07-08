@@ -16,7 +16,7 @@ class SubscriptionsController extends Controller
    
     public function index()
     {
-        $subscriptions = Subscription::all();
+        $subscriptions = Subscription::with('delivery')->get();
         return response()->json($subscriptions); 
     }
   

@@ -63,8 +63,8 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
-            'user'      => $user,
-            'message'   => trans('api.messages.login.success'),
+            'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
+            'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),
             'token'     => $token,
             'subscription_details'    => $subscription,
         ]);

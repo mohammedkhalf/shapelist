@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Traits\SubscriptionAttribute;
 use App\Models\Subscription\Traits\SubscriptionRelationship;
 use App\Models\Access\User\User;
+use App\Models\Delivery\Delivery;
+
 
 class Subscription extends Model
 {
@@ -33,6 +35,10 @@ class Subscription extends Model
      */
     protected $fillable = [
 
+    ];
+
+    protected $hidden = [
+        'delivery_id'
     ];
 
     /**
@@ -72,6 +78,11 @@ class Subscription extends Model
     public function subscription()
     {
         return $this->belongsToMany(User::class,'subscription_details')->withPivot('id','status','purchase_points','free_points','start_date','end_date');  
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class,'delivery_id','id');  
     }
 
 }

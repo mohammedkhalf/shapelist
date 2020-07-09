@@ -35,6 +35,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             Route::get('user-data/{id}', 'AuthController@userData');
             Route::post('password/change', 'AuthController@changePassword');
             Route::post('update-profile', 'AuthController@updateProfile');
+            //Return user from token 
+            Route::get('/me','AuthController@getUser');
         });
         // Users
         Route::resource('users', 'UsersController', ['except' => ['create', 'edit']]);
@@ -106,6 +108,5 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('subscriptions', 'SubscriptionsController');
         //products Management
         Route::apiResource('/products', 'ProductController');
-        //Return user from token 
-        Route::get('/me','AuthController@getUser');
+     
 });

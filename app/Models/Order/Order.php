@@ -190,7 +190,7 @@ class Order extends Model
     {
         $request->validate([
             'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
-            'media_file' => 'file|mimes:zip,rar'
+            'media_file' => '|file|mimes:zip,rar'
         ]);
         $OrderObj=$order->update($request->only('status_id'));
         if($request->hasfile('media_file'))

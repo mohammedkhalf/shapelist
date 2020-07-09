@@ -36,12 +36,21 @@ class Delivery extends Model
 
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     /**
      * Default values for model fields
      * @var array
      */
     protected $attributes = [
 
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 
     /**

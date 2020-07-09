@@ -10,7 +10,6 @@ use App\Models\Access\User\User;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 
 
-
 /**
  * Class SocialLoginController.
  */
@@ -40,8 +39,6 @@ class SocialLoginController extends APIController
     {
         $user = Socialite::driver($provider)->stateless()->user();
 
-        
-
         if($userInfo=User::where('email','=',$user->email)->first())
         {
             $passportToken = $userInfo->createToken('API Access Token');
@@ -58,7 +55,7 @@ class SocialLoginController extends APIController
         $token = $passportToken->accessToken;
         $subscription = SubscriptionDetail::where('user_id',$userInfo->id)->get();
         return response()->json([
-           'user'      => $userInfo,
+           'user'   => $userInfo,
            'message'=>"Login Successfully",
            'token'=>$token,
            'subscription_details'=>$subscription

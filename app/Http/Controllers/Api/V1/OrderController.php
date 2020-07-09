@@ -9,6 +9,8 @@ use App\Http\Requests\StoreOrderFront;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Models\Payment\Payment;
+use App\Models\OrderItem\OrderItem;
+use App\Models\OrderPackage\OrderPackage;
 
 class OrderController extends APIController
 {
@@ -22,10 +24,7 @@ class OrderController extends APIController
         //======================== create order StoreOrderRequest  ======================
         public function store(Request $request)
         {
-            // $orderInfo=Order::insertItems($request); 
-            // return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
         }
-        //======================== show order  ======================
 
         public function show($id)
         {
@@ -36,31 +35,6 @@ class OrderController extends APIController
             } 
             $responseCheckout = Order::prepareCheckout($order->total_price);
             return response()->json(['order'=> $orderInfo ,'responseCheckout'=>json_decode($responseCheckout)]);
-        }
-        //======================== update order  ======================
-
-        public function update(UpdateOrderRequest $request, $id)
-        {   
-            $updatedOrder=Order::updateOrder($request,$id);
-            return response()->json(['updatedOrder'=>$updatedOrder ,'message' => 'Order updated successfully!']);
-        }
-        //======================== delete order  ======================
-
-        public function destroy($id)
-        {
-            $order = Order::findOrFail($id);
-            if(!is_null($order))
-            {
-                $order->delete();  
-                return response()->json("Order deleted successfully");
-            }
-            return response()->json("This Order Not Found");
-        }
-
-        public function getStatus ($checkoutId)
-        {
-            $responseData = Order::getStatus($checkoutId);
-            return response()->json(['responseData'=>json_decode($responseData)]);          
         }
 
         public function getMedia($id)
@@ -73,13 +47,15 @@ class OrderController extends APIController
             return response()->json(['message'=>'There Is No Media File']);          
         }
 
-        public function savePaymentInfo(Request $request)
+        public function savePaymentInfo(StoreOrderRequest $request)
         {     
             // 1 payment successs
-            if($request->status == 1)
-            {           
-                $orderObj = Order::findOrFail($request->order_id);
-                Payment::create($request->only('order_id','bank_transaction_id','status'));
+            if($request->status == 1 && !empty($request->bank_transaction_id))
+            {    
+                $orderObj = Order::CreteOrderRequest($request);
+                OrderItem::where('user_id','=', $orderObj->user_id)->update(['order_id'=>$orderObj->id]);
+                OrderPackage::where('user_id','=', $orderObj->user_id)->update(['order_id'=>$orderObj->id]);
+                Payment::create(array_merge($request->only('bank_transaction_id','status'),['order_id'=> $orderObj ->id]));
                 $InvoiceEmail=Order::sendPdfInvoice($orderObj);
                 return response()->json(['message'=>'Payment Process Successfully']);
             }
@@ -88,7 +64,8 @@ class OrderController extends APIController
         }
 
         //======================== order download===========================
-        public function orderDownload($fileName){
+        public function orderDownload($fileName)
+        {
            $url = Storage::disk('s3')->url('media_files/'.$fileName);
            return $url;
         }

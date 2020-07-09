@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Models\Subscription;
+namespace App\Models\Cart;
 
 use App\Models\ModelTrait;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Subscription\Traits\SubscriptionAttribute;
-use App\Models\Subscription\Traits\SubscriptionRelationship;
-use App\Models\Access\User\User;
-use App\Models\Delivery\Delivery;
+use App\Models\Cart\Traits\CartAttribute;
+use App\Models\Cart\Traits\CartRelationship;
 
-
-class Subscription extends Model
+class Cart extends Model
 {
     use ModelTrait,
-        SubscriptionAttribute,
-    	SubscriptionRelationship {
-            // SubscriptionAttribute::getEditButtonAttribute insteadof ModelTrait;
+        CartAttribute,
+    	CartRelationship {
+            // CartAttribute::getEditButtonAttribute insteadof ModelTrait;
         }
 
     /**
@@ -27,7 +24,7 @@ class Subscription extends Model
      * The database table used by the model.
      * @var string
      */
-    protected $table = 'subscriptions';
+    protected $table = 'carts';
 
     /**
      * Mass Assignable fields of model
@@ -35,10 +32,6 @@ class Subscription extends Model
      */
     protected $fillable = [
 
-    ];
-
-    protected $hidden = [
-        'delivery_id'
     ];
 
     /**
@@ -74,15 +67,4 @@ class Subscription extends Model
     {
         parent::__construct($attributes);
     }
-
-    public function subscription()
-    {
-        return $this->belongsToMany(User::class,'subscription_details')->withPivot('id','status','purchase_points','free_points','start_date','end_date');  
-    }
-
-    public function delivery()
-    {
-        return $this->belongsTo(Delivery::class,'delivery_id','id');  
-    }
-
 }

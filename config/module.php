@@ -68,4 +68,7 @@ return [
 	"faqcategories" => [
 	"table" => "faqcategories",
 	],
+	"carts" => [
+	"table" => "carts",
+	],
 ];

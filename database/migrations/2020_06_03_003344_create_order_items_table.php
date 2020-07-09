@@ -16,10 +16,11 @@ class CreateOrderItemsTable extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned()->nullable();
-            $table->integer('product_quantity')->default(1); 
-            $table->decimal('price_per_product')->default(1);
-            $table->decimal('products_total_price')->default(1);
+            $table->integer('quantity')->default(1); 
+            $table->decimal('price_per_item')->default(1);
+            $table->decimal('items_total_price')->default(1);
             $table->integer('music_id')->unsigned()->nullable();        
             $table->integer('video_length')->nullable();  
             $table->string('user_music')->nullable();

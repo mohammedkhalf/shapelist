@@ -134,5 +134,10 @@ return [
 	"deleted" => "The FaqCategory was successfully deleted.",
 	"updated" => "The FaqCategory was successfully updated.",
 	],
+	"carts" => [
+	"created" => "The Cart was successfully created.",
+	"deleted" => "The Cart was successfully deleted.",
+	"updated" => "The Cart was successfully updated.",
+	],
 	],
 ];

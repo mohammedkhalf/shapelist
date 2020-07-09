@@ -63,8 +63,8 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
-            'user'      => $user,
-            'message'   => trans('api.messages.login.success'),
+            'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
+            'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),
             'token'     => $token,
             'subscription_details'    => $subscription,
         ]);
@@ -158,6 +158,20 @@ class AuthController extends APIController
             'user'=> $user,
         ]);
 
+    }
+    
+    public function getUser(){
+        $user = auth('api')->user()->makeHidden(['status','last_name','updated_at','created_at','created_by','confirmed','is_term_accept','updated_by','deleted_at']);
+        $passportToken = $user->createToken('API Access Token');
+        $passportToken->token->save();
+        $token = $passportToken->accessToken;
+        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
+
+        return $this->respond([
+            'user'      => $user,
+            'token'     => $token,
+            'subscription_details'    => $subscription,
+        ]);
     }
 
 }

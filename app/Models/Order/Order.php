@@ -19,6 +19,8 @@ use App\Models\MediaFile\MediaFile;
 use App\Models\Quotation\Quotation;
 use Illuminate\Support\Facades\Mail;
 use PDF;
+use Illuminate\Contracts\Filesystem\Filesystem;
+
 class Order extends Model
 {
     use ModelTrait,
@@ -69,174 +71,139 @@ class Order extends Model
         return $this->hasMany(MediaFile::class ,'order_id','id');
     }
     //static functions
-    public static function insertOrder($request)
+    public static function insertItems($request)
     {  
-        $OrderData = array_merge($request->only('delivery_id','total_price','sub_total','vat','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
-        $orderObj = Order::create($OrderData);
-        Order::findOrCreateLocation($request,$orderObj);
-        $orderItems= Order::insertOrderItems($request,$orderObj);
-        $packagesItems= Order::insertPackages($request,$orderObj);
-        return response()->json(['message'=>'Order Created Successfully']);
-    }
-
-    //Insert orderItems
-    public static function insertOrderItems($request , $orderObj)
-    {
-        global  $fileNameToStore;
-        $productsArr = $request->products;
-        for ($i=0; $i < count($productsArr); $i++)
-        {
-                if(!empty($productsArr[$i]['user_music']))
-                {
-                    $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
-                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                    $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
-                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                    $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
-                }
-                
-                    $data =
-                    [ 
-                        'product_quantity' =>$productsArr[$i]['product_quantity'],
-                        'product_id'=>$productsArr[$i]['product_id'],
-                        'price_per_product' => $productsArr[$i]['price_per_product'],
-                        'products_total_price' => $productsArr[$i]['products_total_price'],
-                        'video_length' => $productsArr[$i]['video_length'],
-                        'music_id' => $productsArr[$i]['music_id'],
-                        'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
-                    ];
-                
-                $items = array_merge($data,['order_id'=>$orderObj->id]);
-                $orderItemsInfo = OrderItem::create($items);
-        } //for 
-
+        //data from cart
        
-        return $orderItemsInfo;
+        // $OrderData = array_merge($request->only('delivery_id','total_price','sub_total','vat','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]);
+        // $orderObj = Order::create($OrderData);
+        // Order::findOrCreateLocation($request,$orderObj);
+        // $orderItems= Order::insertOrderItems($request,$orderObj);
+        // $packagesItems= Order::insertPackages($request,$orderObj);
+        // return response()->json(['message'=>'Order Created Successfully']);
     }
-    //Insert location
-    public static function findOrCreateLocation($request,$orderObj)
-    {
-        if($request->location_id)
-        {
-            $locationInfo = Location::findOrFail($request->location_id);
-            $locationArr = ['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->address,'lng'=>$locationInfo->lng,
-            'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number];
-            Location::create(array_merge($locationArr,['order_id'=>$orderObj->id, 
-            'user_id'=>auth()->guard('api')->user()->id]));
-        }
-        else
-        {
-            Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
-            ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
-        }
 
-    }
+   
+
+    //Insert location
+    // public static function findOrCreateLocation($request,$orderObj)
+    // {
+    //     if($request->location_id)
+    //     {
+    //         $locationInfo = Location::findOrFail($request->location_id);
+    //         $locationArr = ['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->address,'lng'=>$locationInfo->lng,
+    //         'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number];
+    //         Location::create(array_merge($locationArr,['order_id'=>$orderObj->id, 
+    //         'user_id'=>auth()->guard('api')->user()->id]));
+    //     }
+    //     else
+    //     {
+    //         Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
+    //         ['order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id]));
+    //     }
+
+    // }
 
     //insert packages
-    public static function insertPackages ($request,$orderObj)
-    {
-        if($request->packages)
-        {
-            for($i=0;$i<count($request->packages);$i++)
-            {
-                OrderPackage::create(['package_id'=>$request->packages[$i]['package_id'],
-                'order_id'=>$orderObj->id,'quantity'=>$request->packages[$i]['quantity'],
-                'price_per_package' => $request->packages[$i]['price_per_package'],
-                'packages_total_price' => $request->packages[$i]['packages_total_price'],
-                'package_music_id'=>$request->packages[$i]['package_music_id'],
-                'vedio_length'=>$request->packages[$i]['vedio_length'],
-                'package_user_music'=> !empty($request->packages[$i]['package_user_music']) ? $request->packages[$i]['package_user_music'] : ''
-                ]);
-            }
-        }
-    }
+    // public static function insertPackages ($request,$orderObj)
+    // {
+    //     if($request->packages)
+    //     {
+    //         for($i=0;$i<count($request->packages);$i++)
+    //         {
+    //             OrderPackage::create(['package_id'=>$request->packages[$i]['package_id'],
+    //             'order_id'=>$orderObj->id,'quantity'=>$request->packages[$i]['quantity'],
+    //             'price_per_package' => $request->packages[$i]['price_per_package'],
+    //             'packages_total_price' => $request->packages[$i]['packages_total_price'],
+    //             'package_music_id'=>$request->packages[$i]['package_music_id'],
+    //             'vedio_length'=>$request->packages[$i]['vedio_length'],
+    //             'package_user_music'=> !empty($request->packages[$i]['package_user_music']) ? $request->packages[$i]['package_user_music'] : ''
+    //             ]);
+    //         }
+    //     }
+    // }
 
     //Update Order
-    public static function updateOrder($request,$id)
-    {
-        $orderObj = Order::findOrFail($id);
-        if($orderObj->status_id == NULL)
-        {
-            $orderObj->update(array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]));
-            Order::updateLocation($request,$orderObj);
-            Order::updateOrderItems($request,$orderObj);
-            return response()->json(['message'=>'Order Update Successfully']);     
-        }
-        return response()->json(['message'=>'Not Allow Update Order']);     
-    }
+    // public static function updateOrder($request,$id)
+    // {
+    //     $orderObj = Order::findOrFail($id);
+    //     if($orderObj->status_id == NULL)
+    //     {
+    //         $orderObj->update(array_merge($request->only('delivery_id','total_price','location_id','coupon_code','on_set'),['user_id'=>auth()->guard('api')->user()->id]));
+    //         Order::updateLocation($request,$orderObj);
+    //         Order::updateOrderItems($request,$orderObj);
+    //         return response()->json(['message'=>'Order Update Successfully']);     
+    //     }
+    //     return response()->json(['message'=>'Not Allow Update Order']);     
+    // }
     //update order Item 
-    public static function updateOrderItems($request,$orderObj)
-    {       
-         global  $fileNameToStore;
-         $productsArr  = ($request->products);
-         for($i = 0; $i< count($productsArr); $i++)
-         {
-            if(!empty($productsArr[$i]['user_music']))
-            {
-                $old_user_music_path = public_path() .  '/storage/users_music/' . $orderObj->user_music; 
-                if (file_exists($old_user_music_path)) {
-                    @unlink($old_user_music_path);
-                }
-                $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
-                $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
-            }
+    // public static function updateOrderItems($request,$orderObj)
+    // {       
+    //      global  $fileNameToStore;
+    //      $productsArr  = ($request->products);
+    //      for($i = 0; $i< count($productsArr); $i++)
+    //      {
+    //         if(!empty($productsArr[$i]['user_music']))
+    //         {
+    //             $old_user_music_path = public_path() .  '/storage/users_music/' . $orderObj->user_music; 
+    //             if (file_exists($old_user_music_path)) {
+    //                 @unlink($old_user_music_path);
+    //             }
+    //             $filenameWithExt=$productsArr[$i]['user_music']->getClientOriginalName();
+    //             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    //             $extension = $productsArr[$i]['user_music']->getClientOriginalExtension();
+    //             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+    //             $path = $productsArr[$i]['user_music']->storeAs('public/users_music',  $fileNameToStore);
+    //         }
 
-            $updateOrderItems=OrderItem::where(['order_id'=>$orderObj->id ,'product_id'=>$productsArr[$i]['product_id']])
-            ->update([
-                  'product_quantity'=> $productsArr[$i]['product_quantity'],
-                  'product_id'=> $productsArr[$i]['product_id'],
-                  'video_length' => $productsArr[$i]['video_length'],
-                  'music_id' => $productsArr[$i]['music_id'],
-                  'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
-                ]);
-         } //for
+    //         $updateOrderItems=OrderItem::where(['order_id'=>$orderObj->id ,'product_id'=>$productsArr[$i]['product_id']])
+    //         ->update([
+    //               'product_quantity'=> $productsArr[$i]['product_quantity'],
+    //               'product_id'=> $productsArr[$i]['product_id'],
+    //               'video_length' => $productsArr[$i]['video_length'],
+    //               'music_id' => $productsArr[$i]['music_id'],
+    //               'user_music'=> $productsArr[$i]['product_id'] == 1 ?  $fileNameToStore : ""
+    //             ]);
+    //      } //for
 
-         return $updateOrderItems;
-     }
+    //      return $updateOrderItems;
+    //  }
 
       //Update location
-      public static function updateLocation($request,$orderObj)
-      {
-          if($request->location_id)
-          {
-              $locationInfo = Location::findOrFail($orderObj->id);
-              $updatedLocation = Location::where('order_id',$orderObj->id)->update(['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->city,'lng'=>$locationInfo->lng,
-             'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number]);          
-          }
-          else
-          {
-            $updatedLocation = Location::where('order_id',$orderObj->id)->update(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
-              ['user_id'=>auth()->guard('api')->user()->id]));
-          }
-          return $updatedLocation;
-      }   
+    //   public static function updateLocation($request,$orderObj)
+    //   {
+    //       if($request->location_id)
+    //       {
+    //           $locationInfo = Location::findOrFail($orderObj->id);
+    //           $updatedLocation = Location::where('order_id',$orderObj->id)->update(['country'=>$locationInfo->country,'city'=>$locationInfo->city,'address'=>$locationInfo->city,'lng'=>$locationInfo->lng,
+    //          'lat'=>$locationInfo->lat,'rep_first_name'=>$locationInfo->rep_first_name,'rep_last_name'=>$locationInfo->rep_last_name,'rep_phone_number'=>$locationInfo->rep_phone_number]);          
+    //       }
+    //       else
+    //       {
+    //         $updatedLocation = Location::where('order_id',$orderObj->id)->update(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
+    //           ['user_id'=>auth()->guard('api')->user()->id]));
+    //       }
+    //       return $updatedLocation;
+    //   }   
 
     public static function updateAdminOrder($order, $request)
     {
         $request->validate([
             'status_id' =>['numeric','not_in:0','exists:'. Status::table() .',id'],
-            // 'media_file' => 'file|mimes:zip,rar|application/octet-stream'
+            'media_file' => 'file|mimes:zip,rar'
         ]);
         $OrderObj=$order->update($request->only('status_id'));
         if($request->hasfile('media_file'))
         {
            $file = $request->file('media_file');
-           $name=time().$file->getClientOriginalName();
+           $name = time().$file->getClientOriginalName();
            $filePath = 'media_files/' . $name;
            Storage::disk('s3')->put($filePath, file_get_contents($file));
+           MediaFile::create(['auth_by'=> auth()->user()->id,'order_id'=>$order->id,
+           'path'=>$filePath,'zip_name'=>$name ,'size' => $request->media_file->getClientSize()]);
            return back()->with('success','media_file Uploaded successfully');
         }
-        $request->merge([
-            'size' => $request->file->getClientSize(),
-            'path' => $filePath,
-            'order_id' => $OrderObj->id
-        ]);
-        // dd($request->all());
-        MediaFile::create($request->only('path', 'title', 'size','order_id'));
-        return back()->with('success', 'File Successfully Saved');
+
     }
     //payment methods
     public static function prepareCheckout($price)

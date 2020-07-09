@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Storage;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderFront;
@@ -18,11 +19,11 @@ class OrderController extends APIController
             $allOrders = Order::with('products','location')->where('user_id',auth()->guard('api')->user()->id)->get();
             return response()->json(json_decode($allOrders));   
         } 
-        //======================== create order  ======================
-        public function store(StoreOrderRequest $request)
+        //======================== create order StoreOrderRequest  ======================
+        public function store(Request $request)
         {
-            $orderInfo=Order::insertOrder($request); 
-            return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
+            // $orderInfo=Order::insertItems($request); 
+            // return response()->json(['orderInfo'=> json_decode($orderInfo) ,'message' => 'Order Created Successfully']);
         }
         //======================== show order  ======================
 
@@ -84,5 +85,11 @@ class OrderController extends APIController
             }
             // Failure
             return response()->json(['message'=>'Payment Process  Failure']);
+        }
+
+        //======================== order download===========================
+        public function orderDownload($fileName){
+           $url = Storage::disk('s3')->url('media_files/'.$fileName);
+           return $url;
         }
 }

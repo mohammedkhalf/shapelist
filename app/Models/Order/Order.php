@@ -109,11 +109,9 @@ class Order extends Model
            'path'=>$filePath,'zip_name'=>$name ,'size' => $request->media_file->getClientSize()]);
            return back()->with('success','media_file Uploaded successfully');
         }
-
     }
   
    
-
     public static function sendPdfInvoice($OrderObject) 
     {
         $data = [
@@ -133,6 +131,7 @@ class Order extends Model
             'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
         ];
         $pdf = PDF::loadView('emails.email-invoice', $data);
+        
         Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
             $message->to($data["email"], $data["first_name"])
                     ->subject($data["subject"])

@@ -41,6 +41,17 @@ class Subscription extends Model
         'delivery_id'
     ];
 
+    protected $casts = [
+        'priority_support' => 'boolean',
+        'price' => 'float',
+        'purchase_points' => 'float',
+        'free_points' => 'float',
+        'discount' => 'float',
+
+
+
+    ];
+
     /**
      * Default values for model fields
      * @var array

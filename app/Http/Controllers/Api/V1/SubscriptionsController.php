@@ -16,7 +16,7 @@ class SubscriptionsController extends Controller
    
     public function index()
     {
-        $subscriptions = Subscription::with('delivery')->get();
+        $subscriptions = Subscription::with('delivery')->get()->makeHidden(['created_at','updated_at']);
         return response()->json($subscriptions); 
     }
   

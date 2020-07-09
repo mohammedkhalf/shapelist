@@ -166,7 +166,6 @@ class AuthController extends APIController
         $passportToken->token->save();
         $token = $passportToken->accessToken;
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
-
         return $this->respond([
             'user'      => $user,
             'token'     => $token,

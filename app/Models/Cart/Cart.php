@@ -67,4 +67,7 @@ class Cart extends Model
     {
         parent::__construct($attributes);
     }
+
+    
+     
 }

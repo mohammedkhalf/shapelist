@@ -79,22 +79,20 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/deliveries', 'DeliveryController');        
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
-        //payment
-        Route::get('checkouts/{checkoutId}/payment','OrderController@getStatus');
-        //savePaymentInfo
-        Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         //subscriptions
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
-        //Cart Items
+        //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');
+        Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');
+        Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
+        Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         //order download
         Route::get('orderDownload/{fileName}','OrderController@orderDownload');
         //new develop
 }); //auth:api
-
         // Faqs
         Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
         Route::get('faqsCategories','FaqsController@category');
@@ -109,5 +107,5 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //products Management
         Route::apiResource('/products', 'ProductController');
         //Return user from token 
-        Route::middleware('auth:api')->get('/me','AuthController@getUser');
+        Route::get('/me','AuthController@getUser');
 });

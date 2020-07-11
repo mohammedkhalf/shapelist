@@ -367,6 +367,7 @@ return [
 	"type" => "type",
 	"Quantity" => "Quantity",
 	"Rate" => "Rate",
+	
 	"table" => [
 	"orderId" => "Id",
 	"userName" => "user name",

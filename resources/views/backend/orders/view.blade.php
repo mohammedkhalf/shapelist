@@ -16,6 +16,11 @@
 
         <table class="table table-striped table-hover">
             @foreach($userProducts  as $orderInfo)
+                   <tr>
+                        <th> <h5> {{ trans('labels.backend.orders.Invoice') }}  </h5> </th>
+                        <td> <a href="{{ route('admin.orders.preview',$orderInfo) }}"  target="_blank"> <button class="btn btn-info">Preview</button> </a> </td>
+                    </tr>
+
                     <tr>
                         <th>{{ trans('labels.backend.orders.table.firstname') }}</th>
                         <td>{{ !empty($orderInfo->users) ?  $orderInfo->users->first_name : '' }}</td>
@@ -34,12 +39,11 @@
                     <tr>
                         <th>{{ trans('labels.backend.orders.table.phone') }}</th>
                         <td>
-                        @if(!empty($orderInfo->users))
-                        {{ $orderInfo->users->phone_number }}
-                        @else
-                            <p>There is No Phone Number</p>
-                        @endif
-                        
+                            @if(!empty($orderInfo->users))
+                            {{ $orderInfo->users->phone_number }}
+                            @else
+                                <p>There is No Phone Number</p>
+                            @endif
                         </td>
                     </tr>
 
@@ -60,13 +64,12 @@
                             @endif
                         </td>
                     </tr>
-
                     <tr>
                         <th> <h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.OrderStatus') }} </h5> </th>
-                        <td> <h5 class="btn btn-default"> {{ !empty($orderInfo->status) ? $orderInfo->status->type : '' }}</h5> </td> 
+                        <td> <h5 class="btn btn-info"> {{ !empty($orderInfo->status) ? $orderInfo->status->type : '' }}</h5> </td> 
                     </tr>
             
-                    <tr>
+                    <!-- <tr>
                         <th><h5 style="margin-top:20px;">{{ trans('labels.backend.orders.table.paymentStatus') }} </h5> </th>
                         <td> 
                             @if($orderInfo->payment_status == null)
@@ -76,7 +79,7 @@
                             @endif
                             
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <th>{{ trans('labels.backend.orders.table.onSet') }}</th>
@@ -143,7 +146,7 @@
                                     <!-- <th>{{ $productInfo->product_id }}</th> -->
                                     <th>{{ $productInfo->type }}</th>
                                     <th>{{ App\Models\Product\Product::where('id', $productInfo->product_id)->pluck('name')->first() }}</th>
-                                    <th>{{ $productInfo->product_quantity }}</th>
+                                    <th>{{ $productInfo->quantity }}</th>
                                     <th>
                                         <?php
                                             $musicObj = App\Models\MusicSample\MusicSample::where('id',$productInfo->music_id)->get();
@@ -159,7 +162,7 @@
                                     <th>{{ $productInfo->video_length ? $productInfo->video_length : ''  }} {{ $productInfo->video_length ? 'Seconds' : '' }}</th>
                                     <th> 
                                         @if($productInfo->user_music)
-                                            <audio controls style="height:30px;"><source src={{Storage::disk('public')->url('users_music/'.$productInfo->user_music)}}></audio>
+                                            <audio controls style="height:30px;"><source src={{ Storage::disk('public')->url('users_music/'.$productInfo->user_music) }}></audio>
                                         @endif
                                     </th>
                                 </tr>
@@ -178,19 +181,23 @@
                                     <th> 
 
                                         <?php
-                                            $musicObj = App\Models\MusicSample\MusicSample::where('id',$packageObj->package_music_id)->get();
+                                            $musicObj = App\Models\MusicSample\MusicSample::where('id',$packageObj->music_id)->get();
                                             foreach($musicObj  as $muObj)
                                             {
                                                 $url=Storage::disk('public')->url('smaples/'.$muObj->url);
                                             }
                                         ?>
-                                        @if($packageObj->package_music_id)                             
-                                           <audio controls style="height:30px;"><source src={{$url}}></audio>
+                                        @if($packageObj->music_id)                             
+                                           <audio controls style="height:30px;margin-top:20px"><source src={{$url}}></audio>
                                         @endif
 
                                     </th> 
-                                    <th>  {{ $packageObj->vedio_length }} {{ $packageObj->vedio_length ? 'Seconds' : '' }}</th>
-                                    <th> {{ $packageObj->package_user_music}} </th> 
+                                    <th>  {{ $packageObj->video_length }} {{ $packageObj->video_length ? 'Seconds' : '' }}</th>
+                                    <th>
+                                        @if( $packageObj->user_music)
+                                            <audio controls style="height:30px;"><source src={{ Storage::disk('public')->url('users_music/'.$packageObj->user_music) }}></audio>
+                                        @endif
+                                    </th> 
 
                                @endforeach
                         </thead>

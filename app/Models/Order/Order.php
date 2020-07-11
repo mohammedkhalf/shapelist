@@ -54,7 +54,7 @@ class Order extends Model
     }  
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_items')->withPivot('type','product_quantity','music_id','video_length','user_music');  
+        return $this->belongsToMany(Product::class,'order_items')->withPivot('order_id','product_id','type','quantity','music_id','video_length','user_music');  
     }
     public function payment()
     {
@@ -63,7 +63,7 @@ class Order extends Model
     //package_order
     public function package()
     {
-        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','package_music_id','package_id','quantity','type','vedio_length','package_user_music'); 
+        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','music_id','package_id','quantity','type','vedio_length','user_music'); 
     }
     //media attach
     public function media()
@@ -110,33 +110,44 @@ class Order extends Model
            return back()->with('success','media_file Uploaded successfully');
         }
     }
-  
-   
-    public static function sendPdfInvoice($OrderObject) 
+
+    public static function getOrderData($OrderObject)
     {
         $data = [
             'Invoice_Number' => $OrderObject->id,
-            'first_name' => auth()->guard('api')->user()->first_name,
-            'last_name' => auth()->guard('api')->user()->last_name,
-            'email'=> auth()->guard('api')->user()->email,
-            'phone_number'=> auth()->guard('api')->user()->phone_number,
+            // 'first_name' => auth()->guard('api')->user()->first_name,
+            // 'last_name' => auth()->guard('api')->user()->last_name,
+            // 'email'=> auth()->guard('api')->user()->email,
+            // 'phone_number'=> auth()->guard('api')->user()->phone_number,
             'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->vat,
             'total_price' => $OrderObject->total_price,
             'date' => $OrderObject->created_at,
             'subject'=> 'Purchase Invoice',
-            'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->location_id,'user_id'=>auth()->guard('api')->user()->id])->get(),
+            'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
             'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
         ];
+        return $data;
+    }
+  
+    public static function sendPdfInvoice($OrderObject) 
+    {
+        $data = Order::getOrderData($OrderObject);
         $pdf = PDF::loadView('emails.email-invoice', $data);
-        
         Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
-            $message->to($data["email"], $data["first_name"])
+            $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
                     ->subject($data["subject"])
                     ->attachData($pdf->output(),"invoice.pdf");
             });   
         return response()->json(['message'=>'Invoice Send Successfuly']);
+    }
+
+    public static function viewPDF (Order $OrderObject)
+    {
+        // $data = Order::getOrderData($OrderObject);
+        // dd($OrderObject->product->product_id);
+
     }
 }

@@ -37,6 +37,33 @@
                 </div>
             </div>
         </div>
+        <br>
+        @if(!empty($upload))
+            <h4 class="box-title"> Media Details</h4>
+            <div class="table-responsive data-table-wrapper">
+                <table class="table table-condensed table-hover table-bordered">
+                    <thead style="background-color:#22A67E; color:white">
+                        <td> order id</td>
+                        <td> file name</td>
+                        <td> size</td>
+                        <td> create at</td>
+                        <td> download </td>
+                    </thead>
+                    <tbody  class="transparent-bg">
+                        <td> {{$upload->order_id}}</td>
+                        <td> {{$upload->zip_name}}</td>
+                        <td>{{ $upload->size }} MB</td>
+                        <td>{{$upload->created_at}} </td>
+                        <td> 
+                            <a href={{ Storage::disk('s3')->url($upload->path)}} class="fa fa-download">                               
+                            </a>
+                        </td>
+                    </tbody>
+                </table> 
+            </div>
+        @endif   
+
+
 </div><!--box-body-->
 
 @section("after-scripts")

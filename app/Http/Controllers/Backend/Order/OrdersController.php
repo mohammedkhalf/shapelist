@@ -19,6 +19,7 @@ use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
 use App\Models\OrderItem\OrderItem;
+use App\Models\MediaFile\MediaFile;
 use App\Models\OrderPackage\OrderPackage;
 use PDF;
 /**
@@ -88,7 +89,8 @@ class OrdersController extends Controller
     {
         $statusesData =  Status::all();
         $selectedID = Status::first()->id;
-        return new ViewResponse('backend.orders.edit', compact('order','statusesData','selectedID'));
+        $upload =MediaFile::where('order_id',$order->id)->first();
+        return new ViewResponse('backend.orders.edit', compact('order','statusesData','selectedID','upload'));
     }
     /**
      * Update the specified resource in storage.

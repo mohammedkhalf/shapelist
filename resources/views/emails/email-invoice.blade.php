@@ -189,7 +189,7 @@
                             </p> 
                             <p style="margin-left:50%"> {{ trans('labels.backend.orders.Deliver-To') }} : 
                                 @foreach($locationInfo as $locationObj)
-                                    <b> {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
+                                    <b> {{ $locationObj->location->country }} - {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
                                 @endforeach
                             </p>
                     </div>
@@ -217,9 +217,9 @@
                                             ?>
                                         </th>
                                         <td> {{$productsObj->type}} </td>
-                                        <td> {{$productsObj->product_quantity}}</td>
-                                        <td> {{$productsObj->price_per_product}} </td>
-                                        <td> {{$productsObj->products_total_price}} </td>
+                                        <td> {{$productsObj->quantity}}</td>
+                                        <td> {{$productsObj->price_per_item}} </td>
+                                        <td> {{$productsObj->items_total_price}} </td>
                                     </tr>
                                 @endforeach
 
@@ -234,8 +234,8 @@
                                         </th>
                                         <td> {{$packageObj->type}} </td>
                                         <td> {{$packageObj->quantity}}</td>
-                                        <td> {{$packageObj->price_per_package}} </td>
-                                        <td> {{$packageObj->packages_total_price}} </td>
+                                        <td> {{$packageObj->price_per_item}} </td>
+                                        <td> {{$packageObj->items_total_price}} </td>
                                     </tr>
                                 @endforeach
 

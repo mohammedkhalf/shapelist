@@ -18,11 +18,10 @@ use App\Http\Requests\Backend\Order\EditOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Http\Requests\Backend\Order\DeleteOrderRequest; 
 use App\Http\Requests\Backend\Order\ViewOrderRequest; 
-use App\Models\Promotion\Promotion;
 use App\Models\OrderItem\OrderItem;
 use App\Models\MediaFile\MediaFile;
 use App\Models\OrderPackage\OrderPackage;
-
+use PDF;
 /**
  * OrdersController
  */
@@ -138,5 +137,9 @@ class OrdersController extends Controller
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
     }
 
+    public function preivewOrder (Order $OrderObject)
+    {
+       Order::viewPDF($OrderObject);
+    }
     
 }

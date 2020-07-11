@@ -115,10 +115,10 @@ class Order extends Model
     {
         $data = [
             'Invoice_Number' => $OrderObject->id,
-            // 'first_name' => auth()->guard('api')->user()->first_name,
-            // 'last_name' => auth()->guard('api')->user()->last_name,
-            // 'email'=> auth()->guard('api')->user()->email,
-            // 'phone_number'=> auth()->guard('api')->user()->phone_number,
+            'first_name' => auth()->guard('api')->user()->first_name,
+            'last_name' => auth()->guard('api')->user()->last_name,
+            'email'=> auth()->guard('api')->user()->email,
+            'phone_number'=> auth()->guard('api')->user()->phone_number,
             'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->vat,

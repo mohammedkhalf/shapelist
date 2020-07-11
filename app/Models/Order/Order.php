@@ -106,7 +106,7 @@ class Order extends Model
            $filePath = 'media_files/' . $name;
            Storage::disk('s3')->put($filePath, file_get_contents($file));
            MediaFile::create(['auth_by'=> auth()->user()->id,'order_id'=>$order->id,
-           'path'=>$filePath,'zip_name'=>$name ,'size' => $request->media_file->getClientSize()]);
+           'path'=>$filePath,'zip_name'=>$name ,'size' =>  number_format(Storage::disk('s3')->size($filePath)/ 1048576, 2)]);
            return back()->with('success','media_file Uploaded successfully');
         }
     }

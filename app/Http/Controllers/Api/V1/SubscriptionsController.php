@@ -28,6 +28,7 @@ class SubscriptionsController extends Controller
 
 
 
+
     public function subscribe($id)
     { // this function contains (subscribe + unsubscribe + change plan)
               
@@ -90,6 +91,11 @@ class SubscriptionsController extends Controller
                         }
                     }
 
+    }
+
+    public function updatePoints(Request $request){
+        $userSubscription=SubscriptionDetail::updateUserPoints($request); 
+        return $userSubscription ;
     }
 
     public function checkout($id){

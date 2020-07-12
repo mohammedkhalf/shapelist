@@ -24,6 +24,9 @@ class SubscriptionDetail extends Model
     
     protected $casts = [
         'status' => 'boolean',
+        'purchase_points' => 'float',
+        'free_points' => 'float',
+        'discount' => 'float',
     ];
 
     public function user()
@@ -90,6 +93,13 @@ class SubscriptionDetail extends Model
             'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
             return $userDetails;
+    }
+
+    public static function updateUserPoints($request)
+    {
+            $subscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
+            $subscriptionDetail->update(['purchase_points'=>$request->purchase,'free_points'=>$request->free]);
+            return $subscriptionDetail;     
     }
    
     public static function unsubscribe($id)

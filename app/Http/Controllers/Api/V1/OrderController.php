@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Storage;
 use App\Models\Order\Order;
 use Illuminate\Http\Request;
+use App\Models\MediaFile\MediaFile;
 use App\Http\Requests\StoreOrderFront;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Http\Requests\Backend\Order\UpdateOrderRequest;
@@ -64,9 +65,16 @@ class OrderController extends APIController
         }
 
         //======================== order download===========================
-        public function orderDownload($fileName)
+        public function orderDownload($orderId)
         {
+           $fileName = MediaFile::where('order_id', $orderId)->value('zip_name');      
            $url = Storage::disk('s3')->url('media_files/'.$fileName);
-           return $url;
+           return response()->json($url);
         }
+        //======================== view detials download===========================
+        public function myDownload($id){  
+            $download = MediaFile::where('order_id', $id)->first();      
+            return response()->json($download);
+        }
+    
 }

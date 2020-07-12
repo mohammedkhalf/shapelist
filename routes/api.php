@@ -96,7 +96,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         //order download
-        Route::get('orderDownload/{fileName}','OrderController@orderDownload');
+        Route::get('downloadLink/{orderId}','OrderController@orderDownload');
+        // Return user downloads
+        Route::get('/download/{orderId}','OrderController@myDownload');
         //new develop
 }); //auth:api
         // Faqs

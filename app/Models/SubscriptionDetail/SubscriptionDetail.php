@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\SubscriptionDetail;
-
+use App\Models\Quotation\Quotation;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Subscription;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
@@ -21,11 +21,48 @@ class SubscriptionDetail extends Model
     'end_date','bank_transaction_id'
 
     ];
-  
+    
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');   
     }  
+
+    public static function getSubscriptionData($subscriber,$subscription)
+    {
+        $vatPercentage = Quotation::where('name','Vat')->pluck('rate')->first();
+
+        $data = [
+            'Invoice_Number' => $subscriber->id,
+            'first_name' => auth()->guard('api')->user()->first_name,
+            'email'=> auth()->guard('api')->user()->email,
+            'phone_number'=> auth()->guard('api')->user()->phone_number,
+            'sub_total'=> $subscription->price,
+            'vatPercentage' => $vatPercentage,
+            'vatValue' => $subscription->price*$vatPercentage/100,
+            'total_price' =>$subscription->price*$vatPercentage/100+$subscription->price,
+            'date' => $subscriber->updated_at,
+            'subject'=> 'Subscription Invoice',
+            'subscription_name'=> $subscription->name,
+            'purchase_points'=> $subscription->purchase_points,
+            'free_points'=> $subscription->free_points,
+            'discount'=> $subscription->discount,
+            'duration'=> $subscription->duration,
+
+
+        ];
+        return $data;
+    }
+
+
+
+
+
+
+
 
 
     public static function changePlane($id)

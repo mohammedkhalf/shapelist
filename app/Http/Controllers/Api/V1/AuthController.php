@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Access\User\User;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
+use App\Models\Location\Location;
+use App\Models\Order\Order;
 use App\Mail\resendConfirmationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -165,13 +167,18 @@ class AuthController extends APIController
         $passportToken = $user->createToken('API Access Token');
         $passportToken->token->save();
         $token = $passportToken->accessToken;
-        $location = SubscriptionDetail::where('user_id',$user->id)->first();
+        $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
+
+        $userOrder= Order::where('user_id',auth()->guard('api')->user()->id)->get();
+        foreach($userOrder as $order){
+            $orders[]= $order;  
+        }
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         return $this->respond([
             'user'      => $user,
             'token'     => $token,
             'location'    => $location,
-
+            'orders'    => $orders,
             'subscription_details'    => $subscription,
         ]);
     }

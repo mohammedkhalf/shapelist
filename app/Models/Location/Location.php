@@ -37,6 +37,12 @@ class Location extends Model
         ,'lng','lat','user_id','order_id','rep_first_name','rep_last_name','rep_phone_number'
     ];
 
+
+    protected $hidden = [
+        'order_id','rep_first_name','rep_last_name','rep_phone_number', 'created_at',
+        'updated_at',
+    ];
+
     /**
      * Default values for model fields
      * @var array

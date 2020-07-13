@@ -5,8 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BigStore: Shopping Invoice</title>
-    
+    <title> Subscription Invoice</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
@@ -160,7 +159,7 @@
                 <div class="panel-body">
                     <article>
                         <div style="margin-top:15px">
-                            <img src="https://shapelistapp.com/img/logo.png"   width="150px" height="85px"/>
+                            <img src="http://backend.shapelist.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg"   width="150px" height="85px"/>
                             <p> <b> CR 1010569681 </b> </p>
                             <p> VAT NO 310053727200003 </p>
                             <p> KSA-RYADH PO-BOX 13321 </p>
@@ -176,22 +175,15 @@
                                 <th><span>{{ trans('labels.backend.orders.Date') }}</span></th>
                                 <td><span> {{$date}} </span></td>
                             </tr>
-                            <tr>
-                                <th><span contenteditable>{{ trans('labels.backend.orders.Amount') }}</span></th>
-                                <td><span id="prefix" contenteditable> {{ $total_price }} SAR</span></td>
-                            </tr>
+                            
                         </table>
                     </article> <br/> <br/>
 
                     <div class="row text-center">
                             <p style="margin-right:50%"> {{ trans('labels.backend.orders.Bill-To') }} : 
-                                    <b> {{$first_name}} {{ $last_name}} </b>
+                                    <b> {{$first_name}} </b>
                             </p> 
-                            <p style="margin-left:50%"> {{ trans('labels.backend.orders.Deliver-To') }} : 
-                                @foreach($locationInfo as $locationObj)
-                                    <b> {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
-                                @endforeach
-                            </p>
+                            
                     </div>
 
                     <!--Items -->
@@ -199,45 +191,23 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">{{ trans('labels.backend.orders.name') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.type') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Rate') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Amount') }}</th>
+                                    <th scope="col"> Subscription Name </th>
+                                    <th scope="col">{{ trans('labels.backend.subscriptions.table.purchase_points') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.subscriptions.table.free_points') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.subscriptions.table.discount') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.subscriptions.table.duration') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- products -->
-                                @foreach($productsInfo as $productsObj)
                                     <tr>
-                                        <th scope="row">
-                                            <?php
-                                                $productName = App\Models\Product\Product::where('id',$productsObj->product_id)->pluck('name')->first();
-                                                echo  $productName;
-                                            ?>
-                                        </th>
-                                        <td> {{$productsObj->type}} </td>
-                                        <td> {{$productsObj->quantity}}</td>
-                                        <td> {{$productsObj->price_per_item}} </td>
-                                        <td> {{$productsObj->items_total_price}} </td>
+                                        <td> {{$subscription_name}} </td>
+                                        <td> {{$purchase_points}} </td>
+                                        <td> {{$free_points}} </td>
+                                        <td> {{$discount}} </td>
+                                        <td> {{$duration}} </td>
                                     </tr>
-                                @endforeach
 
-                                <!-- packages -->
-                                @foreach($packagesInfo as $packageObj)
-                                    <tr>
-                                        <th scope="row">
-                                            <?php
-                                                $packageName = App\Models\Package\Package::where('id',$packageObj->package_id)->pluck('name_en')->first();
-                                                echo  $packageName;
-                                            ?>
-                                        </th>
-                                        <td> {{$packageObj->type}} </td>
-                                        <td> {{$packageObj->quantity}}</td>
-                                        <td> {{$packageObj->price_per_item}} </td>
-                                        <td> {{$packageObj->items_total_price}} </td>
-                                    </tr>
-                                @endforeach
 
                             </tbody>
                         </table>
@@ -246,9 +216,9 @@
 
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:20px; float:right"> 
-                            <p> Subtotal:  {{ $sub_total }} SAR  </p>
-                            <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
-                            <p> Total:     {{ $total_price }} SAR    </p>
+                            <p> Subtotal:{{$sub_total}} SAR  </p>
+                            <p> VAT( {{ $vatPercentage }} %): {{$vatValue}} SAR </p>
+                            <p> Total:  {{ $total_price }} SAR</p>
                         </div>
                     </div>
 

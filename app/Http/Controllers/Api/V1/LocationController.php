@@ -9,7 +9,7 @@ class LocationController extends APIController
       //======================== index location  ======================
       public function index()
       {
-         $userLocations = Location::where('user_id',auth()->user()->id)->get();
+         $userLocations = Location::where('user_id',auth()->guard('api')->user()->id)->get();
          return response()->json($userLocations);
       }
       //======================== create location  ======================
@@ -30,10 +30,9 @@ class LocationController extends APIController
 
                ]);
 
-         $location = new Location();
-         $locationData = $request->only('country','city','address','unit_no','postal_code','state','lng','lat'
-                           ,'rep_first_name','rep_last_name','rep_phone_number');
-         $location->save($locationData);
+         $locationData = array_merge($request->only('country','city','address','unit_no','postal_code','state','lng','lat'
+                           ,'rep_first_name','rep_last_name','rep_phone_number'),['user_id'=>auth()->guard('api')->user()->id]);
+         $location = Location::create($locationData);
          return response()->json(['message'=>'location Saved susseccfully', 'location'=>$location ]);
 
       }

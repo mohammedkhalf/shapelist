@@ -20,6 +20,7 @@ use App\Models\Quotation\Quotation;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use  App\Models\Invoice\Invoice;
 
 class Order extends Model
 {
@@ -70,6 +71,11 @@ class Order extends Model
     {
         return $this->hasMany(MediaFile::class ,'order_id','id');
     }
+    //order Invoice
+    public function invoices()
+    {
+        return $this->hasOne(Invoice::class ,'order_id','id');
+    }
 
     public static function CreteOrderRequest($request)
     {
@@ -111,14 +117,16 @@ class Order extends Model
         }
     }
 
-    public static function getOrderData($OrderObject)
+    //
+    public static function sendPdfInvoice($OrderObject) 
     {
         $data = [
             'Invoice_Number' => $OrderObject->id,
-            // 'first_name' => auth()->guard('api')->user()->first_name,
-            // 'last_name' => auth()->guard('api')->user()->last_name,
-            // 'email'=> auth()->guard('api')->user()->email,
-            // 'phone_number'=> auth()->guard('api')->user()->phone_number,
+            'user_id' => auth()->guard('api')->user()->id,
+            'first_name' => auth()->guard('api')->user()->first_name,
+            'last_name' => auth()->guard('api')->user()->last_name,
+            'email'=> auth()->guard('api')->user()->email,
+            'phone_number'=> auth()->guard('api')->user()->phone_number,
             'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->vat,
@@ -129,25 +137,18 @@ class Order extends Model
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
             'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
         ];
-        return $data;
-    }
-  
-    public static function sendPdfInvoice($OrderObject) 
-    {
-        $data = Order::getOrderData($OrderObject);
-        $pdf = PDF::loadView('emails.email-invoice', $data);
-        Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
-            $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
-                    ->subject($data["subject"])
-                    ->attachData($pdf->output(),"invoice.pdf");
-            });   
-        return response()->json(['message'=>'Invoice Send Successfuly']);
+            //author@khalf
+            $pdf = PDF::loadView('emails.email-invoice', $data);
+            $fileName = time() . ".pdf";
+            Storage::put('orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
+            Invoice::create(['order_id'=>$OrderObject->id,'file_name'=>$fileName]);
+            Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
+                $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
+                        ->subject($data["subject"])
+                        ->attachData($pdf->output(),"invoice.pdf");
+                });   
+            return response()->json(['message'=>'Invoice Send Successfuly']);
     }
 
-    public static function viewPDF (Order $OrderObject)
-    {
-        // $data = Order::getOrderData($OrderObject);
-        // dd($OrderObject->product->product_id);
-
-    }
+    //
 }

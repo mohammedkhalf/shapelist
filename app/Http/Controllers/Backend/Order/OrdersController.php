@@ -136,10 +136,5 @@ class OrdersController extends Controller
         //returning with successfull message
         return new RedirectResponse(route('admin.orders.index'), ['flash_success' => trans('alerts.backend.orders.deleted')]);
     }
-
-    public function preivewOrder (Order $OrderObject)
-    {
-       Order::viewPDF($OrderObject);
-    }
     
 }

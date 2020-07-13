@@ -213,6 +213,13 @@ return [
 	"management" => "Order Management",
 	"main" => "Orders",
 	],
+	"locations" => [
+	"all" => "All Locations",
+	"create" => "Create Location",
+	"edit" => "Edit Location",
+	"management" => "Locations Management",
+	"main" => "Locations",
+	],
 	"faqcategories" => [
 	"all" => "All FaqCategories",
 	"create" => "Create FaqCategory",

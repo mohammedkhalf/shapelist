@@ -101,7 +101,7 @@ class ForgotPasswordController extends APIController
     }
    
     public function redirectAfterConfirm(){
-        return redirect('http://www.sparkle.sa');
+        return redirect('http://www.shapelist.com/');
 
     }
 

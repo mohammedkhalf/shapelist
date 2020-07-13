@@ -48,6 +48,7 @@ class SubscriptionsController extends Controller
                                   $subscription =  Subscription::findOrFail($id);
                                   $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
                                   //payment
+                                  //
                                   Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
                                   //pdf
                                   $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
@@ -66,6 +67,7 @@ class SubscriptionsController extends Controller
                              $newSubscription=SubscriptionDetail::newSubscription($id);
                               $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
                               //payment
+                              //
                               Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscription->name));
                               //pdf
                               $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);

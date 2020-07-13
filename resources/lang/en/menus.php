@@ -206,6 +206,13 @@ return [
 	"management" => "Subscription Management",
 	"main" => "Subscriptions",
 	],
+	"orders" => [
+	"all" => "All Orders",
+	"create" => "Create Order",
+	"edit" => "Edit Order",
+	"management" => "Order Management",
+	"main" => "Orders",
+	],
 	"faqcategories" => [
 	"all" => "All FaqCategories",
 	"create" => "Create FaqCategory",

@@ -34,7 +34,7 @@ class LocationRepository extends BaseRepository
                 config('module.locations.table').'.city',
                 config('module.locations.table').'.created_at',
                 config('module.locations.table').'.updated_at',
-            ]);
+            ])->whereNull('user_id');
     }
 
     /**

@@ -83,6 +83,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //subscriptions
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
+        //subscription update points
+        Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
+
+        
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
@@ -95,6 +99,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('orderDownload/{fileName}','OrderController@orderDownload');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
+        //order download
+        Route::get('downloadLink/{orderId}','OrderController@orderDownload');
+        // Return user downloads
+        Route::get('/download/{orderId}','OrderController@myDownload');
         //new develop
 }); //auth:api
         // Faqs

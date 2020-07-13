@@ -18,6 +18,22 @@ use Illuminate\Validation\Rule;
 
 class AuthController extends APIController
 {
+    public $orders;
+
+    public function __construct()
+    {
+        $this->orders = $this->fetchOrders();
+    }
+
+    public function fetchOrders ()
+    {
+        if (!$this->orders) 
+        {
+            $this->orders =  Order::where('user_id',auth()->guard('api')->user()->id)->get();
+        }
+   
+         return $this->orders; 
+    }
     /**
      * Log the user in.
      *
@@ -167,18 +183,14 @@ class AuthController extends APIController
         $passportToken = $user->createToken('API Access Token');
         $passportToken->token->save();
         $token = $passportToken->accessToken;
+        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
 
-        $userOrder= Order::where('user_id',auth()->guard('api')->user()->id)->get();
-        foreach($userOrder as $order){
-            $orders[]= $order;  
-        }
-        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         return $this->respond([
             'user'      => $user,
             'token'     => $token,
             'location'    => $location,
-            'orders'    => $orders,
+            'orders'    => $this->orders,   
             'subscription_details'    => $subscription,
         ]);
     }

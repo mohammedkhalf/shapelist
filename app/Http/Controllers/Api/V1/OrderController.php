@@ -11,6 +11,7 @@ use App\Http\Requests\Backend\Order\UpdateOrderRequest;
 use App\Models\Payment\Payment;
 use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
+use App\Models\Invoice\Invoice;
 
 class OrderController extends APIController
 {
@@ -62,11 +63,19 @@ class OrderController extends APIController
             // Failure
             return response()->json(['message'=>'Payment Process  Failure']);
         }
-
-        //======================== order download===========================
+        //======================== download S3 ===========================
         public function orderDownload($fileName)
         {
            $url = Storage::disk('s3')->url('media_files/'.$fileName);
            return $url;
         }
+
+        //download Invoice
+        public function downloadInvoice($orderId)
+        {
+            $invoiceObj = Invoice::where('order_id',$orderId)->first();
+            $user_id = auth()->guard('api')->user()->id;
+            return response()->download(storage_path("app/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
+        }
+        
 }

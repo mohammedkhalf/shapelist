@@ -69,8 +69,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/coupons', 'CouponController');
         //Orders Status
         Route::apiResource('/orders_status', 'OrderStatusController');
-        //Music Samples
-        Route::apiResource('/music_samples', 'MusicSamplesController'); 
         //Locations
         Route::apiResource('locations', 'LocationController');
         //VAT
@@ -85,8 +83,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
         //subscription update points
         Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
-
-        
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
         Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
@@ -105,6 +101,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::get('/download/{orderId}','OrderController@myDownload');
         //new develop
 }); //auth:api
+
+        //Music Samples
+        Route::apiResource('/music_samples', 'MusicSamplesController'); 
         // Faqs
         Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
         Route::get('faqsCategories','FaqsController@category');

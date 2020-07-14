@@ -33,14 +33,12 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'country', 'city','address', 'postal_code','unit_no','state'
-        ,'lng','lat','user_id','order_id','rep_first_name','rep_last_name','rep_phone_number'
+      
     ];
 
 
     protected $hidden = [
-        'order_id','rep_first_name','rep_last_name','rep_phone_number', 'created_at',
-        'updated_at',
+       
     ];
 
     /**

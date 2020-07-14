@@ -33,6 +33,7 @@ class LocationController extends APIController
          $locationData = array_merge($request->only('country','city','address','unit_no','postal_code','state','lng','lat'
                            ,'rep_first_name','rep_last_name','rep_phone_number'),['user_id'=>auth()->guard('api')->user()->id]);
          $location = Location::create($locationData);
+         
          return response()->json(['message'=>'location Saved susseccfully', 'location'=>$location ]);
 
       }

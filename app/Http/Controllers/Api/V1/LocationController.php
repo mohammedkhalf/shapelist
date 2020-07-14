@@ -55,7 +55,7 @@ class LocationController extends APIController
          $locationData = $request->only('country','city','address','unit_no',
                                  'postal_code','lng','lat','rep_first_name','rep_last_name','rep_phone_number');
          $location->update($locationData);
-         return response()->json(['message'=>'location Updated susseccfully','location'=>$location]);
+         return response()->json(['message'=>'location Updated susseccfully','location'=>$locationData]);
       }
 
    //======================== delete location  ======================

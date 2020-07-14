@@ -60,7 +60,7 @@ class SubscriptionDetail extends Model
         return $data;
     }
 
-    public static function changePlane($id)
+    public static function changePlane($id,$bankTransactionId)
     {
             $subscription = Subscription::findOrFail($id);
             $duration =  $subscription->duration;
@@ -69,6 +69,7 @@ class SubscriptionDetail extends Model
 
             $newSubscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
             $newSubscriptionDetail->update(['subscription_id'=>$id , 'status'=>1,
+            'bank_transaction_id'=>$bankTransactionId,
             'purchase_points'=>$subscription->purchase_points + $oldSubscription->purchase_points  ,
             'free_points'=>$subscription->free_points ,
             'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
@@ -76,13 +77,13 @@ class SubscriptionDetail extends Model
             return $newSubscriptionDetail;
     }
 
-    public static function newSubscription($id)
+    public static function newSubscription($id,$bankTransactionId)
     {
             $subscription = Subscription::findOrFail($id);
             $duration=$subscription->duration;
             $userDetails = SubscriptionDetail::create(['user_id'=> auth()->guard('api')->user()->id,'subscription_id'=>$id,
             'status'=>1,'purchase_points'=>$subscription->purchase_points ,'free_points'=>$subscription->free_points ,
-            'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
+            'discount'=>$subscription->discount ,'bank_transaction_id'=>$bankTransactionId, 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
             return $userDetails;
     }

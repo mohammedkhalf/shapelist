@@ -48,6 +48,8 @@ class SubscriptionsController extends Controller
                                   $subscription =  Subscription::findOrFail($id);
                                   $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
                                   //payment
+                                  $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
+                                  //mail
                                   Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
                                   //pdf
                                   $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
@@ -64,13 +66,15 @@ class SubscriptionsController extends Controller
                              //for new subscription 
                              $subscription =  Subscription::findOrFail($id);
                              $newSubscription=SubscriptionDetail::newSubscription($id);
-                              $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
-                              //payment
-                              Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscription->name));
-                              //pdf
-                              $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
-                              $pdf = PDF::loadView('emails.subscription_invoive', $data);
-                              Mail::send('emails.subscription_invoive',$data,function($message)use($data,$pdf) {
+                             $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
+                             //payment
+                             $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
+                             //mail
+                             Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscription->name));
+                             //pdf
+                             $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
+                             $pdf = PDF::loadView('emails.subscription_invoive', $data);
+                             Mail::send('emails.subscription_invoive',$data,function($message)use($data,$pdf) {
                                   $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
                                           ->subject($data["subject"])
                                           ->attachData($pdf->output(),"invoice.pdf");
@@ -91,21 +95,6 @@ class SubscriptionsController extends Controller
                         }
                     }
 
-    }
-
-    public function updatePoints(Request $request){
-        $userSubscription=SubscriptionDetail::updateUserPoints($request); 
-        return $userSubscription ;
-    }
-
-    public function checkout($id){
-        $subscriptionPrice =  Subscription::findOrFail($id)->value('price');
-
-    }
-
-    public function savePaymentInfo($id){
-
-        
     }
   
 }

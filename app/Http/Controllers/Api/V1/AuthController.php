@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
+use App\Rules\FilterStringRule;
 
 class AuthController extends APIController
 {
@@ -151,10 +152,9 @@ class AuthController extends APIController
     public function updateProfile(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|max:255',
-            // 'last_name'     => 'nullable|max:255',
+            'first_name'    => ['required','max:50', new FilterStringRule],
             'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
-            'phone_number'  => 'required|max:10|string|regex:/(0)[0-9]{9}/',
+            'phone_number'  => 'required|min:10|numeric|regex:/(0)[0-9]{9}/',
         ]);
         $user = User::findOrFail(auth()->user()->id);
         $user->update($request->only('first_name','email','phone_number'));

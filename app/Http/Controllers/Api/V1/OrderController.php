@@ -13,6 +13,8 @@ use App\Models\Payment\Payment;
 use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
 use App\Models\Invoice\Invoice;
+use Aws\S3\S3Client;
+
 
 class OrderController extends APIController
 {
@@ -64,13 +66,25 @@ class OrderController extends APIController
             // Failure
             return response()->json(['message'=>'Payment Process  Failure']);
         }
-        //======================== order download===========================
+        //======================== order download url===========================
         public function orderDownload($orderId)
         {
-           $fileName = MediaFile::where('order_id', $orderId)->value('zip_name');      
-           $url = Storage::disk('s3')->url('media_files/'.$fileName);
-           return response()->json($url);
-        }
+    
+           $fileName = MediaFile::where('order_id', $orderId)->value('zip_name');   
+           $key = 'media_files/'.$fileName;
+           $disk = \Storage::disk('s3');
+
+           $command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
+            'Bucket'                     => \Config::get('filesystems.disks.s3.bucket'),
+            'Key'                        => $key,
+            ]);
+
+
+           $request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
+           $generate_url = $request->getUri();
+           return $generate_url;
+        }    
+        //=====================================
         //download Invoice
         public function downloadInvoice($orderId)
         {

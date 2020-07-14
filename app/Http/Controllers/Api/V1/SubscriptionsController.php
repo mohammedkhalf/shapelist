@@ -47,8 +47,6 @@ class SubscriptionsController extends Controller
                                   $updatedPlan=SubscriptionDetail::changePlane($id); 
                                   $subscription =  Subscription::findOrFail($id);
                                   $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
-                                  //payment
-                                  $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
                                   //mail
                                   Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
                                   //pdf
@@ -67,8 +65,6 @@ class SubscriptionsController extends Controller
                              $subscription =  Subscription::findOrFail($id);
                              $newSubscription=SubscriptionDetail::newSubscription($id);
                              $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
-                             //payment
-                             $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
                              //mail
                              Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscription->name));
                              //pdf
@@ -95,6 +91,11 @@ class SubscriptionsController extends Controller
                         }
                     }
 
+    }
+
+    public function updatePoints(Request $request){
+        $userSubscription=SubscriptionDetail::updateUserPoints($request); 
+        return $userSubscription ;
     }
   
 }

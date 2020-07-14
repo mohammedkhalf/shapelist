@@ -85,7 +85,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
         //subscriptions payment
         Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
-        Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
+        // Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
         //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');
         Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');

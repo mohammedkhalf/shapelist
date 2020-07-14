@@ -14,7 +14,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-
+use App\Models\OrderItem\OrderItem;
+use App\Models\OrderPackage\OrderPackage;
 
 class AuthController extends APIController
 {
@@ -172,13 +173,16 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::where('user_id',auth()->guard('api')->user()->id)->get();
-
-
+        $cart = [
+                'products'=> OrderItem::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get(),
+                'packages'=>OrderPackage::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get()
+            ];
         return $this->respond([
             'user'      => $user,
             'token'     => $token,
             'location'    => $location,
             'orders'    => $allOrders,   
+            "cart"      =>   $cart,
             'subscription_details'    => $subscription,
         ]);
     }

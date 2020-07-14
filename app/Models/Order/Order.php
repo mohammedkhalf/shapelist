@@ -64,7 +64,7 @@ class Order extends Model
     //package_order
     public function package()
     {
-        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','music_id','package_id','quantity','type','vedio_length','user_music'); 
+        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','music_id','package_id','quantity','type','video_length','user_music'); 
     }
     //media attach
     public function media()

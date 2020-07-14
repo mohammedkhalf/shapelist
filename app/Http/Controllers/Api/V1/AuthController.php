@@ -153,7 +153,7 @@ class AuthController extends APIController
     {
         $request->validate([
             'first_name'    => ['required','max:50', new FilterStringRule],
-            'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
+            'email'         => ['required', 'email', 'max:255'],
             'phone_number'  => 'required|min:10|numeric|regex:/(0)[0-9]{9}/',
         ]);
         $user = User::findOrFail(auth()->user()->id);

@@ -78,7 +78,10 @@
         .small {
             font-size: 10px;
         }
-
+        .middle {
+            margin-left: auto;
+            margin-right: auto;
+        }
         .center {
             text-align: center;
         }

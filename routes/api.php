@@ -80,12 +80,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //subscriptions
-        Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
+        Route::post('subscriptions/subscribe/{id}/{bankTransactionId}', 'SubscriptionsController@subscribe');
         //subscription update points
         Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
         //subscriptions payment
-        Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
-        Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
         //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');
         Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');

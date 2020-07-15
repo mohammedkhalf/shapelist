@@ -29,7 +29,7 @@ class SubscriptionsController extends Controller
 
 
 
-    public function subscribe($id)
+    public function subscribe($id,$bankTransactionId)
     { // this function contains (subscribe + unsubscribe + change plan)
               
                     if($id != 0){
@@ -44,11 +44,9 @@ class SubscriptionsController extends Controller
                                   
                                 }else{
                                   // upgrade or downgrade the plan 
-                                  $updatedPlan=SubscriptionDetail::changePlane($id); 
+                                  $updatedPlan=SubscriptionDetail::changePlane($id,$bankTransactionId); 
                                   $subscription =  Subscription::findOrFail($id);
                                   $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
-                                  //payment
-                                  $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
                                   //mail
                                   Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
                                   //pdf
@@ -65,10 +63,8 @@ class SubscriptionsController extends Controller
                         }else{
                              //for new subscription 
                              $subscription =  Subscription::findOrFail($id);
-                             $newSubscription=SubscriptionDetail::newSubscription($id);
+                             $newSubscription=SubscriptionDetail::newSubscription($id,$bankTransactionId);
                              $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
-                             //payment
-                             $responseCheckout = SubscriptionDetail::prepareCheckout($subscription->price);
                              //mail
                              Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,4,$subscription->name));
                              //pdf
@@ -95,6 +91,11 @@ class SubscriptionsController extends Controller
                         }
                     }
 
+    }
+
+    public function updatePoints(Request $request){
+        $userSubscription=SubscriptionDetail::updateUserPoints($request); 
+        return $userSubscription ;
     }
   
 }

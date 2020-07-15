@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\SubscriptionDetail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Quotation\Quotation;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Subscription;

@@ -64,13 +64,21 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
-
+        $location = Location::where('user_id',$user->id)->first();
+        $allOrders = Order::where('user_id',$user->id)->get();
+        $cart = [
+                'products'=> OrderItem::where(['order_id'=>null , 'user_id'=>$user->id])->get(),
+                'packages'=>OrderPackage::where(['order_id'=>null , 'user_id'=>$user->id])->get()
+            ];
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
             'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),
             'token'     => $token,
+            'location'    => $location,
+            'orders'    => $allOrders,   
+            "cart"      =>   $cart,
             'subscription_details'    => $subscription,
         ]);
     }

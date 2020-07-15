@@ -75,7 +75,7 @@ class SubscriptionsController extends Controller
                                           ->subject($data["subject"])
                                           ->attachData($pdf->output(),"invoice.pdf");
                               });  
-                              return response()->json(['newSubscription'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscribe in a New Plan..']);            
+                              return response()->json(['updatedPlan'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscribe in a New Plan..']);            
 
                         }
 

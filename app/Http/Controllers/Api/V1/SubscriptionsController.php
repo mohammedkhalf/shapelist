@@ -31,16 +31,16 @@ class SubscriptionsController extends Controller
                         if(!$UserSubscription->isEmpty()){   
                                 //if the user has old plan
                                 $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
-                                    // upgrade or downgrade the plan or re_subscribe in the same plan
-                                    $updatedPlan=SubscriptionDetail::changePlane($id,$bankTransactionId); 
-                                    $subscription =  Subscription::findOrFail($id);
-                                    $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
-                                    //mail
-                                    Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
-                                    //pdf
-                                    $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
-                                    SubscriptionDetail::sendInvoicePdf($data); 
-                                    return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']);            
+                                // upgrade or downgrade the plan or re_subscribe in the same plan
+                                $updatedPlan=SubscriptionDetail::changePlane($id,$bankTransactionId); 
+                                $subscription =  Subscription::findOrFail($id);
+                                $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
+                                //mail
+                                Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
+                                //pdf
+                                $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
+                                SubscriptionDetail::sendInvoicePdf($data); 
+                                return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']);            
                                 
 
                         }else{

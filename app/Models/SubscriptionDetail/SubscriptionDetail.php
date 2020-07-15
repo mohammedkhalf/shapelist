@@ -7,6 +7,7 @@ use App\Models\Subscription\Subscription;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use App\Models\Access\User\User;
 use Carbon\Carbon;
+use PDF;
 
 class SubscriptionDetail extends Model
 {
@@ -102,5 +103,15 @@ class SubscriptionDetail extends Model
             return $subscriptionDetail;     
     }
    
+    public static function sendInvoicePdf($data)
+    {
+        $pdf = PDF::loadView('emails.subscription_invoive', $data);
+        Mail::send('emails.subscription_invoive',$data,function($message)use($data,$pdf) {
+        $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
+        ->subject($data["subject"])
+        ->attachData($pdf->output(),"invoice.pdf");
+        });  
+
+    }
    
 }

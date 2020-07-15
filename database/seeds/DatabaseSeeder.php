@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PackageTableSeeder::class);  
         $this->call(SubscriptionTableSeeder::class);
         $this->call(FaqCategoryTableSeeder::class);
+        $this->call(OrdersTableSeeder::class);
         Model::reguard();
     }
 }

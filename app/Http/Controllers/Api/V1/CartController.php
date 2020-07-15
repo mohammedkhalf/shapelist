@@ -30,11 +30,11 @@ class CartController extends APIController
     {
         if($request->type == "product")
         {
-            $ItemData=OrderItem::insertProductItems($request);
+            $ItemData = OrderItem::insertProductItems($request);
         }
         else 
         {
-            $ItemData=OrderPackage::insertPackages($request);
+            $ItemData = OrderPackage::insertPackages($request);
         }
         return response()->json(['ItemData'=>json_decode($ItemData),'message'=>'Item added Successfully']);
     }
@@ -83,7 +83,7 @@ class CartController extends APIController
          $url = "https://test.oppwa.com/v1/checkouts";
          $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".
                  "&amount=$total_price".
-                 "&currency=SAR".
+                 "&currency=EUR".
                  "&paymentType=DB";
  
              $ch = curl_init();

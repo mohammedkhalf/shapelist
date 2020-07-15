@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
+use App\Rules\FilterStringRule;
 
 class AuthController extends APIController
 {
@@ -159,10 +160,9 @@ class AuthController extends APIController
     public function updateProfile(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|max:255',
-            // 'last_name'     => 'nullable|max:255',
-            'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
-            'phone_number'  => 'required|max:10|string|regex:/(0)[0-9]{9}/',
+            'first_name'    => ['required','max:50', new FilterStringRule],
+            'email'         => ['required', 'email', 'max:255'],
+            'phone_number'  => 'required|min:10|numeric|regex:/(0)[0-9]{9}/',
         ]);
         $user = User::findOrFail(auth()->user()->id);
         $user->update($request->only('first_name','email','phone_number'));
@@ -180,18 +180,18 @@ class AuthController extends APIController
         $token = $passportToken->accessToken;
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
-        $allOrders = Order::where('user_id',auth()->guard('api')->user()->id)->get();
+        $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
         $cart = [
                 'products'=> OrderItem::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get(),
                 'packages'=>OrderPackage::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get()
             ];
         return $this->respond([
-            'user'      => $user,
-            'token'     => $token,
-            'location'    => $location,
-            'orders'    => $allOrders,   
-            "cart"      =>   $cart,
-            'subscription_details'    => $subscription,
+            'user' => $user,
+            'token' => $token,
+            'location' => $location,
+            'orders' => $allOrders,   
+            "cart"   => $cart,
+            'subscription_details' => $subscription,
         ]);
     }
 

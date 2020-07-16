@@ -71,10 +71,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/orders_status', 'OrderStatusController');
         //Locations
         Route::apiResource('locations', 'LocationController');
-        //VAT
-        Route::get('quotation/vat', 'QuotationController@vat');
-        //ON-SET
-        Route::get('quotation/onSet', 'QuotationController@onSet');
         //Deliveries
         Route::apiResource('/deliveries', 'DeliveryController');        
         //download Media
@@ -91,6 +87,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
+        
         //order download from S3
         Route::get('downloadLink/{orderId}','OrderController@orderDownload');
         // Return user downloads
@@ -98,6 +95,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //new develop
 }); //auth:api
 
+        //VAT
+        Route::get('quotation/vat', 'QuotationController@vat');
+        //ON-SET
+        Route::get('quotation/onSet', 'QuotationController@onSet');
         //Music Samples
         Route::apiResource('/music_samples', 'MusicSamplesController'); 
         // Faqs

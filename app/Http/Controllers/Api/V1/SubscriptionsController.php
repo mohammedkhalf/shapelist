@@ -26,7 +26,8 @@ class SubscriptionsController extends Controller
     }
 
     public function subscribe($id,$bankTransactionId)
-    { // this function contains (subscribe + change plan)
+    { 
+                    // this function contains (subscribe + change plan)
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
                         if(!$UserSubscription->isEmpty()){   
                                 //if the user has old plan

@@ -73,13 +73,10 @@ class OrderController extends APIController
            $fileName = MediaFile::where('order_id', $orderId)->value('zip_name');   
            $key = 'media_files/'.$fileName;
            $disk = \Storage::disk('s3');
-
            $command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
             'Bucket'                     => \Config::get('filesystems.disks.s3.bucket'),
             'Key'                        => $key,
             ]);
-
-
            $request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
            $generate_url = $request->getUri();
            return $generate_url;

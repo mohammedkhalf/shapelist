@@ -65,18 +65,6 @@ class OrdersTableSeeder extends Seeder
 
         Order::create([
             'user_id'=> '3',
-            'status_id' => '5',
-            'delivery_id' => '2',
-            'location_id' => '2',
-            'sub_total' => '1000',
-            'vat' => '200',
-            'total_price' => "1200",
-            'created_at'  => Carbon::now("Asia/Riyadh"),
-            'updated_at'  => Carbon::now("Asia/Riyadh")
-        ]);
-
-        Order::create([
-            'user_id'=> '3',
             'status_id' => '1',
             'delivery_id' => '2',
             'location_id' => '2',
@@ -126,7 +114,7 @@ class OrdersTableSeeder extends Seeder
 
         Order::create([
             'user_id'=> '3',
-            'status_id' => '5',
+            'status_id' => '2',
             'delivery_id' => '2',
             'location_id' => '2',
             'sub_total' => '1000',
@@ -135,5 +123,33 @@ class OrdersTableSeeder extends Seeder
             'created_at'  => Carbon::now("Asia/Riyadh"),
             'updated_at'  => Carbon::now("Asia/Riyadh")
         ]);
+
+        Order::create([
+            'user_id'=> '3',
+            'status_id' => '2',
+            'delivery_id' => '2',
+            'location_id' => '2',
+            'sub_total' => '1000',
+            'vat' => '200',
+            'total_price' => "1200",
+            'created_at'  => Carbon::now("Asia/Riyadh"),
+            'updated_at'  => Carbon::now("Asia/Riyadh")
+        ]);
+
+        Order::create([
+            'user_id'=> '3',
+            'status_id' => '4',
+            'delivery_id' => '2',
+            'location_id' => '2',
+            'sub_total' => '1000',
+            'vat' => '200',
+            'total_price' => "1200",
+            'created_at'  => Carbon::now("Asia/Riyadh"),
+            'updated_at'  => Carbon::now("Asia/Riyadh")
+        ]);
+
+
+       
+       
     }
 }

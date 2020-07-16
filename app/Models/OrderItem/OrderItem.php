@@ -16,6 +16,13 @@ class OrderItem extends Model
     protected $fillable = ['order_id','user_id','product_id','music_id',
         'price_per_item','items_total_price','video_length','user_music','quantity','type'];
 
+    protected $casts = [
+        'price_per_item' => 'integer',
+        'items_total_price' => 'integer',
+        'quantity' => 'integer',
+        'product_id'=> 'integer'
+    ];
+
     
         public static function insertProductItems($request)
         {

@@ -14,6 +14,13 @@ class OrderPackage extends Model
     protected $fillable = ['order_id','user_id','package_id','music_id',
     'price_per_item','items_total_price','video_length','user_music','quantity','type'];
 
+    protected $casts = [
+        'price_per_item' => 'integer',
+        'items_total_price' => 'integer',
+        'quantity' => 'integer',
+        'product_id'=> 'integer'
+    ];
+
     public static function insertPackages($request)
     {
             if(OrderPackage::where('package_id','=',$request->item_id)->count() > 0)

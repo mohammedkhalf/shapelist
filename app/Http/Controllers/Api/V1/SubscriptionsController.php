@@ -33,7 +33,6 @@ class SubscriptionsController extends Controller
     { // this function contains (subscribe + unsubscribe + change plan)
               
                     if($id != 0){
-
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
                         if(!$UserSubscription->isEmpty()){   
                               //for change subscription plan

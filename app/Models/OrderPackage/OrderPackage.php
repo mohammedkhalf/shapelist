@@ -16,16 +16,20 @@ class OrderPackage extends Model
 
     public static function insertPackages($request)
     {
-        if($request->user_music)
-        {
-            $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-            $path = $request->user_music->storeAs('public/users_music', $fileNameToStore);
-        } else {
-            $fileNameToStore = '';
-        }
-        $package = OrderPackage::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music') , 
-        ['user_music'=>$fileNameToStore,'package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
-        return $package;
+            if(OrderPackage::where('package_id','=',$request->item_id)->count() > 0)
+            {
+                OrderPackage::where('package_id','=',$request->item_id)->update(['quantity'=>$request->quantity]);
+                return OrderPackage::where('package_id','=',$request->item_id)->get();
+            }
+            // if($request->user_music)
+            // {
+            //     $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
+            //     $path = $request->user_music->storeAs('public/users_music', $fileNameToStore);
+            // } else {
+            //     $fileNameToStore = '';
+            // }
+            return  OrderPackage::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music') , 
+            ['package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
     } 
 
     public static function updatePackageItems($request,$id)

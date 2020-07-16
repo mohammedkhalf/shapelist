@@ -19,16 +19,23 @@ class OrderItem extends Model
     
         public static function insertProductItems($request)
         {
-            if($request->user_music)
+            if(OrderItem::where('product_id','=',$request->item_id)->count() > 0)
             {
-                $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                $request->user_music->storeAs('public/users_music', $fileNameToStore);
-            } else {
-                $fileNameToStore = '';
+                OrderItem::where('product_id','=',$request->item_id)->update(['quantity'=>$request->quantity]);
+                return OrderItem::where('product_id','=',$request->item_id)->get();
             }
-            $product = OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
-            ['user_music'=>$fileNameToStore,'product_id'=>$request->item_id,'type'=>$request->type,'user_id'=>auth()->guard('api')->user()->id]));
-            return $product;
+                // if($request->user_music)
+                // {
+                //     $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
+                //     $request->user_music->storeAs('public/users_music', $fileNameToStore);
+                // } else {
+                //     $fileNameToStore = '';
+                // }
+            else{
+                return OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
+                ['product_id'=>$request->item_id,'type'=>$request->type,'user_id'=>auth()->guard('api')->user()->id]));
+            }
+                
         } 
 
         public static function updateProductItems($request,$id)

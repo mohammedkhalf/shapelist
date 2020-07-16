@@ -30,11 +30,11 @@ class CartController extends APIController
     {
         if($request->type == "product")
         {
-            $ItemData=OrderItem::insertProductItems($request);
+            $ItemData = OrderItem::insertProductItems($request);
         }
         else 
         {
-            $ItemData=OrderPackage::insertPackages($request);
+            $ItemData = OrderPackage::insertPackages($request);
         }
         return response()->json(['ItemData'=>json_decode($ItemData),'message'=>'Item added Successfully']);
     }

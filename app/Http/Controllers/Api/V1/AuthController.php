@@ -183,7 +183,7 @@ class AuthController extends APIController
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
         $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
         $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
-        $cart = ['product'=>  $productCart , 'package'=> $packageCart];
+        $cart = ['products'=>  $productCart , 'packages'=> $packageCart];
         return $this->respond([
             'user' => $user,
             'token' => $token,

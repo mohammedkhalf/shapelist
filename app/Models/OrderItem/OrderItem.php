@@ -48,24 +48,17 @@ class OrderItem extends Model
             return $productArr;
         } 
 
-        public static function updateProductItems($request,$id)
+        public static function getProductCart ($userId)
         {
-            $productObj = OrderItem::findOrFail($id);
-            if($request->user_music)
+            $products = OrderItem::with('products')->where(['order_id'=>null,'user_id'=>$userId])->get();
+            
+            foreach($products  as $proCart)
             {
-                $old_music_path = public_path() .  '/storage/users_music/' . $productObj->user_music;  // prev url path
-                if (file_exists($old_music_path)) {
-                    @unlink($old_music_path);
-                }
-                $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                $request->user_music->storeAs('public/users_music', $fileNameToStore);
-            } else {
-                $fileNameToStore = '';
+                $productCartArr  = ['id'=> $proCart->id,'product_id'=> $proCart->product_id,'quantity'=> $proCart->quantity,'price_per_item'=> $proCart->price_per_item,'items_total_price'=> $proCart->items_total_price,'name'=> $proCart->products->name,'name_ar'=> $proCart->products->name_ar];
             }
-            $product = OrderItem::where('id',$id)
-                      ->update(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music'), 
-                      ['user_music'=>$fileNameToStore,'product_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
-            return $product;
-        } 
+
+            return $productCartArr;
+        }
+
 
 }

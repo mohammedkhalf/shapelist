@@ -181,10 +181,9 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
-        $cart = [
-                'products'=> OrderItem::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get(),
-                'packages'=>OrderPackage::where(['order_id'=>null , 'user_id'=>auth()->guard('api')->user()->id])->get()
-            ];
+        $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
+        $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
+        $cart = ['product'=>  $productCart , 'package'=> $packageCart];
         return $this->respond([
             'user' => $user,
             'token' => $token,

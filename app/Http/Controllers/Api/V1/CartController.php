@@ -47,14 +47,7 @@ class CartController extends APIController
      */
     public function update(UpdateCartRequest $request, $id)
     {
-        if($request->type == "product")
-        {
-            $updated_Item = OrderItem::updateProductItems($request,$id);
-        }
-        else{
-            $updated_Item = OrderPackage::updatePackageItems($request,$id);
-        }
-        return response()->json(['ItemData'=>json_decode($updated_Item),'message'=>'Item update Successfully']);
+        
     }
 
     /**

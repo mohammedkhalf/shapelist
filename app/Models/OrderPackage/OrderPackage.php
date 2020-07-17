@@ -44,27 +44,15 @@ class OrderPackage extends Model
             return $packgeArr;
     } 
 
-    public static function updatePackageItems($request,$id)
+    public static function getPackageCart ($userId)
     {
-        $packageObj = OrderPackage::findOrFail($id);
-        if($request->user_music)
-        {
-                $old_music_path = public_path() .  '/storage/users_music/' . $packageObj->user_music;  // prev url path
-                if (file_exists($old_music_path)) {
-                    @unlink($old_music_path);
-                }
-                $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                $request->user_music->storeAs('public/users_music', $fileNameToStore);
-        }
-        else
-        {
-            $fileNameToStore = '';
-        }
+            $packages = OrderPackage::with('packages')->where(['order_id'=>null , 'user_id'=>$userId])->get();
+            
+            foreach($packages  as $packCart)
+            {
+                $packageCartArr  = ['id'=> $packCart->id,'product_id'=> $packCart->product_id,'quantity'=> $packCart->quantity,'price_per_item'=> $packCart->price_per_item,'items_total_price'=> $packCart->items_total_price,'name'=> $packCart->packages->name,'name_ar'=> $packCart->packages->name_ar];
+            }
 
-        $package = OrderPackage::where('id',$id)
-                      ->update(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music'), 
-                      ['user_music'=>$fileNameToStore,'package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
-                      
-        return  $package;
-    }  
+            return $packageCartArr;
+    }
 }

@@ -87,6 +87,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
+        
         //order download from S3
         Route::get('downloadLink/{orderId}','OrderController@orderDownload');
         // Return user downloads

@@ -85,11 +85,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
-        // download s3 for order
-        Route::get('orderDownload/{fileName}','OrderController@orderDownload');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
-        //order download
+        //order download from S3
         Route::get('downloadLink/{orderId}','OrderController@orderDownload');
         // Return user downloads
         Route::get('/download/{orderId}','OrderController@myDownload');

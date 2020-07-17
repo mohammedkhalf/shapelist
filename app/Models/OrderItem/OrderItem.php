@@ -3,7 +3,8 @@
 namespace App\Models\OrderItem;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\MusicSample\MusicSample;
+use App\Models\Product\Product; 
+use App\Models\MusicSample\MusicSample; 
 
 class OrderItem extends Model
 {
@@ -23,46 +24,41 @@ class OrderItem extends Model
         'product_id'=> 'integer'
     ];
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+
     
         public static function insertProductItems($request)
         {
             if(OrderItem::where('product_id','=',$request->item_id)->count() > 0)
             {
-                OrderItem::where('product_id','=',$request->item_id)->update(['quantity'=>$request->quantity]);
-                return OrderItem::where('product_id','=',$request->item_id)->get();
-            }
-                // if($request->user_music)
-                // {
-                //     $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                //     $request->user_music->storeAs('public/users_music', $fileNameToStore);
-                // } else {
-                //     $fileNameToStore = '';
-                // }
+                OrderItem::where('product_id','=',$request->item_id)->update(['items_total_price'=>$request->items_total_price,'quantity'=>$request->quantity]);
+            }                
             else{
-                return OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
+                OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
                 ['product_id'=>$request->item_id,'type'=>$request->type,'user_id'=>auth()->guard('api')->user()->id]));
             }
-                
+            $productData = orderItem::with('products')->where('product_id',$request->item_id)->get();
+            foreach($productData as $proObj)
+            {
+                $productArr = ['id'=>$proObj->id,'product_id'=>$proObj->product_id,'quantity'=>$proObj->quantity,'price_per_item'=>$proObj->price_per_item,'items_total_price'=>$proObj->items_total_price,'name'=>$proObj->products->name,'name_ar'=>$proObj->products->name_ar];
+            }
+            return $productArr;
         } 
 
-        public static function updateProductItems($request,$id)
+        public static function getProductCart ($userId)
         {
-            $productObj = OrderItem::findOrFail($id);
-            if($request->user_music)
+            $products = OrderItem::with('products')->where(['order_id'=>null,'user_id'=>$userId])->get();
+            
+            foreach($products  as $proCart)
             {
-                $old_music_path = public_path() .  '/storage/users_music/' . $productObj->user_music;  // prev url path
-                if (file_exists($old_music_path)) {
-                    @unlink($old_music_path);
-                }
-                $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                $request->user_music->storeAs('public/users_music', $fileNameToStore);
-            } else {
-                $fileNameToStore = '';
+                $productCartArr  = ['id'=> $proCart->id,'product_id'=> $proCart->product_id,'quantity'=> $proCart->quantity,'price_per_item'=> $proCart->price_per_item,'items_total_price'=> $proCart->items_total_price,'name'=> $proCart->products->name,'name_ar'=> $proCart->products->name_ar];
             }
-            $product = OrderItem::where('id',$id)
-                      ->update(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music'), 
-                      ['user_music'=>$fileNameToStore,'product_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
-            return $product;
-        } 
+
+            return $productCartArr;
+        }
+
 
 }

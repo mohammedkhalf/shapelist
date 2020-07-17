@@ -202,19 +202,6 @@
                                @endforeach
                         </thead>
                     </table>
-                
-                    <!-- <tr>
-                        <th>{{ trans('labels.backend.access.users.tabs.content.overview.created_at') }}</th>
-                        <td>{{ $order->created_at }} ({{ $order->created_at->diffForHumans() }})</td>
-                    </tr>
-
-                    <tr>
-                        <th>{{ trans('labels.backend.access.users.tabs.content.overview.last_updated') }}</th>
-                        <td>{{ $order->updated_at }} ({{ $order->updated_at->diffForHumans() }})</td>
-                    </tr> -->
             @endforeach
-
-
-           
         </table>
 @endsection

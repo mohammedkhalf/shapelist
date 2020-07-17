@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
             Route::post('logout', 'AuthController@logout');
             Route::get('user-data/{id}', 'AuthController@userData');
             Route::post('password/change', 'AuthController@changePassword');
-            Route::post('update-profile', 'AuthController@updateProfile');
+            Route::put('update-profile', 'AuthController@updateProfile');
             //Return user from token 
             Route::get('/me','AuthController@getUser');
         });
@@ -69,42 +69,37 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/coupons', 'CouponController');
         //Orders Status
         Route::apiResource('/orders_status', 'OrderStatusController');
-        //Music Samples
-        Route::apiResource('/music_samples', 'MusicSamplesController'); 
         //Locations
         Route::apiResource('locations', 'LocationController');
-        //VAT
-        Route::get('quotation/vat', 'QuotationController@vat');
-        //ON-SET
-        Route::get('quotation/onSet', 'QuotationController@onSet');
         //Deliveries
         Route::apiResource('/deliveries', 'DeliveryController');        
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //subscriptions
-        Route::post('subscriptions/subscribe/{id}', 'SubscriptionsController@subscribe');
+        Route::post('subscriptions/subscribe/{id}/{bankTransactionId}', 'SubscriptionsController@subscribe');
         //subscription update points
         Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
-
-        
         //subscriptions payment
-        Route::get('subscriptions/checkouts/{checkoutId}/payment','SubscriptionsController@getStatus');
-        Route::post('subscriptions/payment-Info','SubscriptionsController@savePaymentInfo');
         //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');
         Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
-        // download s3 for order
-        Route::get('orderDownload/{fileName}','OrderController@orderDownload');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
-        //order download
+        //order download from S3
         Route::get('downloadLink/{orderId}','OrderController@orderDownload');
         // Return user downloads
         Route::get('/download/{orderId}','OrderController@myDownload');
         //new develop
 }); //auth:api
+
+        //VAT
+        Route::get('quotation/vat', 'QuotationController@vat');
+        //ON-SET
+        Route::get('quotation/onSet', 'QuotationController@onSet');
+        //Music Samples
+        Route::apiResource('/music_samples', 'MusicSamplesController'); 
         // Faqs
         Route::resource('faqs', 'FaqsController', ['except' => ['create', 'edit']]);
         Route::get('faqsCategories','FaqsController@category');

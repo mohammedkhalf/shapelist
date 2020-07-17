@@ -33,7 +33,6 @@ class MusicSample extends Model
      * @var array
      */
     protected $fillable = [
-        'name','url'
     ];
 
     /**
@@ -74,48 +73,28 @@ class MusicSample extends Model
     {
         if(!empty($request['url']))
         {
-            // Get filename with the extension
-            $filenameWithExt = $request['url']->getClientOriginalName();
-            // dd($filenameWithExt);
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request['url']->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload url
+            $fileNameToStore= pathinfo($request['url']->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request['url']->getClientOriginalExtension();
             $path = $request['url']->storeAs('public/smaples', $fileNameToStore);
         } else {
             $fileNameToStore = 'sample.jpg';
         }
-        $music = MusicSample::create(['name'=> $request['name'] , 'url'=>$fileNameToStore]);
-        return $music;
+            $music = MusicSample::create(['name'=> $request['name'],
+            'full_path'=>"https://shapelistapp.com/storage/smaples/".$fileNameToStore,'url'=>$fileNameToStore]);
+            return $music;
     }
 
     public static function updateMusic ($musicsample , $request)
     {
-         // dd($request);
          if(!empty($request['url']))
          {
              $old_music_path = public_path() .  '/storage/smaples/' . $musicsample->url;  // prev url path
              if (file_exists($old_music_path )) {
                  @unlink($old_music_path );
              }
-             // Get filename with the extension
-             $filenameWithExt = $request['url']->getClientOriginalName();
-             // Get just filename
-             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-             // Get just ext
-             $extension = $request['url']->getClientOriginalExtension();
-             // Filename to store
-             $fileNameToStore= $filename.'_'.time().'.'.$extension;
-             // Upload url
+             $fileNameToStore= pathinfo($request['url']->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request['url']->getClientOriginalExtension();
              $path = $request['url']->storeAs('public/smaples', $fileNameToStore);
- 
          } 
- 
-         $musicsample->update(['name'=> $request['name'] , 'url'=>$fileNameToStore]);
-
+         $musicsample->update(['name'=> $request['name'],'full_path'=>"https://shapelistapp.com/storage/smaples/".$fileNameToStore,'url'=>$fileNameToStore]);
          return $musicsample;
 
     }

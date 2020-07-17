@@ -18,6 +18,7 @@ class CreateMusicSamplesTable extends Migration
             $table->string('name', 225)->unique();
             $table->string('type', 225)->nullable();
             $table->text('url')->nullable();
+            $table->string('full_path')->nullable();
             $table->timestamps();
         });
     }

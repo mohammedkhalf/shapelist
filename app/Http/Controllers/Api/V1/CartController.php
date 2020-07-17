@@ -36,7 +36,7 @@ class CartController extends APIController
         {
             $ItemData = OrderPackage::insertPackages($request);
         }
-        return response()->json(['ItemData'=>json_decode($ItemData),'message'=>'Item added Successfully']);
+        return response()->json(['ItemData'=>$ItemData,'message'=>'Item added Successfully']);
     }
     /**
      * Update the specified resource in storage.

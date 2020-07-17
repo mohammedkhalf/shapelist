@@ -3,7 +3,8 @@
 namespace App\Models\OrderItem;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\MusicSample\MusicSample;
+use App\Models\Product\Product; 
+use App\Models\MusicSample\MusicSample; 
 
 class OrderItem extends Model
 {
@@ -23,26 +24,28 @@ class OrderItem extends Model
         'product_id'=> 'integer'
     ];
 
+    public function products()
+    {
+        return $this->belongsTo(Product::class,'product_id');
+    }
+
     
         public static function insertProductItems($request)
         {
             if(OrderItem::where('product_id','=',$request->item_id)->count() > 0)
             {
-                OrderItem::where('product_id','=',$request->item_id)->update(['quantity'=>$request->quantity]);
-                return OrderItem::where('product_id','=',$request->item_id)->get();
-            }
-                // if($request->user_music)
-                // {
-                //     $fileNameToStore= pathinfo($request->user_music->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$request->user_music->getClientOriginalExtension();
-                //     $request->user_music->storeAs('public/users_music', $fileNameToStore);
-                // } else {
-                //     $fileNameToStore = '';
-                // }
+                OrderItem::where('product_id','=',$request->item_id)->update(['items_total_price'=>$request->items_total_price,'quantity'=>$request->quantity]);
+            }                
             else{
-                return OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
+                OrderItem::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length'), 
                 ['product_id'=>$request->item_id,'type'=>$request->type,'user_id'=>auth()->guard('api')->user()->id]));
             }
-                
+            $productData = orderItem::with('products')->where('product_id',$request->item_id)->get();
+            foreach($productData as $proObj)
+            {
+                $productArr = ['id'=>$proObj->id,'product_id'=>$proObj->product_id,'quantity'=>$proObj->quantity,'price_per_item'=>$proObj->price_per_item,'items_total_price'=>$proObj->items_total_price,'name'=>$proObj->products->name,'name_ar'=>$proObj->products->name_ar];
+            }
+            return $productArr;
         } 
 
         public static function updateProductItems($request,$id)

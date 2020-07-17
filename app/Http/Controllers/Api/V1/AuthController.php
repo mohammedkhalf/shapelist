@@ -67,10 +67,9 @@ class AuthController extends APIController
 
         $location = Location::where('user_id',$user->id)->first();
         $allOrders = Order::where('user_id',$user->id)->get();
-        $cart = [
-                'products'=> OrderItem::where(['order_id'=>null , 'user_id'=>$user->id])->get(),
-                'packages'=>OrderPackage::where(['order_id'=>null , 'user_id'=>$user->id])->get()
-            ];
+        $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
+        $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
+        $cart = ["products"=>$productCart, "packages"=>$packageCart];
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
@@ -170,7 +169,6 @@ class AuthController extends APIController
             'message'=>'Profile Updated Successfully',
             'user'=> $user,
         ]);
-
     }
     
     public function getUser(){
@@ -183,7 +181,7 @@ class AuthController extends APIController
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
         $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
         $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
-        $cart = ['product'=>  $productCart , 'package'=> $packageCart];
+        $cart = ["products"=>$productCart, "packages"=>$packageCart];
         return $this->respond([
             'user' => $user,
             'token' => $token,
@@ -193,6 +191,4 @@ class AuthController extends APIController
             'subscription_details' => $subscription,
         ]);
     }
-
-   
 }

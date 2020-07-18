@@ -45,6 +45,9 @@ return [
 	"dashboard" => "Dashboard",
 	"general" => "General",
 	"system" => "System",
+	"Financial"=>"Financial",
+	"Orders"=>"Orders",
+	"Quotations"=>"Quotations",
 	],
 	"pages" => [
 	"all" => "All Pages",

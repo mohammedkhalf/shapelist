@@ -13,6 +13,13 @@
             </li>
             <li class="header">{{ trans('menus.backend.sidebar.system') }}</li>
             {{ renderMenuItems(getMenuItems()) }}
+
+            <li class="header">{{ trans('menus.backend.sidebar.Financial') }}</li>
+            <li> <a href="{{route ('admin.orders.index')}}"> <i class="fa fa-shopping-cart"></i> {{ trans('menus.backend.sidebar.Orders') }} </a></li>
+            <li> <a href="{{route ('admin.quotations.index')}}"> <i class="fa fa-money"></i> {{ trans('menus.backend.sidebar.Quotations') }} </a> </li>
+
+
+
         </ul><!-- /.sidebar-menu -->
     </section><!-- /.sidebar -->
 </aside>

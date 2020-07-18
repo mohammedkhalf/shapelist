@@ -67,9 +67,10 @@ class AuthController extends APIController
 
         $location = Location::where('user_id',$user->id)->first();
         $allOrders = Order::where('user_id',$user->id)->get();
-        $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
-        $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
+        $productCart = OrderItem::getProductCart($user->id);
+        $packageCart = OrderPackage::getPackageCart($user->id);
         $cart = ["products"=>$productCart, "packages"=>$packageCart];
+
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
@@ -179,15 +180,15 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
-        $productCart = OrderItem::getProductCart(auth()->guard('api')->user()->id);
-        $packageCart = OrderPackage::getPackageCart(auth()->guard('api')->user()->id);
-        $cart = ["products"=>$productCart, "packages"=>$packageCart];
-        return $this->respond([
+        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get();
+        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get();
+        $cart = array('products'=> $productCart,'packages'=>$packageCart);
+        return response()->json([
             'user' => $user,
             'token' => $token,
             'location' => $location,
             'orders' => $allOrders,   
-            "cart"   => $cart,
+            "cart"=> $cart,
             'subscription_details' => $subscription,
         ]);
     }

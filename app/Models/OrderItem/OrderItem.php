@@ -32,7 +32,7 @@ class OrderItem extends Model
     
         public static function insertProductItems($request)
         {
-            if(OrderItem::where('product_id','=',$request->item_id)->count() > 0)
+            if(OrderItem::where(['product_id'=>$request->item_id,'user_id'=>auth()->guard('api')->user()->id])->count() > 0)
             {
                 OrderItem::where('product_id','=',$request->item_id)->update(['items_total_price'=>$request->items_total_price,'quantity'=>$request->quantity]);
             }                

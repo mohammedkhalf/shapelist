@@ -67,10 +67,10 @@ class AuthController extends APIController
 
         $location = Location::where('user_id',$user->id)->first();
         $allOrders = Order::where('user_id',$user->id)->get();
-        $productCart = OrderItem::getProductCart($user->id);
-        $packageCart = OrderPackage::getPackageCart($user->id);
-        $cart = ["products"=>$productCart, "packages"=>$packageCart];
 
+        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $cart = array('products'=> $productCart,'packages'=>$packageCart);
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
@@ -180,8 +180,8 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
-        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get();
-        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get();
+        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $cart = array('products'=> $productCart,'packages'=>$packageCart);
         return response()->json([
             'user' => $user,

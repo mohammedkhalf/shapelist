@@ -35,7 +35,7 @@ class OrderPackage extends Model
             else{
                 $packageData = Package::findOrFail($request->item_id);
                 OrderPackage::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music') , 
-                ['name_ar'=>$packageData->name_ar,'name'=>$packageData->name_en,'package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
+                ['name_ar'=>$packageData->name_ar,'name_en'=>$packageData->name_en,'package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
             }
             $packageData = OrderPackage::with('packages')->where('package_id',$request->item_id)->get();
             foreach($packageData as $packageObj)

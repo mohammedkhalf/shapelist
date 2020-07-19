@@ -246,7 +246,7 @@
 
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:20px; float:right"> 
-                            <p> Subtotal:  {{ $sub_total }} SAR  </p>
+                            <!-- <p> Subtotal:  {{ $sub_total }} SAR  </p> -->
                             <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
                             <p> Total:     {{ $total_price }} SAR    </p>
                         </div>

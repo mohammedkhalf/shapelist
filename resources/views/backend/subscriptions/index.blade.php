@@ -25,11 +25,17 @@
                             <th>{{ trans('labels.backend.subscriptions.table.name') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.name_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.purchase_points') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.purchase_points_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.free_points') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.free_points_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.discount') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.discount_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.details') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.details_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.duration') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.duration_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.price') }}</th>
+                            <th>{{ trans('labels.backend.subscriptions.table.price_ar') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.delivery_id') }}</th>
                             <th>{{ trans('labels.backend.subscriptions.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
@@ -73,11 +79,17 @@
                     {data: 'name', name: '{{config('module.subscriptions.table')}}.name'},
                     {data: 'name_ar', name: '{{config('module.subscriptions.table')}}.name_ar'},
                     {data: 'purchase_points', name: '{{config('module.subscriptions.table')}}.purchase_points'},
+                    {data: 'purchase_points_ar', name: '{{config('module.subscriptions.table')}}.purchase_points_ar'},
                     {data: 'free_points', name: '{{config('module.subscriptions.table')}}.free_points'},
+                    {data: 'free_points_ar', name: '{{config('module.subscriptions.table')}}.free_points_ar'},
                     {data: 'discount', name: '{{config('module.subscriptions.table')}}.discount'},
+                    {data: 'discount_ar', name: '{{config('module.subscriptions.table')}}.discount_ar'},
                     {data: 'details', name: '{{config('module.subscriptions.table')}}.details'},
+                    {data: 'details_ar', name: '{{config('module.subscriptions.table')}}.details_ar'},
                     {data: 'duration', name: '{{config('module.subscriptions.table')}}.duration'},
+                    {data: 'duration_ar', name: '{{config('module.subscriptions.table')}}.duration_ar'},
                     {data: 'price', name: '{{config('module.subscriptions.table')}}.price'},
+                    {data: 'price_ar', name: '{{config('module.subscriptions.table')}}.price_ar'},
                     {data: 'delivery_id', name: '{{config('module.subscriptions.table')}}.delivery_id'},
                     {data: 'created_at', name: '{{config('module.subscriptions.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}

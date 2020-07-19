@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Quotation\Quotation;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Subscription;
-use App\Models\SubscriptionDetail\SubscriptionDetail;
 use App\Models\Access\User\User;
 use Carbon\Carbon;
 use PDF;
@@ -56,8 +55,6 @@ class SubscriptionDetail extends Model
             'free_points'=> $subscription->free_points,
             'discount'=> $subscription->discount,
             'duration'=> $subscription->duration,
-
-
         ];
         return $data;
     }

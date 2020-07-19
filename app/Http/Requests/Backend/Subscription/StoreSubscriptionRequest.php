@@ -31,14 +31,19 @@ class StoreSubscriptionRequest extends FormRequest
             'name' => ['string','max:50' , new FilterStringRule],
             'name_ar' => ['string','max:50' , new FilterStringRule],
             'purchase_points' => ['numeric','not_in:0'],
+            'purchase_points_ar' => ['string','not_in:0',  new FilterStringRule], //arabic not used in calculation,only english
             'free_points' => ['numeric','not_in:0'],
+            'free_points_ar' => ['string','not_in:0',  new FilterStringRule],
             'discount' => ['nullable','numeric','not_in:0'],
+            'discount_ar' => ['nullable','string','not_in:0' , new FilterStringRule],
             'details' => ['nullable','string' , 'max:255', new FilterStringRule],
+            'details_ar' => ['nullable','string' , 'max:255', new FilterStringRule],
             'duration' => ['numeric','not_in:0'],  
+            'duration_ar' => ['string','not_in:0' , new FilterStringRule],  
             'price' => ['numeric','not_in:0'],
+            'price_ar' => ['string','not_in:0' , new FilterStringRule],
             'priority_support' => ['numeric','in:0,1' ],
             'delivery_id' => ['required','numeric','not_in:0'],
-
         ];
     }
 

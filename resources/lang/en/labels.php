@@ -277,6 +277,7 @@ return [
 	"table" => [
 	"id" => "Id",
 	"type" => "type",
+	"type_ar"=>"type-arabic",
 	"createdat" => "Created At",
 	],
 	],

@@ -46,7 +46,7 @@ class Subscription extends Model
         'price' => 'float',
         'purchase_points' => 'float',
         'free_points' => 'float',
-        'discount' => 'float',
+        'discount' => 'float'
     ];
 
     /**

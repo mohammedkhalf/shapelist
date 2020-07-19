@@ -44,6 +44,7 @@ class StoreSubscriptionRequest extends FormRequest
             'price_ar' => ['string','not_in:0' , new FilterStringRule],
             'priority_support' => ['numeric','in:0,1' ],
             'delivery_id' => ['required','numeric','not_in:0'],
+           
         ];
     }
 

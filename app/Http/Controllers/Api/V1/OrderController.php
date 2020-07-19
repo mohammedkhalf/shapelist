@@ -28,6 +28,7 @@ class OrderController extends APIController
         //======================== create order StoreOrderRequest  ======================
         public function store(Request $request)
         {
+
         }
 
         public function show($id)
@@ -63,8 +64,10 @@ class OrderController extends APIController
                 $InvoiceEmail=Order::sendPdfInvoice($orderObj);
                 return response()->json(['message'=>'Payment Process Successfully']);
             }
-            // Failure
-            return response()->json(['message'=>'Payment Process  Failure']);
+            else
+            {
+                return response()->json(['message'=>'Payment Process Failure']);
+            }
         }
         //======================== order download url===========================
         public function orderDownload($orderId)
@@ -87,7 +90,8 @@ class OrderController extends APIController
         {
             $invoiceObj = Invoice::where('order_id',$orderId)->first();
             $user_id = auth()->guard('api')->user()->id;
-            return response()->download(storage_path("app/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
+            return response()->file(storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
+            // return storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
         }
         //======================== view detials download===========================
         public function myDownload($id){  

@@ -90,8 +90,8 @@ class OrderController extends APIController
         {
             $invoiceObj = Invoice::where('order_id',$orderId)->first();
             $user_id = auth()->guard('api')->user()->id;
-            return response()->file(storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
-            // return storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
+            // return response()->file(storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
+            return storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
         }
         //======================== view detials download===========================
         public function myDownload($id){  

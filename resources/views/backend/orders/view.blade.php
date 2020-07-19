@@ -16,10 +16,10 @@
 
         <table class="table table-striped table-hover">
             @foreach($userProducts  as $orderInfo)
-                   <tr>
+                   <!-- <tr>
                         <th> <h5> {{ trans('labels.backend.orders.Invoice') }}  </h5> </th>
                         <td> <a href="{{ route('admin.orders.preview',$orderInfo) }}"  target="_blank"> <button class="btn btn-info">Preview</button> </a> </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <th>{{ trans('labels.backend.orders.table.firstname') }}</th>

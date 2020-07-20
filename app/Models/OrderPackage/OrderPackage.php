@@ -28,7 +28,7 @@ class OrderPackage extends Model
 
     public static function insertPackages($request)
     {
-            if(OrderPackage::where('package_id','=',$request->item_id)->count() > 0)
+            if(OrderPackage::where(['order_id'=>null,'package_id'=>$request->item_id , 'user_id'=>auth()->guard('api')->user()->id])->count() > 0)
             {
                 OrderPackage::where('package_id','=',$request->item_id)->update(['items_total_price'=>$request->items_total_price,'quantity'=>$request->quantity]);
             }

@@ -32,6 +32,14 @@
                 </div><!--form-group-->
 
                 <div class="form-group">
+                    {{ Form::label('type_ar', trans('labels.backend.statuses.table.type_ar'), ['class' => 'col-lg-2 control-label required']) }} 
+                    <div class="col-lg-10">
+                    {{ Form::text('type_ar', old('type_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.statuses.table.type_ar'), 'required' => 'required']) }} 
+                </div><!--col-lg-10-->
+      
+    </div><!--form-group-->
+
+                <div class="form-group">
                     <div class="edit-form-btn">
                         {{ link_to_route('admin.statuses.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-md']) }}
                         {{ Form::submit(trans('buttons.general.crud.create'), ['class' => 'btn btn-primary btn-md']) }}

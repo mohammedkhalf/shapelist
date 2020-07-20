@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total_price')->default(1);
 
             $table->string('payment_status')->nullable();
-            $table->dateTime('on_set')->nullable(); 
+            $table->string('on_set')->nullable(); 
             $table->string('coupon_code')->nullable();
             $table->timestamps();
         });

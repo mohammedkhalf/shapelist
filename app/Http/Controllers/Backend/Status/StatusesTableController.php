@@ -41,6 +41,9 @@ class StatusesTableController extends Controller
             ->addColumn('type', function ($status) {
                 return $status->type;
             })
+            ->addColumn('type_ar', function ($status) {
+                return $status->type_ar;
+            })
             ->addColumn('created_at', function ($status) {
                 return Carbon::parse($status->created_at)->toDateString();
             })

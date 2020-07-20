@@ -62,7 +62,7 @@ class SubscriptionsController extends Controller
 
     public function updatePoints(Request $request){
         $userSubscription=SubscriptionDetail::updateUserPoints($request); 
-        return $userSubscription ;
+        return $userSubscription;
     }
   
 }

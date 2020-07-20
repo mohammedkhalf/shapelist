@@ -29,6 +29,7 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'bank_transaction_id' => ['required','string',new FilterStringRule],
             'delivery_id'=>['required','numeric','not_in:0','exists:'. Delivery::table() .',id'],
             'location_id'=>['numeric','not_in:0','exists:'. Location::table() .',id' , 'nullable'],
             'total_price'=>['required' ,'numeric' , 'not_in:0'],

@@ -78,7 +78,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //subscriptions
         Route::post('subscriptions/subscribe/{id}/{bankTransactionId}', 'SubscriptionsController@subscribe');
         //subscription update points
-        Route::post('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
+        Route::put('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
         //subscriptions payment
         //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');

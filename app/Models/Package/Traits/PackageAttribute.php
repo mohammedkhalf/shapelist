@@ -15,10 +15,10 @@ trait PackageAttribute
      * Action Button Attribute to show in grid
      * @return string
      */
-    // '.$this->getEditButtonAttribute("edit-package", "admin.packages.edit").'
     public function getActionButtonsAttribute()
     {
         return '<div class="btn-group action-btn">
+               '.$this->getEditButtonAttribute("edit-package", "admin.packages.edit").'
                 '.$this->getDeleteButtonAttribute("delete-package", "admin.packages.destroy").'
                 </div>';
     }

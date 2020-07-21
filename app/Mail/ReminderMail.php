@@ -40,10 +40,10 @@ class ReminderMail extends Mailable
             return $this->view('emails.third_reminder')->with('subscriber', $this->subscriber);
         }
         if($this->status== 4){//New Subscription Reminder
-            return $this->view('emails.newSubscription')->with(array('subscriber'=> $this->subscriber ,'subscriptionName'=>$this->subscriptionName ));
+            return $this->subject('Subscription Mail')->view('emails.newSubscription')->with(array('subscriber'=> $this->subscriber ,'subscriptionName'=>$this->subscriptionName ));
         }
         if($this->status== 5){//Renew Subscription Reminder
-            return $this->view('emails.renewSubscription')->with(array('subscriber'=> $this->subscriber ,'subscriptionName'=>$this->subscriptionName ));
+            return $this->subject('Subscription Mail')->view('emails.renewSubscription')->with(array('subscriber'=> $this->subscriber ,'subscriptionName'=>$this->subscriptionName ));
         }
     }
 }

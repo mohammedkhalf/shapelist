@@ -64,7 +64,7 @@ class Order extends Model
     //package_order
     public function package()
     {
-        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','music_id','package_id','quantity','type','vedio_length','user_music'); 
+        return $this->belongsToMany(Package::class,'order_packages')->withPivot('order_id','music_id','package_id','quantity','type','video_length','user_music'); 
     }
     //media attach
     public function media()
@@ -140,14 +140,15 @@ class Order extends Model
             //author@khalf
             $pdf = PDF::loadView('emails.email-invoice', $data);
             $fileName = time() . ".pdf";
-            Storage::put('orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
+            Storage::put('public/orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
             Invoice::create(['order_id'=>$OrderObject->id,'file_name'=>$fileName]);
             Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
                 $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
                         ->subject($data["subject"])
                         ->attachData($pdf->output(),"invoice.pdf");
                 });   
-            return response()->json(['message'=>'Invoice Send Successfuly']);
+            return $pdf->download('invoice.pdf');
+
     }
 
     //

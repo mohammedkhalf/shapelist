@@ -15,7 +15,7 @@
             <p class="fd-email-text"  style="color: #000000a1; opacity: 0.8;">   You have renewed your subscription for the {{$subscriptionName}}</p>
             <p style="color: #000000a1;opacity: 0.8;text-align: left;"> Visit your dashboard and view your points & use them! </p>
             <div class="fd-button center" style="margin-top: 30px !important;">
-                <a href="#" style="color: #ffffff; text-decoration: none;margin-top: 15px;opacity: 0.8;"> Visit your dashboard </a>
+                <a href="www.shaplist.com/ar/me/dashboard" style="color: #ffffff; text-decoration: none;margin-top: 15px;opacity: 0.8;"> Visit your dashboard </a>
             </div> 
             <div class="fd-email-message" style="color: #000000a1;opacity: 0.8; font-weight: 700;">
                 <p> Also, if you need any help, do not hesitate to contact us anytime,<b><a style="text-decoration:none;color: #000000;"> info@shapelist.com </a></b></p>

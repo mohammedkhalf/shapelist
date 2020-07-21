@@ -23,6 +23,7 @@
                         <tr>
                             <th>{{ trans('labels.backend.statuses.table.id') }}</th>
                             <th>{{ trans('labels.backend.statuses.table.type') }}</th>
+                            <th>{{ trans('labels.backend.statuses.table.type_ar') }}</th>
                             <th>{{ trans('labels.backend.statuses.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -63,6 +64,7 @@
                 columns: [
                     {data: 'id', name: '{{config('module.statuses.table')}}.id'},
                     {data: 'type', name: '{{config('module.statuses.table')}}.type'},
+                    {data: 'type_ar', name: '{{config('module.statuses.table')}}.type_ar'},
                     {data: 'created_at', name: '{{config('module.statuses.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

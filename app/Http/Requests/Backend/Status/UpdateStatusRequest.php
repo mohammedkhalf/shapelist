@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Backend\Status;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\FilterStringRule;
 
 class UpdateStatusRequest extends FormRequest
 {
@@ -27,7 +28,8 @@ class UpdateStatusRequest extends FormRequest
             //Put your rules for the request in here
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
-            'type' => ['string','regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:50']
+            'type' => ['string','max:50',new FilterStringRule],
+            'type_ar'=> ['string','max:50',new FilterStringRule]
         ];
     }
 

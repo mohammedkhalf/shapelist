@@ -31,6 +31,7 @@ class StatusRepository extends BaseRepository
             ->select([
                 config('module.statuses.table').'.id',
                 config('module.statuses.table').'.type',
+                config('module.statuses.table').'.type_ar',
                 config('module.statuses.table').'.created_at',
                 config('module.statuses.table').'.updated_at',
             ]);

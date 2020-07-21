@@ -14,10 +14,14 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-
+use App\Models\OrderItem\OrderItem;
+use App\Models\OrderPackage\OrderPackage;
+use App\Rules\FilterStringRule;
 
 class AuthController extends APIController
 {
+    
+   
     /**
      * Log the user in.
      *
@@ -61,13 +65,21 @@ class AuthController extends APIController
             return $this->respondInternalError($e->getMessage());
         }
 
+        $location = Location::where('user_id',$user->id)->first();
+        $allOrders = Order::where('user_id',$user->id)->get();
 
+        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $cart = array('products'=> $productCart,'packages'=>$packageCart);
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
 
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
             'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),
             'token'     => $token,
+            'location'    => $location,
+            'orders'    => $allOrders,   
+            "cart"      =>   $cart,
             'subscription_details'    => $subscription,
         ]);
     }
@@ -148,10 +160,9 @@ class AuthController extends APIController
     public function updateProfile(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|max:255',
-            // 'last_name'     => 'nullable|max:255',
-            'email'         => ['required', 'email', 'max:255', Rule::unique('users')],
-            'phone_number'  => 'required|max:10|string|regex:/(0)[0-9]{9}/',
+            'first_name'    => ['required','max:50', new FilterStringRule],
+            'email'         => ['required', 'email', 'max:255'],
+            'phone_number'  => 'required|min:10|numeric|regex:/(0)[0-9]{9}/',
         ]);
         $user = User::findOrFail(auth()->user()->id);
         $user->update($request->only('first_name','email','phone_number'));
@@ -159,7 +170,6 @@ class AuthController extends APIController
             'message'=>'Profile Updated Successfully',
             'user'=> $user,
         ]);
-
     }
     
     public function getUser(){
@@ -167,21 +177,19 @@ class AuthController extends APIController
         $passportToken = $user->createToken('API Access Token');
         $passportToken->token->save();
         $token = $passportToken->accessToken;
-        $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
-
-        $userOrder= Order::where('user_id',auth()->guard('api')->user()->id)->get();
-        foreach($userOrder as $order){
-            $orders[]= $order;  
-        }
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
-        return $this->respond([
-            'user'      => $user,
-            'token'     => $token,
-            'location'    => $location,
-            'orders'    => $orders,
-            'subscription_details'    => $subscription,
+        $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
+        $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
+        $productCart = OrderItem::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
+        $cart = array('products'=> $productCart,'packages'=>$packageCart);
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+            'location' => $location,
+            'orders' => $allOrders,   
+            "cart"=> $cart,
+            'subscription_details' => $subscription,
         ]);
     }
-
-   
 }

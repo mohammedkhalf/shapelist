@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Models\SubscriptionDetail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Quotation\Quotation;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subscription\Subscription;
-use App\Models\SubscriptionDetail\SubscriptionDetail;
 use App\Models\Access\User\User;
 use Carbon\Carbon;
+use PDF;
 
 class SubscriptionDetail extends Model
 {
@@ -54,21 +55,11 @@ class SubscriptionDetail extends Model
             'free_points'=> $subscription->free_points,
             'discount'=> $subscription->discount,
             'duration'=> $subscription->duration,
-
-
         ];
         return $data;
     }
 
-
-
-
-
-
-
-
-
-    public static function changePlane($id)
+    public static function changePlane($id,$bankTransactionId)
     {
             $subscription = Subscription::findOrFail($id);
             $duration =  $subscription->duration;
@@ -77,6 +68,7 @@ class SubscriptionDetail extends Model
 
             $newSubscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
             $newSubscriptionDetail->update(['subscription_id'=>$id , 'status'=>1,
+            'bank_transaction_id'=>$bankTransactionId,
             'purchase_points'=>$subscription->purchase_points + $oldSubscription->purchase_points  ,
             'free_points'=>$subscription->free_points ,
             'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
@@ -84,13 +76,13 @@ class SubscriptionDetail extends Model
             return $newSubscriptionDetail;
     }
 
-    public static function newSubscription($id)
+    public static function newSubscription($id,$bankTransactionId)
     {
             $subscription = Subscription::findOrFail($id);
             $duration=$subscription->duration;
             $userDetails = SubscriptionDetail::create(['user_id'=> auth()->guard('api')->user()->id,'subscription_id'=>$id,
             'status'=>1,'purchase_points'=>$subscription->purchase_points ,'free_points'=>$subscription->free_points ,
-            'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
+            'discount'=>$subscription->discount ,'bank_transaction_id'=>$bankTransactionId, 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
             return $userDetails;
     }
@@ -109,49 +101,15 @@ class SubscriptionDetail extends Model
             return $subscriptionDetail;     
     }
    
-    public static function prepareCheckout($price)
+    public static function sendInvoicePdf($data)
     {
-        $url = "https://test.oppwa.com/v1/checkouts";
-	    $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".
-                "&amount=$price".
-                "&currency=SAR".
-                "&paymentType=DB";
+        $pdf = PDF::loadView('emails.subscription_invoive', $data);
+        Mail::send('emails.subscription_invoive',$data,function($message)use($data,$pdf) {
+        $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
+        ->subject($data["subject"])
+        ->attachData($pdf->output(),"invoice.pdf");
+        });  
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-                return curl_error($ch);
-            }
-            curl_close($ch);
-            return $responseData;
-    } //prepareCheckout
-
-    public static function getStatus($checkoutId)
-    {
-            $url = "https://test.oppwa.com/v1/checkouts/{$checkoutId}/payment";
-            $url .= "?entityId=8a8294174d0595bb014d05d82e5b01d2";
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-                return curl_error($ch);
-            }
-            curl_close($ch);
-            return $responseData;
     }
-
-
+   
 }

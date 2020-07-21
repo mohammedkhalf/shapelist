@@ -25,6 +25,6 @@ class MusicSamplesTableSeeder extends Seeder
                 'url' => 'rockStar.mp3',
                 'created_at'  => Carbon::now(),
                 'updated_at'  => Carbon::now()
-                ]);
+            ]);
     }
 }

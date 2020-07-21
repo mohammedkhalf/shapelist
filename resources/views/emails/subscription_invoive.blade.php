@@ -204,8 +204,8 @@
                                         <td> {{$subscription_name}} </td>
                                         <td> {{$purchase_points}} </td>
                                         <td> {{$free_points}} </td>
-                                        <td> {{$discount}} </td>
-                                        <td> {{$duration}} </td>
+                                        <td> {{$discount}}% </td>
+                                        <td> {{$duration}} Month </td>
                                     </tr>
 
 

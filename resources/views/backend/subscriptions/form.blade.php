@@ -20,10 +20,26 @@
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
+    
+    <div class="form-group">
+        {{ Form::label('purchase_points_ar', trans('labels.backend.subscriptions.table.purchase_points_ar'), ['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
+            {{ Form::text('purchase_points_ar', old('purchase_points_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.purchase_points_ar'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+
     <div class="form-group">
         {{ Form::label('free_points', trans('labels.backend.subscriptions.table.free_points'), ['class' => 'col-lg-2 control-label required']) }}
         <div class="col-lg-10">
             {{ Form::text('free_points', old('free_points'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.free_points'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
+        {{ Form::label('free_points_ar', trans('labels.backend.subscriptions.table.free_points_ar'), ['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
+            {{ Form::text('free_points_ar', old('free_points_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.free_points_ar'), 'required' => 'required']) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
@@ -35,9 +51,23 @@
     </div><!--form-group-->
 
     <div class="form-group">
+        {{ Form::label('discount_ar', trans('labels.backend.subscriptions.table.discount_ar'), ['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
+            {{ Form::text('discount_ar', old('discount_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.discount_ar'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
         {{ Form::label('details', trans('labels.backend.subscriptions.table.details'), ['class' => 'col-lg-2 control-label']) }}
         <div class="col-lg-10">
             {{ Form::textarea('details', old('details'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.details')]) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
+        {{ Form::label('details_ar', trans('labels.backend.subscriptions.table.details_ar'), ['class' => 'col-lg-2 control-label']) }}
+        <div class="col-lg-10">
+            {{ Form::textarea('details_ar', old('details_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.details_ar')]) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
@@ -49,9 +79,23 @@
     </div><!--form-group-->
 
     <div class="form-group">
+        {{ Form::label('duration_ar', trans('labels.backend.subscriptions.table.duration_ar'), ['class' => 'col-lg-2 control-label']) }}
+        <div class="col-lg-10">
+            {{ Form::text('duration_ar', old('duration_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.duration_ar')]) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
         {{ Form::label('price', trans('labels.backend.subscriptions.table.price'), ['class' => 'col-lg-2 control-label']) }}
         <div class="col-lg-10">
             {{ Form::text('price', old('price'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.price')]) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
+    <div class="form-group">
+        {{ Form::label('price_ar', trans('labels.backend.subscriptions.table.price_ar'), ['class' => 'col-lg-2 control-label']) }}
+        <div class="col-lg-10">
+            {{ Form::text('price_ar', old('price_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.price_ar')]) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 

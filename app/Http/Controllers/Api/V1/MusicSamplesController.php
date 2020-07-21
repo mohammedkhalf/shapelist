@@ -10,7 +10,7 @@ class MusicSamplesController extends APIController
     //======================== index music_samples  ======================
     public function index()
     {
-        $music_sample = MusicSample::all();
+        $music_sample = MusicSample::get();
         return response()->json($music_sample);
     }
 

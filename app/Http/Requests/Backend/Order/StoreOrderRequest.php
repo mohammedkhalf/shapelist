@@ -29,11 +29,12 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'bank_transaction_id' => ['required','string',new FilterStringRule],
             'delivery_id'=>['required','numeric','not_in:0','exists:'. Delivery::table() .',id'],
             'location_id'=>['numeric','not_in:0','exists:'. Location::table() .',id' , 'nullable'],
             'total_price'=>['required' ,'numeric' , 'not_in:0'],
             'coupon_code' => ['string','max:10' ,  new FilterStringRule , 'nullable'],
-            'on_set' =>['date_format:Y-m-d H:i:s' , 'nullable'],
+            'on_set' =>['string','nullable',new FilterStringRule],
             'country'=>[new FilterStringRule , 'nullable'],
             'city'=>[new FilterStringRule , 'nullable'], 
             'address' =>[new FilterStringRule , 'nullable'],

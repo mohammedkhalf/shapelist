@@ -11,7 +11,7 @@ class OrderPackage extends Model
      * Mass Assignable fields of model
      * @var array
      */
-    protected $fillable = ['order_id','user_id','package_id','music_id',
+    protected $fillable = ['order_id','user_id','package_id','music_id','name_en','name_ar',
     'price_per_item','items_total_price','video_length','user_music','quantity','type'];
 
     protected $casts = [
@@ -28,13 +28,14 @@ class OrderPackage extends Model
 
     public static function insertPackages($request)
     {
-            if(OrderPackage::where('package_id','=',$request->item_id)->count() > 0)
+            if(OrderPackage::where(['order_id'=>null,'package_id'=>$request->item_id , 'user_id'=>auth()->guard('api')->user()->id])->count() > 0)
             {
                 OrderPackage::where('package_id','=',$request->item_id)->update(['items_total_price'=>$request->items_total_price,'quantity'=>$request->quantity]);
             }
             else{
+                $packageData = Package::findOrFail($request->item_id);
                 OrderPackage::create(array_merge($request->only('quantity','price_per_item','items_total_price','music_id','video_length','user_music') , 
-                ['package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
+                ['name_ar'=>$packageData->name_ar,'name_en'=>$packageData->name_en,'package_id'=>$request->item_id , 'type'=>$request->type ,'user_id'=>auth()->guard('api')->user()->id]));
             }
             $packageData = OrderPackage::with('packages')->where('package_id',$request->item_id)->get();
             foreach($packageData as $packageObj)
@@ -43,16 +44,4 @@ class OrderPackage extends Model
             }
             return $packgeArr;
     } 
-
-    public static function getPackageCart ($userId)
-    {
-            $packages = OrderPackage::with('packages')->where(['order_id'=>null , 'user_id'=>$userId])->get();
-            
-            foreach($packages  as $packCart)
-            {
-                $packageCartArr  = ['id'=> $packCart->id,'product_id'=> $packCart->product_id,'quantity'=> $packCart->quantity,'price_per_item'=> $packCart->price_per_item,'items_total_price'=> $packCart->items_total_price,'name'=> $packCart->packages->name,'name_ar'=> $packCart->packages->name_ar];
-            }
-
-            return $packageCartArr;
-    }
 }

@@ -30,7 +30,7 @@ class StoreStatusRequest extends FormRequest
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
             'type' => ['string','max:50',new FilterStringRule],
             'type_ar'=> ['string','max:50',new FilterStringRule],
-            'icon'=> ['mimes:png,svg','max:50240']
+            'icon'=> ['mimes:jpeg,png,jpg,svg','max:50240']
 
 
         ];

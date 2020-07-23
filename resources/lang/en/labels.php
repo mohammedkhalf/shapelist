@@ -446,6 +446,7 @@ return [
 	"edit" => "Edit Delivery",
 	"management" => "Delivery Management",
 	"title" => "Deliveries",
+
 	"table" => [
 	"id" => "Id",
 	"name" => "Name",
@@ -456,6 +457,8 @@ return [
 	"description_ar" => "Description (Arabic)",
 	"price" => "Price",
 	"createdat" => "Created At",
+	"capacity"=>"capacity",
+	"counter"=>"counter"
 	],
 	],
 	"payments" => [

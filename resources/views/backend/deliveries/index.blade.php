@@ -27,6 +27,10 @@
                             <th>{{ trans('labels.backend.deliveries.table.price') }}</th>
                             <th>{{ trans('labels.backend.deliveries.table.description_en') }}</th>
                             <th>{{ trans('labels.backend.deliveries.table.description_ar') }}</th>
+
+                            <th>{{ trans('labels.backend.deliveries.table.capacity') }}</th>
+                            <th>{{ trans('labels.backend.deliveries.table.counter') }}</th>
+
                             <th>{{ trans('labels.backend.deliveries.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
                         </tr>
@@ -71,6 +75,8 @@
                     {data: 'price', name: '{{config('module.deliveries.table')}}.price'},
                     {data: 'description_en', name: '{{config('module.deliveries.table')}}.description_en'},
                     {data: 'description_ar', name: '{{config('module.deliveries.table')}}.description_ar'},
+                    {data: 'capacity', name: '{{config('module.deliveries.table')}}.capacity'},
+                    {data: 'counter', name: '{{config('module.deliveries.table')}}.counter'},
                     {data: 'created_at', name: '{{config('module.deliveries.table')}}.created_at'},
                     {data: 'actions', name: 'actions', searchable: false, sortable: false}
                 ],

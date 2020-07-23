@@ -69,4 +69,54 @@ class Status extends Model
     {
         parent::__construct($attributes);
     }
+
+    public static function insertStatus ($request)
+    {
+        if(!empty($request['icon']))
+        {
+            // Get filename with the extension
+            $filenameWithExt = $request['icon']->getClientOriginalName();
+            // dd($filenameWithExt);
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request['icon']->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request['icon']->storeAs('public/statuses', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+        $status = Status::create(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$fileNameToStore]);
+        return $status;
+    }
+
+    public static function updateStatus($status,$request)
+    {
+        if(!empty($request['icon']))
+        {
+            $old_image_path = public_path() .  '/storage/statuses/' . $status->icon;  // prev image path
+            if (file_exists($old_image_path)) {
+                @unlink($old_image_path);
+            }
+            // Get filename with the extension
+            $filenameWithExt = $request['icon']->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request['icon']->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request['icon']->storeAs('public/statuses', $fileNameToStore);
+
+            $status->update(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$fileNameToStore]);
+        } 
+
+        $status->update(['type'=> $request['type'],'type_ar'=> $request['type_ar']]);
+
+        return $status;
+    }
+
 }

@@ -36,7 +36,7 @@
             <!-- Create Your Input Field Here -->
             <!-- Look Below Example for reference -->
             {!! Form::file('image', old('image')  ,array('class'=>'form-control inputfile inputfile-1')) !!} <br/>
-            <img src= "{{ Storage::disk('public')->url('product_images/'.$product->image) }}" width="200" height="100" alt="Card image cap">
+            <img  class="rounded-circle" src="{{ asset('storage/product_images/'.$product->image)}}" width="50"   />
         </div><!--col-lg-10-->
     </div><!--form-group-->
 

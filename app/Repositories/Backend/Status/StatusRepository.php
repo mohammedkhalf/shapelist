@@ -32,6 +32,7 @@ class StatusRepository extends BaseRepository
                 config('module.statuses.table').'.id',
                 config('module.statuses.table').'.type',
                 config('module.statuses.table').'.type_ar',
+                config('module.statuses.table').'.icon',
                 config('module.statuses.table').'.created_at',
                 config('module.statuses.table').'.updated_at',
             ]);
@@ -46,7 +47,8 @@ class StatusRepository extends BaseRepository
      */
     public function create(array $input)
     {
-        if (Status::create($input)) {
+        $status = Status::insertStatus($input);
+        if (!is_null($status)) {
             return true;
         }
         throw new GeneralException(trans('exceptions.backend.statuses.create_error'));
@@ -62,9 +64,11 @@ class StatusRepository extends BaseRepository
      */
     public function update(Status $status, array $input)
     {
-    	if ($status->update($input))
-            return true;
+        $updatedStatus = Status::updateStatus($status,$input);
 
+        if (!is_null($updatedStatus)) {
+            return true;
+        }
         throw new GeneralException(trans('exceptions.backend.statuses.update_error'));
     }
 

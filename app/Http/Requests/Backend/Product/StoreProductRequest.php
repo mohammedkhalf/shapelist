@@ -32,7 +32,7 @@ class StoreProductRequest extends FormRequest
             'name_ar' => ['string' , 'max:50' , new FilterStringRule],
             'description' => ['string' , 'max:255' , new FilterStringRule],
             'description_ar' => ['string' , 'max:255' , new FilterStringRule],
-            'image' => ['mimes:jpeg,png,jpg','max:50240'],
+            'image' => ['mimes:jpeg,png,jpg,svg','max:50240'],
             'price' => ['numeric','not_in:0'],
         ];
     }

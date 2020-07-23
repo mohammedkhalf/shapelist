@@ -14,7 +14,7 @@ class StatusTableSeeder extends Seeder
     public function run()
     {
         Status::create([
-           'type'=>'Pinding',
+           'type'=>'Pending',
            'created_at'  => Carbon::now(),
            'updated_at'  => Carbon::now()
         ]);
@@ -32,16 +32,11 @@ class StatusTableSeeder extends Seeder
          ]);
 
          Status::create([
-            'type'=>'Deliverd',
+            'type'=>'Delivered',
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
          ]);
 
-         Status::create([
-            'type'=>'Cancled',
-            'created_at'  => Carbon::now(),
-            'updated_at'  => Carbon::now()
-         ]);
   
     }
 }

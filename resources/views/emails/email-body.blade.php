@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="content">
-   <div class="fd-card">
+   <div class="fd-card middle">
         <div class="fd-header center">
                 <div class="fd-email-image" ></div>
                 <div class="fd-welcome-text">

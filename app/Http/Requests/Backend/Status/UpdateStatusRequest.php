@@ -29,7 +29,9 @@ class UpdateStatusRequest extends FormRequest
             //For Example : 'title' => 'required'
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
             'type' => ['string','max:50',new FilterStringRule],
-            'type_ar'=> ['string','max:50',new FilterStringRule]
+            'type_ar'=> ['string','max:50',new FilterStringRule],
+            'icon'=> ['mimes:jpeg,png,jpg,svg','max:50240']
+
         ];
     }
 

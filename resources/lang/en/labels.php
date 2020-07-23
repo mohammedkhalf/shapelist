@@ -278,7 +278,7 @@ return [
 	"id" => "Id",
 	"type" => "Name",
 	"type_ar"=>"Name (Arabic)",
-	"icon"=>"Icon Url",
+	"icon"=>"Icon",
 	"createdat" => "Created At",
 	],
 	],

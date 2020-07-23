@@ -276,8 +276,9 @@ return [
 	"title" => "Statuses",
 	"table" => [
 	"id" => "Id",
-	"type" => "type",
-	"type_ar"=>"type-arabic",
+	"type" => "Name",
+	"type_ar"=>"Name (Arabic)",
+	"icon"=>"Icon Url",
 	"createdat" => "Created At",
 	],
 	],

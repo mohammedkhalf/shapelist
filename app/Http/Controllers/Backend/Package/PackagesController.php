@@ -81,6 +81,7 @@ class PackagesController extends Controller
      */
     public function edit(Package $package, EditPackageRequest $request)
     {
+        
         return new EditResponse($package);
     }
     /**
@@ -92,11 +93,9 @@ class PackagesController extends Controller
      */
     public function update(UpdatePackageRequest $request, Package $package)
     {
-        //Input received from the request
-        $input = $request->except(['_token']);
-        //Update the model using repository update method
-        $this->repository->update( $package, $input );
-        //return with successfull message
+        $updateData = $request->only('name_ar','name_en','price','desc_ar','desc_en');
+        $updatePackage = array_merge($updateData,['product_id'=>implode(",",$request->product_id),'quantity'=>implode(",",$request->quantity)]);
+        $package->update($updatePackage);
         return new RedirectResponse(route('admin.packages.index'), ['flash_success' => trans('alerts.backend.packages.updated')]);
     }
     /**

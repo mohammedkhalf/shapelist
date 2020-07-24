@@ -47,7 +47,7 @@ return [
 	"system" => "System",
 	"Financial"=>"Financial",
 	"Orders"=>"Orders",
-	"Quotations"=>"Quotations",
+	"Quotations"=>"taxes & Fees",
 	],
 	"pages" => [
 	"all" => "All Pages",

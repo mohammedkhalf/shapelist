@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Responses\Backend\Package;
-
 use Illuminate\Contracts\Support\Responsable;
+use App\Models\Product\Product;
 
 class EditResponse implements Responsable
 {
@@ -28,8 +28,10 @@ class EditResponse implements Responsable
      */
     public function toResponse($request)
     {
+        $products = Product::all();
         return view('backend.packages.edit')->with([
-            'package' => $this->package
+            'package' => $this->package,
+            'products' => $products
         ]);
     }
 }

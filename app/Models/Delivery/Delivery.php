@@ -38,6 +38,7 @@ class Delivery extends Model
 
     protected $casts = [
         'price' => 'float',
+        'capacity' => 'integer'
     ];
 
     /**

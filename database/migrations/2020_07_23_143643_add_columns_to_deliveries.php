@@ -28,7 +28,7 @@ class AddColumnsToDeliveries extends Migration
     {
         Schema::table('deliveries', function (Blueprint $table) {
             $table->dropColumn('capacity');
-            $table->dropColumn('counter');    
+            $table->dropColumn('counter');
         });
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Delivery\Traits\DeliveryAttribute;
 use App\Models\Delivery\Traits\DeliveryRelationship;
 use App\Models\SharedModel;
+use App\Models\Order\Order;
 
 class Delivery extends Model
 {
@@ -38,7 +39,8 @@ class Delivery extends Model
 
     protected $casts = [
         'price' => 'float',
-        'capacity' => 'integer'
+        'capacity' => 'integer',
+        'counter'=>'integer'
     ];
 
     /**

@@ -35,7 +35,9 @@ class DeliveryRepository extends BaseRepository
                 config('module.deliveries.table').'.description_en',
                 config('module.deliveries.table').'.description_ar',
                 config('module.deliveries.table').'.price',
+                config('module.deliveries.table').'.price_ar',
                 config('module.deliveries.table').'.capacity',
+                config('module.deliveries.table').'.counter',
                 config('module.deliveries.table').'.created_at',
                 config('module.deliveries.table').'.updated_at',
             ]);

@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use  App\Models\Invoice\Invoice;
+use App\Models\Delivery\Delivery;
 
 class Order extends Model
 {
@@ -44,7 +45,12 @@ class Order extends Model
     {
         return $this->belongsTo(User::class,'user_id','id');   
     }
-    
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class,'delivery_id','id');
+    }
+
     public function location()
     {
         return $this->hasOne(Location::class,'order_id');   

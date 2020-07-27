@@ -33,7 +33,7 @@ class UpdateDeliveryRequest extends FormRequest
             'description_ar' => ['nullable','string','max:250' , new FilterStringRule],
             'price' => ['numeric'],
             'price_ar' => ['string',new FilterStringRule],
-            'capacity'=>['required','integer']
+            'capacity'=>['required','integer'],
         ];
     }
 

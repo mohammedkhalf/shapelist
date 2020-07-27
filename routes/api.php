@@ -71,8 +71,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/orders_status', 'OrderStatusController');
         //Locations
         Route::apiResource('locations', 'LocationController');
-        //Deliveries
-        Route::apiResource('/deliveries', 'DeliveryController');        
+         
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //subscriptions
@@ -114,5 +113,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('subscriptions', 'SubscriptionsController');
         //products Management
         Route::apiResource('/products', 'ProductController');
+         //Deliveries
+         Route::apiResource('/deliveries', 'DeliveryController');      
      
 });

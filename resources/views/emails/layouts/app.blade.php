@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <!--<![if !mso]-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Sans+Condensed|Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <!--<![endif]-->
 
     <title>@yield('title', app_name())</title>
@@ -92,10 +91,12 @@
             height: 616px;
             background: #FFFFFF 0% 0% no-repeat padding-box;
             border: 1px solid #7070708c;
+            font-family: 'Montserrat', sans-serif;
             opacity: 1;
   
         }
         .fd_content{
+            font-family: 'Montserrat', sans-serif;
             padding-left:30px; 
             padding-top:48px;
             padding-right:30px; 
@@ -110,15 +111,6 @@
             opacity: 1;
         
         }
-        .fd-email-image{
-            top: 48px;
-            left: 30px;
-            width: 145px;
-            height: 36px;
-            background: transparent url("https://svgshare.com/i/NEs.svg") 0% 0% no-repeat padding-box;
-            opacity: 1;
-        }
-
         .fd-welcome-text{
             width: 402px;
             font-size:24px;
@@ -130,9 +122,10 @@
         }
         .fd-email-text{
             width: 330px;
-            padding-top: 31px;
+            padding-top: 21px;
             font-size:18px;
-            font-weight:900;
+            font-weight:600;
+            color: #000000;
         }
         .fd-button{
             top: 360px;
@@ -147,7 +140,8 @@
         }
         .fd-email-message{
             font-size:18px;
-            width: 385px;
+            width: 320px;
+            color: #3d3d3deb !important;
         }
         .fd-best{
             font-size:14px; 

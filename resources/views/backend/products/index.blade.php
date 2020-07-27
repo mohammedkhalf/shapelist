@@ -43,6 +43,10 @@
                             <td> {{$product->name_ar}} </td>
                             <td> {{$product->description}} </td>
                             <td> {{$product->description_ar}} </td>
+                            <td> <img  class="rounded-circle" src="{{ asset('storage/product_images/'.$product->image)}}" width="50"   />
+
+                            </td>
+
                             <td> {{$product->price}} </td>
                             {{-- <td> {{$product->points}} </td> --}}
                             <td> {{$product->created_at}} </td>

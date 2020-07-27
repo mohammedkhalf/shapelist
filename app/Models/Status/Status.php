@@ -88,7 +88,9 @@ class Status extends Model
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
-        $status = Status::create(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$fileNameToStore]);
+        $fileNameToStore = "/".$fileNameToStore;
+        $url=  asset('storage/app/public/statuses').$fileNameToStore;
+        $status = Status::create(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$url]);
         return $status;
     }
 
@@ -111,7 +113,9 @@ class Status extends Model
             // Upload Image
             $path = $request['icon']->storeAs('public/statuses', $fileNameToStore);
 
-            $status->update(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$fileNameToStore]);
+            $fileNameToStore = "/".$fileNameToStore;
+            $url=  asset('storage/app/public/statuses').$fileNameToStore;
+            $status->update(['type'=> $request['type'] ,'type_ar'=> $request['type_ar'] , 'icon'=>$url]);
         } 
 
         $status->update(['type'=> $request['type'],'type_ar'=> $request['type_ar']]);

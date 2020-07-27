@@ -53,15 +53,6 @@
                     </div><!--col-lg-3-->
                 </div><!--form control-->
 
-                <div class="form-group">
-                    {{ Form::label('image', trans('validation.attributes.backend.products.image'), ['class' => 'col-lg-2 control-label required']) }}
-
-                    <div class="col-lg-10">
-
-                        {!! Form::file('image', array('class'=>'form-control inputfile inputfile-1')) !!}
-
-                    </div><!--col-lg-10-->
-                </div><!--form control-->
 
                 <div class="form-group">
                     {{ Form::label('price', trans('validation.attributes.backend.products.price'), ['class' => 'col-lg-2 control-label required']) }}

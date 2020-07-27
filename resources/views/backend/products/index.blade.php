@@ -26,7 +26,6 @@
                             <th>{{ trans('labels.backend.products.table.Name_ar') }}</th>
                             <th>{{ trans('labels.backend.products.table.Description') }}</th>
                             <th>{{ trans('labels.backend.products.table.Description_ar') }}</th>
-                            <th>{{ trans('labels.backend.products.table.Image') }}</th>
                             <th>{{ trans('labels.backend.products.table.Price') }}</th>
                             {{-- <th>{{ trans('labels.backend.products.table.points') }}</th> --}}
                             <th>{{ trans('labels.backend.products.table.createdat') }}</th>
@@ -47,12 +46,13 @@
                             <td> <img  class="rounded-circle" src="{{ asset('storage/product_images/'.$product->image)}}" width="50"   />
 
                             </td>
+
                             <td> {{$product->price}} </td>
                             {{-- <td> {{$product->points}} </td> --}}
                             <td> {{$product->created_at}} </td>
                             <td class="sorting_1">
                                 <div class="btn-group action-btn">
-                                    <a href="{{route('admin.products.edit' , $product)}}" class="btn btn-flat btn-default">
+                                    <a href="{{route('admin.products.edit' , $product)}}" class="btn btn-flat btn-default" style="margin-left:20px">
                                       <i data-toggle="tooltip" data-placement="top" title="" class="fa fa-pencil" data-original-title="Edit"></i>
                                     </a>
 

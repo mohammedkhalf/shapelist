@@ -21,6 +21,13 @@
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
+    <div class="form-group">
+        {{ Form::label('price_ar', trans('labels.backend.deliveries.table.price_ar'), ['class' => 'col-lg-2 control-label required']) }}
+        <div class="col-lg-10">
+         {{ Form::text('price_ar', old('price_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.deliveries.table.price_ar'), 'required' => 'required']) }}
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
     <div class="form-group" >
             {{ Form::label('description_en', trans('labels.backend.deliveries.table.description_en'), ['class' => 'col-lg-2 control-label ']) }}
         <div class="col-lg-10">

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\Backend\Delivery\DeliveryRepository;
 use App\Http\Requests\Backend\Delivery\ManageDeliveryRequest;
+use App\Models\Order\Order;
 
 /**
  * Class DeliveriesTableController.
@@ -30,7 +31,7 @@ class DeliveriesTableController extends Controller
 
     /**
      * This method return the data of the model
-     * @param ManageDeliveryRequest $request
+     * @param ManageDeliveryRequest $request  
      *
      * @return mixed
      */
@@ -38,6 +39,9 @@ class DeliveriesTableController extends Controller
     {
         return Datatables::of($this->delivery->getForDataTable())
             ->escapeColumns(['id'])
+            ->addColumn('counter', function ($delivery) {
+                return $delivery->counter;
+            })
             ->addColumn('created_at', function ($delivery) {
                 return Carbon::parse($delivery->created_at)->toDateString();
             })

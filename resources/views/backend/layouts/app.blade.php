@@ -78,6 +78,7 @@
         @yield('before-scripts')
         {{ Html::script(mix('js/backend.js')) }}
         {{ Html::script(mix('js/backend-custom.js')) }}
+        {{ Html::script('https://cloud.tinymce.com/stable/tinymce.min.js') }}
         @yield('after-scripts')
     </body>
 </html>

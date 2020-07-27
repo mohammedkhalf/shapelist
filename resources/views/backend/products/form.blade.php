@@ -15,18 +15,18 @@
 
     <div class="form-group">
         {{ Form::label('description', trans('validation.attributes.backend.products.description'),['class' => 'col-lg-2 control-label']) }}
-        <div class="col-lg-10 mce-box">
-            {{ Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.blogs.content')]) }}
+        <div class="col-md-4">
+          {{ Form::textarea('description', old('description'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.description')]) }}
         </div><!--col-lg-10-->
-           
     </div><!--col-lg-10-->
 
     </div><!--form-group-->
 
     <div class="form-group">
         {{ Form::label('description_ar', trans('labels.backend.products.table.Description_ar'),['class' => 'col-lg-2 control-label required']) }}
-      
- 
+        <div class="col-md-4">
+          {{ Form::textarea('description_ar', old('description_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.description_ar')]) }}
+        </div><!--col-lg-10-->
     </div><!--form-group-->
 
     
@@ -59,11 +59,10 @@
 
 @section("after-scripts")
     <script type="text/javascript">
-        //Put your javascript needs in here.
-        //Don't forget to put `@`parent exactly after `@`section("after-scripts"),
-        //if your create or edit blade contains javascript of its own
-        $( document ).ready( function() {
-            //Everything in here would execute after the DOM is ready to manipulated.
+        tinymce.init({
+            selector:'textarea',
+            width: 800,
+            height: 150
         });
     </script>
 @endsection

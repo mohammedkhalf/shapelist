@@ -59,14 +59,14 @@
 
     <div class="form-group">
         {{ Form::label('details', trans('labels.backend.subscriptions.table.details'), ['class' => 'col-lg-2 control-label']) }}
-        <div class="col-lg-10">
-            {{ Form::textarea('details', old('details'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.details')]) }}
+        <div class="col-md-4">
+            {{ Form::textarea('details', old('details'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.details_ar')]) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
     <div class="form-group">
         {{ Form::label('details_ar', trans('labels.backend.subscriptions.table.details_ar'), ['class' => 'col-lg-2 control-label']) }}
-        <div class="col-lg-10">
+        <div class="col-md-4">
             {{ Form::textarea('details_ar', old('details_ar'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.details_ar')]) }}
         </div><!--col-lg-10-->
     </div><!--form-group-->
@@ -136,8 +136,10 @@
 
 @section("after-scripts")
     <script type="text/javascript">
-        $( document ).ready( function() {
-
+        tinymce.init({
+            selector:'textarea',
+            width: 800,
+            height: 150
         });
     </script>
 @endsection

@@ -82,12 +82,15 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //subscriptions payment
         //Cart Section & Payment Order
         Route::apiResource('cart', 'CartController');
-        Route::post('cart/prepare-checkout', 'CartController@prepareCheckout');
+        //get checkout id
+        Route::post('/prepare-checkout', 'CartController@prepareCheckout');
+        //post resource data + order data 
+        Route::post('/resource-with-order','CartController@resourceOrder');
+
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         // download Invoice for order
         Route::get('orders/{orderId}/download-Invoice','OrderController@downloadInvoice');
-        
         //order download from S3
         Route::get('downloadLink/{orderId}','OrderController@orderDownload');
         // Return user downloads

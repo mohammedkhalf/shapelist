@@ -95,6 +95,14 @@ class CartController extends APIController
              return $responseData;
      } //prepareCheckout
 
+     //post resource id + order data 
+     public function resourceOrder (Request $request)
+     {
+        //  dd($request->all());
+         $responseObj = $this->getStatus($request->resource_id);
+         return $responseObj;
+     }
+
       //get Payment Status Object Using Checkout Id
       public static function getStatus($checkoutId)
       {             

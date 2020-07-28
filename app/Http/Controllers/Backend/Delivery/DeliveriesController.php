@@ -16,6 +16,7 @@ use App\Http\Requests\Backend\Delivery\StoreDeliveryRequest;
 use App\Http\Requests\Backend\Delivery\EditDeliveryRequest;
 use App\Http\Requests\Backend\Delivery\UpdateDeliveryRequest;
 use App\Http\Requests\Backend\Delivery\DeleteDeliveryRequest;
+use App\Models\Order\Order;
 
 /**
  * DeliveriesController
@@ -45,6 +46,9 @@ class DeliveriesController extends Controller
      */
     public function index(ManageDeliveryRequest $request)
     {
+        Delivery::where('id',1)->update(['counter'=>Order::with('delivery')->where('delivery_id',1)->count()]);
+        Delivery::where('id',2)->update(['counter'=>Order::with('delivery')->where('delivery_id',2)->count()]);
+        Delivery::where('id',3)->update(['counter'=>Order::with('delivery')->where('delivery_id',3)->count()]);
         return new ViewResponse('backend.deliveries.index');
     }
     /**

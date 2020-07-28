@@ -79,7 +79,8 @@ class ProductsController extends Controller
      */
     public function edit(Product $product, EditProductRequest $request)
     {
-        return view('backend.products.edit' , compact('product'));
+        $productImage = $product->image;
+        return view('backend.products.edit' , compact('product','productImage'));
     }
     /**
      * Update the specified resource in storage.

@@ -80,7 +80,6 @@ class Product extends Model
 
     public static function insertProduct($request)
     {
-        
         $data = $request->only('name','name_ar','price','points');
         $desc=Str::replaceArray('/^\<p\>/',[],$request->description);
         $desc_ar = Str::replaceArray('/^\<p\>/',[],$request->description_ar);

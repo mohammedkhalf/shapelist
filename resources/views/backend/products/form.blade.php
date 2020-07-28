@@ -44,6 +44,16 @@
     </div><!--form-group-->
 
     <div class="form-group">
+        {{ Form::label('image', trans('labels.backend.products.table.Image'), ['class' => 'col-lg-2 control-label required']) }} 
+        <div class="col-lg-10">
+            {!! Form::file('image',array('class'=>'form-control inputfile inputfile-1')) !!} <br/>
+            <img  class="rounded-circle" src="{{ $productImage }}" width="50"   />
+
+        </div><!--col-lg-10-->
+      
+    </div><!--form-group-->
+
+    <div class="form-group">
         <!-- Create Your Field Label Here -->
         <!-- Look Below Example for reference -->
         {{-- {{ Form::label('points', trans('labels.backend.products.table.points'),['class' => 'col-lg-2 control-label required']) }} --}}

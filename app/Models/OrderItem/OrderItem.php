@@ -21,7 +21,8 @@ class OrderItem extends Model
         'price_per_item' => 'integer',
         'items_total_price' => 'integer',
         'quantity' => 'integer',
-        'product_id'=> 'integer'
+        'product_id'=> 'integer',
+        'services'=>'integer'
     ];
 
     public function products()

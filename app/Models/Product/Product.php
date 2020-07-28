@@ -8,6 +8,7 @@ use App\Models\Product\Traits\ProductAttribute;
 use App\Models\Product\Traits\ProductRelationship;
 use App\Models\SharedModel;
 use App\Models\Order\Order;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -79,52 +80,21 @@ class Product extends Model
 
     public static function insertProduct($request)
     {
-        if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
-        $data = $request->only('name','name_ar','description','description_ar','price','points');
-        $productData = array_merge($data , ['image' => $fileNameToStore]);
+        
+        $data = $request->only('name','name_ar','price','points');
+        $desc=Str::replaceArray('/^\<p\>/',[],$request->description);
+        $desc_ar = Str::replaceArray('/^\<p\>/',[],$request->description_ar);
+        $productData = array_merge($data , ['description'=>$desc,'description_ar'=> $desc_ar]);
         $pakageProduct = Product::create($productData);
         return $pakageProduct;
     }
 
     public static function updateProduct($request ,  $product)
     {
-        if (request()->hasFile('image')){
-            $old_image_path = public_path() .  '/storage/product_images/' . $product->image;  // prev image path
-            if (file_exists($old_image_path)) {
-                @unlink($old_image_path);
-            }
-             // Get filename with the extension
-             $filenameWithExt = $request->file('image')->getClientOriginalName();
-             // Get just filename
-             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-             // Get just ext
-             $extension = $request->file('image')->getClientOriginalExtension();
-             // Filename to store
-             $fileNameToStore= $filename.'_'.time().'.'.$extension;
-             // Upload Image
-            $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
-            $updateData = $request->only('name','name_ar','description','description_ar','price','points');
-            $updateProduct = array_merge($updateData , ['image' => $fileNameToStore]);
-            $product->update($updateProduct);
-        }//if
-        else{
-           $updateData=$request->only('name','name_ar','description','description_ar','price','points');
-           $product->update($updateData);
-        }
-
-    
+        $data = $request->only('name','name_ar','price','points');
+        $desc= Str::replaceArray('/^\<p\>/',[],$request->description);
+        $desc_ar = Str::replaceArray('/^\<p\>/',[],$request->description_ar);
+        $productData = array_merge($data , ['description'=>$desc,'description_ar'=>$desc_ar]);
+        $product->update($productData);
     }
 }

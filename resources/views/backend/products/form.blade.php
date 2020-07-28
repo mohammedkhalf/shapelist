@@ -60,6 +60,7 @@
 @section("after-scripts")
     <script type="text/javascript">
         tinymce.init({
+            forced_root_block : false,
             selector:'textarea',
             width: 800,
             height: 150

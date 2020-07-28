@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <!--<![if !mso]-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300" rel="stylesheet">
     <!--<![endif]-->
 
     <title>@yield('title', app_name())</title>
@@ -56,6 +56,8 @@
             margin-top: 25px;
             margin-left: 25px;
             margin-right: 25px;
+            font-family: 'Montserrat', sans-serif !important;
+
         }
 
         .main-header {
@@ -114,7 +116,7 @@
         .fd-welcome-text{
             width: 402px;
             font-size:24px;
-            padding-top: 41px;
+            padding-top: 31px;
             text-align: left;
             letter-spacing: 0px;
             color: #2C2C2C;
@@ -176,12 +178,18 @@
             /*-------- container --------*/
             .container590 {
                 width: 440px !important;
+                font-family: 'Montserrat', sans-serif !important;
+                
             }
             .container580 {
                 width: 400px !important;
+                font-family: 'Montserrat', sans-serif !important;
+
             }
             .main-button {
                 width: 220px !important;
+                font-family: 'Montserrat', sans-serif !important;
+
             }
             
         }
@@ -199,12 +207,15 @@
             /*-------- container --------*/
             .container590 {
                 width: 210px !important;
+                font-family: 'Montserrat', sans-serif !important;
             }
             .container590 {
                 width: 210px !important;
+                font-family: 'Montserrat', sans-serif !important;
             }
             .container580 {
                 width: 260px !important;
+                font-family: 'Montserrat', sans-serif !important;
             }
         }
     </style>

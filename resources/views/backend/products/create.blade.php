@@ -46,10 +46,10 @@
                 </div><!--form control-->
 
                 <div class="form-group">
-                    {{ Form::label('description_ar', trans('validation.attributes.backend.products.description_ar'), ['class' => 'col-lg-2 control-label required']) }}
+                    {{ Form::label('description_ar', trans('labels.backend.products.table.Description_ar'), ['class' => 'col-lg-2 control-label required']) }}
 
                     <div class="col-lg-10">
-                        {{ Form::textarea('description_ar', null,['class' => 'form-control box-size', 'placeholder' => trans('validation.attributes.backend.products.description_ar')]) }}
+                        {{ Form::textarea('description_ar', null,['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.products.table.Description_ar')]) }}
                     </div><!--col-lg-3-->
                 </div><!--form control-->
 

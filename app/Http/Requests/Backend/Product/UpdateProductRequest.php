@@ -30,8 +30,8 @@ class UpdateProductRequest extends FormRequest
             //Further, see the documentation : https://laravel.com/docs/5.4/validation#creating-form-requests
             'name' => ['string' , 'max:50' , new FilterStringRule],
             'name_ar' => ['string' , 'max:50' , new FilterStringRule],
-            'description' => ['string' , 'max:255' , new FilterStringRule],
-            'description_ar' => ['string' , 'max:255' , new FilterStringRule],
+            'description' => ['string' , 'max:255' ],
+            'description_ar' => ['string' , 'max:255' ],
             'image' => ['mimes:jpeg,png,jpg,svg','max:50240'],
             'price' => ['numeric','not_in:0'],
         ];

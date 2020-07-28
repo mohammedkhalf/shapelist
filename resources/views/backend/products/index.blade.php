@@ -27,7 +27,7 @@
                             <th>{{ trans('labels.backend.products.table.Description') }}</th>
                             <th>{{ trans('labels.backend.products.table.Description_ar') }}</th>
                             <th>{{ trans('labels.backend.products.table.Price') }}</th>
-                            {{-- <th>{{ trans('labels.backend.products.table.points') }}</th> --}}
+                            <th>{{ trans('labels.backend.products.table.Image') }}</th>
                             <th>{{ trans('labels.backend.products.table.createdat') }}</th>
                             <th>{{ trans('labels.general.actions') }}</th>
 
@@ -43,12 +43,9 @@
                             <td> {{$product->name_ar}} </td>
                             <td> {{$product->description}} </td>
                             <td> {{$product->description_ar}} </td>
-                            <td> <img  class="rounded-circle" src="{{ asset('storage/product_images/'.$product->image)}}" width="50"   />
-
-                            </td>
-
                             <td> {{$product->price}} </td>
-                            {{-- <td> {{$product->points}} </td> --}}
+                            <td> <img  class="rounded-circle" src="{{$product->image}}" width="50"   />
+                            </td>
                             <td> {{$product->created_at}} </td>
                             <td class="sorting_1">
                                 <div class="btn-group action-btn">

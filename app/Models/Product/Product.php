@@ -93,8 +93,11 @@ class Product extends Model
         } else {
             $fileNameToStore = 'noimage.jpg';
         }
+        $fileNameToStore = "/".$fileNameToStore;
+        $url=  asset('storage/app/public/product_images').$fileNameToStore;
+
         $data = $request->only('name','name_ar','description','description_ar','price','points');
-        $productData = array_merge($data , ['image' => $fileNameToStore]);
+        $productData = array_merge($data , ['image' => $url]);
         $pakageProduct = Product::create($productData);
         return $pakageProduct;
     }
@@ -117,7 +120,11 @@ class Product extends Model
              // Upload Image
             $path = $request->file('image')->storeAs('public/product_images', $fileNameToStore);
             $updateData = $request->only('name','name_ar','description','description_ar','price','points');
-            $updateProduct = array_merge($updateData , ['image' => $fileNameToStore]);
+
+            $fileNameToStore = "/".$fileNameToStore;
+            $url=  asset('storage/app/public/product_images').$fileNameToStore;
+
+            $updateProduct = array_merge($updateData , ['image' => $url]);
             $product->update($updateProduct);
         }//if
         else{

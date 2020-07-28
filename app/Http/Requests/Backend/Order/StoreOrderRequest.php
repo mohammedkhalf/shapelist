@@ -29,12 +29,12 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'bank_transaction_id' => ['required','string',new FilterStringRule],
+            // 'bank_transaction_id' => ['required','string',new FilterStringRule],
             'delivery_id'=>['required','numeric','not_in:0','exists:'. Delivery::table() .',id'],
             'location_id'=>['numeric','not_in:0','exists:'. Location::table() .',id' , 'nullable'],
             'total_price'=>['required' ,'numeric' , 'not_in:0'],
             'coupon_code' => ['string','max:10' ,  new FilterStringRule , 'nullable'],
-            'on_set' =>['string','nullable',new FilterStringRule],
+            // 'on_set' =>['string','nullable',new FilterStringRule],
             'country'=>[new FilterStringRule , 'nullable'],
             'city'=>[new FilterStringRule , 'nullable'], 
             'address' =>[new FilterStringRule , 'nullable'],
@@ -43,6 +43,9 @@ class StoreOrderRequest extends FormRequest
             'rep_first_name'=>[new FilterStringRule , 'nullable'],
             'rep_last_name'=>[new FilterStringRule , 'nullable'],
             'rep_phone_number'=>['numeric','regex:/(0)[0-9]{9}/' , 'nullable'], 
+            'products.*.services' => ['required','array','exists:products,id'],
+            'products.*.quantity' => ['numeric','integer','not_in:0'],
+            'products.*.media_location' => ['string',new FilterStringRule,'nullable'],
         ];
     }
 

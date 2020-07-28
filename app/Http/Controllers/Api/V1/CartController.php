@@ -6,7 +6,9 @@ use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
 use App\Http\Requests\Backend\Cart\StoreCartRequest;
 use App\Http\Requests\Backend\Cart\UpdateCartRequest;
-
+use App\Models\Order\Order;
+use App\Http\Requests\Backend\Order\StoreOrderRequest;
+use App\Models\Payment\Payment;
 
 class CartController extends APIController
 {
@@ -96,32 +98,23 @@ class CartController extends APIController
      } //prepareCheckout
 
      //post resource id + order data 
-     public function resourceOrder (Request $request)
-     {
-        //  dd($request->all());
-         $responseObj = $this->getStatus($request->resource_id);
-         return $responseObj;
-     }
+    public function resourceOrder (StoreOrderRequest $request)
+    {
+        $responseObj = Order::getStatus($request->resource_id);
+        $paymentObj = json_decode($responseObj,true);
+        if(array_key_exists("buildNumber",$paymentObj)  && !empty($paymentObj['buildNumber']) )
+        {
+            $orderObj = Order::CreteOrderRequest($request);
+            OrderItem::insertProducts($request,$orderObj);
+            Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
+            Order::sendPdfInvoice($orderObj);
+            return response()->json(['message'=>'Payment Process Successfully']);
+        }
+        else
+        {
+            return response()->json(['message'=>'Payment Process Failure']);
+        }
 
-      //get Payment Status Object Using Checkout Id
-      public static function getStatus($checkoutId)
-      {             
-              $url = "https://test.oppwa.com/v1/checkouts/{$checkoutId}/payment";
-              $url .= "?entityId=8a8294174d0595bb014d05d82e5b01d2";
-  
-              $ch = curl_init();
-              curl_setopt($ch, CURLOPT_URL, $url);
-              curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                          'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));
-              curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-              curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
-              curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-              $responseData = curl_exec($ch);
-              if(curl_errno($ch)) {
-                  return curl_error($ch);
-              }
-              curl_close($ch);
-              return $responseData;
-      }
+    }
 
 }

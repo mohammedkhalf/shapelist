@@ -369,6 +369,8 @@ return [
 	"type" => "type",
 	"Quantity" => "Quantity",
 	"Rate" => "Rate",
+	"services"=>"services",
+	"mediaLocation"=>"media Location",
 	
 	"table" => [
 	"orderId" => "Id",

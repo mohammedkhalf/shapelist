@@ -15,7 +15,7 @@ class OrderItem extends Model
      * @var array
      */
     protected $fillable = ['order_id','user_id','product_id','music_id','name_en','name_ar',
-        'price_per_item','items_total_price','video_length','user_music','quantity','type'];
+        'price_per_item','items_total_price','video_length','user_music','quantity','type','media_location','services'];
 
     protected $casts = [
         'price_per_item' => 'integer',
@@ -48,6 +48,17 @@ class OrderItem extends Model
             }
             return $productArr;
         } 
+
+        public static function insertProducts($request,$orderObj)
+        {
+            // dd($request->products);
+            for($i=0;$i<count($request->products);$i++)
+            {
+                $data=['quantity'=>$request->products[$i]['quantity'],'services'=>implode(" , ",$request->products[$i]['services']),'media_location'=>$request->products[$i]['media_location'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];
+                orderItem::create($data);
+            }
+            // return $orderItems;
+        }
 
         
 

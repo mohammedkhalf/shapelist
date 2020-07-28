@@ -85,7 +85,7 @@ class Order extends Model
 
     public static function CreteOrderRequest($request)
     {
-        $orderData = Order::create(array_merge($request->only('delivery_id','location_id','sub_total','vat','total_price','on_set','coupon_code'),
+        $orderData = Order::create(array_merge($request->only('delivery_id','location_id','sub_total','vat','total_price','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id]));
         if($request->location_id)
         { 
@@ -133,7 +133,7 @@ class Order extends Model
             'last_name' => auth()->guard('api')->user()->last_name,
             'email'=> auth()->guard('api')->user()->email,
             'phone_number'=> auth()->guard('api')->user()->phone_number,
-            'sub_total'=> $OrderObject->sub_total,
+            // 'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->vat,
             'total_price' => $OrderObject->total_price,
@@ -141,7 +141,6 @@ class Order extends Model
             'subject'=> 'Purchase Invoice',
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
-            'packagesInfo' => OrderPackage::where('order_id',$OrderObject->id)->get()
         ];
             //author@khalf
             $pdf = PDF::loadView('emails.email-invoice', $data);
@@ -154,7 +153,27 @@ class Order extends Model
                         ->attachData($pdf->output(),"invoice.pdf");
                 });   
             return $pdf->download('invoice.pdf');
+    }
 
+    //get Payment Status Object Using Checkout Id
+    public static function getStatus($checkoutId)
+    {       
+            $url = "https://test.oppwa.com/v1/checkouts/{$checkoutId}/payment";
+            $url .= "?entityId=8a8294174d0595bb014d05d82e5b01d2";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $responseData = curl_exec($ch);
+            if(curl_errno($ch)) {
+                return curl_error($ch);
+            }
+            curl_close($ch);
+            return $responseData;
     }
 
     //

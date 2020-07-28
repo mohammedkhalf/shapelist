@@ -199,46 +199,29 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">{{ trans('labels.backend.orders.name') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.type') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.orders.services') }}</th>
+                                    <!-- <th scope="col">{{ trans('labels.backend.orders.type') }}</th> -->
                                     <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Rate') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Amount') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.orders.mediaLocation') }}</th>
+                                    <!-- <th scope="col">{{ trans('labels.backend.orders.Amount') }}</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- products -->
                                 @foreach($productsInfo as $productsObj)
                                     <tr>
-                                        <th scope="row">
-                                            <?php
+                                        <!-- <th scope="row">
+                                            <!?php
                                                 $productName = App\Models\Product\Product::where('id',$productsObj->product_id)->pluck('name')->first();
                                                 echo  $productName;
                                             ?>
-                                        </th>
-                                        <td> {{$productsObj->type}} </td>
+                                        </th> -->
+                                        <td> {{$productsObj->services}} </td>
                                         <td> {{$productsObj->quantity}}</td>
-                                        <td> {{$productsObj->price_per_item}} </td>
-                                        <td> {{$productsObj->items_total_price}} </td>
+                                        <td> {{$productsObj->media_location}} </td>
+                                        <!-- <td> {{$productsObj->items_total_price}} </td> -->
                                     </tr>
                                 @endforeach
-
-                                <!-- packages -->
-                                @foreach($packagesInfo as $packageObj)
-                                    <tr>
-                                        <th scope="row">
-                                            <?php
-                                                $packageName = App\Models\Package\Package::where('id',$packageObj->package_id)->pluck('name_en')->first();
-                                                echo  $packageName;
-                                            ?>
-                                        </th>
-                                        <td> {{$packageObj->type}} </td>
-                                        <td> {{$packageObj->quantity}}</td>
-                                        <td> {{$packageObj->price_per_item}} </td>
-                                        <td> {{$packageObj->items_total_price}} </td>
-                                    </tr>
-                                @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -246,7 +229,6 @@
 
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:20px; float:right"> 
-                            <!-- <p> Subtotal:  {{ $sub_total }} SAR  </p> -->
                             <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
                             <p> Total:     {{ $total_price }} SAR    </p>
                         </div>
@@ -258,7 +240,7 @@
                                 <p> Thank you for being our customer and have a great day </p> <br/>
 
                                 <p> Terms: </p>
-                                <p> <a href="https://www.shapelist.com">www.shapelist.com</a> </p>
+                                <p> <a href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
 
                             </div>
                     </div>

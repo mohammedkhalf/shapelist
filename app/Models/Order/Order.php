@@ -85,22 +85,14 @@ class Order extends Model
 
     public static function CreteOrderRequest($request)
     {
-        $orderData = Order::create(array_merge($request->only('delivery_id','location_id','sub_total','vat','total_price','coupon_code'),
+        $orderData = Order::create(array_merge($request->only('delivery_id','vat','total_price','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id]));
-        if($request->location_id)
-        { 
-            $locationInfo = Location::findOrFail($request->location_id);
-            $data = array_merge(['country'=> $locationInfo->country,'city'=> $locationInfo->city,'address'=> $locationInfo->address,
-            'lat'=> $locationInfo->lat,'lng'=> $locationInfo->lng,'rep_first_name'=>$request->rep_first_name,'rep_last_name'=>$request->rep_last_name,
-            'rep_phone_number'=>$request->rep_phone_number],['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]);
-            Location::create($data);
-        }
-        else
+        $location_details=json_decode($request->location_details ,true);
+        foreach($location_details as $key=>$value)
         {
-            Location::create(array_merge($request->only('country','city','address','lng','lat','rep_first_name','rep_last_name','rep_phone_number'),
-            ['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]));
+            $data = ['country'=>$value['country'],'city'=>$value['city'],'address'=>$value['address'],'postal_code'=>$value['zip'],'lat'=>$value['lat'],'lng'=>$value['lang'],'rep_first_name'=>$value['name'],'rep_phone_number'=>$value['phone_number']];
         }
-
+        Location::create(array_merge($data,['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]));
         return $orderData;
     }
 

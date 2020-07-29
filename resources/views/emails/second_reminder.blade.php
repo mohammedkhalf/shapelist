@@ -17,7 +17,7 @@
                             <div class="fd-email-message">
                                 <p> Visit your dashboard and view your points and use them!</p>
                             </div>        
-                            <div class="fd-button " style="width:190px">
+                            <div class="fd-button " style="width:190px; text-transform: uppercase;">
                                  <a href="www.shaplist.com/ar/me/dashboard"  style="color: #ffffff; text-decoration: none;margin-top: 15px;"> Visit your dashboard </a>
                             </div> 
                            <div class="fd-email-message" style="font-size:14px">

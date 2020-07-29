@@ -12,7 +12,7 @@
                                     <b> Points Reminder  </b>.</p>
                             </div>
                             
-                            <p class="fd-email-text"  style="width:450px"> Your subscription has expired 10 days ago, You will lose your points if you don’t renew your subscription!</p>
+                            <p class="fd-email-text"  style="width:450px ; text-transform: uppercase;"> Your subscription has expired 10 days ago, You will lose your points if you don’t renew your subscription!</p>
                             <div class="fd-email-message">
                                 <p> Visit your dashboard and view your points and use them!</p>
                             </div>        

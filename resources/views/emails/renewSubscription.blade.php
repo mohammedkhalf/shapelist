@@ -12,7 +12,7 @@
                                     <b> Subscriptions Reminder  </b>.</p>
                             </div>
                             
-                            <p class="fd-email-text"  style="width:500px">  You have renewed your subscription for the {{$subscriptionName}}</p>
+                            <p class="fd-email-text"  style="width:500px ;text-transform: uppercase;">  You have renewed your subscription for the {{$subscriptionName}}</p>
                             <div class="fd-email-message">
                                 <p> Visit your dashboard and view your points and use them!</p>
                             </div>        

@@ -12,7 +12,7 @@
                                     <b> Subscriptions Reminder  </b>.</p>
                             </div>
                             
-                            <p class="fd-email-text"  style="width:500px"> Your subscription is about to expire,</p>
+                            <p class="fd-email-text"  style="width:500px; text-transform: uppercase;"> Your subscription is about to expire,</p>
                             <div class="fd-email-message">
                                 <p> Visit your dashboard and view your points and use them!</p>
                             </div>        

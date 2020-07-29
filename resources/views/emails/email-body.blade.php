@@ -12,7 +12,7 @@
                                     <b> We are happy to shoot your product </b>.</p>
                             </div>
                             
-                            <p class="fd-email-text"  style="width:450px"> Thank you for you order no #{{ $Invoice_Number }}</p>
+                            <p class="fd-email-text"  style="width:450px ;text-transform: uppercase;"> Thank you for you order no #{{ $Invoice_Number }}</p>
                             <div class="fd-email-message">
                                 <p> You can now follow your order status by clicking here</p>
                             </div>        

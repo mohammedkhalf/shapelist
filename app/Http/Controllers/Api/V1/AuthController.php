@@ -52,7 +52,7 @@ class AuthController extends APIController
             if( $user->confirmed == 0){
 
             Mail::to($user->email)->send(new resendConfirmationEmail($user));
-            return $this->respondForbidden('please check your email to confirm your acount ..');            
+            return $this->respondForbidden('please check your email to confirm your account ..');            
             }
 
             $passportToken = $user->createToken('API Access Token');

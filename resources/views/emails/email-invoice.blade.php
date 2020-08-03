@@ -159,7 +159,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <article>
-                        <img src="https://shapelistapp.com/img/logo.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" height="85px"/>
+                        <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" height="70px"/>
                         <div class="col-md-12">
                             <div class="col-md-5"><p> <b>CR</b> 1010569681  <span style="margin-right:-150px !important;"> <b>VAT-NO</b> 310053727200003 </span> </p> </div>
                             <div class="col-md-5"> <p> <b>KSA-RYADH PO-BOX</b> 13321 <span> <b>TEL</b> +966 11 810 2260 </span></p></div><br/>

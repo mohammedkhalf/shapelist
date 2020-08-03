@@ -84,7 +84,7 @@
 
         /* table meta & balance */
 
-        .meta { float: right; width: 36%; margin-right:-70px !important; margin-top:-290px !important; }
+        .meta { float: right; width: 36%; margin-left:30px; margin-top:-220px ;}
         /* .meta:after, table.balance:after { clear: both; content: ""; display: table; }  */
 
         /* table meta */
@@ -161,26 +161,23 @@
                     <article>
                         <img src="https://shapelistapp.com/img/logo.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" height="85px"/>
                         <div class="col-md-12">
-                            <div class="col-md-5"><p> <b>CR</b> 1010569681  <span style="margin-right:-150px !important;"> <b>VAT-NO</b> 310053727200003 </span> </p> </div>
-                            <div class="col-md-5"> <p> <b>KSA-RYADH PO-BOX</b> 13321 <span> <b>TEL</b> +966 11 810 2260 </span></p></div><br/>
+                            <div class="col-md-5"><p> <b>CR</b> 1010569681  <span> <b>VAT-NO</b> 310053727200003 </span> </p> </div>
+                            <div class="col-md-5"> <p> <b>KSA-RYADH PO-BOX</b> 13321 <span> <b>TEL</b> +966 11 810 2260 </span> </p> </div>
                                 <div class="col-md-2 meta" style="background-color:#f8f8f8">
                                     <h6>{{ trans('labels.backend.orders.Invoice_to') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px"> {{$first_name}} </p>
-                                    <p style="margin-left:10px;font-size:12px"> 
-                                        @foreach($locationInfo as $locationObj)
-                                          {{ $locationObj->location->address }} - {{ $locationObj->location->city }} 
-                                        @endforeach
-                                    </p>
+                                    <p style="margin-left:10px;font-size:12px">Mohammed Khalaf</p>
+                                    <p style="margin-left:10px;font-size:12px">Olya Street-Riyadh</p>
                                     <h6>{{ trans('labels.backend.orders.Date') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px">{{$date}}</p>
+                                    <p style="margin-left:10px;font-size:12px">23-07-2020</p>
                                     <h6>{{ trans('labels.backend.orders.table.paymentStatus') }}</h6>
                                     <p style="margin-left:10px;font-size:12px">Visa</p>
                                     <h6>{{ trans('labels.backend.orders.Total') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px">{{ $total_price }} SAR</p>
+                                    <p style="margin-left:10px;font-size:12px">1000 SAR</p>
                                 </div> <!-- col-md-6 -->
                         </div>
+                        <p style="margin-left:30px"> <a href="https://www.shapelist.com">www.shapelist.com</a> </p>
                         <h2 style="font-size: 50px;margin-left:30px"> <b>{{ trans('labels.backend.orders.Invoice-capital') }} </b> </h2>
-                        <p style="margin-left:10px;margin-left:35px;margin-top:-20px">{{ trans('labels.backend.orders.Number') }} {{ $Invoice_Number }} </p>
+                        <p style="margin-left:10px;margin-left:35px">{{ trans('labels.backend.orders.Invoice') }} </p>
 
                     </article> <br/> <br/>
                     <!--Items -->
@@ -194,23 +191,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($productsInfo as $productsObj)
-                                    <tr style="background-color:#f8f8f8">
-                                        <td>
-                                            <?php
-                                                $product_ids=App\Models\OrderItem\OrderItem::where('id',$productsObj->id)->pluck('services');
-                                                foreach(explode(",",$product_ids[0])  as $pro)
-                                                {
-                                                    $productName = App\Models\Product\Product::where('id',$pro)->pluck('name')->first();
-                                                    $data[]=$productName;
-                                                }
-                                                print_r(implode(",",$data));
-                                            ?> 
-                                        </td>
-                                        <td> {{$productsObj->quantity}}</td>
-                                        <td> {{$productsObj->media_location == NULL ?  'Our-Location' :  'On-Set'   }} </td>
-                                    </tr>
-                                @endforeach
+                                <tr style="background-color:#f8f8f8">
+                                    <th scope="col">vedio</th>
+                                </tr>
                             
                             </tbody>
                         </table>
@@ -219,13 +202,14 @@
 
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:20px; float:right"> 
-                            <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
-                            <p> Total:     {{ $total_price }} SAR    </p>
+                            <p> <b> Subtotal: </b>  4500   SAR </p>
+                            <p> <b> VAT( 15 %): </b>   SAR </p>
+                            <p> <b> Total:  </b>     SAR   </p>
                         </div>
                     </div>
 
                     <div class="row">
-                            <div class="col-sm-12" style="margin-top:40%">
+                            <div class="col-sm-9" style="margin-top:40%">
                                 <p> <b> Thank you for being our customer and have a great day </b> </p> <br/>
                                 <p> <b> Terms: </b> <a href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
                                 <hr style="height:12px;width:100%;border-color:#008a00;border-style:solid;background-color:#008a00;"/>

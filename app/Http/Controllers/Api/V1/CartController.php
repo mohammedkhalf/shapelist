@@ -102,7 +102,7 @@ class CartController extends APIController
     {
         $responseObj = Order::getStatus($request->resource_id);
         $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) )
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //buildNumber
         {
             $orderObj = Order::CreteOrderRequest($request);
             OrderItem::insertProducts($request,$orderObj);
@@ -114,7 +114,6 @@ class CartController extends APIController
         {
             return response()->json(['message'=>'Payment Process Failure']);
         }
-
     }
 
 }

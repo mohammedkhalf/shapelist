@@ -85,6 +85,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('/prepare-checkout', 'CartController@prepareCheckout');
         //post resource data + order data 
         Route::post('/resource-with-order','CartController@resourceOrder');
+        
 
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
@@ -118,5 +119,4 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('/products', 'ProductController');
          //Deliveries
          Route::apiResource('/deliveries', 'DeliveryController');      
-     
 });

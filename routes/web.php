@@ -42,3 +42,7 @@ includeRouteFiles(__DIR__.'/Generator/');
 //======================= Social Login ==================================
 Route::get('api/v1/auth/{provider}', 'Api\V1\SocialLoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Api\V1\SocialLoginController@handleProviderCallback');
+Route::get('/invoice', function (){
+    return view('emails.Invoice');
+});
+

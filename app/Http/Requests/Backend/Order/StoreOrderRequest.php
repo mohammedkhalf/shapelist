@@ -36,16 +36,16 @@ class StoreOrderRequest extends FormRequest
             'coupon_code' => ['string','max:10' ,  new FilterStringRule , 'nullable'],
             'products.*.services' => ['required','string',new FilterStringRule],
             'products.*.quantity' => ['numeric','integer','not_in:0'],
-            'products.*.media_location' => ['string',new FilterStringRule,'nullable'],
+            'products.*.productType' => ['string',new FilterStringRule,'nullable'],
             '*.country'=>[new FilterStringRule , 'nullable'],
             '*.city'=>[new FilterStringRule , 'nullable'], 
             '*.address' =>[new FilterStringRule , 'nullable'],
-            '*.zip' =>[new FilterStringRule , 'nullable'],
+            '*.postal_code' =>[new FilterStringRule , 'nullable'],
             '*.unit_no' =>[new FilterStringRule , 'nullable'],
             '*.lat' =>[new FilterStringRule , 'nullable'],
-            '*.lang' =>[new FilterStringRule , 'nullable'],
-            '*.name'=>[new FilterStringRule , 'nullable'],
-            '*.phone_number'=>[new FilterPhoneNumber], 
+            '*.lng' =>[new FilterStringRule , 'nullable'],
+            '*.rep_first_name'=>[new FilterStringRule , 'nullable'],
+            '*.rep_phone_number'=>[new FilterPhoneNumber], 
         ];
     }
 

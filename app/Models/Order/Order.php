@@ -90,7 +90,7 @@ class Order extends Model
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)
         {
-            $data = ['country'=>$value['country'],'city'=>$value['city'],'address'=>$value['address'],'postal_code'=>$value['zip'],'lat'=>$value['lat'],'lng'=>$value['lang'],'rep_first_name'=>$value['name'],'rep_phone_number'=>$value['phone_number']];
+            $data = ['country'=>$value['country'],'city'=>$value['city'],'address'=>$value['address'],'postal_code'=>$value['postal_code'],'lat'=>$value['lat'],'lng'=>$value['lng'],'rep_first_name'=>$value['rep_first_name'],'rep_phone_number'=>$value['rep_phone_number']];
         }
         Location::create(array_merge($data,['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]));
         return $orderData;

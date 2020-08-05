@@ -54,7 +54,7 @@ class OrderItem extends Model
             //implode(" , ",$request->products[$i]['services'])
             for($i=0;$i<count($request->products);$i++)
             {
-                $data=['quantity'=>$request->products[$i]['quantity'],'services'=>$request->products[$i]['services'],'media_location'=>$request->products[$i]['media_location'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];
+                $data=['quantity'=>$request->products[$i]['quantity'],'services'=>$request->products[$i]['services'],'media_location'=>$request->products[$i]['productType'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];
                 orderItem::create($data);
             }
         }

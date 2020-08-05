@@ -45,7 +45,7 @@ class StoreOrderRequest extends FormRequest
             '*.lat' =>[new FilterStringRule , 'nullable'],
             '*.lng' =>[new FilterStringRule , 'nullable'],
             '*.rep_first_name'=>[new FilterStringRule , 'nullable'],
-            '*.rep_phone_number'=>[new FilterPhoneNumber], 
+            '*.rep_phone_number'=>['numeric','not_in:0'], 
         ];
     }
 

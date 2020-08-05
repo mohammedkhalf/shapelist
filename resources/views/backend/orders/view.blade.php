@@ -144,7 +144,7 @@
                                 <tr>
                                     <th> {{ $productInfo->services }} </th>
                                     <th>{{ $productInfo->quantity }}</th>                                    
-                                    <th> {{ $productInfo->media_location == NULL ?  'Our-Location' : 'On-Set' }}</th>
+                                    <th> {{ $productInfo->media_location }}</th>
                                 </tr>
                             @endforeach
 

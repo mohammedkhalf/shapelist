@@ -141,7 +141,7 @@
                                     <tr style="background-color:#f8f8f8">
                                         <td>{{ $productsObj->services }} </td>
                                         <td> {{$productsObj->quantity}}</td>
-                                        <td> {{$productsObj->media_location == NULL ?  'Our-Location' :  'On-Set'   }} </td>
+                                        <td> {{ $productsObj->media_location  }} </td>
                                     </tr>
                                 @endforeach
                             </tbody>

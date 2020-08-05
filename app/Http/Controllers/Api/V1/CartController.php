@@ -9,6 +9,10 @@ use App\Http\Requests\Backend\Cart\UpdateCartRequest;
 use App\Models\Order\Order;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Models\Payment\Payment;
+use Validator;
+use App\Rules\FilterStringRule;
+use App\Rules\FilterPhoneNumber;
+
 
 class CartController extends APIController
 {
@@ -100,13 +104,30 @@ class CartController extends APIController
      //post resource id + order data 
     public function resourceOrder (StoreOrderRequest $request)
     {
+        $data = json_decode($request->location_details, true);
+        $rules = [
+            '*.country'=>[new FilterStringRule , 'nullable'],
+            '*.city'=>[new FilterStringRule , 'nullable'], 
+            '*.address' =>[new FilterStringRule , 'nullable'],
+            '*.zip' =>[new FilterStringRule , 'nullable'],
+            '*.unit_no' =>[new FilterStringRule , 'nullable'],
+            '*.lat' =>[new FilterStringRule , 'nullable'],
+            '*.lang' =>[new FilterStringRule , 'nullable'],
+            '*.name'=>[new FilterStringRule , 'nullable'],
+            '*.phone_number'=>[new FilterPhoneNumber], 
+        ];
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) 
+            return  response()->json(['message' => $validator->errors()->all()]);
+        
         $responseObj = Order::getStatus($request->resource_id);
         $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("buildNumber",$paymentObj)  && !empty($paymentObj['buildNumber']) ) //buildNumber
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //buildNumber
         {
+
             $orderObj = Order::CreteOrderRequest($request);
             OrderItem::insertProducts($request,$orderObj);
-            Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
+            Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
             Order::sendPdfInvoice($orderObj);
             return response()->json(['message'=>'Payment Process Successfully']);
         }

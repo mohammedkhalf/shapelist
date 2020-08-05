@@ -142,19 +142,9 @@
                         <thead class="transparent-bg">
                             @foreach($productsData  as  $productInfo)
                                 <tr>
-                                    <th> 
-                                        <?php
-                                            $product_ids=App\Models\OrderItem\OrderItem::where('id',$productInfo->id)->pluck('services');
-                                            foreach(explode(",",$product_ids[0])  as $pro)
-                                            {
-                                                $productName = App\Models\Product\Product::where('id',$pro)->pluck('name')->first();
-                                                $data[]=$productName;
-                                            }
-                                            print_r(implode(",",$data));
-                                        ?>
-                                    </th>
+                                    <th> {{ $productInfo->services }} </th>
                                     <th>{{ $productInfo->quantity }}</th>                                    
-                                    <th>{{ $productInfo->media_location }}</th>
+                                    <th> {{ $productInfo->media_location == NULL ?  'Our-Location' : 'On-Set' }}</th>
                                 </tr>
                             @endforeach
 

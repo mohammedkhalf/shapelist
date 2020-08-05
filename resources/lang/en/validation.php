@@ -85,6 +85,8 @@ return [
     'unique'   => 'The :attribute has already been taken.',
     'uploaded' => 'The :attribute failed to upload.',
     'url'      => 'The :attribute format is invalid.',
+    'phone_number'  => 'The :attribute format is invalid and start with 05XXXXXXXX',
+
 
     /*
     |--------------------------------------------------------------------------

@@ -22,7 +22,6 @@ class OrderItem extends Model
         'items_total_price' => 'integer',
         'quantity' => 'integer',
         'product_id'=> 'integer',
-        'services'=>'integer'
     ];
 
     public function products()
@@ -52,9 +51,10 @@ class OrderItem extends Model
 
         public static function insertProducts($request,$orderObj)
         {
+            //implode(" , ",$request->products[$i]['services'])
             for($i=0;$i<count($request->products);$i++)
             {
-                $data=['quantity'=>$request->products[$i]['quantity'],'services'=>implode(" , ",$request->products[$i]['services']),'media_location'=>$request->products[$i]['media_location'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];
+                $data=['quantity'=>$request->products[$i]['quantity'],'services'=>$request->products[$i]['services'],'media_location'=>$request->products[$i]['media_location'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];
                 orderItem::create($data);
             }
         }

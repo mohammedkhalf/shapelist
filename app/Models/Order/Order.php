@@ -87,8 +87,8 @@ class Order extends Model
     {
         $orderData = Order::create(array_merge($request->only('delivery_id','vat','total_price','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id]));
-        $location_details=json_decode($request->location_details ,true);
-        foreach($location_details as $key=>$value)
+        $locationArr = array($request->location_details);
+        foreach($locationArr as $key=>$value)
         {
             $data = ['country'=>$value['country'],'city'=>$value['city'],'address'=>$value['address'],'postal_code'=>$value['zip'],'lat'=>$value['lat'],'lng'=>$value['lang'],'rep_first_name'=>$value['name'],'rep_phone_number'=>$value['phone_number']];
         }

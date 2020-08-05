@@ -8,6 +8,7 @@ use App\Models\Location\Location;
 use App\Models\MusicSample\MusicSample;
 use App\Rules\FilterStringRule;
 use App\Models\Package\Package; 
+use App\Rules\FilterPhoneNumber;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -36,6 +37,15 @@ class StoreOrderRequest extends FormRequest
             'products.*.services' => ['required','string',new FilterStringRule],
             'products.*.quantity' => ['numeric','integer','not_in:0'],
             'products.*.media_location' => ['string',new FilterStringRule,'nullable'],
+            '*.country'=>[new FilterStringRule , 'nullable'],
+            '*.city'=>[new FilterStringRule , 'nullable'], 
+            '*.address' =>[new FilterStringRule , 'nullable'],
+            '*.zip' =>[new FilterStringRule , 'nullable'],
+            '*.unit_no' =>[new FilterStringRule , 'nullable'],
+            '*.lat' =>[new FilterStringRule , 'nullable'],
+            '*.lang' =>[new FilterStringRule , 'nullable'],
+            '*.name'=>[new FilterStringRule , 'nullable'],
+            '*.phone_number'=>[new FilterPhoneNumber], 
         ];
     }
 

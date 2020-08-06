@@ -111,11 +111,11 @@ class CartController extends APIController
             OrderItem::insertProducts($request,$orderObj);
             Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
             Order::sendPdfInvoice($orderObj);
-            return response()->json(['message' => 'Payment Success'], 200);
+            return response()->json(["description"=>"Request successfully processed"], 200);
         }
         else
         {
-            return response()->json(['error' => 'Payment Failure'], 422);
+            return response()->json(['description' => 'invalid or missing parameter - (opp) No payment session found for the requested id'], 422);
         }
     }
 

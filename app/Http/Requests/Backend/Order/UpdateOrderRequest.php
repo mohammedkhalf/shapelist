@@ -39,7 +39,7 @@ class UpdateOrderRequest extends FormRequest
             'city'=>['string',new FilterStringRule , 'nullable'], 
             'address' =>['string', new FilterStringRule , 'nullable'],
             'lat' =>['string', new FilterStringRule , 'nullable'],
-            'lng' =>['string', new FilterStringRule , 'nullable'],
+            'lng' =>['string', 'nullable'],
             'rep_first_name'=>['string', new FilterStringRule , 'nullable'],
             'rep_last_name'=>['string', new FilterStringRule , 'nullable'],
             'rep_phone_number'=>['numeric','regex:/(0)[0-9]{9}/' , 'nullable'], 

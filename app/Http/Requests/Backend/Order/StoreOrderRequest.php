@@ -43,7 +43,7 @@ class StoreOrderRequest extends FormRequest
             '*.postal_code' =>[new FilterStringRule , 'nullable'],
             '*.unit_no' =>[new FilterStringRule , 'nullable'],
             '*.lat' =>[new FilterStringRule , 'nullable'],
-            '*.lng' =>['string','nullable'],
+            // '*.lng' =>['string','nullable'],
             '*.rep_first_name'=>[new FilterStringRule , 'nullable'],
             '*.rep_phone_number'=>['numeric','not_in:0'], 
         ];

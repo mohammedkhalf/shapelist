@@ -95,13 +95,12 @@
         .cut { -webkit-transition: opacity 100ms ease-in; }
         tr:hover .cut { opacity: 1; }
     </style>
-    <br/>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <article>
-                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" height="70px"/>
+                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" />
                         <div class="col-md-12">
                                 <div class="col-md-4 meta" style="background-color:#f8f8f8 !important;">
                                     <h6>{{ trans('labels.backend.orders.Invoice_to') }}</h6>
@@ -155,9 +154,9 @@
                     </div>
                     <div class="row">
                             <div class="col-sm-12" style="margin-top:40%">
-                                <p> <b> Thank you for being our customer and have a great day </b> </p> <br/>
-                                <p> <b> Terms: </b> <a href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
-                                <hr style="height:12px;width:100%;border-color:#008a00;border-style:solid;background-color:#008a00;"/>
+                                <p> <b> Thank you for being our customer and have a great day </b> </p>
+                                <p> <b> Terms: </b> <a style="text-decoration:none;color: #5F5F5F;" href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
+                                <hr style="height:12px;width:100%;border-color:#008a00;border-style:solid;background-color:#239C73;"/>
                             </div>
                     </div>
                 </div>

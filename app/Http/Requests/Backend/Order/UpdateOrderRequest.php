@@ -45,7 +45,7 @@ class UpdateOrderRequest extends FormRequest
             '*.lat' =>[new FilterStringRule , 'nullable'],
             // '*.lng' =>['string','nullable'],
             '*.rep_first_name'=>[new FilterStringRule , 'nullable'],
-            '*.rep_phone_number'=>['numeric','not_in:0'], 
+            '*.rep_phone_number'=>['numeric','not_in:0'],
         ];
     }
 

@@ -86,7 +86,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //post resource data + order data 
         Route::post('/resource-with-order','CartController@resourceOrder');
         
-
         Route::get('checkouts/{checkoutId}/payment','CartController@getStatus');
         Route::post('/update-payment-Info','OrderController@savePaymentInfo');
         // download Invoice for order

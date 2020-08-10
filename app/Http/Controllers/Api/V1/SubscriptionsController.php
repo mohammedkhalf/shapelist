@@ -33,10 +33,10 @@ class SubscriptionsController extends Controller
                                 //if the user has old plan
                                 $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
                                 //payment
-                                $responseObj = SubscriptionDetail::getStatus($request->resource_id);
-                                $paymentObj = json_decode($responseObj,true);
-                                if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
-                                {
+                                // $responseObj = SubscriptionDetail::getStatus($request->resource_id);
+                                // $paymentObj = json_decode($responseObj,true);
+                                // if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
+                                // {
                                     // upgrade or downgrade the plan or re_subscribe in the same plan
                                     $updatedPlan=SubscriptionDetail::changePlane($id,$bankTransactionId); 
                                     $subscription =  Subscription::findOrFail($id);
@@ -47,11 +47,11 @@ class SubscriptionsController extends Controller
                                     $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
                                     SubscriptionDetail::sendInvoicePdf($data); 
                                     return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']);            
-                                } 
-                                else{
-                                    $responseObj=json_decode($responseObj,true);
-                                    return $responseObj['result']; 
-                                }   
+                                // } 
+                                // else{
+                                //     $responseObj=json_decode($responseObj,true);
+                                //     return $responseObj['result']; 
+                                // }   
 
                         }else{
                             //payment
@@ -70,10 +70,10 @@ class SubscriptionsController extends Controller
                                 SubscriptionDetail::sendInvoicePdf($data);
                                 return response()->json(['updatedPlan'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscribe in a New Plan..']);            
                             } 
-                            else{
-                                $responseObj=json_decode($responseObj,true);
-                                return $responseObj['result']; 
-                            }   
+                                else{
+                                    $responseObj=json_decode($responseObj,true);
+                                    return $responseObj['result']; 
+                                }
                         }
 
     }

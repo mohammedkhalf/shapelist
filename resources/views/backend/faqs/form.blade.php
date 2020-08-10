@@ -19,7 +19,8 @@
         {{ Form::label('answer', trans('validation.attributes.backend.faqs.answer'), ['class' => 'col-lg-2 control-label required']) }}
 
         <div class="col-lg-10 mce-box">
-            {{ Form::textarea('answer', null, ['class' => 'form-control box-size']) }}
+            {{ Form::textarea('answer', old('answer'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.subscriptions.table.description_ar')]) }}
+
         </div><!--col-lg-10-->
     </div><!--form control-->
 
@@ -70,6 +71,12 @@
 </div>
 @section('after-scripts')
     <script type="text/javascript">
-        Backend.Faq.init('{{ config('locale.languages.' . app()->getLocale())[1] }}');
+        // Backend.Faq.init('{{ config('locale.languages.' . app()->getLocale())[1] }}')
+        tinymce.init({
+            forced_root_block : false,
+            selector:'textarea',
+            width: 800,
+            height: 150
+        });;
     </script>
 @endsection

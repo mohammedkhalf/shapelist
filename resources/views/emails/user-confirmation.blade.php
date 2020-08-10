@@ -1,7 +1,7 @@
 @extends('emails.layouts.app')
 
 @section('content')  
-    <div class="fd-card middle">
+    <div class="fd-card middle"  style="text-align: left;">
         <div class="fd_line"></div>
         <div class= "fd_content">
             <img src="http://shapelistapp.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg" width=145  alt="shapelist"  style="display:inner">
@@ -13,7 +13,8 @@
                         
                     <p class="fd-email-text"> Please confirm your account by clicking the button below: </p>
                         
-                    <div class="fd-button">
+                    <div class="fd-button" style=" top: 360px;left: 30px; width: 144px;height: 38px; background: #23A67D 0% 0% no-repeat padding-box;
+                    border-radius: 4px; opacity: 1; padding-top:15px; padding-left:21px;">
                         <a href="{{ $confirmation_url }}" style="color: #ffffff; text-decoration: none;margin-top: 15px;">Confirm Email</a>
                     </div> 
                 <div class="fd-email-message">

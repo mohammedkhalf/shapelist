@@ -97,6 +97,7 @@
             border: 1px solid #7070708c;
             font-family: 'Montserrat', sans-serif;
             opacity: 1;
+            text-align: left;
   
         }
         .fd_content{

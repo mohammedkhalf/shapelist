@@ -45,7 +45,7 @@
         article h1 { clip: rect(0 0 0 0); position: absolute; }
         article address { float: left; font-size: 125%; font-weight: bold; }
         /* table meta & balance */
-        .meta { float: right; width: 30%; margin-right:-70px !important; margin-top:-160px !important;}
+        .meta { float: right; width: 30%; margin-right:-70px !important; margin-top:-120px !important;}
         /* .meta:after, table.balance:after { clear: both; content: ""; display: table; }  */
         /* table meta */
         /* table.meta th { width: 40%; }
@@ -100,30 +100,36 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <article>
-                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" />
-                        <div class="col-md-12">
-                                <div class="col-md-4 meta" style="background-color:#f8f8f8 !important;">
-                                    <h6>{{ trans('labels.backend.orders.Invoice_to') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px"> {{$first_name}} </p>
-                                    <p style="margin-left:10px;font-size:12px">
-                                        @foreach($locationInfo as $locationObj)
+                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" /> <br/>
+                        <div class="col-sm-12">
+                                <div class="col-sm-4 meta" style="background-color:#f8f8f8; width:300px; height: 350px;!important;">
+                                    <h6 style="margin-top:15px;text-align: left;font: SemiBold 14px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Invoice_to') }}</h6>
+                                    <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;"> {{$first_name}} </p>
+                                    <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">
+                                        @foreach($locationInfo as $locationObj) 
                                           {{ $locationObj->location->address }} - {{ $locationObj->location->city }}
                                         @endforeach
                                     </p>
-                                    <h6>{{ trans('labels.backend.orders.Date') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px">{{$date}}</p>
-                                    <h6>{{ trans('labels.backend.orders.table.paymentStatus') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px">Visa</p>
-                                    <h6>{{ trans('labels.backend.orders.Total') }}</h6>
-                                    <p style="margin-left:10px;font-size:12px">{{ $total_price }} SAR</p>
-                                </div> <!-- col-md-6 -->
-                                <div class="col-md-8">
-                                    <p> <b>CR</b> 1010569681  <span style="margin-right:-150px !important;"> <b>VAT-NO</b> 310053727200003 </span> </p>
-                                   <p> <b>KSA-RYADH PO-BOX</b> 13321 <span> <b>TEL</b> +966 11 810 2260 </span></p>
+                                    <h6 style="text-align: left;font: SemiBold 10px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Date') }}</h6>
+                                    <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">{{$date}}</p>
+
+                                    <h6 style="text-align: left;font: SemiBold 10px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.table.paymentStatus') }}</h6>
+
+                                    <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">Visa</p>
+
+                                    <h6 style=""> {{ trans('labels.backend.orders.Total') }} </h6>
+                                    <p style=""> {{ $total_price }} SAR </p>
+
+                                </div> <!-- col-md-4 -->
+
+                                <div class="col-sm-5" style="letter-spacing: 0px;color: #5F5F5F;">
+                                    <p>  CR 1010569681   <span style="float:right">  VAT-NO 310053727200003  </span> </p>
+                                    <p>  TEL +966 11 810 2260   <span style="float:right">  KSA-RYADH PO-BOX 13321 </span> </p>
+                                    <p style="text-transform: uppercase;"> www.shapelist.com </p> 
                                 </div>
-                        </div> <br/>
-                        <h2 style="font-size: 50px;margin-left:30px"> <b>{{ trans('labels.backend.orders.Invoice-capital') }} </b> </h2>
-                        <p style="margin-left:10px;margin-left:35px;margin-top:-20px">{{ trans('labels.backend.orders.Number') }} {{ $Invoice_Number }} </p>
+                        </div> <br/> <br/>
+                        <h2 style="margin-left:30px;letter-spacing: 0px;font: Bold 47px/20px Montserrat;color: #5F5F5F;text-transform: uppercase;"> {{ trans('labels.backend.orders.Invoice-capital') }}  </h2>
+                        <h6 style="margin-left:35px;text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Invoice-capital') }} # {{ $Invoice_Number }} </h6>
                     </article> <br/> <br/>
                     <!--Items -->
                     <div class="row">

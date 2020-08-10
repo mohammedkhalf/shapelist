@@ -14,6 +14,7 @@ use App\Models\OrderItem\OrderItem;
 use App\Models\OrderPackage\OrderPackage;
 use App\Models\Invoice\Invoice;
 use Aws\S3\S3Client;
+use Illuminate\Support\Facades\URL;
 
 
 class OrderController extends APIController
@@ -72,7 +73,6 @@ class OrderController extends APIController
         //======================== order download url===========================
         public function orderDownload($orderId)
         {
-    
            $fileName = MediaFile::where('order_id', $orderId)->value('zip_name');   
            $key = 'media_files/'.$fileName;
            $disk = \Storage::disk('s3');
@@ -90,8 +90,7 @@ class OrderController extends APIController
         {
             $invoiceObj = Invoice::where('order_id',$orderId)->first();
             $user_id = auth()->guard('api')->user()->id;
-            // return response()->file(storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}"));
-            return storage_path("app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
+            return URL::to("storage/app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
         }
         //======================== view detials download===========================
         public function myDownload($id){  

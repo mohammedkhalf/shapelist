@@ -107,7 +107,7 @@ class CartController extends APIController
         $paymentObj = json_decode($responseObj,true);
         if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
         {
-            $orderObj = Order::CreteOrderRequest($request);
+            $orderObj = Order::CreateOrderRequest($request);
             OrderItem::insertProducts($request,$orderObj);
             Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
             Order::sendPdfInvoice($orderObj);

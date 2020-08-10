@@ -83,7 +83,7 @@ class Order extends Model
         return $this->hasOne(Invoice::class ,'order_id','id');
     }
 
-    public static function CreteOrderRequest($request)
+    public static function CreateOrderRequest($request)
     {
         $orderData = Order::create(array_merge($request->only('delivery_id','vat','total_price','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id]));
@@ -135,7 +135,8 @@ class Order extends Model
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
         ];
             //author@khalf
-            $pdf = PDF::loadView('emails.email-invoice', $data);
+            $customPaper = array(0,0,950,1200);
+            $pdf = PDF::loadView('emails.email-invoice', $data)->setPaper($customPaper,'portrait');
             $fileName = time() . ".pdf";
             Storage::put('public/orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
             Invoice::create(['order_id'=>$OrderObject->id,'file_name'=>$fileName]);

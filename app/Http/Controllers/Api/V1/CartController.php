@@ -113,10 +113,10 @@ class CartController extends APIController
             Order::sendPdfInvoice($orderObj);
             return response()->json(["description"=>"Request successfully processed"], 200);
         }
-        else
-        {
-            return response()->json(['description' => 'invalid or missing parameter - (opp) No payment session found for the requested id'], 422);
-        }
+        else{
+            $responseObj=json_decode($responseObj,true);
+            return $responseObj['result']; 
+        }  
     }
 
 }

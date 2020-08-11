@@ -11,8 +11,6 @@ use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Models\Payment\Payment;
 use Validator;
 
-
-
 class CartController extends APIController
 {
     /**
@@ -110,8 +108,8 @@ class CartController extends APIController
             $orderObj = Order::CreateOrderRequest($request);
             $Products = OrderItem::insertProducts($request,$orderObj);
             Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
-            Order::sendPdfInvoice($orderObj);
-            return response()->json(["description"=>"Request successfully processed"], 200);
+            $orderInfo = Order::getOrderInfo($orderObj);
+            return response()->json($orderInfo[0], 200);
         }
         else
         {

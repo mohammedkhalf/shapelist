@@ -59,10 +59,7 @@ class Order extends Model
     {
         return $this->belongsTo(Status::class,'status_id','id');   
     }  
-    public function products()
-    {
-        return $this->belongsToMany(Product::class,'order_items')->withPivot('order_id','product_id','type','quantity','music_id','video_length','user_music','services','media_location');  
-    }
+   
     public function payment()
     {
         return $this->hasOne(Payment::class,'order_id');   
@@ -81,6 +78,11 @@ class Order extends Model
     public function invoices()
     {
         return $this->hasOne(Invoice::class ,'order_id','id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderItem::class,'order_id');
     }
 
     public static function CreateOrderRequest($request)
@@ -169,5 +171,11 @@ class Order extends Model
             return $responseData;
     }
 
-    //
+    public static function getOrderInfo ($orderObj)
+    {
+        $OrderInfo = Order::where('id',$orderObj->id)->get();
+        return $OrderInfo;
+    }
+
+    
 }

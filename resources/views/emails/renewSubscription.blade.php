@@ -3,21 +3,22 @@
 @section('content')
 <div class="content">
   
-    <div class="fd-card middle"  style="height:705px">
+    <div class="fd-card middle"  style="height:705px; text-align: left;">
         <div class="fd_line"></div>
         <div class= "fd_content">
             <img src="http://shapelistapp.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg" width=145  alt="facebook" title="facebook" style="display:inner">
                             <div class="fd-welcome-text">
                                     <p>  Welcome, {{$subscriber->user->first_name}} {{$subscriber->user->last_name}}!<br>
-                                    <b> Subscriptions Reminder  </b>.</p>
+                                    <b>  New Subscription</b>.</p>
                             </div>
                             
                             <p class="fd-email-text"  style="width:500px ;text-transform: uppercase;">  You have renewed your subscription for the {{$subscriptionName}}</p>
                             <div class="fd-email-message">
                                 <p> Visit your dashboard and view your points and use them!</p>
                             </div>        
-                            <div class="fd-button " style="width:190px">
-                                 <a href="www.shaplist.com/ar/me/dashboard"  style="color: #ffffff; text-decoration: none;margin-top: 15px;"> Visit your dashboard </a>
+                            <div class="fd-button" style=" top: 360px;left: 30px; width: 190px;height: 38px;background: #23A67D 0% 0% no-repeat padding-box;
+                            border-radius: 4px; padding-top:15px; padding-left:21px;">
+                                <a href="www.shaplist.com/ar/me/dashboard"  style="color: #ffffff; text-decoration: none;margin-top: 15px;"> Visit your dashboard </a>
                             </div> 
                            <div class="fd-email-message" style="font-size:14px">
                                 <p>  Also, if you need any help, do not hesitate to contact us anytime,</p>

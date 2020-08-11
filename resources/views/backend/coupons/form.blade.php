@@ -17,21 +17,22 @@
         </div>
     </div><!--form-group-->
 
-    <div class="form-group">
-  
-        {{ Form::label('valid', trans('labels.backend.coupons.table.valid'), ['class' => 'col-lg-2 control-label required']) }}
-        <div class="col-lg-3">
-
-        <select class="form-control" name="valid">
-            <option value="1" {{old('valid',$coupon->valid)=="1"? 'selected':''}} >Valid</option>
-            <option value="2" {{old('valid',$coupon->valid)=="2"? 'selected':''}} >Not Valid</option>
-        </select>
-
-        <!-- {{ Form::checkbox('valid', '1' , ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.coupons.table.valid'), 'required' => 'required'] ) }} -->
-
-        </div>
-    </div><!--form-group-->
+    @if(isset($coupon))
+        <div class="form-group">
     
+            {{ Form::label('valid', trans('labels.backend.coupons.table.valid'), ['class' => 'col-lg-2 control-label required']) }}
+            <div class="col-lg-3">
+
+            <select class="form-control" name="valid">
+                <option value="1" {{old('valid',$coupon->valid)=="1"? 'selected':''}} >Valid</option>
+                <option value="2" {{old('valid',$coupon->valid)=="2"? 'selected':''}} >Not Valid</option>
+            </select>
+    
+            <!-- {{ Form::checkbox('valid', '1' , ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.coupons.table.valid'), 'required' => 'required'] ) }} -->
+
+            </div>
+        </div><!--form-group-->
+    @endif 
 </div><!--box-body-->
 
 @section("after-scripts")

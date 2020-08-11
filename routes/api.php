@@ -75,7 +75,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         //download Media
         Route::get('mediaFile/{orderId}','OrderController@getMedia');
         //subscriptions
-        Route::post('subscriptions/subscribe/{id}/{bankTransactionId}', 'SubscriptionsController@subscribe');
+        Route::post('subscriptions/subscribe/{id}/{resource_id}', 'SubscriptionsController@subscribe');
         //subscription update points
         Route::put('subscriptions/updatePoints', 'SubscriptionsController@updatePoints');
         //subscriptions payment

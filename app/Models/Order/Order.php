@@ -61,7 +61,7 @@ class Order extends Model
     }  
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_items')->withPivot('order_id','product_id','type','quantity','music_id','video_length','user_music');  
+        return $this->belongsToMany(Product::class,'order_items')->withPivot('order_id','product_id','type','quantity','music_id','video_length','user_music','services','media_location');  
     }
     public function payment()
     {
@@ -119,6 +119,7 @@ class Order extends Model
     public static function sendPdfInvoice($OrderObject) 
     {
         $data = [
+            'subject'=> 'Purchase Invoice',
             'Invoice_Number' => $OrderObject->id,
             'user_id' => auth()->guard('api')->user()->id,
             'first_name' => auth()->guard('api')->user()->first_name,
@@ -130,12 +131,11 @@ class Order extends Model
             'vat_value'=>$OrderObject->vat,
             'total_price' => $OrderObject->total_price,
             'date' => $OrderObject->created_at,
-            'subject'=> 'Purchase Invoice',
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
         ];
             //author@khalf
-            $customPaper = array(0,0,950,1200);
+            $customPaper = array(0,0,800,700);
             $pdf = PDF::loadView('emails.email-invoice', $data)->setPaper($customPaper,'portrait');
             $fileName = time() . ".pdf";
             Storage::put('public/orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
@@ -145,7 +145,7 @@ class Order extends Model
                         ->subject($data["subject"])
                         ->attachData($pdf->output(),"invoice.pdf");
                 });   
-            return $pdf->download('invoice.pdf');
+            return  $data;
     }
 
     //get Payment Status Object Using Checkout Id

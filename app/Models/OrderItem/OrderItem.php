@@ -51,7 +51,6 @@ class OrderItem extends Model
 
         public static function insertProducts($request,$orderObj)
         {
-            //implode(" , ",$request->products[$i]['services'])
             for($i=0;$i<count($request->products);$i++)
             {
                 $data=['quantity'=>$request->products[$i]['quantity'],'services'=>$request->products[$i]['services'],'media_location'=>$request->products[$i]['productType'],'order_id'=>$orderObj->id,'user_id'=>auth()->guard('api')->user()->id];

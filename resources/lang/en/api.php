@@ -8,7 +8,7 @@ return [
         ],
         'login' => [
             'success' => 'Login Successfull.',
-            'failed'  => 'Invalid Credentials! Please try again.',
+            'failed'  => 'Wrong Username or Password',
         ],
         'logout' => [
             'success' => 'Successfully logged out.',

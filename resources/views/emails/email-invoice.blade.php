@@ -45,7 +45,7 @@
         article h1 { clip: rect(0 0 0 0); position: absolute; }
         article address { float: left; font-size: 125%; font-weight: bold; }
         /* table meta & balance */
-        .meta { float: right; width: 30%; margin-right:-70px !important; margin-top:-120px !important;}
+        .meta { float: right; width: 30%; margin-right:-70px !important; margin-top:-150px !important;}
         /* .meta:after, table.balance:after { clear: both; content: ""; display: table; }  */
         /* table meta */
         /* table.meta th { width: 40%; }
@@ -100,10 +100,10 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <article>
-                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" /> <br/>
+                         <img src="https://shapelistapp.com/img/min.png"  style="margin-bottom:40px;margin-left:30px"   width="150px" /> <br/><br/>
                         <div class="col-sm-12">
                                 <div class="col-sm-4 meta" style="background-color:#f8f8f8; width:300px; height: 350px;!important;">
-                                    <h6 style="margin-top:15px;text-align: left;font: SemiBold 14px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Invoice_to') }}</h6>
+                                    <h6 style="margin-top:35px;text-align: left;font: SemiBold 14px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Invoice_to') }}</h6>
                                     <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;"> {{$first_name}} </p>
                                     <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">
                                         @foreach($locationInfo as $locationObj) 
@@ -117,12 +117,12 @@
 
                                     <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">Visa</p>
 
-                                    <h6 style=""> {{ trans('labels.backend.orders.Total') }} </h6>
-                                    <p style=""> {{ $total_price }} SAR </p>
+                                    <h6 style="font: SemiBold 10px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;"> {{ trans('labels.backend.orders.Total') }} </h6>
+                                    <p style="font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;"> {{ $total_price }} </p>
 
                                 </div> <!-- col-md-4 -->
 
-                                <div class="col-sm-5" style="letter-spacing: 0px;color: #5F5F5F;">
+                                <div class="col-sm-6" style="letter-spacing: 0px;color: #5F5F5F;">
                                     <p>  CR 1010569681   <span style="float:right">  VAT-NO 310053727200003  </span> </p>
                                     <p>  TEL +966 11 810 2260   <span style="float:right">  KSA-RYADH PO-BOX 13321 </span> </p>
                                     <p style="text-transform: uppercase;"> www.shapelist.com </p> 
@@ -135,7 +135,7 @@
                     <div class="row">
                         <table class="table">
                             <thead>  <!-- class="thead-dark" -->
-                                <tr>
+                                <tr style="text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                     <th scope="col">{{ trans('labels.backend.orders.services') }}</th>
                                     <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
                                     <th scope="col">{{ trans('labels.backend.orders.mediaLocation') }}</th>
@@ -143,7 +143,7 @@
                             </thead>
                             <tbody>
                                 @foreach($productsInfo as $productsObj)
-                                    <tr style="background-color:#f8f8f8">
+                                    <tr style="background-color:#f8f8f8; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                         <td>{{ $productsObj->services }} </td>
                                         <td> {{$productsObj->quantity}}</td>
                                         <td> {{ $productsObj->media_location  }} </td>
@@ -153,16 +153,16 @@
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4" style="margin-top:20px; float:right">
+                        <div class="col-sm-4" style="margin-top:20px;margin-left:30px; float:right ; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                             <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
                             <p> Total:     {{ $total_price }} SAR    </p>
                         </div>
                     </div>
                     <div class="row">
-                            <div class="col-sm-12" style="margin-top:40%">
+                            <div class="col-sm-12" style="margin-top:45%">
                                 <p> <b> Thank you for being our customer and have a great day </b> </p>
                                 <p> <b> Terms: </b> <a style="text-decoration:none;color: #5F5F5F;" href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
-                                <hr style="height:12px;width:100%;border-color:#008a00;border-style:solid;background-color:#239C73;"/>
+                                <hr style="text-align:left;height:12px;width:100%;background-color:#239C73"/> 
                             </div>
                     </div>
                 </div>

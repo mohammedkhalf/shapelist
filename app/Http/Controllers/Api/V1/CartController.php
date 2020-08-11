@@ -105,17 +105,19 @@ class CartController extends APIController
     {     
         $responseObj = Order::getStatus($request->resource_id);
         $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //buildNumber
         {
             $orderObj = Order::CreateOrderRequest($request);
-            OrderItem::insertProducts($request,$orderObj);
+            $Products = OrderItem::insertProducts($request,$orderObj);
             Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
             Order::sendPdfInvoice($orderObj);
             return response()->json(["description"=>"Request successfully processed"], 200);
         }
         else
         {
-            return response()->json(['description' => 'invalid or missing parameter - (opp) No payment session found for the requested id'], 422);
+            $responseObj=json_decode($responseObj,true);
+            return response()->json(["description"=>$responseObj['result']['description']], 422);
+
         }
     }
 

@@ -115,7 +115,6 @@ class CartController extends APIController
         {
             $responseObj=json_decode($responseObj,true);
             return response()->json(["description"=>$responseObj['result']['description']], 422);
-
         }
     }
 

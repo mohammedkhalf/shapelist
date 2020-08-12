@@ -173,7 +173,7 @@ class Order extends Model
 
     public static function getOrderInfo ($orderObj)
     {
-        $OrderInfo = Order::where('id',$orderObj->id)->get();
+        $OrderInfo = Order::with('status')->where('id',$orderObj->id)->get();
         return $OrderInfo;
     }
 

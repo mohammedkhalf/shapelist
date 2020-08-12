@@ -103,12 +103,13 @@ class CartController extends APIController
     {     
         $responseObj = Order::getStatus($request->resource_id);
         $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //buildNumber
+        if(array_key_exists("buildNumber",$paymentObj)  && !empty($paymentObj['buildNumber']) ) //buildNumber
         {
             $orderObj = Order::CreateOrderRequest($request);
             $Products = OrderItem::insertProducts($request,$orderObj);
-            Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
+            Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
             $orderInfo = Order::getOrderInfo($orderObj);
+            Order::sendPdfInvoice($orderObj);
             return response()->json($orderInfo[0], 200);
         }
         else

@@ -89,9 +89,21 @@ class SubscriptionDetail extends Model
 
     public static function updateUserPoints($request)
     {
+        if(isset($request->purchase) || isset($request->free)){
             $subscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
-            $subscriptionDetail->update(['purchase_points'=>$request->purchase,'free_points'=>$request->free]);
-            return $subscriptionDetail;     
+            $oldP = $subscriptionDetail->purchase_points;
+            $oldF = $subscriptionDetail->free_points;
+            if($oldP<$request->purchase || $oldF<$request->free){
+                return response()->json(["message"=>"Bad Request..!"], 400);
+            }else{
+                $subscriptionDetail->update(['purchase_points'=>$request->purchase,'free_points'=>$request->free]);
+                return $subscriptionDetail;   
+            }
+            
+        }else{
+            return response()->json(["message"=>"Bad Request..!"], 400);
+
+        }
     }
    
     public static function unsubscribe($id)

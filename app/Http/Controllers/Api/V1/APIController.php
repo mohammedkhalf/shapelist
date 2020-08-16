@@ -196,4 +196,10 @@ class APIController extends Controller
         return $this->setStatusCode(404)
             ->respondWithError($message);
     }
+
+    public function badRequest($message)
+    {
+        return $this->setStatusCode(400)
+            ->respondWithError($message);
+    }
 }

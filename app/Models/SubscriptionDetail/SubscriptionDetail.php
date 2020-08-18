@@ -69,8 +69,8 @@ class SubscriptionDetail extends Model
             $newSubscriptionDetail = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();
             $newSubscriptionDetail->update(['subscription_id'=>$id , 'status'=>1,
             'bank_transaction_id'=>$bankTransactionId,
-            'purchase_points'=>$subscription->purchase_points + $oldSubscription->purchase_points  ,
-            'free_points'=>$subscription->free_points ,
+            'purchase_points'=>$subscription->purchase_points + $oldSubscription->purchase_points ,
+            'free_points'=>$subscription->free_points + $oldSubscription->free_points ,
             'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
             return $newSubscriptionDetail;

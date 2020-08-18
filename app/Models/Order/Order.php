@@ -193,7 +193,7 @@ class Order extends Model
                 $Products = OrderItem::insertProducts($request,$orderObject);
                 Order::sendPdfInvoice($orderObject);
                 SubscriptionDetail::where('user_id',auth()->user()->id)->update(['purchase_points'=> ($userPoints->purchase_points - $allPoints) ]);
-                return response()->json(['message'=>'Order Created Successfully']);
+                return response()->json(['message'=>'Order Created Successfully'],200);
             }
             else
             {
@@ -205,11 +205,11 @@ class Order extends Model
                         Order::sendPdfInvoice($orderObject);
                         SubscriptionDetail::where('user_id',auth()->user()->id)
                         ->update([ 'purchase_points'=> 0 , 'free_points'=> ($purchaseFree - $allPoints) ]);
-                        return response()->json(['message'=>'Order Created Successfully']);
+                        return response()->json(['message'=>'Order Created Successfully'],422);
                     }
                     else
                     {
-                        return response()->json(['message'=>'Your account balance not enough ']);
+                        return response()->json(['message'=>'Your account balance not enough'],422);
                     }
             }
 

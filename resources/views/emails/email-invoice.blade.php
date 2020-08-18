@@ -118,7 +118,7 @@
                                     <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">Visa</p>
 
                                     <h6 style="font: SemiBold 10px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;"> {{ trans('labels.backend.orders.Total') }} </h6>
-                                    <p style="font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;"> {{ $total_price }} </p>
+                                    <p style="font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;"> {{ $grandTotal }} </p>
 
                                 </div> <!-- col-md-4 -->
 
@@ -138,7 +138,7 @@
                                 <tr style="text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                     <th scope="col">{{ trans('labels.backend.orders.services') }}</th>
                                     <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.mediaLocation') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.orders.productType') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,7 +146,7 @@
                                     <tr style="background-color:#f8f8f8; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                         <td>{{ $productsObj->services }} </td>
                                         <td> {{$productsObj->quantity}}</td>
-                                        <td> {{ $productsObj->media_location  }} </td>
+                                        <td> {{ $productsObj->productType  }} </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -155,7 +155,7 @@
                     <div class="row">
                         <div class="col-sm-4" style="margin-top:20px;margin-left:30px; float:right ; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                             <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
-                            <p> Total:     {{ $total_price }} SAR    </p>
+                            <p> Total:     {{ $grandTotal }} SAR    </p>
                         </div>
                     </div>
                     <div class="row">

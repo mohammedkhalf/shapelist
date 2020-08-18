@@ -10,6 +10,7 @@ use App\Models\Order\Order;
 use App\Http\Requests\Backend\Order\StoreOrderRequest;
 use App\Models\Payment\Payment;
 use Validator;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
 
 class CartController extends APIController
 {
@@ -101,22 +102,16 @@ class CartController extends APIController
      //post resource id + order data 
     public function resourceOrder (StoreOrderRequest $request)
     {     
-        $responseObj = Order::getStatus($request->resource_id);
-        $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
+        if($request->resource_id)
         {
-            $orderObj = Order::CreateOrderRequest($request);
-            $Products = OrderItem::insertProducts($request,$orderObj);
-            Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
-            $orderInfo = Order::getOrderInfo($orderObj);
-            Order::sendPdfInvoice($orderObj);
-            return response()->json($orderInfo[0], 200);
+            echo "true";
         }
         else
         {
-            $responseObj=json_decode($responseObj,true);
-            return response()->json(["description"=>$responseObj['result']['description']], 422);
+            $orderData = Order::calculatePoints($request);
+            return  $orderData;
         }
+        
     }
 
 }

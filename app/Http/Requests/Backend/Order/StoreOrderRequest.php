@@ -30,13 +30,22 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'delivery_id'=>['required','numeric','not_in:0','exists:'. Delivery::table() .',id'],
-            'location_id'=>['numeric','not_in:0','exists:'. Location::table() .',id' , 'nullable'],
-            'total_price'=>['required','numeric','not_in:0'],
-            'coupon_code' => ['string','max:10' ,  new FilterStringRule , 'nullable'],
+            'delivery_id'=>['numeric','not_in:0','exists:'. Delivery::table() .',id'],
+            'delivery_price'=>['numeric','min:0'],
+            'coupon_code' => ['string',new FilterStringRule , 'nullable'],
+            'onset' => ['nullable','numeric','min:0'],
+            'totalOnset'=>['nullable','numeric','min:0'],
+            'totalPrice'=>['nullable','numeric','min:0'],
+            'vat' =>['nullable','numeric','min:0'],
+            'totalVat'=>['nullable','numeric','min:0'],
+            'grandTotal'=>['numeric','min:0'],
+            //product array
+            'products.*.dates' => ['array'],
             'products.*.services' => ['required','string',new FilterStringRule],
             'products.*.quantity' => ['numeric','integer','not_in:0'],
             'products.*.productType' => ['string',new FilterStringRule,'nullable'],
+            'products.*.totalPrice' => ['required','numeric','not_in:0'],
+            //location
             '*.country'=>[new FilterStringRule , 'nullable'],
             '*.city'=>[new FilterStringRule , 'nullable'], 
             '*.address' =>[new FilterStringRule , 'nullable'],
@@ -45,7 +54,10 @@ class StoreOrderRequest extends FormRequest
             '*.lat' =>[new FilterStringRule , 'nullable'],
             // '*.lng' =>['string','nullable'],
             '*.rep_first_name'=>[new FilterStringRule , 'nullable'],
-            '*.rep_phone_number'=>['numeric','not_in:0'], 
+            '*.rep_last_name'=>[new FilterStringRule , 'nullable'],
+            '*.rep_phone_number'=>['numeric','not_in:0'],'nullable',
+            '*.state'=>[new FilterStringRule , 'nullable'],
+            '*.unit_no'=>['numeric','nullable'],
         ];
     }
 

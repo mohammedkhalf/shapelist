@@ -22,6 +22,7 @@ use PDF;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use  App\Models\Invoice\Invoice;
 use App\Models\Delivery\Delivery;
+use App\Models\SubscriptionDetail\SubscriptionDetail;
 
 class Order extends Model
 {
@@ -87,7 +88,7 @@ class Order extends Model
 
     public static function CreateOrderRequest($request)
     {
-        $orderData = Order::create(array_merge($request->only('delivery_id','vat','total_price','coupon_code'),
+        $orderData = Order::create(array_merge($request->only('delivery_id','totalPrice','coupon_code','totalVat','grandTotal'),
         ['user_id'=>auth()->guard('api')->user()->id]));
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)
@@ -131,7 +132,7 @@ class Order extends Model
             // 'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->vat,
-            'total_price' => $OrderObject->total_price,
+            'grandTotal' => $OrderObject->grandTotal,
             'date' => $OrderObject->created_at,
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
@@ -176,6 +177,43 @@ class Order extends Model
         $OrderInfo = Order::with('status')->where('id',$orderObj->id)->get();
         return $OrderInfo;
     }
+
+    //calculate order Points without Resource ID
+    public static function calculatePoints($request)
+    {
+            $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
+            $allPoints = 0;
+            for($i=0;$i<count($request->products);$i++)
+            {
+                $allPoints += $request->products[$i]['totalPrice'];
+            }
+            if($userPoints->purchase_points > $allPoints)
+            {
+                $orderObject = Order::CreateOrderRequest($request);
+                $Products = OrderItem::insertProducts($request,$orderObject);
+                Order::sendPdfInvoice($orderObject);
+                SubscriptionDetail::where('user_id',auth()->user()->id)->update(['purchase_points'=> ($userPoints->purchase_points - $allPoints) ]);
+                return response()->json(['message'=>'Order Created Successfully']);
+            }
+            else
+            {
+                    $purchaseFree = $userPoints->purchase_points + $userPoints->free_points;
+                    if($purchaseFree > $allPoints)
+                    {
+                        $orderObject = Order::CreateOrderRequest($request);
+                        $Products = OrderItem::insertProducts($request,$orderObject);
+                        Order::sendPdfInvoice($orderObject);
+                        SubscriptionDetail::where('user_id',auth()->user()->id)
+                        ->update([ 'purchase_points'=> 0 , 'free_points'=> ($purchaseFree - $allPoints) ]);
+                        return response()->json(['message'=>'Order Created Successfully']);
+                    }
+                    else
+                    {
+                        return response()->json(['message'=>'Your account balance not enough ']);
+                    }
+            }
+
+    } //calculatePoints 
 
     
 }

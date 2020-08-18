@@ -48,14 +48,16 @@
                     </tr>
 
                     <tr>
-                        <th>{{ trans('labels.backend.orders.table.totalPrice') }}</th>
-                        <td>{{ $orderInfo->total_price }} SAR </td>
+                        <th>{{ trans('labels.backend.orders.table.grandTotal') }}</th>
+                        <td>{{ $orderInfo->grandTotal }} SAR </td>
                     </tr>
                     
                     <tr>
                         <th> <h5>{{ trans('labels.backend.orders.table.deliver_id') }} </h5> </th>
                         <td> 
-                            @if($orderInfo->delivery_id == 1)  
+                            @if($orderInfo->delivery_id == Null)  
+                            <button class="btn btn-success"> Free </button>
+                            @elseif($orderInfo->delivery_id == 1)  
                                 <button class="btn btn-success"> Express </button>
                             @elseif($orderInfo->delivery_id == 2)
                                 <button class="btn btn-success"> Fast </button>
@@ -136,7 +138,9 @@
                                 <!-- <th> {{ trans('labels.backend.orders.table.orderId') }}</th> -->
                                 <th> {{ trans('labels.backend.orders.services') }}</th>
                                 <th>{{ trans('labels.backend.orders.Quantity') }} </th>
-                                <th>{{ trans('labels.backend.orders.mediaLocation') }} </th>
+                                <th>{{ trans('labels.backend.orders.productType') }} </th>
+                                <th>{{ trans('labels.backend.orders.table.totalPrice') }} </th>
+
                             </tr>
                         </thead>
                         <thead class="transparent-bg">
@@ -144,7 +148,8 @@
                                 <tr>
                                     <th> {{ $productInfo->services }} </th>
                                     <th>{{ $productInfo->quantity }}</th>                                    
-                                    <th> {{ $productInfo->media_location }}</th>
+                                    <th> {{ $productInfo->productType }}</th>
+                                    <th> {{ $productInfo->totalPrice }}</th>
                                 </tr>
                             @endforeach
 

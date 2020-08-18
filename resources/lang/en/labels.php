@@ -372,7 +372,7 @@ return [
 	"Rate" => "Rate",
 	"Number"=>"Number #",
 	"services"=>"Services",
-	"mediaLocation"=>"Media Location",
+	"productType"=>"product Type",
 	"Invoice_to"=>"INVOICE TO",
 	"Invoice-capital"=>"INVOICE",
 	"table" => [
@@ -423,6 +423,7 @@ return [
 	"SecondProduct" => "Second Product",
 	"onSet" => "onSet",
 	"type" => "type",
+	"grandTotal"=>"grandTotal"
 	],
 	],
 	"promotions" => [

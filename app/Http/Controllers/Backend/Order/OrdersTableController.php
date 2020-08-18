@@ -46,11 +46,17 @@ class OrdersTableController extends Controller
                 return $username;
             }) 
             ->addColumn('delivery_id', function ($order) {
-                $devlivery = Delivery::where('id', $order->delivery_id)->pluck('name_en')->toArray();
-                return $devlivery;
+                if($order->delivery_id == Null)
+                {
+                    return "Free";
+                }
+                else{
+                    $devlivery = Delivery::where('id', $order->delivery_id)->pluck('name_en')->toArray();
+                    return $devlivery;
+                }
             }) 
-            ->addColumn('total_price', function ($order) {
-                return $order->total_price;
+            ->addColumn('grandTotal', function ($order) {
+                return $order->grandTotal;
             }) 
             ->addColumn('status_id', function ($order) {
                 $status = Status::where('id', $order->status_id )->pluck('type')->toArray();

@@ -33,7 +33,7 @@ class OrderRepository extends BaseRepository
                 config('module.orders.table').'.user_id',
                 config('module.orders.table').'.status_id',
                 config('module.orders.table').'.delivery_id',
-                config('module.orders.table').'.total_price',
+                config('module.orders.table').'.grandTotal',
                 config('module.orders.table').'.created_at',
                 config('module.orders.table').'.updated_at',
             ]);

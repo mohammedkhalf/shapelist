@@ -192,7 +192,6 @@ class Order extends Model
                 $orderObject = Order::CreateOrderRequest($request);
                 $Products = OrderItem::insertProducts($request,$orderObject);
                 Order::sendPdfInvoice($orderObject);
-                SubscriptionDetail::where('user_id',auth()->user()->id)->update(['purchase_points'=> ($userPoints->purchase_points - $allPoints) ]);
                 $orderInfo = Order::getOrderInfo($orderObject);
                 return response()->json($orderInfo[0],200);
             }
@@ -204,9 +203,6 @@ class Order extends Model
                         $orderObject = Order::CreateOrderRequest($request);
                         $Products = OrderItem::insertProducts($request,$orderObject);
                         Order::sendPdfInvoice($orderObject);
-                        SubscriptionDetail::where('user_id',auth()->user()->id)
-                        ->update([ 'purchase_points'=> 0 , 'free_points'=> ($purchaseFree - $allPoints) ]);
-                        $orderInfo = Order::getOrderInfo($orderObject);
                         return response()->json($orderInfo[0],200);
                     }
                     else

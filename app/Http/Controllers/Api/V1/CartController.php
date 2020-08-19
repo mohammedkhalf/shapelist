@@ -104,11 +104,11 @@ class CartController extends APIController
     {     
         if($request->resource_id)
         {
-            echo "true";
+            dd($request->all());
         }
         else
         {
-            $orderData = Order::calculatePoints($request);
+            $orderData = Order::createOrderWithoutResourceId($request);
             return  $orderData;
         }
         

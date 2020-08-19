@@ -178,8 +178,8 @@ class Order extends Model
         return $OrderInfo;
     }
 
-    //calculate order Points without Resource ID
-    public static function calculatePoints($request)
+    //create order Points without Resource ID
+    public static function createOrderWithoutResourceId($request)
     {
             $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
             $allPoints = 0;
@@ -203,6 +203,7 @@ class Order extends Model
                         $orderObject = Order::CreateOrderRequest($request);
                         $Products = OrderItem::insertProducts($request,$orderObject);
                         Order::sendPdfInvoice($orderObject);
+                        $orderInfo = Order::getOrderInfo($orderObject);
                         return response()->json($orderInfo[0],200);
                     }
                     else
@@ -211,7 +212,16 @@ class Order extends Model
                     }
             }
 
-    } //calculatePoints 
+    } //createOrderWithoutResourceId 
+
+    
+    
+    //create Order Points Using Resource ID
+    public static function createOrderUsingResourceId($request)
+    {
+
+    }
+
 
     
 }

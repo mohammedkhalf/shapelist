@@ -86,12 +86,12 @@ class Order extends Model
         return $this->hasMany(OrderItem::class,'order_id');
     }
 
-    public static function CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat)
+    public static function CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice)
     {
         // dd($totalOnset);
         $orderData = Order::create(array_merge($request->only('delivery_id','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id,
-        'grandTotal' => $grandTotal,'totalOnSet'=>$totalOnset,'totalVat'=>$totalVat ] ));
+        'grandTotal' => $grandTotal,'totalOnSet'=>$totalOnset,'totalVat'=>$totalVat ,'totalPrice'=>$totalPrice ] ));
 
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)
@@ -242,6 +242,7 @@ class Order extends Model
         $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
         $allPoints = 0;
         $lengthOnset = 0;
+
         for($i=0;$i<count($request->products);$i++)
         {
             $allPoints += $request->products[$i]['totalPrice'];
@@ -249,27 +250,33 @@ class Order extends Model
         }
         if( ($userPoints->purchase_points > $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) > $allPoints ) )
         {
-            $totalPriceAfterPoints = 0;
+            $totalPrice  = 0;
             $totalOnset =  $request->onset * $lengthOnset;
-            $totalVat =  ($totalPriceAfterPoints+$totalOnset+$request->delivery_price) * (15/100);
-            $grandTotal = $totalPriceAfterPoints + $totalOnset + $totalVat + $request->delivery_price;
-            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat);
+            $totalVat =  ($totalPrice +$totalOnset+$request->delivery_price) * (15/100);
+            $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price;
+            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
             return $responseOrder;
         }
         else
         {
-            
+            $totalOnset = $request->onset * $lengthOnset; // 6000
+            $discountValue = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) * ($userPoints->discount/100); //600
+            $totalPrice = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) - $discountValue;  //1800
+            $totalVat = ( $totalPrice + $totalOnset  + $request->delivery_price ) * (15/100); //1185
+            $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price; //9085
+            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
+            return $responseOrder;
         }
 
     } //createOrderUsingResourceId
 
-    public static function payOrderRequest($request,$grandTotal,$totalOnset,$totalVat)
+    public static function payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice)
     {
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
             if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
             {
-                $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat);
+                $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
                 Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);

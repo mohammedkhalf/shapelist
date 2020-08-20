@@ -30,10 +30,12 @@ class SubscriptionsController extends Controller
         //payment
         $responseObj = SubscriptionDetail::getStatus($resource_id);
         $paymentObj = json_decode($responseObj,true);
+        
         //the plan
         $subscription =  Subscription::findOrFail($id);
-        $planPrice= $subscription->price;
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && ($paymentObj['amount']==$planPrice)) //id
+        $planPrice= number_format($subscription->price,2, '.', '');
+        return $planPrice;
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && $paymentObj['amount']==$planPrice ) //id
         {
                     // this function contains (subscribe + change plan)
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();

@@ -204,7 +204,8 @@ class Order extends Model
             {
                 $allPoints += $request->products[$i]['totalPrice'];
             }
-            if($userPoints->purchase_points > $allPoints)
+
+            if($userPoints->purchase_points >= $allPoints)
             {
                 $reponseOrder = Order::InsertOrderAfterPoints($request);
                 return $reponseOrder;
@@ -212,7 +213,7 @@ class Order extends Model
             else
             {
                     $purchaseFree = $userPoints->purchase_points + $userPoints->free_points;
-                    if($purchaseFree > $allPoints)
+                    if($purchaseFree >= $allPoints)
                     {
                         $reponseOrder = Order::InsertOrderAfterPoints($request);
                         return $reponseOrder;
@@ -248,7 +249,8 @@ class Order extends Model
             $allPoints += $request->products[$i]['totalPrice'];
             $lengthOnset += count($request->products[$i]['dates']);
         }
-        if( ($userPoints->purchase_points > $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) > $allPoints ) )
+        
+        if( ($userPoints->purchase_points >= $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) >= $allPoints ) )
         {
             $totalPrice  = 0;
             $totalOnset =  $request->onset * $lengthOnset;
@@ -259,6 +261,7 @@ class Order extends Model
         }
         else
         {
+            //discount
             $totalOnset = $request->onset * $lengthOnset; // 6000
             $discountValue = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) * ($userPoints->discount/100); //600
             $totalPrice = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) - $discountValue;  //1800

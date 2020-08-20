@@ -33,7 +33,7 @@ class SubscriptionsController extends Controller
         //the plan
         $subscription =  Subscription::findOrFail($id);
         $planPrice= $subscription->price;
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && ($paymentObj['price']==$planPrice)) //id
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && ($paymentObj['amount']==$planPrice)) //id
         {
                     // this function contains (subscribe + change plan)
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();

@@ -30,7 +30,10 @@ class SubscriptionsController extends Controller
         //payment
         $responseObj = SubscriptionDetail::getStatus($resource_id);
         $paymentObj = json_decode($responseObj,true);
-        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
+        //the plan
+        $subscription =  Subscription::findOrFail($id);
+        $planPrice= $subscription->price;
+        if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && ($paymentObj['amount']==$planPrice)) //id
         {
                     // this function contains (subscribe + change plan)
                         $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
@@ -39,7 +42,7 @@ class SubscriptionsController extends Controller
                                 $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();                               
                                     // upgrade or downgrade the plan or re_subscribe in the same plan
                                     $updatedPlan=SubscriptionDetail::changePlane($id,$paymentObj['id']); 
-                                    $subscription =  Subscription::findOrFail($id);
+                                   
                                     $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
                                     //mail
                                     Mail::to($subscriber->user->email)->send(new ReminderMail($subscriber,5,$subscription->name));
@@ -51,7 +54,6 @@ class SubscriptionsController extends Controller
 
                         }else{
                                 //for new subscription 
-                                $subscription =  Subscription::findOrFail($id);
                                 $newSubscription=SubscriptionDetail::newSubscription($id,$paymentObj['id']);
                                 $subscriber =  SubscriptionDetail::with('user')->where('id', $newSubscription->id)->first();
                                 //mail

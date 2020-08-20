@@ -3,7 +3,7 @@
         {{ Form::label('type', trans('labels.backend.statuses.table.type'), ['class' => 'col-lg-2 control-label required']) }} 
 
         <div class="col-lg-10">
-        {{ Form::text('type', old('type'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.statuses.table.type'), 'required' => 'required' , 'readonly'=>'true']) }} 
+        {{ Form::text('type', old('type'), ['class' => 'form-control box-size', 'placeholder' => trans('labels.backend.statuses.table.type'), 'required' => 'required']) }} 
         </div><!--col-lg-10-->
       
     </div><!--form-group-->
@@ -19,7 +19,7 @@
         {{ Form::label('icon', trans('labels.backend.statuses.table.icon'), ['class' => 'col-lg-2 control-label required']) }} 
         <div class="col-lg-10">
             {!! Form::file('icon',array('class'=>'form-control inputfile inputfile-1')) !!} <br/>
-            <img  class="rounded-circle" src="{{ asset('storage/statuses/'.$status->icon)}}" width="50"   />
+            <img  class="rounded-circle" src="{{$status->icon}}" width="50"   />
 
         </div><!--col-lg-10-->
       

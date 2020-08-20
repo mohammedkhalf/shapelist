@@ -44,6 +44,9 @@ class StatusesTableController extends Controller
             ->addColumn('type_ar', function ($status) {
                 return $status->type_ar;
             })
+            ->addColumn('icon', function ($status) {
+                return '<img  class="rounded-circle" src="{{$status->icon}}" width="50"   />';
+            })
             ->addColumn('created_at', function ($status) {
                 return Carbon::parse($status->created_at)->toDateString();
             })

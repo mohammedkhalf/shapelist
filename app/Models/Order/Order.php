@@ -39,7 +39,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = ['user_id','status_id','coupon_code',
-    'sub_total','vat','total_price','delivery_id','on_set','location_id'];
+    'sub_total','vat','delivery_id','on_set','location_id','totalPrice','totalOnSet','totalVat','grandTotal'];
     
     //relationships
     public function users()
@@ -86,10 +86,13 @@ class Order extends Model
         return $this->hasMany(OrderItem::class,'order_id');
     }
 
-    public static function CreateOrderRequest($request)
+    public static function CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat)
     {
-        $orderData = Order::create(array_merge($request->only('delivery_id','totalPrice','coupon_code','totalVat','grandTotal'),
-        ['user_id'=>auth()->guard('api')->user()->id]));
+        // dd($totalOnset);
+        $orderData = Order::create(array_merge($request->only('delivery_id','coupon_code'),
+        ['user_id'=>auth()->guard('api')->user()->id,
+        'grandTotal' => $grandTotal,'totalOnSet'=>$totalOnset,'totalVat'=>$totalVat ] ));
+
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)
         {
@@ -182,6 +185,20 @@ class Order extends Model
     public static function createOrderWithoutResourceId($request)
     {
             $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
+            if($userPoints)
+            {
+                $OrderAfterPoints = Order::createOrderUserPoints($request,$userPoints);
+                return $OrderAfterPoints;
+            }
+            else
+            {
+                return response()->json(['message'=>'Your Are Not Subscribe any Plan'],422);
+            }
+                
+    } //createOrderWithoutResourceId 
+
+    public static function createOrderUserPoints($request,$userPoints)
+    {
             $allPoints = 0;
             for($i=0;$i<count($request->products);$i++)
             {
@@ -189,38 +206,82 @@ class Order extends Model
             }
             if($userPoints->purchase_points > $allPoints)
             {
-                $orderObject = Order::CreateOrderRequest($request);
-                $Products = OrderItem::insertProducts($request,$orderObject);
-                Order::sendPdfInvoice($orderObject);
-                $orderInfo = Order::getOrderInfo($orderObject);
-                return response()->json($orderInfo[0],200);
+                $reponseOrder = Order::InsertOrderAfterPoints($request);
+                return $reponseOrder;
             }
             else
             {
                     $purchaseFree = $userPoints->purchase_points + $userPoints->free_points;
                     if($purchaseFree > $allPoints)
                     {
-                        $orderObject = Order::CreateOrderRequest($request);
-                        $Products = OrderItem::insertProducts($request,$orderObject);
-                        Order::sendPdfInvoice($orderObject);
-                        $orderInfo = Order::getOrderInfo($orderObject);
-                        return response()->json($orderInfo[0],200);
+                        $reponseOrder = Order::InsertOrderAfterPoints($request);
+                        return $reponseOrder;
                     }
                     else
                     {
                         return response()->json(['message'=>'Your account balance not enough'],422);
                     }
             }
+    } //createOrderUserPoints
 
-    } //createOrderWithoutResourceId 
 
-    
-    
+    public static function InsertOrderAfterPoints($request)
+    {
+        $orderObject = Order::CreateOrderRequest($request);
+        $Products = OrderItem::insertProducts($request,$orderObject);
+        Order::sendPdfInvoice($orderObject);
+        $orderInfo = Order::getOrderInfo($orderObject);
+        return response()->json($orderInfo[0],200);
+
+    } //InsertOrderAfterPoints
+
+
     //create Order Points Using Resource ID
     public static function createOrderUsingResourceId($request)
     {
+        $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
+        $allPoints = 0;
+        $lengthOnset = 0;
+        for($i=0;$i<count($request->products);$i++)
+        {
+            $allPoints += $request->products[$i]['totalPrice'];
+            $lengthOnset += count($request->products[$i]['dates']);
+        }
+        if( ($userPoints->purchase_points > $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) > $allPoints ) )
+        {
+            $totalPriceAfterPoints = 0;
+            $totalOnset =  $request->onset * $lengthOnset;
+            $totalVat =  ($totalPriceAfterPoints+$totalOnset+$request->delivery_price) * (15/100);
+            $grandTotal = $totalPriceAfterPoints + $totalOnset + $totalVat + $request->delivery_price;
+            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat);
+            return $responseOrder;
+        }
+        else
+        {
+            
+        }
 
-    }
+    } //createOrderUsingResourceId
+
+    public static function payOrderRequest($request,$grandTotal,$totalOnset,$totalVat)
+    {
+            $responseObj = Order::getStatus($request->resource_id);
+            $paymentObj = json_decode($responseObj,true);
+            if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
+            {
+                $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat);
+                $Products = OrderItem::insertProducts($request,$orderObj);
+                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
+                $orderInfo = Order::getOrderInfo($orderObj);
+                Order::sendPdfInvoice($orderObj);
+                return response()->json($orderInfo[0], 200);
+            }
+            else
+            {
+                $responseObj=json_decode($responseObj,true);
+                return response()->json(["description"=>$responseObj['result']['description']], 422);
+            }
+    } //payOrderRequest
 
 
     

@@ -99,12 +99,13 @@ class CartController extends APIController
              return $responseData;
      } //prepareCheckout
 
-     //post resource id + order data 
+     //create order with resource Id or NOT resource id
     public function resourceOrder (StoreOrderRequest $request)
     {     
         if($request->resource_id)
         {
-            dd($request->all());
+            $orderData = Order::createOrderUsingResourceId($request);
+            return $orderData;
         }
         else
         {

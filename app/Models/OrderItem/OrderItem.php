@@ -16,7 +16,7 @@ class OrderItem extends Model
      */
     protected $fillable = ['order_id','user_id','product_id','music_id','name_en','name_ar',
         'price_per_item','items_total_price','video_length','user_music','quantity','type','productType','services'
-        ,'totalPrice'];
+        ,'totalPrice','dates'];
 
     protected $casts = [
         'price_per_item' => 'integer',
@@ -59,6 +59,7 @@ class OrderItem extends Model
                     'services'=>$request->products[$i]['services'],
                     'productType'=>$request->products[$i]['productType'],
                     'totalPrice'=>$request->products[$i]['totalPrice'],
+                    'dates'=>implode(",", $request->products[$i]['dates']),
                     'order_id'=>$orderObj->id,
                     'user_id'=>auth()->guard('api')->user()->id
                 ];

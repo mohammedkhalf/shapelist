@@ -392,7 +392,7 @@ return [
 	"templateImage" => "template Image",
 	"couponCode" => "coupon Code",
 	"productQuantity" => "product Quantity",
-	"totalPrice" => "Total Price",
+	"totalPrice-points" => "Total(Prices/Points)",
 	"logo" => "client Logo",
 	"videoLength" => "videoLength",
 	"notes" => "Notes",

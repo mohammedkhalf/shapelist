@@ -139,10 +139,9 @@
                                 <th> {{ trans('labels.backend.orders.services') }}</th>
                                 <th>{{ trans('labels.backend.orders.Quantity') }} </th>
                                 <th>{{ trans('labels.backend.orders.productType') }} </th>
-                                <th>{{ trans('labels.backend.orders.table.totalPrice') }} </th>
+                                <th>{{ trans('labels.backend.orders.table.totalPrice-points') }} </th>
 
                             </tr>
-                        </thead>
                         <thead class="transparent-bg">
                             @foreach($productsData  as  $productInfo)
                                 <tr>

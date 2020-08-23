@@ -30,7 +30,6 @@ class SubscriptionsController extends Controller
         //payment
         $responseObj = SubscriptionDetail::getStatus($resource_id);
         $paymentObj = json_decode($responseObj,true);
-        $paymentObj['amount']="2000.00";
         $paymentObj['amount'] =number_format($paymentObj['amount'],2, '.', '');
         //the plan
         $subscription =  Subscription::findOrFail($id);

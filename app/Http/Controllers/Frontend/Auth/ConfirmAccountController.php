@@ -46,7 +46,7 @@ class ConfirmAccountController extends Controller
     public function sendConfirmationEmail(User $user)
     {
         $user->notify(new UserNeedsConfirmation($user));
-
-        return redirect()->route('frontend.auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));
+        return redirect('http://shapelist.com/');
+        // return redirect()->route('frontend.auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));
     }
 }

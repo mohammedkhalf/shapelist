@@ -35,7 +35,7 @@ class ConfirmAccountController extends Controller
     public function confirm($token)
     {
         $this->user->confirmAccount($token);
-        return redirect('http://shapelist.com/');
+        return redirect()->route('v1.redirect.front');
     }
 
     /**
@@ -46,7 +46,7 @@ class ConfirmAccountController extends Controller
     public function sendConfirmationEmail(User $user)
     {
         $user->notify(new UserNeedsConfirmation($user));
-        return redirect('http://shapelist.com/');
+        return redirect()->route('v1.redirect.front');
         // return redirect()->route('frontend.auth.login')->withFlashSuccess(trans('exceptions.frontend.auth.confirmation.resent'));
     }
 }

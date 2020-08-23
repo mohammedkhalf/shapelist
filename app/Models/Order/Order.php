@@ -204,7 +204,6 @@ class Order extends Model
             {
                 $allPoints += $request->products[$i]['totalPrice'];
             }
-
             if($userPoints->purchase_points >= $allPoints)
             {
                 $reponseOrder = Order::InsertOrderAfterPoints($request,$allPoints);
@@ -296,12 +295,12 @@ class Order extends Model
     {
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
-
-            if(array_key_exists("buildNumber",$paymentObj)  &&  ( $request->grandTotal ==  $grandTotal )  &&  ($grandTotal == $paymentObj['amount'] )  ) //id
+            
+            if(array_key_exists("id",$paymentObj)  &&  ( $request->grandTotal ==  $grandTotal )  &&  ($grandTotal == $paymentObj['amount'] )  ) //id
             {
                 $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
-                Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
+                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);
                 Order::sendPdfInvoice($orderObj);
                 return response()->json($orderInfo[0], 200);
@@ -317,7 +316,7 @@ class Order extends Model
     {
         $orderData = Order::create(array_merge($request->only('coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id,
-        'grandTotal' => $request->grandTotal,'totalPrice'=>$allPoints] ));
+        'grandTotal' => $request->grandTotal , 'totalPrice' => $allPoints] ));
 
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)

@@ -207,7 +207,7 @@ class Order extends Model
 
             if($userPoints->purchase_points >= $allPoints)
             {
-                $reponseOrder = Order::InsertOrderAfterPoints($request);
+                $reponseOrder = Order::InsertOrderAfterPoints($request,$allPoints);
                 return $reponseOrder;
             }
             else
@@ -215,7 +215,7 @@ class Order extends Model
                     $purchaseFree = $userPoints->purchase_points + $userPoints->free_points;
                     if($purchaseFree >= $allPoints)
                     {
-                        $reponseOrder = Order::InsertOrderAfterPoints($request);
+                        $reponseOrder = Order::InsertOrderAfterPoints($request,$allPoints);
                         return $reponseOrder;
                     }
                     else
@@ -226,9 +226,10 @@ class Order extends Model
     } //createOrderUserPoints
 
 
-    public static function InsertOrderAfterPoints($request)
+    //CreateOrderWithoutResourceId
+    public static function InsertOrderAfterPoints($request, $allPoints)
     {
-        $orderObject = Order::CreateOrderRequest($request);
+        $orderObject = Order::CreateOrderNoResourceId($request, $allPoints);
         $Products = OrderItem::insertProducts($request,$orderObject);
         Order::sendPdfInvoice($orderObject);
         $orderInfo = Order::getOrderInfo($orderObject);
@@ -296,11 +297,11 @@ class Order extends Model
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
 
-            if(array_key_exists("id",$paymentObj)  &&  ( $request->grandTotal ==  $grandTotal )  &&  ($grandTotal == $paymentObj['amount'] )  ) //id
+            if(array_key_exists("buildNumber",$paymentObj)  &&  ( $request->grandTotal ==  $grandTotal )  &&  ($grandTotal == $paymentObj['amount'] )  ) //id
             {
                 $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
-                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
+                Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);
                 Order::sendPdfInvoice($orderObj);
                 return response()->json($orderInfo[0], 200);
@@ -311,6 +312,22 @@ class Order extends Model
                 return response()->json(["description"=>$responseObj['result']['description']], 422);
             }
     } //payOrderRequest
+
+    public static function CreateOrderNoResourceId($request,$allPoints)
+    {
+        $orderData = Order::create(array_merge($request->only('coupon_code'),
+        ['user_id'=>auth()->guard('api')->user()->id,
+        'grandTotal' => $request->grandTotal,'totalPrice'=>$allPoints] ));
+
+        $locationArr = array($request->location_details);
+        foreach($locationArr as $key=>$value)
+        {
+            $data = ['country'=>$value['country'],'city'=>$value['city'],'address'=>$value['address'],'postal_code'=>$value['postal_code'],'lat'=>$value['lat'],'lng'=>$value['lng'],'rep_first_name'=>$value['rep_first_name'],'rep_phone_number'=>$value['rep_phone_number']];
+        }
+        Location::create(array_merge($data,['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]));
+        return $orderData;
+
+    }
 
 
     

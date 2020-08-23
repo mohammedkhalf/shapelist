@@ -24,6 +24,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::post('password-reset', 'ForgotPasswordController@resetPassword')->name('password.reset');
         // Redirect After Confirmation 
         Route::get('/email/confirm','ForgotPasswordController@redirectAfterConfirm')->name('confirm.redirect');
+        Route::get('/redirect', function(){
+            return redirect('http://shapelist.com');
+        })->name('redirect.front');
+        
         //=============== change password ===================
         //================================================
     });

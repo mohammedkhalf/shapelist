@@ -34,11 +34,6 @@ class SubscriptionsController extends Controller
         //the plan
         $subscription =  Subscription::findOrFail($id);
         $planPrice= number_format($subscription->price,2, '.', '');
-        if ( $paymentObj['amount']==$planPrice){
-            return response()->json(['result'=>'true','amount'=>$paymentObj['amount'],'price'=>$planPrice]) ;
-        }else{
-            return response()->json(['result'=>'false','amount'=>$paymentObj['amount'],'price'=>$planPrice]) ;
-         }
         if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) && $paymentObj['amount']==$planPrice ) //id
         {
                     // this function contains (subscribe + change plan)

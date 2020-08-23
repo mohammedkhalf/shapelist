@@ -249,15 +249,23 @@ class Order extends Model
             $allPoints += $request->products[$i]['totalPrice'];
             $lengthOnset += count($request->products[$i]['dates']);
         }
-        
+
         if( ($userPoints->purchase_points >= $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) >= $allPoints ) )
         {
             $totalPrice  = 0;
             $totalOnset =  $request->onset * $lengthOnset;
             $totalVat =  ($totalPrice +$totalOnset+$request->delivery_price) * (15/100);
             $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price;
-            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
-            return $responseOrder;
+            if($grandTotal == $request->grandTotal)
+            {
+                $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
+                return $responseOrder;
+            }
+            else
+            {
+                return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+            }
+          
         }
         else
         {
@@ -267,8 +275,17 @@ class Order extends Model
             $totalPrice = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) - $discountValue;  //1800
             $totalVat = ( $totalPrice + $totalOnset  + $request->delivery_price ) * (15/100); //1185
             $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price; //9085
-            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
-            return $responseOrder;
+
+            if($grandTotal == $request->grandTotal)
+            {
+                $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
+                return $responseOrder;
+            }
+            else
+            {
+                return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+            }
+
         }
 
     } //createOrderUsingResourceId

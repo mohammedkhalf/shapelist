@@ -52,7 +52,7 @@ class UserNeedsPasswordReset extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('http://localhost:3000/api/v1/auth/find/'.$this->token);
+        $url = url('http://localhost:3000/auth/find/'.$this->token);
         return (new MailMessage())
             ->view('emails.reset-password', ['reset_password_url' => $url] );
     }

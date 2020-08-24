@@ -118,7 +118,7 @@
                                     <p style="margin-left:10px;font-size:15px;text-align: left;font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;">Visa</p>
 
                                     <h6 style="font: SemiBold 10px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;"> {{ trans('labels.backend.orders.Total') }} </h6>
-                                    <p style="font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;"> {{ $grandTotal }} </p>
+                                    <p style="font: Light 10px/19px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;"> {{ $grandTotal }} SAR </p>
 
                                 </div> <!-- col-md-4 -->
 

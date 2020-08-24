@@ -134,7 +134,7 @@ class Order extends Model
             'phone_number'=> auth()->guard('api')->user()->phone_number,
             // 'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
-            'vat_value'=>$OrderObject->vat,
+            'vat_value'=>$OrderObject->totalVat,
             'grandTotal' => $OrderObject->grandTotal,
             'date' => $OrderObject->created_at,
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),

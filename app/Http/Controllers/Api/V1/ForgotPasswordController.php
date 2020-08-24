@@ -70,7 +70,8 @@ class ForgotPasswordController extends APIController
                 'message' => 'This password reset token is invalid.'
             ], 404);
         }
-        return redirect()->away('http://127.0.0.1:3000/auth/resetpassword/'.$passwordReset);
+        return response()->json($passwordReset);
+
     }
 
       public function resetPassword(Request $request)

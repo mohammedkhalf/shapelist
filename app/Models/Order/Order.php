@@ -228,12 +228,11 @@ class Order extends Model
     //CreateOrderWithoutResourceId
     public static function InsertOrderAfterPoints($request, $allPoints)
     {
-        $orderObject = Order::CreateOrderNoResourceId($request, $allPoints);
+        $orderObject = Order::CreateOrderNoResourceId($request,$allPoints);
         $Products = OrderItem::insertProducts($request,$orderObject);
-        Order::sendPdfInvoice($orderObject);
+        Order::sendPdfInvoice($orderObject);    
         $orderInfo = Order::getOrderInfo($orderObject);
         return response()->json($orderInfo[0],200);
-
     } //InsertOrderAfterPoints
 
 
@@ -241,15 +240,28 @@ class Order extends Model
     public static function createOrderUsingResourceId($request)
     {
         $userPoints = SubscriptionDetail::where('user_id',auth()->user()->id)->first();
+        if($userPoints)
+        {
+            $orderUsingSub=Order::CreateOrderUsingSubscription($request,$userPoints);
+            return $orderUsingSub;
+        }
+        else
+        {
+            $orderWithoutSub = Order::CreateOrderWithoutSubscription($request);
+            return  $orderWithoutSub;
+        }
+
+    } //createOrderUsingResourceId
+
+    public static function CreateOrderUsingSubscription($request,$userPoints)
+    {
         $allPoints = 0;
         $lengthOnset = 0;
-
         for($i=0;$i<count($request->products);$i++)
         {
             $allPoints += $request->products[$i]['totalPrice'];
             $lengthOnset += count($request->products[$i]['dates']);
         }
-
         if( ($userPoints->purchase_points >= $allPoints) || ( ($userPoints->purchase_points + $userPoints->free_points) >= $allPoints ) )
         {
             $totalPrice  = 0;
@@ -273,7 +285,6 @@ class Order extends Model
             //discount
             $totalOnset = $request->onset * $lengthOnset; // 6000
             $discountValue = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) * ($userPoints->discount/100); //600
-            
             $totalPrice = ( $allPoints - ($userPoints->purchase_points + $userPoints->free_points) ) - $discountValue;  //1800
             $totalVat = ( $totalPrice + $totalOnset  + $request->delivery_price ) * (15/100); //1185
             $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price; //9085
@@ -288,29 +299,33 @@ class Order extends Model
             }
 
         }
+    } //CreateOrderUsingSubscription
 
-    } //createOrderUsingResourceId
-
-    public static function payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice)
+    public static function CreateOrderWithoutSubscription ($request)
     {
-            $responseObj = Order::getStatus($request->resource_id);
-            $paymentObj = json_decode($responseObj,true);
-            
-            if(array_key_exists("id",$paymentObj)  &&  ( $request->grandTotal ==  $grandTotal )  &&  ($grandTotal == $paymentObj['amount'] )  ) //id
-            {
-                $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
-                $Products = OrderItem::insertProducts($request,$orderObj);
-                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
-                $orderInfo = Order::getOrderInfo($orderObj);
-                Order::sendPdfInvoice($orderObj);
-                return response()->json($orderInfo[0], 200);
-            }
-            else
-            {
-                $responseObj=json_decode($responseObj,true);
-                return response()->json(["description"=>$responseObj['result']['description']], 422);
-            }
-    } //payOrderRequest
+        $totalPrice = 0;
+        $lengthOnset = 0;
+        for($i=0;$i<count($request->products);$i++)
+        {
+            $totalPrice += $request->products[$i]['totalPrice'];
+            $lengthOnset += count($request->products[$i]['dates']);
+        }
+
+        $totalOnset = $request->onset * $lengthOnset; // 6000
+        $totalVat = ( $totalPrice + $totalOnset  + $request->delivery_price ) * (15/100); 
+        $grandTotal = $totalPrice  + $totalOnset + $totalVat + $request->delivery_price;
+        if($grandTotal == $request->grandTotal)
+        {
+            $responseOrder = Order::payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
+            return $responseOrder;
+        }
+        else
+        {
+            return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+        }
+    }
+
+
 
     public static function CreateOrderNoResourceId($request,$allPoints)
     {
@@ -326,7 +341,28 @@ class Order extends Model
         Location::create(array_merge($data,['order_id'=>$orderData->id,'user_id'=>auth()->guard('api')->user()->id]));
         return $orderData;
 
-    }
+    } //CreateOrderNoResourceIdWithSubscription
+
+    public static function payOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice)
+    {
+            $responseObj = Order::getStatus($request->resource_id);
+            $paymentObj = json_decode($responseObj,true);
+            
+            if(array_key_exists("id",$paymentObj) &&  ($request->grandTotal ==  $grandTotal)  &&  ($grandTotal == $paymentObj['amount']) ) //id
+            {
+                $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
+                $Products = OrderItem::insertProducts($request,$orderObj);
+                Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
+                $orderInfo = Order::getOrderInfo($orderObj);
+                Order::sendPdfInvoice($orderObj);
+                return response()->json($orderInfo[0], 200);
+            }
+            else
+            {
+                $responseObj=json_decode($responseObj,true);
+                return response()->json(["description"=>$responseObj['result']['description']], 422);
+            }
+    } //payOrderRequest
 
 
     

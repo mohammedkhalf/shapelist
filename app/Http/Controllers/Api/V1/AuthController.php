@@ -73,7 +73,9 @@ class AuthController extends APIController
         $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $cart = array('products'=> $productCart,'packages'=>$packageCart);
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
-
+        $thePlanId = $subscription->subscription_id;
+        $deli =  Subscription::where('id',$thePlanId)->value('delivery_id');
+        $subscription->delivery= $deli;
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
             'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),

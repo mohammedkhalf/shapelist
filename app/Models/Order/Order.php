@@ -276,7 +276,7 @@ class Order extends Model
             }
             else
             {
-                return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+                return response()->json(['error'=>'Your account balance not enough'],422);
             }
           
         }
@@ -295,7 +295,7 @@ class Order extends Model
             }
             else
             {
-                return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+                return response()->json(['error'=>'Your account balance not enough'],422);
             }
 
         }
@@ -321,7 +321,7 @@ class Order extends Model
         }
         else
         {
-            return response()->json(['error'=>'Your Products total Price Large Than grand Total'],422);
+            return response()->json(['error'=>'Your account balance not enough'],422);
         }
     }
 
@@ -347,12 +347,11 @@ class Order extends Model
     {
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
-            
-            if(array_key_exists("id",$paymentObj) &&  ($request->grandTotal ==  $grandTotal)  &&  ($grandTotal == $paymentObj['amount']) ) //id
+            if(array_key_exists("amount",$paymentObj) && ($grandTotal == $paymentObj["amount"])  ) //id
             {
                 $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
-                Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
+                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);
                 Order::sendPdfInvoice($orderObj);
                 return response()->json($orderInfo[0], 200);

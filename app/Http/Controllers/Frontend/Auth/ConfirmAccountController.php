@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Access\User\User;
 use App\Notifications\Frontend\Auth\UserNeedsConfirmation;
 use App\Repositories\Frontend\Access\User\UserRepository;
+use Illuminate\Support\Facades\URL;
 use Redirect;
 /**
  * Class ConfirmAccountController.
@@ -35,7 +36,7 @@ class ConfirmAccountController extends Controller
     public function confirm($token)
     {
         $this->user->confirmAccount($token);
-        return redirect()->route('v1.redirect.front');
+        return Redirect::to("https://www.google.com");
     }
 
     /**

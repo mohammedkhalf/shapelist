@@ -43,7 +43,7 @@ class Activated extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/');
+        $url = url('https://www.shapelist.com');
 
         return (new MailMessage())
                     ->greeting('Hello!')

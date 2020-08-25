@@ -35,7 +35,7 @@ class ConfirmAccountController extends Controller
     public function confirm($token)
     {
         $this->user->confirmAccount($token);
-        return redirect()->away('http://www.paypal.com');
+        return redirect()->route('v1.redirect.front');
     }
 
     /**

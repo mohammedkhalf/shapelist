@@ -50,8 +50,9 @@ class UserNeedsConfirmation extends Notification
     public function toMail($user)
     {
         //redirect to Home Page
+        $url = url('https://www.facebook.com');
         $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
         return (new MailMessage())
-            ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url, 'user'=>$user ] );
+            ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
     }
 }

@@ -73,6 +73,7 @@ class SubscriptionDetail extends Model
             'free_points'=>$subscription->free_points + $oldSubscription->free_points ,
             'discount'=>$subscription->discount , 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
+            $newSubscriptionDetail->delivery= $subscription->delivery_id;
             return $newSubscriptionDetail;
     }
 
@@ -84,6 +85,7 @@ class SubscriptionDetail extends Model
             'status'=>1,'purchase_points'=>$subscription->purchase_points ,'free_points'=>$subscription->free_points ,
             'discount'=>$subscription->discount ,'bank_transaction_id'=>$bankTransactionId, 'start_date' => Carbon::now()->toDateString() ,
             'end_date' => Carbon::now()->addMonths($duration)->toDateString() ]);
+            $userDetails->delivery= $subscription->delivery_id;
             return $userDetails;
     }
 

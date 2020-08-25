@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Frontend\Access\User;
 
-use App\Events\Frontend\Auth\UserConfirmed;
+use App\Events\Frontend\Auth\Usered;
 use App\Exceptions\GeneralException;
 use App\Models\Access\User\SocialLogin;
 use App\Models\Access\User\User;

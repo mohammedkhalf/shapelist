@@ -113,7 +113,7 @@ class UserRepository extends BaseRepository
                 $user->attachPermissions($permissions);
 
                 //Send confirmation email if requested and account approval is off
-                if (isset($data['confirmation_email']) && $user->ed == 0) {
+                if (isset($data['confirmation_email']) && $user->confirmed == 0) {
                     $user->notify(new UserNeedsConfirmation($user->confirmation_code));
                 }
 

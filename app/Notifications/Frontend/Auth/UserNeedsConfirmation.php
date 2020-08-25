@@ -5,6 +5,7 @@ namespace App\Notifications\Frontend\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Repositories\Frontend\Access\User\UserRepository;
 
 /**
  * Class UserNeedsConfirmation.
@@ -50,9 +51,9 @@ class UserNeedsConfirmation extends Notification
     public function toMail($user)
     {
         //redirect to Home Page
-        $url = url('https://www.facebook.com');
-        $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
+        app('App\Repositories\Frontend\Access\User\UserRepository')->confirmAccount( $user->confirmation_code);
+        $url = url('https://www.shapelist.com');
         return (new MailMessage())
-            ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
+        ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
     }
 }

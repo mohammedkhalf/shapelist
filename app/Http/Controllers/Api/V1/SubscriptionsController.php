@@ -34,9 +34,10 @@ class SubscriptionsController extends Controller
         //the plan
         $subscription =  Subscription::findOrFail($id);
         $planPrice= number_format($subscription->price,2, '.', '');
-        if($paymentObj['amount']==$planPrice){
+        
                 if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
                 {
+                    if($paymentObj['amount']==$planPrice){
                             // this function contains (subscribe + change plan)
                                 $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
                                 if(!$UserSubscription->isEmpty()){   
@@ -66,15 +67,15 @@ class SubscriptionsController extends Controller
                                         return response()->json(['updatedPlan'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscribe in a New Plan..']);            
                                 
                                     } 
+                        }else{
+                         return response()->json(['error'=>'amount missmatch'],422);            
+                        }
                 }else{
                     $responseObj=json_decode($responseObj,true);
                     return response()->json($responseObj['result'],422);
                     
                 }
-            }else{
-                return response()->json(['error'=>'amount missmatch'],422);
-                
-            }
+           
 
     }
 

@@ -71,6 +71,7 @@ class ForgotPasswordController extends APIController
             ], 404);
         }
         return response()->json($passwordReset);
+
     }
 
       public function resetPassword(Request $request)

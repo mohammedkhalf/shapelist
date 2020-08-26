@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -91,10 +93,9 @@
                              <b style="font-size:14px;color: #5F5F5F;" > INVOICE TO </b><br>
                              <span style="font-size:10px;"> {{$first_name}} 
                              </span><br>
-                             <b style="font-size:14px;color: #5F5F5F;" > INVOICE DATE </b><br>
+                             <b style="font-size:14px;color: #5F5F5F;" > DATE </b><br>
                              <span style="font-size:10px;"> {{$date}} </span><br>
-                             <b style="font-size:14px;color: #5F5F5F;" > TOTAL </b><br>
-                             <span style="font-size:10px;">{{ $total_price }} SAR </span>
+                            
                              
                            </p>
                            
@@ -108,36 +109,58 @@
                     <div style="color: #5F5F5F;margin-top:32px;">
                       <p>
                       <b style="font-size:47px;">INVOICE  </b><br>
-                      <b style="font-size:12px;" > INVOICE #{{ $Invoice_Number }}</b>
+                      <b style="font-size:12px;" > INVOICE NO.{{ $Invoice_Number }}</b>
                       </p>
                     </div>
 
                     <!--Items -->
-                    <table>
+                    <table  >
+                    <tr >
+                    <thead style="background-color:#5F5F5F">
+                      <th>
+                          <b style="font-size:12px;color: #fff;"> Plan </b></th>
+                      <th> 
+                          <b style="font-size:12px;color: #fff;;">Purchase Points </th>
+                      <th>
+                          <b style="font-size:12px;color: #fff;;"> Free Points </b> 
+                      </th>
+                      <th> 
+                          <b style="font-size:12px;color: #fff;;"> Discount </b>
+                      </th>
+                      <th>
+                          <b style="font-size:12px;color: #fff;;"> Duration </b>
+                      </th>
+                      <th>
+                          <b style="font-size:12px;color: #fff;;"> Unit Price</b>
+                      </th>
+                     </thead>
+                    </tr>
+                    <tr>
                         <td>
-                          <b style="font-size:12px;color: #5F5F5F;"> Plan </b>
+                         
                           <p style="font-size:12px;color: #5F5F5F;">{{$subscription_name}}</p>
                         </td>
                         <td>
-                          <b style="font-size:12px;color: #5F5F5F;">Purchase Points  </b>
+                          </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$purchase_points}}</p>
                         </td>
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Free Points </b>
-                          <p style="font-size:12px;color: #5F5F5F;">{{$free_points}}</p>
+                        <p style="font-size:12px;color: #5F5F5F;">{{$free_points}}</p>
                         </td>
+                        
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Discount </b>
+                         
                           <p style="font-size:12px;color: #5F5F5F;">{{$discount}}%</p>
                         </td>
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Duration </b>
+                          
                           <p style="font-size:12px;color: #5F5F5F;">{{$duration}} Months</p>
                         </td>
                          <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Unit Price</b>
+                          
                           <p style="font-size:12px;color: #5F5F5F;">{{$sub_total}} SAR</p>
                         </td>
+                        </tr>
                     </table>
 
                                    

@@ -28,17 +28,22 @@ jobs:
         env:
           APP_KEY: ${{ secrets.APP_KEY_STAGING }}
         run: cat Dockerfile.envsubst.template | envsubst > Dockerfile
+      - name: Pull cache from the Registry
+        run: docker pull 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist/nginx:latest || true
       - name: Build & Push NGINX image
         uses: docker/build-push-action@v1
         with:
           registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com
           repository: shapelist/nginx
+          cache_froms: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist/nginx:latest
           username: AWS  # temporary
           password: ${{ steps.get-ecr-password.outputs.password }}  # temporary
           tags: latest,staging
           target: web-server
           tag_with_ref: true
           tag_with_sha: true
+      - name: Pull cache from the Registry
+        run: docker pull 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist/laravel:latest || true
       - name: Build & Push Laravel image
         uses: docker/build-push-action@v1
         with:

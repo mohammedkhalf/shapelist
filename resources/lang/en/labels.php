@@ -373,7 +373,7 @@ return [
 	"Number"=>"Number #",
 	"services"=>"Services",
 	"productType"=>"product Type",
-	"Invoice_to"=>"INVOICE TO",
+	"Invoice_to"=>"INVOICE",
 	"Invoice-capital"=>"INVOICE",
 	"table" => [
 	"orderId" => "Id",

@@ -8,6 +8,7 @@ use App\Models\Location\Location;
 use App\Models\Delivery\Delivery;
 use App\Models\Subscription\Subscription;
 use App\Models\Order\Order;
+use App\Models\MediaFile\MediaFile;
 use App\Mail\resendConfirmationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -69,6 +70,11 @@ class AuthController extends APIController
 
         $location = Location::where('user_id',$user->id)->first();
         $allOrders = Order::with('status')->where('user_id',$user->id)->get();
+            foreach ($allOrders as $Order){
+                $download = MediaFile::where('order_id', $Order->id)->first();      
+                if(!empty( $download)){$Order->download= true;}
+                else{ $Order->download= false;}
+            }
         $productCart = OrderItem::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $cart = array('products'=> $productCart,'packages'=>$packageCart);
@@ -190,6 +196,13 @@ class AuthController extends APIController
         }
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();
+            foreach ($allOrders as $Order){
+                $download = MediaFile::where('order_id', $Order->id)->first();      
+                if(!empty( $download)){$Order->download= true;}
+                else{ $Order->download= false;}
+            }
+
+
         $productCart = OrderItem::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>auth()->guard('api')->user()->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $cart = array('products'=> $productCart,'packages'=>$packageCart);

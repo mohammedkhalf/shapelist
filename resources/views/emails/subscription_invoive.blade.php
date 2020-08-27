@@ -11,8 +11,7 @@
 </head>
 <body>
    <style>
-                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
-
+               @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
         *[contenteditable] { border-radius: 0.25em; min-width: 1em; outline: 0; }
         *[contenteditable] { cursor: pointer; }
         *[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable], td:focus *[contenteditable], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
@@ -61,7 +60,6 @@
         /* table balance */
         table.balance td { text-align: right; }
      
-       
     </style>
 
 
@@ -73,28 +71,29 @@
                      <div style="margin-top:30px">
                             <img src="http://backend.shapelist.com/img/frontend/dashboard_images/ShapeList_Logo2_RGB.jpg"   width="141px"/>
                        <table>
-                           <td style="text-align:left;">
-                              <p>  CR 1010569681  <br>
+                           <td style="text-align:left;"><br>
+                           <p><b>  CR 1010569681  <br>
                                VAT NO 310053727200003 <br>
-                               <a style="color:#5F5F5F" href="https://www.shapelist.com">www.shapelist.com</a> </p>
+                               <a style="color:#5F5F5F" href="https://www.shapelist.com">www.shapelist.com</a><br>
+                               KSA-RYADH PO-BOX 13321  <br>
+                               TEL +966 11 810 2260 </b></p> <br> <br>
+                               <b style="font-size:14px;color: #5F5F5F;" > Bill To </b><br>
+                             <span> {{$first_name}} </span></b><br> <br>
                            </td>
-                           <td style="text-align:left;">
-                              <p> KSA-RYADH PO-BOX 13321  <br>
-                               TEL +966 11 810 2260 </p>
-                           </td>
-                           <td></td>
+                          
+
                        </table>     
                            
                         <div>
-                         <div  style="margin-top:-117px;float:right;">
+                         <div  style="margin-top:-300px;float:right;">
+                              <b style="font-size:40px;">INVOICE  </b><br>
+                              <b style="font-size:12px;" > INVOICE NO.{{ $Invoice_Number }}</b>
+                              <br> <br>
                            <p>
-                             <b style="font-size:14px;color: #5F5F5F;" > INVOICE TO </b><br>
-                             <span style="font-size:10px;"> {{$first_name}} 
-                             </span><br>
-                             <b style="font-size:14px;color: #5F5F5F;" > INVOICE DATE </b><br>
-                             <span style="font-size:10px;"> {{$date}} </span><br>
-                             <b style="font-size:14px;color: #5F5F5F;" > TOTAL </b><br>
-                             <span style="font-size:10px;">{{ $total_price }} SAR </span>
+                            
+                             <b style="font-size:14px;color: #5F5F5F;" > DATE :&nbsp;&nbsp;&nbsp;&nbsp;{{$date}}</b><br>
+                             
+                            
                              
                            </p>
                            
@@ -105,58 +104,57 @@
                        
                     
 
-                    <div style="color: #5F5F5F;margin-top:32px;">
-                      <p>
-                      <b style="font-size:47px;">INVOICE  </b><br>
-                      <b style="font-size:12px;" > INVOICE #{{ $Invoice_Number }}</b>
-                      </p>
-                    </div>
+                    
 
                     <!--Items -->
                     <table>
+                     <tr style="color:#fff;background-color:#000;">
+                        <th>Plan </th>
+                        <th>Purchase Points</th>
+                        <th>Free Points</th>
+                        <th>Discount</th>
+                        <th>Duration</th>
+                        <th>Unit Price</th>
+                     </tr>   
                         <td>
-                          <b style="font-size:12px;color: #5F5F5F;"> Plan </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$subscription_name}}</p>
                         </td>
                         <td>
-                          <b style="font-size:12px;color: #5F5F5F;">Purchase Points  </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$purchase_points}}</p>
                         </td>
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Free Points </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$free_points}}</p>
                         </td>
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Discount </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$discount}}%</p>
                         </td>
                         <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Duration </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$duration}} Months</p>
                         </td>
                          <td >
-                          <b style="font-size:12px;color: #5F5F5F;"> Unit Price</b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$sub_total}} SAR</p>
                         </td>
                     </table>
 
                                    
                                                        
-                    <div style="margin-top:38px;float:right;">
+                   <div class="row">
+                        <div class="col-sm-4" style="margin-top:20px; float:right"> 
                         
-                            <p style="font-size:11px;color: #5F5F5F;"> 
-                              <b>Subtotal:</b> {{$sub_total}} SAR  <br>
-                              <b>VAT( {{ $vatPercentage }} %):</b> {{$vatValue}} SAR <br>
-                              <b>Total:</b>  {{ $total_price }} SAR
-                            </p>
+                            <p style="font-size:14px;color: #5F5F5F;"> 
+                              <b style="margin-right:38px;">Subtotal:</b> {{$sub_total}} SAR  <br><br>
+                              <b style="margin-right:38px;">VAT( {{ $vatPercentage }} %):</b> {{$vatValue}} SAR <br><br>
+                              <div style="background-color:#d9d9d9;height:40px;line-height: 40px;border-radius: 10px;text-align: center;"><b>Total:  {{ $total_price }} SAR</b>
+                            </div></div></p>
                   
-                    </div>
+                    </div><br><br><br><br>
 
                     <div  style="margin-top:171px; margin-bottom:20px;">
                           <p>
-                                <b style="font-size:14px;"> Thank you for being our customer and have a great day </b> <br>
+                          <span font-size:12px;color:#5F5F5F>Notes:<br> 
+                          <b style="font-size:14px;color: #000;"> Thank you for being our customer and have a great day </b></span> <br>
                     
-                    <span font-size:12px;><b> Terms: </b><a style="color:#5F5F5F" href="https://www.shapelist.com/terms">www.shapelist.com/terms</a> </span>
+                    <span font-size:12px;color:#5F5F5F> Terms: <br><b><a style="color: #000;" href="https://www.shapelist.com/terms">www.shapelist.com/terms</a> </b></span>
                     
                            </p>
                     </div>
@@ -166,10 +164,6 @@
             </div>
         </div>
     </div>
-    <div style=" position:fixed; bottom: 0px; width: 100%;
-         height: 12px;background: #21A67D 0% 0% no-repeat padding-box;">
-         
-         </div>
          </div>
 
                

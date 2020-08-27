@@ -24,6 +24,10 @@ jobs:
         run: echo "::set-output name=password::$(aws ecr get-login-password)"
       - name: Check out repository code
         uses: actions/checkout@v2
+      - name: Generate Dockerfile with APP_KEY
+        env:
+          APP_KEY: {{ secrets.APP_KEY_STAGING }}
+        run: cat Dockerfile.envsubst.template | envsubst > Dockerfile
       - name: Build & Push NGINX image
         uses: docker/build-push-action@v1
         with:

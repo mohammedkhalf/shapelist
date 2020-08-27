@@ -13,6 +13,7 @@ EXPOSE 80
 
 FROM php:7.2-fpm-stretch AS php-application
 
+ENV APP_KEY=${APP_KEY}
 ENV LARAVEL_VERSION 6.0
 ENV INSTALL_DIR /var/www/app
 ENV COMPOSER_HOME /var/www/.composer/
@@ -60,16 +61,6 @@ RUN docker-php-ext-install bcmath \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Make sure the volume mount point is empty
-# RUN rm -rf /var/www/app/*
-
-# Set www-data as owner for /var/www
-# RUN chown -R www-data:www-data /var/www/
-# RUN chmod -R g+w /var/www/
-
-# Remove unnecssary modules
-# RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # Install app dependencies
 WORKDIR /var/www/app
 COPY composer.* /var/www/app/
@@ -89,4 +80,5 @@ RUN chown -R www-data:www-data \
         && touch /var/www/app/storage/logs/laravel.log \
         && chmod 666 /var/www/app/storage/logs/laravel.log
 
-# COPY docker/app/vhost.conf /etc/apache2/sites-available/000-default.conf
+RUN cat .env.envsubst.template | envsubst > .env
+RUN composer dump-autoload

@@ -1,6 +1,13 @@
+FROM node:12-alpine AS node
+WORKDIR /var/www/app
+COPY package*.json /var/www/app/
+RUN npm install
+COPY ./public /var/www/app/public
+RUN npm run production
+
 FROM nginx:1-alpine AS web-server
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./public /var/www/app/public
+COPY --from=node /var/www/app/public /var/www/app/public
 EXPOSE 80
 
 FROM php:7.2-fpm-stretch AS php-application

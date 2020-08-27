@@ -12,7 +12,7 @@
 <body>
    <style>
       @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
-
+        table { border-collapse: separate; border-spacing: 1px; table-layout: fixed; width: 100%;  }
       
     </style>
 
@@ -32,12 +32,10 @@
                                KSA-RYADH PO-BOX 13321  <br>
                                TEL +966 11 810 2260 </b></p> <br> <br>
                                <b style="font-size:14px;color: #5F5F5F;" > Bill To </b><br>
-                             <span> {{$first_name}} </span></b>
+                             <span> {{$first_name}} </span></b><br> <br>
                            </td>
-                           <td>
-                              
-                             
-                           </td>
+                          
+
                        </table>     
                            
                         <div>
@@ -60,72 +58,48 @@
                        
                     
 
-                    <div style="color: #5F5F5F;margin-top:32px;">
-                      <p>
-                      
-                      </p>
-                    </div>
+                    
 
                     <!--Items -->
-                    <table   >
-                    <tr>
-                      <thead style="background-color:#2a2222;">
-                        <th>
-                            <b style="font-size:12px;color: #fff;">&nbsp Plan </b>
-                            
-                        <th> 
-                            <b style="font-size:12px;color: #fff;;">Purchase Points
-                        <th>
-                            <b style="font-size:12px;color: #fff;;"> Free Points </b> 
-                        </th>
-                        <th> 
-                            <b style="font-size:12px;color: #fff;;"> Discount </b>
-                        </th>
-                        <th>
-                            <b style="font-size:12px;color: #fff;;"> Duration </b>
-                        </th>
-                        <th>
-                            <b style="font-size:12px;color: #fff;;"> Unit Price</b>
-                        </th>
-                       </thead>
-                    </tr>
-                    <tr>
+                    <table>
+                     <tr style="color:#fff;background-color:#000;">
+                        <th>Plan </th>
+                        <th>Purchase Points</th>
+                        <th>Free Points</th>
+                        <th>Discount</th>
+                        <th>Duration</th>
+                        <th>Unit Price</th>
+                     </tr>   
                         <td>
-                         
                           <p style="font-size:12px;color: #5F5F5F;">{{$subscription_name}}</p>
                         </td>
                         <td>
-                          </b>
                           <p style="font-size:12px;color: #5F5F5F;">{{$purchase_points}}</p>
                         </td>
                         <td >
-                        <p style="font-size:12px;color: #5F5F5F;">{{$free_points}}</p>
+                          <p style="font-size:12px;color: #5F5F5F;">{{$free_points}}</p>
                         </td>
-                        
                         <td >
-                         
                           <p style="font-size:12px;color: #5F5F5F;">{{$discount}}%</p>
                         </td>
                         <td >
-                          
                           <p style="font-size:12px;color: #5F5F5F;">{{$duration}} Months</p>
                         </td>
                          <td >
-                          
                           <p style="font-size:12px;color: #5F5F5F;">{{$sub_total}} SAR</p>
                         </td>
-                        </tr>
                     </table>
 
                                    
                                                        
-                    <div style="margin-top:38px;float:right;text-align: center;">
+                   <div class="row">
+                        <div class="col-sm-4" style="margin-top:20px; float:right"> 
                         
                             <p style="font-size:14px;color: #5F5F5F;"> 
                               <b style="margin-right:38px;">Subtotal:</b> {{$sub_total}} SAR  <br><br>
                               <b style="margin-right:38px;">VAT( {{ $vatPercentage }} %):</b> {{$vatValue}} SAR <br><br>
                               <div style="background-color:#d9d9d9;height:40px;line-height: 40px;border-radius: 10px;text-align: center;"><b>Total:  {{ $total_price }} SAR</b>
-                            </div></p>
+                            </div></div></p>
                   
                     </div><br><br><br><br>
 

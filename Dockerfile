@@ -2,7 +2,7 @@ FROM node:12-alpine AS node
 WORKDIR /var/www/app
 COPY package*.json /var/www/app/
 RUN npm install
-COPY ./public /var/www/app/public
+COPY . /var/www/app
 RUN npm run production
 
 FROM nginx:1-alpine AS web-server

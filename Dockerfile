@@ -8,6 +8,7 @@ RUN npm run production
 FROM nginx:1-alpine AS web-server
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=node /var/www/app/public /var/www/app/public
+RUN ls -lsa /var/www/app/public
 EXPOSE 80
 
 FROM php:7.2-fpm-stretch AS php-application
@@ -81,6 +82,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # copy project files
 COPY . /var/www/app
+COPY --from=node /var/www/app/public /var/www/app/public
 RUN chown -R www-data:www-data \
         /var/www/app/storage \
         /var/www/app/bootstrap/cache \

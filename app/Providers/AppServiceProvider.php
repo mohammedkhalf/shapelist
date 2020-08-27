@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
         if(config('app.env') === 'production') {
             \URL::forceScheme('https');
         }
+        
+        if(env('REDIRECT_HTTPS')) {
+            $url->forceScheme('https');
+        }
         /*
          * Application locale defaults for various components
          *

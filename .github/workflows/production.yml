@@ -22,6 +22,8 @@ jobs:
       - name: Get ECR password (temporary)
         id: get-ecr-password
         run: echo "::set-output name=password::$(aws ecr get-login-password)"
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: Build & Push NGINX image
         uses: docker/build-push-action@v1
         with:

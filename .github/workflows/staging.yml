@@ -31,7 +31,7 @@ jobs:
           repository: shapelist/nginx
           username: AWS  # temporary
           password: ${{ steps.get-ecr-password.outputs.password }}  # temporary
-          tags: latest,staging,${GITHUB_SHA}
+          tags: latest,staging
           target: web-server
           tag_with_ref: true
           tag_with_sha: true
@@ -41,9 +41,10 @@ jobs:
           registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com
           repository: shapelist/laravel
           cache_froms: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist/laravel:latest
+          always_pull: true
           username: AWS  # temporary
           password: ${{ steps.get-ecr-password.outputs.password }}  # temporary
-          tags: latest,staging,${GITHUB_SHA}
+          tags: latest,staging
           target: php-application
           tag_with_ref: true
           tag_with_sha: true

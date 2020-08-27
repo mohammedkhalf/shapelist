@@ -20,6 +20,7 @@ ENV COMPOSER_HOME /var/www/.composer/
 
 # Install common tools and libraries
 RUN apt-get update && apt-get install -y \
+  gettext \
   cron \
   git \
   gzip \

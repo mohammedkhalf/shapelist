@@ -20,9 +20,10 @@ use App\Models\Quotation\Quotation;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use  App\Models\Invoice\Invoice;
+use App\Models\Invoice\Invoice;
 use App\Models\Delivery\Delivery;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
+use Carbon\Carbon;
 
 class Order extends Model
 {
@@ -40,6 +41,9 @@ class Order extends Model
      */
     protected $fillable = ['user_id','status_id','coupon_code',
     'sub_total','vat','delivery_id','on_set','location_id','totalPrice','totalOnSet','totalVat','grandTotal'];
+
+
+    protected $dates =['created_at'];
     
     //relationships
     public function users()
@@ -136,12 +140,12 @@ class Order extends Model
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->totalVat,
             'grandTotal' => $OrderObject->grandTotal,
-            'date' => $OrderObject->created_at,
+            'date' =>$OrderObject->created_at,
             'locationInfo' => Order::with('location')->where(['id'=>$OrderObject->id,'user_id'=>auth()->guard('api')->user()->id])->get(),
             'productsInfo' => OrderItem::where('order_id',$OrderObject->id)->get(),
         ];
             //author@khalf
-            $customPaper = array(0,0,800,700);
+            $customPaper = array(0,0,800,1000);
             $pdf = PDF::loadView('emails.email-invoice', $data)->setPaper($customPaper,'portrait');
             $fileName = time() . ".pdf";
             Storage::put('public/orders-pdf/'.$data['user_id'] . '/' . $data['Invoice_Number'] . '/' . $fileName, $pdf->output());
@@ -347,11 +351,11 @@ class Order extends Model
     {
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
-            if(array_key_exists("amount",$paymentObj) && ($grandTotal == $paymentObj["amount"])  ) //id
+            if(array_key_exists("buildNumber",$paymentObj)  ) //amount
             {
                 $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
-                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
+                Payment::create(['bank_transaction_id'=>$paymentObj['buildNumber'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);
                 Order::sendPdfInvoice($orderObj);
                 return response()->json($orderInfo[0], 200);

@@ -69,7 +69,7 @@ COPY tests /var/www/app/tests
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader --no-scripts
 
 # PHP setup
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 # copy project files
 COPY . /var/www/app

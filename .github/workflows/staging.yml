@@ -1,0 +1,60 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches:
+      - **
+
+jobs:
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Get ECR password (temporary)
+        id: get-ecr-password
+        run: echo "::set-output name=password::$(aws ecr get-login-password)"
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Build & Push NGINX image
+        uses: docker/build-push-action@v1
+        with:
+          registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com
+          repository: shapelist/nginx
+          username: AWS  # temporary
+          password: ${{ steps.get-ecr-password.outputs.password }}  # temporary
+          tags: latest,staging
+          target: web-server
+          tag_with_ref: true
+          tag_with_sha: true
+      - name: Build & Push NGINX image
+        uses: docker/build-push-action@v1
+        with:
+          registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com
+          repository: shapelist/laravel
+          username: AWS  # temporary
+          password: ${{ steps.get-ecr-password.outputs.password }}  # temporary
+          tags: latest,staging
+          target: php-application
+          tag_with_ref: true
+          tag_with_sha: true
+  deploy-staging:
+    name: Deploy to the staging
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: ./deploy-backend.sh

@@ -89,6 +89,4 @@ RUN chown -R www-data:www-data \
         && touch /var/www/app/storage/logs/laravel.log \
         && chmod 666 /var/www/app/storage/logs/laravel.log
 
-RUN composer dump-autoload
-
 # COPY docker/app/vhost.conf /etc/apache2/sites-available/000-default.conf

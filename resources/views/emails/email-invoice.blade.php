@@ -134,18 +134,18 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <img src="http://shapelistapp.com/img/logo.png"  style="margin-bottom:40px"   width="200px" height="200px" /> 
+                                    <img src="http://shapelistapp.com/img/logo.png"  style="margin-bottom:10px" width="200px" height="200px" /> 
                                     <p> <b> CR 1010569681 </b> </p>
                                     <p>  VAT-NO 310053727200003  </p>
                                     <p>  TEL +966 11 810 2260 </p>
                                     <p>  KSA-RYADH PO-BOX 13321 </p> 
                                     <p style="text-transform: uppercase;"> www.shapelist.com </p> 
 
-                                    <p style="margin-right:50%"> {{ trans('labels.backend.orders.Bill-To') }} :
-                                       <b> {{$first_name}} {{ $last_name}} </b>
+                                    <p style="margin-top:20px;margin-right:50%"> {{ trans('labels.backend.orders.Bill-To') }} :
+                                       <br/> <b> {{$first_name}} {{ $last_name}} </b>
                                     </p>
 
-                                    <p> {{ trans('labels.backend.orders.Deliver-To') }} :
+                                    <p style="margin-top:-70px;margin-left:50%"> {{ trans('labels.backend.orders.Deliver-To') }} : <br/>
                                         @foreach($locationInfo as $locationObj)
                                             <b> {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
                                         @endforeach

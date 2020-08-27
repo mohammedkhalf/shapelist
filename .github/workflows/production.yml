@@ -1,0 +1,54 @@
+name: Staging Deployment
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  release:
+    name: Retag & Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Get ECR password (temporary)
+        id: get-ecr-password
+        run: echo "::set-output name=password::$(aws ecr get-login-password)"
+      - name: Retag NGINX image
+        uses: tinact/docker.image-retag@master
+        with:
+          image_name: nginx
+          image_old_tag: $GITHUB_SHA
+          image_new_tag: production
+          registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist
+          registry_username: AWS
+          registry_password: ${{ steps.get-ecr-password.outputs.password }}
+      - name: Retag Laravel image
+        uses: tinact/docker.image-retag@master
+        with:
+          image_name: laravel
+          image_old_tag: $GITHUB_SHA
+          image_new_tag: production
+          registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist
+          registry_username: AWS
+          registry_password: ${{ steps.get-ecr-password.outputs.password }}
+  deploy-production:
+    name: Deploy to Production
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_PRODUCTION }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD_PRODUCTION }}
+          script: ./deploy-backend.sh

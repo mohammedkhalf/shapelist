@@ -26,7 +26,7 @@ jobs:
         uses: tinact/docker.image-retag@master
         with:
           image_name: nginx
-          image_old_tag: $GITHUB_SHA
+          image_old_tag: ${GITHUB_SHA}
           image_new_tag: production
           registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist
           registry_username: AWS
@@ -35,7 +35,7 @@ jobs:
         uses: tinact/docker.image-retag@master
         with:
           image_name: laravel
-          image_old_tag: $GITHUB_SHA
+          image_old_tag: ${GITHUB_SHA}
           image_new_tag: production
           registry: 771685477735.dkr.ecr.me-south-1.amazonaws.com/shapelist
           registry_username: AWS

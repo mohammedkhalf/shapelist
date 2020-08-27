@@ -140,24 +140,26 @@
                                     <p>  TEL +966 11 810 2260 </p>
                                     <p>  KSA-RYADH PO-BOX 13321 </p> 
                                     <p style="text-transform: uppercase;"> www.shapelist.com </p> 
-                                </div>
-                        </div> <br/> <br/>
 
-                        <!-- <h2 style="margin-left:30px;letter-spacing: 0px;font: Bold 47px/20px Montserrat;color: #5F5F5F;text-transform: uppercase;"> {{ trans('labels.backend.orders.Invoice-capital') }}  </h2> -->
-                        <!-- <h6 style="margin-left:35px;text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: uppercase;">{{ trans('labels.backend.orders.Invoice-capital') }} # {{ $Invoice_Number }} </h6> -->
+                                    <p style="margin-right:50%"> {{ trans('labels.backend.orders.Bill-To') }} :
+                                       <b> {{$first_name}} {{ $last_name}} </b>
+                                    </p>
+
+                                    <p> {{ trans('labels.backend.orders.Deliver-To') }} :
+                                        @foreach($locationInfo as $locationObj)
+                                            <b> {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
+                                        @endforeach
+                                    </p>
+                                    
+                                </div>
+                        </div> 
+
+                       
+                        </div>
 
                     </article> 
 
-                    <div class="row text-center">
-                            <p style="margin-right:50%"> {{ trans('labels.backend.orders.Bill-To') }} :
-                                    <b> {{$first_name}} {{ $last_name}} </b>
-                            </p>
-                            <p style="margin-left:50%"> {{ trans('labels.backend.orders.Deliver-To') }} :
-                                @foreach($locationInfo as $locationObj)
-                                    <b> {{ $locationObj->location->city }} - {{ $locationObj->location->address }} </b>
-                                @endforeach
-                            </p>
-                    </div>
+                    
 
                     <!--Items -->
                     <div class="row">

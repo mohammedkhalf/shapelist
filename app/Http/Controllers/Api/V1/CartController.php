@@ -74,12 +74,15 @@ class CartController extends APIController
     }
 
      //payment methods
-     public static function prepareCheckout(Request $request)
+     public function prepareCheckout(Request $request)
      {
-         $total_price = $request->total_price;
+        $request->validate([
+            'total_price' => 'numeric|min:1',
+        ]);
+         $totalPrice = number_format($request->total_price,2, '.', '');         
          $url = "https://test.oppwa.com/v1/checkouts";
          $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".
-                 "&amount=$total_price".
+                 "&amount=$totalPrice".
                  "&currency=EUR".
                  "&paymentType=DB";
  
@@ -96,7 +99,17 @@ class CartController extends APIController
                  return curl_error($ch);
              }
              curl_close($ch);
-             return $responseData;
+            
+            $checkoutObject = json_decode($responseData,true);
+            if(array_key_exists("id",$checkoutObject))
+            {
+                return $responseData;
+            }
+            else
+            {
+                return response()->json(["description"=>$checkoutObject['result']['description']], 422);
+            }
+
      } //prepareCheckout
 
      //create order with resource Id or NOT resource id

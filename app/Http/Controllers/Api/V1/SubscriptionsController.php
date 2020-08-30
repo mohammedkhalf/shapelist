@@ -49,7 +49,7 @@ class SubscriptionsController extends Controller
                                         switch($oldPlan){
                                             case(true):
                                             // upgrade or downgrade the plan or re_subscribe in the same plan
-                                            $updatedPlan=SubscriptionDetail::changePlane($id,"paymentObj[id]"); 
+                                            $updatedPlan=SubscriptionDetail::changePlane($id,$paymentObj['id']); 
                                         
                                             $subscriber =  SubscriptionDetail::with('user')->where('id', $updatedPlan->id)->first();
                                             //mail
@@ -61,7 +61,7 @@ class SubscriptionsController extends Controller
                                             break;
 
                                             case(false):
-                                                return response()->json("you are already subscriber in this plan..!"); 
+                                                return response()->json("you are already subscriber in this plan..!",403); 
                                             break;
                                             }
                                 }else{

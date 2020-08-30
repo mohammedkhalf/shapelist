@@ -108,15 +108,15 @@
 
                     <!--Items -->
                     <table>
-                     <tr style="color:#fff;background-color:#333333;">
+                     <tr style="color:#fff;">
                         <th style ="border: 1px solid ;
-  border-radius: 10px 0px 0px 10px; ">Plan </th>
-                        <th>Purchase Points</th>
-                        <th>Free Points</th>
-                        <th>Discount</th>
-                        <th>Duration</th>
+  border-radius: 10px 0px 0px 10px;background-color:#333333; ">Plan </th>
+                        <th style ="background-color:#333333;">Purchase Points</th>
+                        <th style ="background-color:#333333;">Free Points</th>
+                        <th style ="background-color:#333333;">Discount</th>
+                        <th style ="background-color:#333333;">Duration</th>
                         <th style ="border: 1px solid ;
-  border-radius: 0px 10px 10px 0px; ">Unit Price</th>
+  border-radius: 0px 10px 10px 0px;background-color:#333333;">Unit Price</th>
                      </tr>   
                         <td>
                           <p style="font-size:12px;color: #5F5F5F;">{{$subscription_name}}</p>

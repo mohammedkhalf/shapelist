@@ -59,6 +59,20 @@ class SubscriptionDetail extends Model
         return $data;
     }
 
+    
+    public static function oldPlan($oldPlan ,$newPlan)
+    {
+       if($oldPlan->subscription_id== $newPlan){
+           return false;
+       }else{ 
+           return true;
+       }
+
+    }
+
+
+
+
     public static function changePlane($id,$bankTransactionId)
     {
             $subscription = Subscription::findOrFail($id);

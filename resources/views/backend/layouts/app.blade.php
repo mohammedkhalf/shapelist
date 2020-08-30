@@ -35,6 +35,9 @@
         {{ Html::script('https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js') }}
         <![endif]-->
 
+        <!-- CSS Files -->
+        <link href="{{url('/')}}/assets/css/shapelist-dashboard.css" rel="stylesheet" />
+
         <!-- Scripts -->
         <script>
             window.Laravel = {!! json_encode([ 'csrfToken' => csrf_token() ]) !!};

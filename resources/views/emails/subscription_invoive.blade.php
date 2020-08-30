@@ -19,9 +19,9 @@
         /* heading */
         h1 { font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: center; text-transform: uppercase; }
         /* table */
-        table { font-size: 75%; table-layout: fixed; width: 100%; }
-        table { border-collapse: separate; border-spacing: 2px; }
-        th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: center; }
+        table { font-size: 78%; table-layout: fixed; width: 100%; }
+        table { border-collapse: separate; border-spacing: 1px; }
+        th, td { border-width: 1px; padding: 0.3em; position: relative; text-align: center; }
         /* th, td { border-radius: 0.25em; border-style: solid; }
         th { background: #EEE; border-color: #BBB; } */
         td { border-color: #DDD; }
@@ -54,9 +54,9 @@
         /* table items */
         table.inventory { clear: both; width: 100%; margin-top:30% }
        
-        table.inventory td:nth-child(3) { text-align: right; width: 12%; }
-        table.inventory td:nth-child(4) { text-align: right; width: 12%; }
-        table.inventory td:nth-child(5) { text-align: right; width: 12%; }
+        table.inventory td:nth-child(3) { text-align: right; width: 30%; }
+        table.inventory td:nth-child(4) { text-align: right; width: 30%; }
+        table.inventory td:nth-child(5) { text-align: right; width: 30%; }
         /* table balance */
         table.balance td { text-align: right; }
      
@@ -78,7 +78,7 @@
                                KSA-RYADH PO-BOX 13321  <br>
                                TEL +966 11 810 2260 </b></p> <br> <br>
                                <b style="font-size:14px;color: #5F5F5F;" > Bill To </b><br>
-                             <span> {{$first_name}} </span></b><br> <br>
+                             <span style="font-size:14px;"> {{$first_name}} </span></b><br> <br>
                            </td>
                           
 
@@ -108,13 +108,15 @@
 
                     <!--Items -->
                     <table>
-                     <tr style="color:#fff;background-color:#000;">
-                        <th>Plan </th>
+                     <tr style="color:#fff;background-color:#333333;">
+                        <th style ="border: 1px solid ;
+  border-radius: 10px 0px 0px 10px; ">Plan </th>
                         <th>Purchase Points</th>
                         <th>Free Points</th>
                         <th>Discount</th>
                         <th>Duration</th>
-                        <th>Unit Price</th>
+                        <th style ="border: 1px solid ;
+  border-radius: 0px 10px 10px 0px; ">Unit Price</th>
                      </tr>   
                         <td>
                           <p style="font-size:12px;color: #5F5F5F;">{{$subscription_name}}</p>

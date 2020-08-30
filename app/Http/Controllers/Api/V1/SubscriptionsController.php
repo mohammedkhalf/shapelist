@@ -40,9 +40,14 @@ class SubscriptionsController extends Controller
                     if($paymentObj['amount']==$planPrice){
                             // this function contains (subscribe + change plan)
                                 $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
-                                if(!$UserSubscription->isEmpty()){   
+                                if(!$UserSubscription->isEmpty()){ 
+                                        
                                         //if the user has old plan
                                         $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();                               
+                                        //check if user already subscribe in this plan 
+                                        $oldPlan = SubscriptionDetail::oldPlan($oldSubscription ,$id); 
+                                        switch($oldPlan){
+                                            case(true):
                                             // upgrade or downgrade the plan or re_subscribe in the same plan
                                             $updatedPlan=SubscriptionDetail::changePlane($id,$paymentObj['id']); 
                                         
@@ -52,9 +57,13 @@ class SubscriptionsController extends Controller
                                             //pdf
                                             $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
                                             SubscriptionDetail::sendInvoicePdf($data); 
-                                            return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']);            
-                                    
+                                            return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']); 
+                                            break;
 
+                                            case(false):
+                                                return response()->json("you are already subscriber in this plan..!",403); 
+                                            break;
+                                            }
                                 }else{
                                         //for new subscription 
                                         $newSubscription=SubscriptionDetail::newSubscription($id,$paymentObj['id']);

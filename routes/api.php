@@ -87,6 +87,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         Route::apiResource('cart', 'CartController');
         //get checkout id
         Route::post('/prepare-checkout', 'CartController@prepareCheckout');
+        //subscription prepare checkout
+        Route::post('/subscription/prepare-checkout', 'SubscriptionsController@subscriptionPrepareCheckout');
         //post resource data + order data 
         Route::post('/resource-with-order','CartController@resourceOrder');
         

@@ -9,6 +9,8 @@ use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class SubscriptionsController extends Controller
 {
@@ -89,7 +91,7 @@ class SubscriptionsController extends Controller
     public function subscriptionPrepareCheckout(Request $request)
      {
         //the plan 
-        $subscription =  Subscription::findOrFail($request->$id);
+        $subscription =  Subscription::findOrFail($request->id);
         $planPrice = number_format($subscription->price,2, '.', '');
         $totalPrice = number_format($request->total_price,2, '.', '');
         // Check if plan price equals total price
@@ -116,9 +118,10 @@ class SubscriptionsController extends Controller
                 curl_close($ch);
                 
                 $checkoutObject = json_decode($responseData,true);
-                if(array_key_exists("id",$checkoutObject))
-                {
-                    return $responseData;
+                $code= $checkoutObject['result']['code'];
+                $pattern = "/^(000\.200)/";
+                if (preg_match($pattern, $code)){
+                        return $responseData;       
                 }
                 return response()->json(["description"=>$checkoutObject['result']['description']], 422);
 

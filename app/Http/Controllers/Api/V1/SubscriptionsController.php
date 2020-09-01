@@ -97,19 +97,19 @@ class SubscriptionsController extends Controller
         // Check if plan price equals total price
 
          if($planPrice == $totalPrice){
-                $url = "https://test.oppwa.com/v1/checkouts"; //Protect this
-                $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".//Protect this
+                $url = env('HYPER_PAY_URL'); //env
+                $data = "entityId=".env('HYPER_PAY_DATA').//env
                         "&amount=$totalPrice".
-                        "&currency=EUR".//Protect this
+                        "&currency=".env('HYPER_PAY_CURRENCY').//env
                         "&paymentType=DB";
     
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                            'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));//Protect this
+                            "Authorization:Bearer ".env('HYPER_PAY_HTTPHEADER').""));//env
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production  //Protect this
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, env('HYPER_PAY_SSL_VERIFYPEER'));// this should be set to true in production  //env
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $responseData = curl_exec($ch);
                 if(curl_errno($ch)) {

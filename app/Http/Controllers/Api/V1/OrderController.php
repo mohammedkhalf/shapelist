@@ -88,16 +88,16 @@ class OrderController extends APIController
         //download Invoice
         public function downloadInvoice($orderId)
         {
-           $fileName = Invoice::where('order_id', $orderId)->value('file_name'); 
-           $key = 'orders_pdf/'.$fileName;
-           $disk = \Storage::disk('s3');
-           $command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
-            'Bucket'                     => \Config::get('filesystems.disks.s3.bucket'),
-            'Key'                        => $key,
-            ]);
-           $request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
-           $generate_url = $request->getUri();
-           return $generate_url;
+        //    $fileName = Invoice::where('order_id', $orderId)->value('file_name'); 
+        //    $key = 'orders_pdf/'.$fileName;
+        //    $disk = \Storage::disk('s3');
+        //    $command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
+        //     'Bucket'                     => \Config::get('filesystems.disks.s3.bucket'),
+        //     'Key'                        => $key,
+        //     ]);
+        //    $request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
+        //    $generate_url = $request->getUri();
+        //    return $generate_url;
         }
         
         //======================== view detials download===========================

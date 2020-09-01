@@ -149,7 +149,7 @@ class Order extends Model
             $pdf = PDF::loadView('emails.email-invoice', $data)->setPaper($customPaper,'portrait');
             $fileName = time() . ".pdf";
             $filePath = 'orders_pdf/'. $fileName;
-            Storage::disk('s3')->put($filePath, $pdf->output(), 'public');
+            // Storage::disk('s3')->put($filePath, $pdf->output(), 'public');
             Invoice::create(['order_id'=>$OrderObject->id,'file_name'=>$fileName]);
             Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
                 $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
@@ -353,21 +353,21 @@ class Order extends Model
             $responseObj = Order::getStatus($request->resource_id);
             $paymentObj = json_decode($responseObj,true);
             // dd($paymentObj);
-            // if(array_key_exists("amount",$paymentObj) && ($grandTotal == $paymentObj['amount']) ) //amount
-            // {
+            if(array_key_exists("amount",$paymentObj) && ($grandTotal == $paymentObj['amount']) ) //amount
+            {
                 $orderObj = Order::CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice);
                 $Products = OrderItem::insertProducts($request,$orderObj);
-                // Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
+                Payment::create(['bank_transaction_id'=>$paymentObj['id'] ,'order_id'=> $orderObj->id]);
                 $orderInfo = Order::getOrderInfo($orderObj);
                 Order::sendPdfInvoice($orderObj);
                 return response()->json($orderInfo[0], 200);
-            // }
+            }
             
-            // else
-            // {
-            //     $responseObj=json_decode($responseObj,true);
-            //     return response()->json(["description"=>$responseObj['result']['description']], 422);
-            // }
+            else
+            {
+                $responseObj=json_decode($responseObj,true);
+                return response()->json(["description"=>$responseObj['result']['description']], 422);
+            }
     } //payOrderRequest
 
 

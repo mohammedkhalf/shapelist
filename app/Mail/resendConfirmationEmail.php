@@ -34,7 +34,7 @@ class resendConfirmationEmail extends Mailable
         // return $this->view('emails.user-confirmation')->with(array('confirmation_url'=> $confirmation_url ,'user'=>$this->user ));
         $url = url('https://www.shapelist.com');
         return (new MailMessage())
-        ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
+        ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$this->user ] );
         //redirect to Home Page
         app('App\Repositories\Frontend\Access\User\UserRepository')->confirmAccount( $user->confirmation_code);
     }

@@ -130,6 +130,20 @@
         </div><!--col-lg-10-->
     </div><!--form-group-->
 
+    <div class="form-group">
+        {{ Form::label('validity', trans('labels.backend.subscriptions.table.validity'), ['class' => 'col-lg-2 control-label']) }}
+        <div class="col-lg-2">
+            @if(isset($subscription))     
+            <select class="form-control box-size" name="validity">    
+                <option value="1" {{ $validity == 1 ? 'selected' : '' }}> Yes </option>
+                <option value="0" {{ $validity == 0 ? 'selected' : '' }}> No </option>
+            </select>
+            @else
+            <input type="checkbox" name="validity" value="1" {{ old('validity') ? 'checked="checked"' : '' }}/>
+            @endif
+        </div><!--col-lg-10-->
+    </div><!--form-group-->
+
 
 
 </div><!--box-body-->

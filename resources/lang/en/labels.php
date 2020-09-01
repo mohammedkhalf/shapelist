@@ -375,6 +375,9 @@ return [
 	"productType"=>"product Type",
 	"Invoice_to"=>"INVOICE",
 	"Invoice-capital"=>"INVOICE",
+	"Price"=>"Price",
+	"mediaLocation"=> "media Location",
+	
 	"table" => [
 	"orderId" => "Id",
 	"userName" => "user name",

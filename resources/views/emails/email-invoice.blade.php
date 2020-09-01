@@ -164,7 +164,7 @@
                     <!--Items -->
                     <div class="row">
                         <table class="table">
-                            <thead>  <!-- class="thead-dark" -->
+                            <thead  class="thead-dark">  
                                 <tr style="text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                     <th scope="col">{{ trans('labels.backend.orders.services') }}</th>
                                     <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>

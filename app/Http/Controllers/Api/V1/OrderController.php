@@ -88,10 +88,18 @@ class OrderController extends APIController
         //download Invoice
         public function downloadInvoice($orderId)
         {
-            $invoiceObj = Invoice::where('order_id',$orderId)->first();
-            $user_id = auth()->guard('api')->user()->id;
-            return URL::to("storage/app/public/orders-pdf/{$user_id}/{$orderId}/{$invoiceObj->file_name}");
+           $fileName = Invoice::where('order_id', $orderId)->value('file_name'); 
+           $key = 'orders_pdf/'.$fileName;
+           $disk = \Storage::disk('s3');
+           $command = $disk->getDriver()->getAdapter()->getClient()->getCommand('GetObject', [
+            'Bucket'                     => \Config::get('filesystems.disks.s3.bucket'),
+            'Key'                        => $key,
+            ]);
+           $request = $disk->getDriver()->getAdapter()->getClient()->createPresignedRequest($command, '+10 minutes');
+           $generate_url = $request->getUri();
+           return $generate_url;
         }
+        
         //======================== view detials download===========================
         public function myDownload($id){  
             $download = MediaFile::where('order_id', $id)->first();      

@@ -81,8 +81,14 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         if(!empty($subscription)){
             $thePlanId = $subscription->subscription_id;
-            $deli =  Subscription::where('id',$thePlanId)->value('delivery_id');
-            $subscription->delivery= $deli;
+            $data =  Subscription::where('id',$thePlanId)->first();
+            $subscription->delivery_id= $data->delivery_id;
+            $subscription->subscription_name_en= $data->name;
+            $subscription->subscription_name_ar= $data->name_ar;
+            $subscription->priority_support= $data->priority_support;
+            $deliv = Delivery::where('id',$data->delivery_id)->first();
+            $subscription->delivery_name_en= $deliv->name_en;
+            $subscription->delivery_name_ar= $deliv->name_ar;
         }
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
@@ -191,8 +197,14 @@ class AuthController extends APIController
         $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
         if(!empty($subscription)){
             $thePlanId = $subscription->subscription_id;
-            $deli =  Subscription::where('id',$thePlanId)->value('delivery_id');
-            $subscription->delivery= $deli;
+            $data =  Subscription::where('id',$thePlanId)->first();
+            $subscription->delivery_id= $data->delivery_id;
+            $subscription->subscription_name_en= $data->name;
+            $subscription->subscription_name_ar= $data->name_ar;
+            $subscription->priority_support= $data->priority_support;
+            $deliv = Delivery::where('id',$data->delivery_id)->first();
+            $subscription->delivery_name_en= $deliv->name_en;
+            $subscription->delivery_name_ar= $deliv->name_ar;
         }
         $location = Location::where('user_id',auth()->guard('api')->user()->id)->first();
         $allOrders = Order::with('status')->where('user_id',auth()->guard('api')->user()->id)->get();

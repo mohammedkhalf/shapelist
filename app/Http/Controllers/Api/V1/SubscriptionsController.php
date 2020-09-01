@@ -9,6 +9,8 @@ use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class SubscriptionsController extends Controller
 {
@@ -30,19 +32,20 @@ class SubscriptionsController extends Controller
         //payment
         $responseObj = SubscriptionDetail::getStatus($resource_id);
         $paymentObj = json_decode($responseObj,true);
-        $paymentObj['amount'] =number_format($paymentObj['amount'],2, '.', '');
         //the plan
-        $subscription =  Subscription::findOrFail($id);
-        $planPrice= number_format($subscription->price,2, '.', '');
-        
+        $subscription =  Subscription::findOrFail($id);        
                 if(array_key_exists("id",$paymentObj)  && !empty($paymentObj['id']) ) //id
                 {
-                    if($paymentObj['amount']==$planPrice){
                             // this function contains (subscribe + change plan)
                                 $UserSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->get();
-                                if(!$UserSubscription->isEmpty()){   
+                                if(!$UserSubscription->isEmpty()){ 
+                                        
                                         //if the user has old plan
                                         $oldSubscription = SubscriptionDetail::where('user_id',auth()->guard('api')->user()->id)->first();                               
+                                        //check if user already subscribe in this plan 
+                                        $oldPlan = SubscriptionDetail::oldPlan($oldSubscription ,$id); 
+                                        switch($oldPlan){
+                                            case(true):
                                             // upgrade or downgrade the plan or re_subscribe in the same plan
                                             $updatedPlan=SubscriptionDetail::changePlane($id,$paymentObj['id']); 
                                         
@@ -52,9 +55,13 @@ class SubscriptionsController extends Controller
                                             //pdf
                                             $data = SubscriptionDetail::getSubscriptionData($subscriber,$subscription);
                                             SubscriptionDetail::sendInvoicePdf($data); 
-                                            return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']);            
-                                    
+                                            return response()->json(['updatedPlan'=> json_decode($updatedPlan) ,'message' => 'You are Successfully Subscribe to a New Plan..']); 
+                                            break;
 
+                                            case(false):
+                                                return response()->json("you are already subscriber in this plan..!",403); 
+                                            break;
+                                            }
                                 }else{
                                         //for new subscription 
                                         $newSubscription=SubscriptionDetail::newSubscription($id,$paymentObj['id']);
@@ -67,9 +74,6 @@ class SubscriptionsController extends Controller
                                         return response()->json(['updatedPlan'=> json_decode($newSubscription) ,'message' => 'You are Successfully Subscribe in a New Plan..']);            
                                 
                                     } 
-                        }else{
-                         return response()->json(['error'=>'amount missmatch'],422);            
-                        }
                 }else{
                     $responseObj=json_decode($responseObj,true);
                     return response()->json($responseObj['result'],422);
@@ -83,5 +87,48 @@ class SubscriptionsController extends Controller
         $userSubscription=SubscriptionDetail::updateUserPoints($request); 
         return $userSubscription;
     }
+
+    public function subscriptionPrepareCheckout(Request $request)
+     {
+        //the plan 
+        $subscription =  Subscription::findOrFail($request->id);
+        $planPrice = number_format($subscription->price,2, '.', '');
+        $totalPrice = number_format($request->total_price,2, '.', '');
+        // Check if plan price equals total price
+
+         if($planPrice == $totalPrice){
+                $url = "https://test.oppwa.com/v1/checkouts"; //Protect this
+                $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".//Protect this
+                        "&amount=$totalPrice".
+                        "&currency=EUR".//Protect this
+                        "&paymentType=DB";
+    
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                            'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));//Protect this
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production  //Protect this
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $responseData = curl_exec($ch);
+                if(curl_errno($ch)) {
+                    return curl_error($ch);
+                }
+                curl_close($ch);
+                
+                $checkoutObject = json_decode($responseData,true);
+                $code= $checkoutObject['result']['code'];
+                $pattern = "/^(000\.200)/";
+                if (preg_match($pattern, $code)){
+                        return $responseData;       
+                }
+                return response()->json(["description"=>$checkoutObject['result']['description']], 422);
+
+            }else{
+                return response()->json(['error'=>'amount missmatch'],422);            
+            }
+
+     } //prepareCheckout
   
 }

@@ -82,6 +82,7 @@ class AuthController extends APIController
         if(!empty($subscription)){
             $thePlanId = $subscription->subscription_id;
             $data =  Subscription::where('id',$thePlanId)->first();
+            $subscription->price= $data->price;
             $subscription->delivery_id= $data->delivery_id;
             $subscription->subscription_name_en= $data->name;
             $subscription->subscription_name_ar= $data->name_ar;
@@ -198,6 +199,7 @@ class AuthController extends APIController
         if(!empty($subscription)){
             $thePlanId = $subscription->subscription_id;
             $data =  Subscription::where('id',$thePlanId)->first();
+            $subscription->price= $data->price;
             $subscription->delivery_id= $data->delivery_id;
             $subscription->subscription_name_en= $data->name;
             $subscription->subscription_name_ar= $data->name_ar;

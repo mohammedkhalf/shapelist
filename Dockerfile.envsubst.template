@@ -83,3 +83,5 @@ RUN chown -R www-data:www-data \
 
 RUN cat .env.envsubst.template | envsubst > .env
 RUN composer dump-autoload
+RUN php artisan passport:keys
+RUN php artisan vendor:publish --tag=lfm_public

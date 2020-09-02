@@ -32,6 +32,11 @@ class RegisterController extends Controller
 
         $this->user = $user;
     }
+    protected function redirectTo()
+    {
+
+        return route('v1.redirect.front');
+    }
 
     /**
      * Show the application registration form.

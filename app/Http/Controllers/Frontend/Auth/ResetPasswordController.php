@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
      */
     public function redirectPath()
     {
-        return route('frontend.index');
+        return route('v1.redirect.front');
     }
 
     /**

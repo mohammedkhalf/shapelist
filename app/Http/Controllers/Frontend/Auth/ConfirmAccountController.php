@@ -26,6 +26,11 @@ class ConfirmAccountController extends Controller
     {
         $this->user = $user;
     }
+    protected function redirectTo()
+    {
+
+        return route('v1.redirect.front');
+    }
 
     /**
      * @param $token

@@ -14,11 +14,12 @@ class EditResponse implements Responsable
     /**
      * @param App\Models\Subscription\Subscription $subscriptions
      */
-    public function __construct($subscription,$deliveries ,$priority)
+    public function __construct($subscription,$deliveries ,$priority, $validity)
     {
         $this->subscription = $subscription;
         $this->deliveries = $deliveries;
         $this->priority = $priority;
+        $this->validity = $validity;
     }
 
     /**
@@ -34,6 +35,7 @@ class EditResponse implements Responsable
             'subscription' => $this->subscription,
             'deliveries' => $this->deliveries,
             'priority' => $this->priority,
+            'validity' => $this->validity,
 
         ));
 

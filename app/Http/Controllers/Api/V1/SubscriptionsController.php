@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Mail\ReminderMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Subscription\Subscription;
+use App\Models\Quotation\Quotation;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -94,22 +95,25 @@ class SubscriptionsController extends Controller
         $subscription =  Subscription::findOrFail($request->id);
         $planPrice = number_format($subscription->price,2, '.', '');
         $totalPrice = number_format($request->total_price,2, '.', '');
+        $vat =  Quotation::where('name', 'VAT')->value('rate');
+        $vatValue = $totalPrice*$vat/100;
+        $priceWithVat=  number_format($vatValue+$totalPrice,2, '.', '');
         // Check if plan price equals total price
 
          if($planPrice == $totalPrice){
-                $url = "https://test.oppwa.com/v1/checkouts"; //Protect this
-                $data = "entityId=8a8294174d0595bb014d05d82e5b01d2".//Protect this
-                        "&amount=$totalPrice".
-                        "&currency=EUR".//Protect this
+                $url = env('HYPER_PAY_URL'); //env
+                $data = "entityId=".env('HYPER_PAY_DATA').//env
+                        "&amount=$priceWithVat".
+                        "&currency=".env('HYPER_PAY_CURRENCY').//env
                         "&paymentType=DB";
     
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                            'Authorization:Bearer OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='));//Protect this
+                            "Authorization:Bearer ".env('HYPER_PAY_HTTPHEADER').""));//env
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production  //Protect this
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, env('HYPER_PAY_SSL_VERIFYPEER'));// this should be set to true in production  //env
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $responseData = curl_exec($ch);
                 if(curl_errno($ch)) {

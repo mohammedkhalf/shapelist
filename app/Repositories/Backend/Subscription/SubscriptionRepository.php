@@ -46,6 +46,7 @@ class SubscriptionRepository extends BaseRepository
                 config('module.subscriptions.table').'.price_ar',
                 config('module.subscriptions.table').'.priority_support',
                 config('module.subscriptions.table').'.delivery_id',
+                config('module.subscriptions.table').'.validity',
                 config('module.subscriptions.table').'.created_at',
                 config('module.subscriptions.table').'.updated_at',
             ]);

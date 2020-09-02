@@ -34,8 +34,11 @@ class ConfirmAccountController extends Controller
      */
     public function confirm($token)
     {
+        $url = url('https://www.shapelist.com');
         $this->user->confirmAccount($token);
-        return redirect()->route('v1.redirect.front');
+        return Redirect::away($url);
+
+        // return redirect()->route('v1.redirect.front');
     }
 
     /**

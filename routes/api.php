@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'v1.'], functio
         // Redirect After Confirmation 
         Route::get('/email/confirm','ForgotPasswordController@redirectAfterConfirm')->name('confirm.redirect');
         Route::get('/redirect', function(){
-            return 123;
+            return redirect('https://www.shapelist.com');
         })->name('redirect.front');
         
         //=============== change password ===================

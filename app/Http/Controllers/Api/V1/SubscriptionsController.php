@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Mail\ReminderMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Subscription\Subscription;
+use App\Models\Quotation\Quotation;
 use App\Models\SubscriptionDetail\SubscriptionDetail;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -94,12 +95,15 @@ class SubscriptionsController extends Controller
         $subscription =  Subscription::findOrFail($request->id);
         $planPrice = number_format($subscription->price,2, '.', '');
         $totalPrice = number_format($request->total_price,2, '.', '');
+        $vat =  Quotation::where('name', 'VAT')->value('rate');
+        $vatValue = $totalPrice*$vat/100;
+        $priceWithVat=  number_format($vatValue+$totalPrice,2, '.', '');
         // Check if plan price equals total price
 
          if($planPrice == $totalPrice){
                 $url = env('HYPER_PAY_URL'); //env
                 $data = "entityId=".env('HYPER_PAY_DATA').//env
-                        "&amount=$totalPrice".
+                        "&amount=$priceWithVat".
                         "&currency=".env('HYPER_PAY_CURRENCY').//env
                         "&paymentType=DB";
     

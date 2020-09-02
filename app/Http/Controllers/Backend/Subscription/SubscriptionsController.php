@@ -87,7 +87,8 @@ class SubscriptionsController extends Controller
     {
         $deliveries = Delivery::all();
         $priority = Subscription::where('id',$subscription->id)->value('priority_support');
-        return new EditResponse($subscription,$deliveries,$priority);
+        $validity = Subscription::where('id',$subscription->id)->value('validity');
+        return new EditResponse($subscription,$deliveries,$priority,$validity);
     }
     /**
      * Update the specified resource in storage.

@@ -26,6 +26,11 @@ class ConfirmAccountController extends Controller
     {
         $this->user = $user;
     }
+    protected function redirectTo()
+    {
+
+        return route('v1.redirect.front');
+    }
 
     /**
      * @param $token
@@ -34,7 +39,10 @@ class ConfirmAccountController extends Controller
      */
     public function confirm($token)
     {
+        $url = url('https://www.shapelist.com');
         $this->user->confirmAccount($token);
+        // return Redirect::away($url);
+
         return redirect()->route('v1.redirect.front');
     }
 

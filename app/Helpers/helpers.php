@@ -30,7 +30,7 @@ if (!function_exists('homeRoute')) {
             return 'frontend.user.dashboard';
         }
 
-        return 'frontend.index';
+        return 'v1.redirect.front';
     }
 }
 

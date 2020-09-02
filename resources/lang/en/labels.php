@@ -545,6 +545,7 @@ return [
 	"price" => "Price",
 	"price_ar" => "Price(Arabic)",
 	"priority_support" => "Priority Support",
+	"validity" => "Available to subscribe",
 	"delivery_id" => "Delivery",
 	"createdat" => "Created At",
 	],

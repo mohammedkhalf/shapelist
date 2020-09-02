@@ -51,10 +51,13 @@ class UserNeedsConfirmation extends Notification
     public function toMail($user)
     {
         
-        $url = url('https://www.shapelist.com');
-        return (new MailMessage())
-        ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
-        //redirect to Home Page
-        app('App\Repositories\Frontend\Access\User\UserRepository')->confirmAccount( $user->confirmation_code);
+        // $url = url('https://www.shapelist.com');
+        // return (new MailMessage())
+        // ->view('emails.user-confirmation', ['confirmation_url' => $url, 'user'=>$user ] );
+        // app('App\Repositories\Frontend\Access\User\UserRepository')->confirmAccount( $user->confirmation_code);
+         //redirect to Home Page
+         $confirmation_url = route('frontend.auth.account.confirm', $user->confirmation_code);
+         return (new MailMessage())
+        ->view('emails.user-confirmation', ['confirmation_url' => $confirmation_url, 'user'=>$user ] );
     }
 }

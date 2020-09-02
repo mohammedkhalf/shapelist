@@ -28,9 +28,14 @@ class RegisterController extends Controller
     public function __construct(UserRepository $user)
     {
         // Where to redirect users after registering
-        $this->redirectTo = route('frontend.index');
+        $this->redirectTo = route('v1.redirect.front');
 
         $this->user = $user;
+    }
+    protected function redirectTo()
+    {
+
+        return route('v1.redirect.front');
     }
 
     /**

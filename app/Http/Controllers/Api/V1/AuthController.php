@@ -78,19 +78,25 @@ class AuthController extends APIController
         $productCart = OrderItem::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','product_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $packageCart = OrderPackage::where(['order_id'=>null,'user_id'=>$user->id])->get(['id','package_id','quantity','price_per_item','items_total_price','name_en','name_ar']);
         $cart = array('products'=> $productCart,'packages'=>$packageCart);
-        $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
-        if(!empty($subscription)){
+        
+        if( SubscriptionDetail::where('user_id',$user->id)->exists() )
+        {
+            $subscription = SubscriptionDetail::where('user_id',$user->id)->first();
             $thePlanId = $subscription->subscription_id;
-            $data =  Subscription::where('id',$thePlanId)->first();
-            $subscription->price= $data->price;
-            $subscription->delivery_id= $data->delivery_id;
-            $subscription->subscription_name_en= $data->name;
-            $subscription->subscription_name_ar= $data->name_ar;
-            $subscription->priority_support= $data->priority_support;
-            $deliv = Delivery::where('id',$data->delivery_id)->first();
-            $subscription->delivery_name_en= $deliv->name_en;
-            $subscription->delivery_name_ar= $deliv->name_ar;
+            if( Subscription::where('id',$thePlanId)->exists() )
+            {
+                $data =  Subscription::where('id',$thePlanId)->first();
+                $subscription->price= $data->price;
+                $subscription->delivery_id= $data->delivery_id;
+                $subscription->subscription_name_en= $data->name;
+                $subscription->subscription_name_ar= $data->name_ar;
+                $subscription->priority_support= $data->priority_support;
+                $deliv = Delivery::where('id',$data->delivery_id)->first();
+                $subscription->delivery_name_en= $deliv->name_en;
+                $subscription->delivery_name_ar= $deliv->name_ar;
+            }
         }
+
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
             'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),

@@ -97,6 +97,7 @@ class AuthController extends APIController
             }
         }
 
+
         return $this->respond([
             'user'      => $user->makeHidden(['status','last_name','updated_at','created_at',
             'created_by','confirmed','is_term_accept','updated_by','deleted_at','confirmation_code']),

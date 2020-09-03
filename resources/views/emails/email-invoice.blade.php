@@ -115,20 +115,23 @@
 
                                     </p>
 
-                                    <h6 style="margin-top:35px;margin-left:30px;font-size:20px;letter-spacing: 0px;color: #8F8F8F;"> {{ trans('labels.backend.orders.Total') }} :
+                                    <h6 style="margin-top:35px;
+                                        margin-left:30px;
+                                        font-size:20px;
+                                        letter-spacing: 0px;
+                                        border-radius: 25px;
+                                        background: #21a67d;  
+                                        padding: 20px;
+                                        width: 200px;
+                                        height: 40px;
+                                        "> {{ trans('labels.backend.orders.Price') }} :
                                     
-                                        <span style="font-size:20px;letter-spacing:0px;text-transform: capitalize;color: #8F8F8F;">  <b>  {{ $grandTotal }} SAR  </b> </span> 
+                                        <span style="font-size:20px;letter-spacing:0px;text-transform: capitalize;">  <b>  {{ $grandTotal }} SAR  </b> </span> 
 
-                                    
                                      </h6>
-
-
 
                                 </div> <!-- col-md-6 -->
 
-                                   
-
-                                   
                                 <div>
 
                                 </div>
@@ -167,32 +170,36 @@
                             <thead  class="thead-dark">  
                                 <tr style="text-align: left;font: Bold 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                     <th scope="col">{{ trans('labels.backend.orders.services') }}</th>
-                                    <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
                                     <th scope="col">{{ trans('labels.backend.orders.productType') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.orders.Quantity') }}</th>
+                                    <th scope="col">{{ trans('labels.backend.orders.Amount') }}</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($productsInfo as $productsObj)
                                     <tr style="background-color:#f8f8f8; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
                                         <td>{{ $productsObj->services }} </td>
-                                        <td> {{$productsObj->quantity}}</td>
                                         <td> {{ $productsObj->productType  }} </td>
+                                        <td> {{$productsObj->quantity}}</td>
+                                        <td> {{$productsObj->totalPrice}}   </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4" style="margin-top:20px;margin-left:30px; float:right ; text-align: left;font: Medium 12px/26px Montserrat;letter-spacing: 0px;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
+                        <div class="col-sm-4" style="margin-top:60px;margin-left:70px;float:right;color: #5F5F5F;text-transform: capitalize;opacity: 1;">
+                            <p> SubTotal [After Discount] :  {{ $sub_total }} SAR </p>
                             <p> VAT( {{ $vatPercentage }} %):    {{ $vat_value }} SAR </p>
                             <p> Total:     {{ $grandTotal }} SAR    </p>
                         </div>
                     </div>
                     <div class="row">
                             <div class="col-sm-12" style="margin-top:45%">
-                                <p> <b> Thank you for being our customer and have a great day </b> </p>
-                                <p> <b> Terms: </b> <a style="text-decoration:none;color: #5F5F5F;" href="https://www.shapelist.com">www.shapelist.com/terms</a> </p>
-                                <hr style="text-align:left;height:12px;width:100%;background-color:#239C73"/> 
+                                <p> <b> Notes: </b> <br/>  <b style="text-decoration:none;color: #5F5F5F;"> Thank you for being our customer and have a great day </b> </p>
+                                <p> <b> Terms: </b> <br/> <b> <a style="text-decoration:none;color: #5F5F5F;" href="https://www.shapelist.com">www.shapelist.com/terms</a> </b> </p>
                             </div>
                     </div>
                 </div>

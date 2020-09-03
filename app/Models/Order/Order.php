@@ -93,9 +93,11 @@ class Order extends Model
     public static function CreateOrderRequest($request,$grandTotal,$totalOnset,$totalVat,$totalPrice)
     {
         // dd($totalOnset);
+
+        $subTotal = $totalPrice + $totalOnset + $request->delivery_price;
         $orderData = Order::create(array_merge($request->only('delivery_id','coupon_code'),
         ['user_id'=>auth()->guard('api')->user()->id,
-        'grandTotal' => $grandTotal,'totalOnSet'=>$totalOnset,'totalVat'=>$totalVat ,'totalPrice'=>$totalPrice ] ));
+        'grandTotal' => $grandTotal,'totalOnSet'=>$totalOnset,'totalVat'=>$totalVat ,'totalPrice'=>$totalPrice ,'sub_total'=>$subTotal ] ));
 
         $locationArr = array($request->location_details);
         foreach($locationArr as $key=>$value)
@@ -136,7 +138,7 @@ class Order extends Model
             'last_name' => auth()->guard('api')->user()->last_name,
             'email'=> auth()->guard('api')->user()->email,
             'phone_number'=> auth()->guard('api')->user()->phone_number,
-            // 'sub_total'=> $OrderObject->sub_total,
+            'sub_total'=> $OrderObject->sub_total,
             'vatPercentage' => Quotation::where('name','Vat')->pluck('rate')->first(),
             'vat_value'=>$OrderObject->totalVat,
             'grandTotal' => $OrderObject->grandTotal,
@@ -149,7 +151,7 @@ class Order extends Model
             $pdf = PDF::loadView('emails.email-invoice', $data)->setPaper($customPaper,'portrait');
             $fileName = time() . ".pdf";
             $filePath = 'orders_pdf/'. $fileName;
-            Storage::disk('s3')->put($filePath, $pdf->output(), 'public');
+            Storage::disk('s3')->put($filePath, $pdf->output());
             Invoice::create(['order_id'=>$OrderObject->id,'file_name'=>$fileName]);
             Mail::send('emails.email-body',$data,function($message)use($data,$pdf) {
                 $message->to($data["email"],$data["first_name"],$data["Invoice_Number"])
